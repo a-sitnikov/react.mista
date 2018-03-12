@@ -1,8 +1,37 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import registerServiceWorker from './registerServiceWorker';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+
+import thunk from 'redux-thunk'
+import { createLogger } from 'redux-logger'
+
+import reducer from './reducers'
 import './index.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const middleware = [thunk]
+/*
+if (process.env.NODE_ENV !== 'production') {
+    middleware.push(createLogger())
+}
+*/
+const store = createStore(
+    reducer,
+    applyMiddleware(...middleware)
+)
+
+const Root = ({ store }) => (
+    <Provider store={store}>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </Provider>
+)
+
+ReactDOM.render(<Root store={store} />,
+    document.getElementById('root'));
+
 registerServiceWorker();
