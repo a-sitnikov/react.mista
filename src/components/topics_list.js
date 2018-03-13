@@ -3,48 +3,42 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { fetchTopicsListIfNeeded } from '../actions/topics_list'
 
-class Row extends Component {
-    static propTypes = {
-        columns: PropTypes.array, //.isRequired,
-        data: PropTypes.object //.isRequired,
-    }
+const Row = (props) => {
+    
+    const { columns, data } = this.props;
 
-    render() {
-        
-        const { columns, data } = this.props;
+    let cells = [];
+    let i = 0;
+    for (let column of columns) {
 
-        let cells = [];
-        let i=0;
-        for (let column of columns) {
-            
-            let value;
-            if (column.name === 'Раздел') {
-                value = <td key={i}>{data.forum}</td>
-            } else if (column.name === 'Re') {
-                value = <td key={i}>{data.answ}</td>
-            } else if (column.name === 'Тема') {
-                let href = `topic.php?id=${data.id}`;
-                value = 
+        let value;
+        if (column.name === 'Раздел') {
+            value = <td key={i}>{data.forum}</td>
+        } else if (column.name === 'Re') {
+            value = <td key={i}>{data.answ}</td>
+        } else if (column.name === 'Тема') {
+            let href = `topic.php?id=${data.id}`;
+            value =
                 <td key={i}>
                     <a href={href} className="agb" target="_blank">{data.text}</a>
-                </td>    
-            } else if (column.name === 'Автор') {
-                value = <td key={i}>{data.user0}</td>
-            } else if (column.name === 'Обновлено') {
-                value = <td key={i}>{data.user}</td>
-            }    
-
-            cells.push(value);
-            i++;
-
+                </td>
+        } else if (column.name === 'Автор') {
+            value = <td key={i}>{data.user0}</td>
+        } else if (column.name === 'Обновлено') {
+            value = <td key={i}>{data.user}</td>
         }
 
-        return (
-            <tr>
-                {cells}
-            </tr>
-        )
+        cells.push(value);
+        i++;
+
     }
+
+    return (
+        <tr>
+            {cells}
+        </tr>
+    )
+
 }
 
 class TopicsList extends Component {
