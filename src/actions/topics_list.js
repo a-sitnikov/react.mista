@@ -8,7 +8,7 @@ export const receiveTopicsList = (json) => ({
     receivedAt: Date.now()
 })
 
-const fetchTopicsList = () => dispatch => {
+const fetchTopicsList = (page) => dispatch => {
 
     dispatch(requestTopicsList())
 
@@ -28,8 +28,8 @@ const shouldFetchTopicsList = (state) => {
     return true
 }
 
-export const fetchTopicsListIfNeeded = () => (dispatch, getState) => {
+export const fetchTopicsListIfNeeded = (page) => (dispatch, getState) => {
     if (shouldFetchTopicsList(getState())) {
-      return dispatch(fetchTopicsList())
+      return dispatch(fetchTopicsList(page))
     }
   }

@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import queryString from 'query-string'
 import PropTypes from 'prop-types'
 import { fetchTopicsListIfNeeded } from '../actions/topics_list'
+import classNames from 'classnames'
 
 const Row = (props) => {
-    
-    const { columns, data } = this.props;
+
+    const { columns, data } = props;
 
     let cells = [];
     let i = 0;
@@ -13,19 +15,20 @@ const Row = (props) => {
 
         let value;
         if (column.name === 'Раздел') {
-            value = <td key={i}>{data.forum}</td>
+            value = <td key={i} className={column.className}>{data.forum}</td>
         } else if (column.name === 'Re') {
-            value = <td key={i}>{data.answ}</td>
+            value = <td key={i} className={column.className}>{data.answ}</td>
         } else if (column.name === 'Тема') {
             let href = `topic.php?id=${data.id}`;
+            let classes = classNames('agb', { 'longtopics': data.answ >= 100 });
             value =
-                <td key={i}>
-                    <a href={href} className="agb" target="_blank">{data.text}</a>
+                <td key={i} className={column.className}>
+                    <a href={href} className={classes} target="_blank" dangerouslySetInnerHTML={{ __html: data.text }}></a>
                 </td>
         } else if (column.name === 'Автор') {
-            value = <td key={i}>{data.user0}</td>
+            value = <td key={i} className={column.className}>{data.user0}</td>
         } else if (column.name === 'Обновлено') {
-            value = <td key={i}>{data.user}</td>
+            value = <td key={i} className={column.className}>{data.user}</td>
         }
 
         cells.push(value);
@@ -51,8 +54,10 @@ class TopicsList extends Component {
     }
 
     componentDidMount() {
-        const { dispatch } = this.props
-        dispatch(fetchTopicsListIfNeeded())
+        const { dispatch, location } = this.props
+        const queryParams = queryString.parse(location.search);
+
+        dispatch(fetchTopicsListIfNeeded(queryParams.page));
     }
 
     render() {
@@ -64,8 +69,13 @@ class TopicsList extends Component {
             { name: 'Обновлено', className: 'cl', width: '150px' }
         ]
 
-        const { items, isFetching } = this.props;
-        console.log(items);
+        const { items } = this.props;
+
+        let pages = [];
+        for (let i = 1; i <= 10; i++) {
+            let href = `index.php?page=${i}`;
+            pages.push(<a href={href} style={{margin: '5px'}}>{i}</a>);
+        }
 
         return (
             <div>
@@ -83,6 +93,19 @@ class TopicsList extends Component {
                             <Row key={i} data={item} columns={columns} />
                         ))}
                     </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+                <table id='tf'>
+                    <tr>
+                        <td className="ta-left va-top" style={{ width: "25%" }}></td>
+                        <td colspan={columns.length}>
+                            <span className='pages'>
+                                {pages}
+                            </span>
+                        </td>
+                        <td className="ta-left va-top" style={{ width: "25%" }}></td>
+                    </tr>
                 </table>
             </div>
         )
