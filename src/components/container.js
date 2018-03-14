@@ -1,16 +1,16 @@
 import { Switch, Route } from 'react-router-dom'
 import React from 'react';
 import TopicsList from './topics_list'
-import Topic from './topic'
+import Topic from './topic/'
 
-const Main = () => (
-  <main>
+const Container = () => (
+  <div id='container'>
     <Switch>
       <Route exact path='/' component={TopicsList}/>
       <Route path='/index.php' component={TopicsList}/>
       <Route path='/topic.php' component={Topic}/>
     </Switch>
-  </main>
+  </div>
 )
 
-export default Main;
+export default Container;

@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
 import NavBar from './components/nav_bar';
-import Main from './components/main';
+import Container from './components/container';
+import NavBarFooter from './components/nav_bar_footer';
 
 const App = () => (
   <div>
     <NavBar />
-    <div id='container'>
-      <Main />
-    </div>
+    <Container />
+    <NavBarFooter />
   </div>
 )
 
