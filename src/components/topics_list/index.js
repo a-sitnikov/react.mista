@@ -23,7 +23,8 @@ class TopicsList extends Component {
         const queryParams = queryString.parse(location.search);
 
         this.page = queryParams.page || 1;
-        dispatch(fetchTopicsListIfNeeded(this.page));
+        this.section = queryParams.section;
+        dispatch(fetchTopicsListIfNeeded(this.page, this.section));
     }
 
     render() {

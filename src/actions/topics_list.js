@@ -15,7 +15,7 @@ const fetchTopicsList = (page, section) => dispatch => {
     let topicsCount = page*20;
     let url = [`https://www.mista.ru/api/topic.php?topics=${topicsCount}`]
     if (section)
-        url.push(`&section=${section}`)
+        url.push(`&section_short_name=${section}`)
 
     return fetch(url.join())
         .then(response => response.json())
