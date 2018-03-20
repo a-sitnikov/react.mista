@@ -1,8 +1,10 @@
-const topic = (state = {
+const defaultState = {
     isFetching: false,
     info: {},
-    items: []
-}, action) => {
+    items: []   
+}
+
+const topic = (state = defaultState, action) => {
     switch (action.type) {
         case 'REQUEST_TOPIC':
             return {

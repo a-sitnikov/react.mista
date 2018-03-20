@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import topic from './topic'
+import login from './login'
 
 const topicsList = (state = {
     isFetching: false,
@@ -72,6 +73,7 @@ const rootReducer = combineReducers({
     topicsList,
     sections,
     topic,
+    login,
     banner
 })
 
