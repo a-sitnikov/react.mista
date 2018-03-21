@@ -12,7 +12,11 @@ class MsgText extends Component {
         return text.replace(regexp, (res, ...segments) => {
             const number = segments[1]; 
             const page = Math.min(Math.ceil(number/100), 10);
-            return `(<a href='topic.php?id=${topicId}&page=${page}#${number}'>${number}</a>)`;
+            let pageParam = '';
+            if (page > 1)
+                pageParam = `&page=${page}`;
+
+            return `(<a href='topic.php?id=${topicId}${pageParam}#${number}'>${number}</a>)`;
         });
     }
 

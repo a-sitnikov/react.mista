@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import queryString from 'query-string'
 import { fetchTopicIfNeeded } from '../../actions/topic'
 
+import Header from './header'
 import TopicHeader from './topic_header'
 import Row from './row'
 import Footer from './footer'
@@ -23,14 +24,20 @@ class Topic extends Component {
     }
 
     render() {
+        const { login, info, items } = this.props;
+        
         let columns = [
             { name: 'Автор', width: '165px' },
             { name: 'Текст' }
         ];
 
-        const { info, items } = this.props;
+        let newMessage;
+        if (login.userid)
+            newMessage = <NewMessage />
+
         return (
-            <div>
+            <div  >
+                <Header info={info} currentPage={this.page} dispatch={this.props.dispatch}/>
                 <table id='table_messages'>
                     <colgroup>
                         {columns.map((item, i) => (
@@ -45,7 +52,7 @@ class Topic extends Component {
                     </tbody>
                 </table>
                 <Footer info={info} currentPage={this.page} dispatch={this.props.dispatch} params={this.params}/>
-                <NewMessage />
+                {newMessage}
             </div>
         )
     }
@@ -64,6 +71,7 @@ const mapStateToProps = state => {
     }
 
     return {
+        login: state.login,
         info,
         items,
         isFetching,

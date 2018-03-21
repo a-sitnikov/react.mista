@@ -15,7 +15,7 @@ export const receiveTopic = (json) => {
 
     return {
         type: 'RECEIVE_TOPIC',
-        info: json[0],
+        info: typeof(json[0]) === "string" ? JSON.parse(json[0]) : json[0],
         items: items,
         receivedAt: Date.now()
     }
@@ -28,15 +28,13 @@ export const fetchTopic = (params) => dispatch => {
 
     const page = params.page;
     let first = 0;
-    if (params.hash)
-        first = params.hash.slice(1);
     
     let queries = [
         `https://www.mista.ru/ajax_gettopic.php?id=${params.id}`
     ];
 
     if (page > 1) {
-        first = first || (page - 1) * 100 + 1;
+        first = (page - 1) * 100 + 1;
         queries.push(`https://www.mista.ru/api/message.php?id=${params.id}&from=0&to=1`);
     }
 
