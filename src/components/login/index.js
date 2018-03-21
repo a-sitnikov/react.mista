@@ -14,15 +14,14 @@ class Login extends Component {
 
     render() {
 
-        const { userid, username, dispatch } = this.props;
-
+        const { userid, username, error, dispatch } = this.props;
         const logged = userid ? true : false;
 
         let elem;
         if (logged) 
-            elem = <LoggedUser userId={userid} userName={username} />
+            elem = <LoggedUser dispatch={dispatch} userId={userid} userName={username} />
         else
-            elem = <LoginForm dispatch={dispatch}/>    
+            elem = <LoginForm dispatch={dispatch} error={error}/>    
 
         return elem
     }

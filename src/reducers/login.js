@@ -11,6 +11,13 @@ const login = (state = {}, action) => {
                 isFetching: false,
                 ...action.data
             }
+        case 'LOGOUT_COMPLETE':
+            return {
+                ...state,
+                userid: undefined,
+                username: undefined,
+                hashkey: undefined
+            }
         default:
             return state
     }

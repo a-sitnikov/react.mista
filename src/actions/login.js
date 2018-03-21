@@ -8,7 +8,7 @@ export const loginStart = (json) => {
     }
 }
 
-export const loginCompleted = (json) => {
+export const loginComplete = (json) => {
 
     return {
         type: 'LOGIN_COMPLETE',
@@ -35,7 +35,7 @@ export const checkLogin = (params) => dispatch => {
     const hashkey  = cookies.get('entr_hash');
     
     if (userid) {
-        dispatch(loginCompleted({
+        dispatch(loginComplete({
             error: "",
             userid,
             username,
@@ -44,9 +44,28 @@ export const checkLogin = (params) => dispatch => {
     }
 }
 
+export const doLogout = (params) => dispatch => {
+    
+    dispatch({
+        type: 'LOGOUT_START'
+    });
+
+    const cookies = new Cookies(); 
+    cookies.remove('entr_id');
+    cookies.remove('entr_name');
+    cookies.remove('entr_hash');
+    
+    dispatch({
+        type: 'LOGOUT_COMPLETE'
+    });
+
+}    
+
 export const doLogin = (params) => dispatch => {
 
-    fetchJsonp('https://forum.mista.ru/ajax_login.php?username=Вафель&password=123456')
+    dispatch(loginStart());
+
+    fetchJsonp(`https://forum.mista.ru/ajax_login.php?username=${encodeURIComponent(params.username)}&password=${params.password}`)
         .then(response => response.json())
         .then(json => {
 
@@ -57,8 +76,10 @@ export const doLogin = (params) => dispatch => {
                 cookies.set('entr_name', json.username, { path: '/' });
                 cookies.set('entr_hash', json.hashkey,  { path: '/' });
             }
-                    
-            dispatch(loginCompleted(json));
+            dispatch(loginComplete(json));
+        })
+        .catch(err => {  
+            console.log('Login error :', err);  
         })
 
 }

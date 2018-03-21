@@ -1,7 +1,21 @@
 import React, { Component } from 'react'
+import { doLogout } from '../../actions/login'
 
 class LoggedUser extends Component {
 
+    constructor(props) {
+        super(props);
+        this.onLogout = this.onLogout.bind(this);
+    }
+    
+    onLogout(event) {
+
+        event.preventDefault();
+
+        const { dispatch } = this.props;
+        dispatch(doLogout());  
+    }
+    
     render() {
 
         const { userId, userName } = this.props;
@@ -9,7 +23,7 @@ class LoggedUser extends Component {
             <td id="user-td">
                 Привет, <a id="me" rel="nofollow" href={`users.php?id=${userId}`}>{userName}</a>
                 | <a href="users.php?action=edit">Личные настройки</a>
-                | <a href="users.php?&amp;action=exit">Выход</a>
+                | <a href="users.php?&amp;action=exit" onClick={this.onLogout}>Выход</a>
                 <br />
                 <span className="find-my-topics-messages">
                     <noindex>
