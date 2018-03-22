@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
 import topic from './topic'
 import login from './login'
+import sections from './sections'
+import bookmark from './bookmark'
 
 const topicsList = (state = {
     isFetching: false,
@@ -13,29 +15,6 @@ const topicsList = (state = {
                 isFetching: true
             }
         case 'RECEIVE_TOPICS_LIST':
-            return {
-                ...state,
-                isFetching: false,
-                items: action.items,
-                lastUpdated: action.receivedAt
-            }
-        default:
-            return state
-    }
-}
-
-
-const sections = (state = {
-    isFetching: false,
-    items: []
-}, action) => {
-    switch (action.type) {
-        case 'REQUEST_SECTIONS':
-            return {
-                ...state,
-                isFetching: true
-            }
-        case 'RECEIVE_SECTIONS':
             return {
                 ...state,
                 isFetching: false,
@@ -74,7 +53,8 @@ const rootReducer = combineReducers({
     sections,
     topic,
     login,
-    banner
+    banner,
+    bookmark
 })
 
 export default rootReducer;

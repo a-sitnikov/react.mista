@@ -22,14 +22,17 @@ class LoggedUser extends Component {
         return (
             <td id="user-td">
                 Привет, <a id="me" rel="nofollow" href={`users.php?id=${userId}`}>{userName}</a>
-                | <a href="users.php?action=edit">Личные настройки</a>
-                | <a href="users.php?&amp;action=exit" onClick={this.onLogout}>Выход</a>
+                <span style={{margin: "5px"}}>|</span>
+                <a href="users.php?action=edit">Личные настройки</a>
+                <span style={{margin: "5px"}}>|</span>
+                <a href="users.php?&amp;action=exit" onClick={this.onLogout}>Выход</a>
                 <br />
                 <span className="find-my-topics-messages">
                     <noindex>
                         <a rel="nofollow" href={`index.php?user_id=${userId}`}>Мои темы</a>
                     </noindex>
-                </span> |
+                </span>
+                <span style={{margin: "5px"}}>|</span>
                 <span className="find-my-topics-messages">
                     <noindex>
                         <a rel="nofollow" href={`mytopics.php?user_id=${userId}`}>Темы с моим участием</a>

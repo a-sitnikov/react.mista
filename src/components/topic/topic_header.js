@@ -4,7 +4,7 @@ const Header = (props) => {
 
     const { info } = props;
 
-    let yandexUrl = "https://www.yandex.ru/yandsearch?rpt=rad&amp;text=" + encodeURIComponent(info.text);
+    let yandexUrl = "https://www.yandex.ru/yandsearch?rpt=rad&text=" + encodeURIComponent(info.text);
     return (
         <tr>
             <td id="topic-moder-tools">

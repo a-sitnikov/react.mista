@@ -13,16 +13,17 @@ class NewTopic extends Component {
 
         const { sections } = this.props;
  
+        let groupsElem = [];
         let sectionsElem = [];
-        for (let i in sections) {
+        for (let forum in sections) {
 
-            let section = sections[i];
+            groupsElem.push(<option key={forum} value={forum.toLowerCase()}>{forum}</option>);
 
             let group =
-                <optgroup key={i} label={section.name}>
-                    {section.items.map((item, j) => (
-                        <option key={100*i + j} value={item.value}>
-                            {item.name}
+                <optgroup key={forum} label={forum}>
+                    {sections[forum].map((item, i) => (
+                        <option key={item.id} value={item.id}>
+                            {item.fulln}
                         </option>
                     ))}
                 </optgroup>
@@ -35,9 +36,7 @@ class NewTopic extends Component {
                 <p><b>Новая тема:</b></p>
                 <form name="newtopic_form" id="newtopic_form" method="POST">
                     <select name="target_forum" id="target_forum" className="fieldbasic">
-                        {sections.map((item, i) => (
-                            <option key={i} value={item.name.toLowerCase()}>{item.name}</option>
-                        ))}
+                        {groupsElem}
                     </select>
                     <select className="fieldbasic" id="target_section" name="target_section" style={{ width: "40.4em" }}>
                         <option value="" defaultValue="">Секция</option>

@@ -1,4 +1,5 @@
 import fetchJsonp from 'fetch-jsonp'
+import API from '../api'
 
 export const requestTopic = () => ({
     type: 'REQUEST_TOPIC'
@@ -30,16 +31,16 @@ export const fetchTopic = (params) => dispatch => {
     let first = 0;
     
     let queries = [
-        `https://www.mista.ru/ajax_gettopic.php?id=${params.id}`
+        `${API.topicInfo}?id=${params.id}`
     ];
 
     if (page > 1) {
         first = (page - 1) * 100 + 1;
-        queries.push(`https://www.mista.ru/api/message.php?id=${params.id}&from=0&to=1`);
+        queries.push(`${API.topicMessages}?id=${params.id}&from=0&to=1`);
     }
 
     const last = page*100 - 1;
-    queries.push(`https://www.mista.ru/api/message.php?id=${params.id}&from=${first}&to=${last}`);
+    queries.push(`${API.topicMessages}?id=${params.id}&from=${first}&to=${last}`);
 
     Promise.all(queries.map(url => fetchJsonp(url)))
         .then(response => {

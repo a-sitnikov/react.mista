@@ -24,7 +24,7 @@ class Topic extends Component {
     }
 
     render() {
-        const { login, info, items } = this.props;
+        const { login, info, items, bookmark } = this.props;
         
         let columns = [
             { name: 'Автор', width: '165px' },
@@ -51,7 +51,7 @@ class Topic extends Component {
                         ))}
                     </tbody>
                 </table>
-                <Footer info={info} currentPage={this.page} dispatch={this.props.dispatch} params={this.params}/>
+                <Footer info={info} currentPage={this.page} dispatch={this.props.dispatch} params={this.params} bookmark={bookmark}/>
                 {newMessage}
             </div>
         )
@@ -75,7 +75,8 @@ const mapStateToProps = state => {
         info,
         items,
         isFetching,
-        lastUpdated
+        lastUpdated,
+        bookmark: state.bookmark
     }
 }
 

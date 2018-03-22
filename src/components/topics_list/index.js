@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import queryString from 'query-string'
-import PropTypes from 'prop-types'
 import { fetchTopicsListIfNeeded } from '../../actions/topics_list'
+import { fetchSectionsIfNeeded } from '../../actions/sections'
 import Title from './title'
 import Header from './header'
 import Row from './row'
@@ -11,13 +11,6 @@ import NewTopic from './new_topic'
 
 class TopicsList extends Component {
 
-    static propTypes = {
-        items: PropTypes.array.isRequired,
-        isFetching: PropTypes.bool.isRequired,
-        lastUpdated: PropTypes.number,
-        dispatch: PropTypes.func.isRequired
-    }
-
     componentDidMount() {
         const { dispatch, location } = this.props
         const queryParams = queryString.parse(location.search);
@@ -25,6 +18,7 @@ class TopicsList extends Component {
         this.page = queryParams.page || 1;
         this.section = queryParams.section;
         dispatch(fetchTopicsListIfNeeded(this.page, this.section));
+        dispatch(fetchSectionsIfNeeded());
     }
 
     render() {
@@ -36,7 +30,7 @@ class TopicsList extends Component {
             { name: 'Обновлено', className: 'cl', width: '150px' }
         ]
 
-        const { items } = this.props;
+        const { topicsList, sections } = this.props;
         return (
             <div>
                 <Title/>
@@ -51,7 +45,7 @@ class TopicsList extends Component {
                         <tr>
                             {columns.map((item, i) => (<th key={i}>{item.name}</th>))}
                         </tr>
-                        {items.map((item, i) => (
+                        {topicsList.items.map((item, i) => (
                             <Row key={i} data={item} columns={columns} />
                         ))}
                     </tbody>
@@ -60,7 +54,7 @@ class TopicsList extends Component {
                 </table>
                 <Footer page={this.page}/>
                 <br/>
-                <NewTopic />
+                <NewTopic sections={sections.items}/>
             </div>
         )
     }
@@ -68,19 +62,10 @@ class TopicsList extends Component {
 
 
 const mapStateToProps = state => {
-    const {
-        isFetching,
-        lastUpdated,
-        items
-    } = state.topicsList || {
-        isFetching: true,
-        items: []
-    }
 
     return {
-        items,
-        isFetching,
-        lastUpdated
+        topicsList: state.topicsList || { items: [] },
+        sections: state.sections || { items: [] }
     }
 }
 

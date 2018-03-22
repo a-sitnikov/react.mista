@@ -5,9 +5,11 @@ const Header = (props) => {
 
     const { info } = props;
     const forums = {
-        '1c': '1С:Предприятие'
-    }
-
+        '1c': '1С:Предприятие',
+        'life': 'О жизни',
+        'it': 'Информационные технологии'
+    };
+    
     return (
         <table id="header-table-2" style={{ marginBottom: "10px" }}>
             <tbody>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { fetchTopic } from '../../actions/topic'
+import { addBookmark } from '../../actions/bookmark'
 
 const Pages = (props) => {
 
@@ -43,6 +44,12 @@ class Footer extends Component {
         super(props);
 
         this.onRefreshClick = this.onRefreshClick.bind(this);
+        this.onBookmarkClick = this.onBookmarkClick.bind(this);
+    }
+
+    onBookmarkClick() {
+        const { info, dispatch } = this.props;
+        dispatch(addBookmark(info));
     }
 
     onRefreshClick() {
@@ -52,7 +59,7 @@ class Footer extends Component {
 
     render() {
 
-        const { info, currentPage } = this.props;
+        const { info, currentPage, bookmark } = this.props;
 
         let pages;
         if (info.answers_count > 100)
@@ -63,10 +70,9 @@ class Footer extends Component {
                 <tbody>
                     <tr>
                         <td className="ta-left va-top" style={{ width: "50%" }}>
-                            <br />
                             {pages}
                             <br />
-                            <button id="bookmark" className="sendbutton">Закладка</button>
+                            <button id="bookmark" className="sendbutton" onClick={this.onBookmarkClick} disabled={bookmark.isFetching ? 'true' : ''}>{bookmark.isFetching ? 'Подождите...' : 'Закладка'}</button>
                         </td>
                         <td className="ta-right va-middle" style={{ height: "30px" }}>
                             <span className="return-string">

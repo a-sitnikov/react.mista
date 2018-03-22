@@ -1,3 +1,5 @@
+import API from '../api'
+
 export const requestTopicsList = () => ({
     type: 'REQUEST_TOPICS_LIST'
 })
@@ -13,7 +15,7 @@ const fetchTopicsList = (page, section) => dispatch => {
     dispatch(requestTopicsList())
 
     let topicsCount = page*20;
-    let url = [`https://www.mista.ru/api/topic.php?topics=${topicsCount}`]
+    let url = [`${API.topicsList}?topics=${topicsCount}`]
     if (section)
         url.push(`&section_short_name=${section}`)
 
