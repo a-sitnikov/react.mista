@@ -14,6 +14,7 @@ const sections = (state = {
                 ...state,
                 isFetching: false,
                 items: action.items,
+                tree: action.tree,
                 lastUpdated: action.receivedAt
             }
         default:

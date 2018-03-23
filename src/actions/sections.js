@@ -9,6 +9,7 @@ export const requestSections = () => ({
 export const receiveSections = (json) => ({
     type: 'RECEIVE_SECTIONS',
     items: json,
+    tree: groupBy(json, 'forum'),
     receivedAt: Date.now()
 })
 
@@ -20,18 +21,23 @@ export const fetchSections = (params) => dispatch => {
         .then(response => response.json())
         .then(json => {
             const data = typeof(json) === 'string' ? JSON.parse(json) : json;
-            dispatch(receiveSections(groupBy(data, 'forum')));
+            dispatch(receiveSections(data));
         });
 }
 
 const shouldfetchSections = (state) => {
+    
     const sections = state.sections;
-    if (!sections) {
+    
+    if (!sections) 
         return true
-    }
-    if (sections.isFetching) {
+    
+    if (sections.isFetching) 
         return false
-    }
+    
+    if (sections.items.size > 0)
+        return false;
+
     return true
 }
 

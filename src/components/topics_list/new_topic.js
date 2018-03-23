@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchSections } from '../../actions/sections'
+import { fetchSectionsIfNeeded } from '../../actions/sections'
+import SectionSelect from './section_select'
 
 class NewTopic extends Component {
 
     componentDidMount() {
         const { dispatch } = this.props;
-        dispatch(fetchSections());
+        dispatch(fetchSectionsIfNeeded());
     }
     
     render() {
@@ -14,21 +15,8 @@ class NewTopic extends Component {
         const { sections } = this.props;
  
         let groupsElem = [];
-        let sectionsElem = [];
-        for (let forum in sections) {
-
+        for (let forum in sections.tree) {
             groupsElem.push(<option key={forum} value={forum.toLowerCase()}>{forum}</option>);
-
-            let group =
-                <optgroup key={forum} label={forum}>
-                    {sections[forum].map((item, i) => (
-                        <option key={item.id} value={item.id}>
-                            {item.fulln}
-                        </option>
-                    ))}
-                </optgroup>
-
-            sectionsElem.push(group);
         }
 
         return (
@@ -38,10 +26,7 @@ class NewTopic extends Component {
                     <select name="target_forum" id="target_forum" className="fieldbasic">
                         {groupsElem}
                     </select>
-                    <select className="fieldbasic" id="target_section" name="target_section" style={{ width: "40.4em" }}>
-                        <option value="" defaultValue="">Секция</option>
-                        {sectionsElem}
-                    </select>
+                    <SectionSelect defaultValue="Секция" className="fieldbasic" id="target_section" name="target_section" style={{ width: "40.4em" }}/>
                     <br />
                     <input placeholder="Тема" className="fieldbasic" id="topic_text" name="topic_text" maxLength="90" style={{ width: "44em", type: "text" }} />
                     <br />
@@ -63,10 +48,8 @@ class NewTopic extends Component {
 
 const mapStateToProps = state => {
     
-    const { items } = state.sections || [];
-
     return {
-        sections: items
+        sections: state.sections
     }
 }
 

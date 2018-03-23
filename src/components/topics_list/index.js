@@ -12,13 +12,29 @@ import NewTopic from './new_topic'
 class TopicsList extends Component {
 
     componentDidMount() {
-        const { dispatch, location } = this.props
-        const queryParams = queryString.parse(location.search);
+        const { dispatch } = this.props;
+
+        this.location = this.props.location;
+        const queryParams = queryString.parse(this.location.search);
 
         this.page = queryParams.page || 1;
         this.section = queryParams.section;
         dispatch(fetchTopicsListIfNeeded(this.page, this.section));
         dispatch(fetchSectionsIfNeeded());
+    }
+
+    componentWillReceiveProps(props) {
+        const { dispatch, location } = props;
+
+        if (this.location.search !== location.search) {
+
+            this.location = this.props.location;
+            const queryParams = queryString.parse(location.search);
+
+            this.page = queryParams.page || 1;
+            this.section = queryParams.section;
+            dispatch(fetchTopicsListIfNeeded(this.page, this.section));
+        }
     }
 
     render() {
@@ -33,8 +49,8 @@ class TopicsList extends Component {
         const { topicsList, sections } = this.props;
         return (
             <div>
-                <Title/>
-                <Header/>
+                <Title />
+                <Header history={this.props.history} />
                 <table id='tm'>
                     <colgroup>
                         {columns.map((item, i) => (
@@ -52,9 +68,9 @@ class TopicsList extends Component {
                     <tfoot>
                     </tfoot>
                 </table>
-                <Footer page={this.page}/>
-                <br/>
-                <NewTopic sections={sections.items}/>
+                <Footer page={this.page} />
+                <br />
+                <NewTopic sections={sections.items} />
             </div>
         )
     }
