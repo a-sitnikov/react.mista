@@ -20,7 +20,7 @@ class Container extends Component {
 
             return (
                 <HashRouter >
-                    <div id='container' style={{ width: "97%", margin: "20px auto 0px auto" }}>>
+                    <div id='container' style={{ width: "97%", margin: "20px auto 0px auto" }}>
                         <Route exact path='/' component={TopicsList} />
                         <Route path='/index.php' component={TopicsList} />
                         <Route path='/topic.php' component={Topic} />
