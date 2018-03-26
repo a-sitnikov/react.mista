@@ -17,13 +17,22 @@ const TopicNameCell = (props) => {
     let sectionHref = `index.php?section=${data.sect2}`;
     let section = [];
     if (data.sect1) {
-        section.push(<span key="0" className="agh">&nbsp;&nbsp;/&nbsp;</span>);
+        section.push(<span key="0" className="agh" style={{margin: "auto 2px auto 5px"}}>/</span>);
         section.push(<a key="1" rel="nofollow" className="sectionlink-gray" href={sectionHref} target="_blank">{data.sect1}</a>);
     }
 
     let closed;
     if (data.closed)
         closed = <span className="moder-action">Ø</span>
+
+    if  (data.sect2 === 'job' && data.text.substr(0, 3) !== 'JOB')        
+        data.text = 'JOB: ' + data.text;
+
+    else if (data.forum === 'life' && data.text.substr(0, 3) !== 'OFF')        
+        data.text = 'OFF: ' + data.text;
+    
+    else if  (data.sect2 === 'v7' && data.text.substr(0, 2) !== 'v7')        
+        data.text = 'v7: ' + data.text;
 
     return (
         <td className={column.className}>

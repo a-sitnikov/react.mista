@@ -40,7 +40,15 @@ const api = {
     */
     addBookmark: `${domain}/ajax_addbookmark.php`,
 
-    sections: `${domain}/ajax_getsectionslist.php`
+    sections: `${domain}/ajax_getsectionslist.php`,
+
+    /*
+    POST
+    {
+        topic_id - идентификатор (topic_id) темы (!)   
+    }
+    */
+     newTopic: `index.php`
 }
 
 export default api;

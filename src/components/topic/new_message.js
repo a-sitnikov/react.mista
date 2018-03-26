@@ -4,10 +4,6 @@ class NewMessage extends Component {
 
     render() {
 
-        const userNameStyle = {
-            backgroundImage: "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII')"
-        };
-
         const cpellCheckStyle = {
             backgroundImage: "url('http://speller.yandex.net/speller/1.0/spell.gif')",
             height: "19px",
@@ -34,7 +30,7 @@ class NewMessage extends Component {
                     <tr>
                         <td className="va-top">Имя*:</td>
                         <td className="va-top">
-                            <input name="user_name" id="user_name" disabled="" className="fieldbasic" size="30" maxLength="20" value="Вафель" readOnly={true} style={userNameStyle} type="text"/>
+                            <input name="user_name" id="user_name" disabled="" className="fieldbasic" size="30" maxLength="20" value="Вафель" readOnly={true} type="text"/>
                         </td>
                         <td className="va-top"></td>
                         <td className="va-top"></td>
@@ -54,16 +50,16 @@ class NewMessage extends Component {
                         </td>
                     </tr>
                     <tr>
-                        <td>&nbsp;</td>
+                        <td></td>
                         <td>
                             <button name="cmdSpell" type="button" className="sendbutton" style={cpellCheckStyle}>&nbsp;
                             </button>
                             <input name="Submit" className="sendbutton" id="submit_message" value="Отправить" type="submit"/>
                         </td>
-                        <td>&nbsp;</td>
+                        <td></td>
                         <td className="ta-right">
-                        &nbsp;</td>
-                        <td>&nbsp;</td>
+                        </td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>            

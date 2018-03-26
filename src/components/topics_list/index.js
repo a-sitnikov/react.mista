@@ -11,15 +11,16 @@ import NewTopic from './new_topic'
 
 class TopicsList extends Component {
 
+    constructor(props) {
+        super(props);
+        this.updateTopicsList = this.updateTopicsList.bind(this);
+    }
+
     componentDidMount() {
         const { dispatch } = this.props;
 
         this.location = this.props.location;
-        const queryParams = queryString.parse(this.location.search);
-
-        this.page = queryParams.page || 1;
-        this.section = queryParams.section;
-        dispatch(fetchTopicsListIfNeeded(this.page, this.section));
+        this.updateTopicsList(dispatch);
         dispatch(fetchSectionsIfNeeded());
     }
 
@@ -27,14 +28,19 @@ class TopicsList extends Component {
         const { dispatch, location } = props;
 
         if (this.location.search !== location.search) {
-
-            this.location = this.props.location;
-            const queryParams = queryString.parse(location.search);
-
-            this.page = queryParams.page || 1;
-            this.section = queryParams.section;
-            dispatch(fetchTopicsListIfNeeded(this.page, this.section));
+            this.location = location;
+            this.updateTopicsList(dispatch);
         }
+    }
+
+    updateTopicsList(dispatch) {
+        
+        const queryParams = queryString.parse(this.location.search);
+        dispatch(fetchTopicsListIfNeeded(queryParams));
+    }
+
+    sendNewPopic(e, text) {
+
     }
 
     render() {
@@ -51,7 +57,7 @@ class TopicsList extends Component {
             <div>
                 <Title />
                 <Header history={this.props.history} />
-                <table id='tm'>
+                <table id='tm' style={{width: "100%"}}>
                     <colgroup>
                         {columns.map((item, i) => (
                             <col key={i} className={item.className} style={{ width: item.width }} />
@@ -70,7 +76,7 @@ class TopicsList extends Component {
                 </table>
                 <Footer page={this.page} />
                 <br />
-                <NewTopic sections={sections.items} />
+                <NewTopic sections={sections.items} onSend={this.sendNewPopic}/>
             </div>
         )
     }

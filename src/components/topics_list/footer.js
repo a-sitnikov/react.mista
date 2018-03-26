@@ -9,25 +9,17 @@ const Footer = (props) => {
 
         if (currentPage === i) {
             pages.push(<span key={i} style={{ margin: '5px' }}>{i}</span>);
-        } else {    
+        } else {
             pages.push(<a key={i} href={href} style={{ margin: '5px' }}>{i}</a>);
-        }    
+        }
     }
 
     return (
-        <table id='tf'>
-            <tbody>
-                <tr>
-                    <td className="ta-left va-top" style={{ width: "25%" }}></td>
-                    <td>
-                        <span className='pages'>
-                            {pages}
-                        </span>
-                    </td>
-                    <td className="ta-left va-top" style={{ width: "25%" }}></td>
-                </tr>
-            </tbody>
-        </table>
+        <div id='tf' style={{ paddingTop: "4px", paddingBottom: "4px", boxSizing: "border-box", width: "100%" }}>
+            <span className='pages'>
+                {pages}
+            </span>
+        </div>
     )
 }
 

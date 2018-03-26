@@ -10,14 +10,25 @@ export const receiveTopicsList = (data) => ({
     receivedAt: Date.now()
 })
 
-const fetchTopicsList = (page, section) => dispatch => {
+const fetchTopicsList = (params) => dispatch => {
 
     dispatch(requestTopicsList())
 
-    let topicsCount = page*20;
+    const page = params.page || 1;
+
+    let topicsCount = page * 20;
     let url = [`${API.topicsList}?topics=${topicsCount}`]
-    if (section)
-        url.push(`&section_short_name=${section}`)
+    if (params.section)
+        url.push(`&section_short_name=${params.section}`)
+
+    if (params.forum)
+        url.push(`&forum=${params.forum}`)
+
+    if (params.user_id)
+        url.push(`&user_id=${params.user_id}`)
+
+    if (params.mytopics)
+        url.push(`&mytopics=${params.mytopics}`)
 
     return fetch(url.join())
         .then(response => response.json())
@@ -38,8 +49,8 @@ const shouldFetchTopicsList = (state) => {
     return true
 }
 
-export const fetchTopicsListIfNeeded = (page, section) => (dispatch, getState) => {
+export const fetchTopicsListIfNeeded = (params) => (dispatch, getState) => {
     if (shouldFetchTopicsList(getState())) {
-      return dispatch(fetchTopicsList(page, section));
+        return dispatch(fetchTopicsList(params));
     }
-  }
+}

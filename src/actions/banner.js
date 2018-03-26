@@ -9,16 +9,26 @@ export const receiveBanner = (banner) => ({
     receivedAt: Date.now()
 })
 
-export const fetchBanner = (id) => (dispatch, getState) => {
+const shouldfetchBanner = (state) => {
+    const banner = state.banner;
+    if (!banner) {
+        return true
+    }
+    if (banner.isFetching) {
+        return false
+    }
+    return true
+}
+
+export const fetchBanner = (params) => (dispatch, getState) => {
     
-    console.log('fetch banner');
     dispatch(requestBanner());
 
     let banner = {
         href: "http://edu.1c.ru/spec/default.asp?utm_source=mista&amp;utm_medium=ny&amp;utm_campaign=spec0902",
         img: "https://forum.mista.ru/css/1c-edu5.png"
     }
-    console.log(banner);
+    
     dispatch(receiveBanner(banner));
     /*
     return fetchJsonp(`https://www.mista.ru/api/message.php?id=${topicId}`)
@@ -26,3 +36,9 @@ export const fetchBanner = (id) => (dispatch, getState) => {
         .then(json => dispatch(receiveTopic(json)))
     */    
   }
+
+  export const fetchBannerIfNeeded = (params) => (dispatch, getState) => {
+    if (shouldfetchBanner(getState())) {
+        return dispatch(fetchBanner(params))
+    }
+}
