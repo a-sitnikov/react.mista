@@ -29,13 +29,13 @@ class LoggedUser extends Component {
                 <br />
                 <span className="find-my-topics-messages">
                     <noindex>
-                        <a rel="nofollow" href={`index.php?user_id=${userId}`}>Мои темы</a>
+                        <a rel="nofollow" href={`#/index.php?user_id=${userId}`}>Мои темы</a>
                     </noindex>
                 </span>
                 <span style={{margin: "5px"}}>|</span>
                 <span className="find-my-topics-messages">
                     <noindex>
-                        <a rel="nofollow" href={`index.php?mytopics=1`}>Темы с моим участием</a>
+                        <a rel="nofollow" href={`#/index.php?mytopics=1`}>Темы с моим участием</a>
                     </noindex>
                 </span>
             </div>

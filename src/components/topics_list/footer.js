@@ -5,7 +5,7 @@ const Footer = (props) => {
     let currentPage = parseInt(props.page, 10);
     let pages = [];
     for (let i = 1; i <= 10; i++) {
-        let href = `index.php?page=${i}`;
+        let href = `#/index.php?page=${i}`;
 
         if (currentPage === i) {
             pages.push(<span key={i} style={{ margin: '5px' }}>{i}</span>);

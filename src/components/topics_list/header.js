@@ -38,11 +38,11 @@ class Header extends Component {
                 <div id="section-td" style={{ flex: 0, paddingTop: "5px", verticalAlign: "top" }}>
 
                     <span className="ah">
-                        <a rel="nofollow" href="index.php">Все</a>&nbsp;|&nbsp;
-<a rel="nofollow" href="index.php?forum=1c">1C</a>&nbsp;|&nbsp;
-<a rel="nofollow" href="index.php?forum=it">IT</a>&nbsp;|&nbsp;
-<a rel="nofollow" href="index.php?forum=job">JOB</a>&nbsp;
-</span>
+                        <a rel="nofollow" href="">Все</a>&nbsp;|&nbsp;
+                        <a rel="nofollow" href="#/index.php?forum=1c">1C</a>&nbsp;|&nbsp;
+                        <a rel="nofollow" href="#/index.php?forum=it">IT</a>&nbsp;|&nbsp;
+                        <a rel="nofollow" href="#/index.php?forum=job">JOB</a>&nbsp;
+                    </span>
                     <SectionSelect defaultValue="--Все секции--" selected={params.section} className="findfield" id="section_selector" name="section_selector" onChange={this.onSectionSelect} />
                 </div>
             </div>
