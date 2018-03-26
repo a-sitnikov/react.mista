@@ -1,15 +1,15 @@
 export function utimeToDate(utime) {
-    let a = new Date(utime*1000);
+    let a = new Date(utime * 1000);
     return dateTimeStr(a);
 }
 
 export function dateTimeStr(a) {
-    
-    let year  = String(a.getFullYear()).substr(-2);
+
+    let year = String(a.getFullYear()).substr(-2);
     let month = '0' + (a.getMonth() + 1);
     month = month.substr(-2);
-    
-    let date  = '0' + a.getDate();
+
+    let date = '0' + a.getDate();
     date = date.substr(-2);
 
     let hours = "0" + a.getHours();
@@ -19,7 +19,7 @@ export function dateTimeStr(a) {
 }
 
 export function timeStr(time) {
-    
+
     let hours = time.getHours();
     let minutes = "0" + time.getMinutes();
 
@@ -31,9 +31,30 @@ export function today(td) {
     return td.getDate() === d.getDate() && td.getMonth() === d.getMonth() && td.getFullYear() === d.getFullYear();
 }
 
-export const groupBy = function(xs, key) {
-    return xs.reduce(function(rv, x) {
-      (rv[x[key]] = rv[x[key]] || []).push(x);
-      return rv;
+export const groupBy = function (xs, key) {
+    return xs.reduce(function (rv, x) {
+        (rv[x[key]] = rv[x[key]] || []).push(x);
+        return rv;
     }, {});
-  };
+};
+
+export const parseJSON = (text) => {
+    try {
+        text = text
+            .replace(/\\</g, '<')
+            .replace(/\\>/g, '>')
+            .replace(/\\&/g, '&')
+            .replace(/\\'/g, "'")
+            .replace(/\\"/g, "")
+
+ //           console.log(text);
+            return JSON.parse(text);
+ 
+        //return eval(text);
+    } catch (e) {
+        console.error(e.message);
+        console.log(text);
+
+        return {};
+    }
+}

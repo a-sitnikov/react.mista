@@ -1,5 +1,6 @@
 import fetchJsonp from 'fetch-jsonp'
 import API from '../api'
+import { parseJSON } from '../utils'
 
 export const requestTopic = () => ({
     type: 'REQUEST_TOPIC'
@@ -16,7 +17,7 @@ export const receiveTopic = (json) => {
 
     return {
         type: 'RECEIVE_TOPIC',
-        info: typeof(json[0]) === "string" ? JSON.parse(json[0]) : json[0],
+        info: typeof(json[0]) === "string" ? parseJSON(json[0]) : json[0],
         items: items,
         receivedAt: Date.now()
     }

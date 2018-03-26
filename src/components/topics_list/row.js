@@ -6,7 +6,7 @@ const TopicNameCell = (props) => {
 
     const { column, data } = props;
 
-    let href = `#/topic.php?id=${data.id}`;
+    let href = `${window.hash}/topic.php?id=${data.id}`;
     let classes = classNames('agb', { 'longtopics': data.answ >= 100 });
 
     let isVoting;
@@ -14,7 +14,7 @@ const TopicNameCell = (props) => {
         isVoting = <span className="agh">[±]</span>
     }
 
-    let sectionHref = `#/index.php?section=${data.sect2}`;
+    let sectionHref = `${window.hash}/index.php?section=${data.sect2}`;
     let section = [];
     if (data.sect1) {
         section.push(<span key="0" className="agh" style={{margin: "auto 2px auto 5px"}}>/</span>);
@@ -53,7 +53,7 @@ const Pages = (props) => {
     if (answ > 100) {
         let count = Math.min(Math.ceil(answ / 100), 10);
         for (let i = 1; i <= count; i++) {
-            let href = `#/topic.php?id=${topicId}&page=${i}`;
+            let href = `${window.hash}/topic.php?id=${topicId}&page=${i}`;
             let text;
             if (i > 3 && i < count)
                 text = '•';
@@ -64,7 +64,7 @@ const Pages = (props) => {
     }
 
     if (answ > 20) {
-        let href = `#/topic.php?id=${topicId}&page=last20F`;
+        let href = `${window.hash}/topic.php?id=${topicId}&page=last20F`;
         pages.push(<a key="last20F" className="agh" style={{ margin: "3px" }} href={href}>»</a>);
     }
 

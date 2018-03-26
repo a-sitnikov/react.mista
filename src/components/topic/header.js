@@ -9,22 +9,19 @@ const Header = (props) => {
         'life': 'О жизни',
         'it': 'Информационные технологии'
     };
-    
+
     return (
-        <table id="header-table-2" style={{ marginBottom: "10px" }}>
-            <tbody>
-                <tr>
-                    <Login />
-                    <td id="section-td" className="va-top">
-                        <span className="section-name">
-                            <span id="forum_string">
-                                <a rel="nofollow" href="index.php?forum=1c" style={{textDecoration: "none"}}>{forums[info.forum]}</a>
-                            </span>
-                        </span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+
+        <div style={{ display: "flex", marginBottom: "10px" }}>
+            <div id="user-td" style={{ flex: "0 0 350px", marginRight: "15px", paddingTop: "5px", verticalAlign: "top" }}>
+                <Login />
+            </div>
+            <div id="section-td" style={{ flex: 1, paddingTop: "5px", verticalAlign: "top" }}>
+                <span id="forum_string" className="section-name">
+                    <a rel="nofollow" href={`&{window.hash}/index.php?forum=${info.forum}`} style={{ textDecoration: "none" }}>{forums[info.forum]}</a>
+                </span>       
+            </div>
+        </div>
     )
 }
 

@@ -15,9 +15,9 @@ class Header extends Component {
 
     onSectionSelect(event, value) {
         if (value)
-            this.props.history.push(`/index.php?section=${value.shortn}`);
+            this.props.history.push(`${window.hash}/index.php?section=${value.shortn}`);
         else
-            this.props.history.push(`/index.php`);
+            this.props.history.push(`${window.hash}/index.php`);
     }
 
     render() {
@@ -39,9 +39,9 @@ class Header extends Component {
 
                     <span className="ah">
                         <a rel="nofollow" href="">Все</a>&nbsp;|&nbsp;
-                        <a rel="nofollow" href="#/index.php?forum=1c">1C</a>&nbsp;|&nbsp;
-                        <a rel="nofollow" href="#/index.php?forum=it">IT</a>&nbsp;|&nbsp;
-                        <a rel="nofollow" href="#/index.php?forum=job">JOB</a>&nbsp;
+                        <a rel="nofollow" href={`${window.hash}/index.php?forum=1c`}>1C</a>&nbsp;|&nbsp;
+                        <a rel="nofollow" href={`${window.hash}/index.php?forum=it`}>IT</a>&nbsp;|&nbsp;
+                        <a rel="nofollow" href={`${window.hash}/index.php?forum=job`}>JOB</a>&nbsp;
                     </span>
                     <SectionSelect defaultValue="--Все секции--" selected={params.section} className="findfield" id="section_selector" name="section_selector" onChange={this.onSectionSelect} />
                 </div>

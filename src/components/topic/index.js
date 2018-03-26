@@ -38,7 +38,7 @@ class Topic extends Component {
         return (
             <div  >
                 <Header info={info} currentPage={this.page} dispatch={this.props.dispatch}/>
-                <table id='table_messages'>
+                <table id='table_messages' style={{width: "100%"}}>
                     <colgroup>
                         {columns.map((item, i) => (
                             <col key={i} style={{ width: item.width }} />
