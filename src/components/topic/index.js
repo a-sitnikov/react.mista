@@ -4,7 +4,7 @@ import queryString from 'query-string'
 import { fetchTopicIfNeeded } from '../../actions/topic'
 
 import Header from './header'
-import TopicHeader from './topic_header'
+import TopicInfo from './topic_info'
 import Row from './row'
 import Footer from './footer'
 import NewMessage from './new_message';
@@ -33,19 +33,19 @@ class Topic extends Component {
 
         let newMessage;
         if (login.userid)
-            newMessage = <NewMessage />
+            newMessage = <NewMessage info={info}/>
 
         return (
             <div  >
                 <Header info={info} currentPage={this.page} dispatch={this.props.dispatch}/>
-                <table id='table_messages' style={{width: "100%"}}>
+                <table id='table_messages' style={{width: "100%", margin: "10px auto 0px auto"}}>
                     <colgroup>
                         {columns.map((item, i) => (
                             <col key={i} style={{ width: item.width }} />
                         ))}
                     </colgroup>
                     <tbody>
-                        <TopicHeader info={info}/>
+                        <TopicInfo info={info}/>
                         {items.map((item, i) => (
                             <Row key={i} columns={columns} data={item} info={info}/>
                         ))}
@@ -57,6 +57,7 @@ class Topic extends Component {
         )
     }
 }
+
 const mapStateToProps = state => {
 
     const {

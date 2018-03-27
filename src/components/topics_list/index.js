@@ -57,7 +57,7 @@ class TopicsList extends Component {
             <div>
                 <Title />
                 <Header history={this.props.history} />
-                <table id='tm' style={{width: "100%"}}>
+                <table id='tm' style={{width: "100%", margin: "10px auto 0px auto"}}>
                     <colgroup>
                         {columns.map((item, i) => (
                             <col key={i} className={item.className} style={{ width: item.width }} />

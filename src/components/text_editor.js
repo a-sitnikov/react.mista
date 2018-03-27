@@ -114,4 +114,4 @@ class TextEditor extends Component {
     }
 }
 
-export default connect(state => { })(TextEditor);
+export default connect(state => ({ }))(TextEditor);

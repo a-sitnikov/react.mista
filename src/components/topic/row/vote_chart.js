@@ -8,11 +8,9 @@ const VoteChart = (props) => {
     let total = items.reduce((sum, e) => sum + e.result, 0);    
 
     return (
-        <table style={{ width: "700px" }}>
-            <tbody>
-                {items.filter(val => val.result).map((data, i) => <VoteItem key={i} data={data} total={total} n={i+1} topicId={topicId} colors={colors}/>)}
-            </tbody>
-        </table>
+        <div style={{marginBottom: "10px" }}>
+            {items.filter(val => val.result).map((data, i) => <VoteItem key={i} data={data} total={total} n={i+1} topicId={topicId} colors={colors}/>)}
+        </div>    
     )
 }
 

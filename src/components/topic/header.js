@@ -12,8 +12,8 @@ const Header = (props) => {
 
     return (
 
-        <div style={{ display: "flex", marginBottom: "10px" }}>
-            <div id="user-td" style={{ flex: "0 0 350px", marginRight: "15px", paddingTop: "5px", verticalAlign: "top" }}>
+        <div className="flex-row">
+            <div id="user-td" style={{ flex: "0 auto", marginRight: "15px", paddingTop: "5px", verticalAlign: "top" }}>
                 <Login />
             </div>
             <div id="section-td" style={{ flex: 1, paddingTop: "5px", verticalAlign: "top" }}>

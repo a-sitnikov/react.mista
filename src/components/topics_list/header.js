@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 import queryString from 'query-string'
 
 import Login from '../login'
 import Search from './search'
 import SectionSelect from './section_select'
+import { fetchSectionsIfNeeded } from '../../actions/sections'
 
 class Header extends Component {
 
@@ -13,6 +15,11 @@ class Header extends Component {
         this.onSectionSelect = this.onSectionSelect.bind(this);
     }
 
+    componentDidMount() {
+        const { dispatch } = this.props;
+        dispatch(fetchSectionsIfNeeded());
+    }
+    
     onSectionSelect(event, value) {
         if (value)
             this.props.history.push(`${window.hash}/index.php?section=${value.shortn}`);
@@ -22,12 +29,18 @@ class Header extends Component {
 
     render() {
 
-        const { location } = this.props;
+        const { location, sections } = this.props;
         const params = queryString.parse(location.search);
 
+        let groupsElem = [];
+        for (let forum in sections.tree) {
+            groupsElem.push(<span key={"s" + forum} className="separator">|</span>);
+            groupsElem.push(<a key={forum} rel="nofollow" href={`${window.hash}/index.php?forum=${forum}`}>{forum.toUpperCase()}</a>);
+        }
+
         return (
-            <div style={{ display: "flex", marginBottom: "10px" }}>
-                <div id="user-td" style={{ flex: "0 0 350px", marginRight: "15px", paddingTop: "5px", verticalAlign: "top" }}>
+            <div className="flex-row">
+                <div id="user-td" style={{ flex: "0 auto", marginRight: "15px", paddingTop: "5px", verticalAlign: "top" }}>
                     <Login />
                 </div>
                 <div style={{ flex: 1, height: "auto", position: "relative" }}>
@@ -38,10 +51,8 @@ class Header extends Component {
                 <div id="section-td" style={{ flex: 0, paddingTop: "5px", verticalAlign: "top" }}>
 
                     <span className="ah">
-                        <a rel="nofollow" href="">Все</a>&nbsp;|&nbsp;
-                        <a rel="nofollow" href={`${window.hash}/index.php?forum=1c`}>1C</a>&nbsp;|&nbsp;
-                        <a rel="nofollow" href={`${window.hash}/index.php?forum=it`}>IT</a>&nbsp;|&nbsp;
-                        <a rel="nofollow" href={`${window.hash}/index.php?forum=job`}>JOB</a>&nbsp;
+                        <a rel="nofollow" href="">Все</a>
+                        {groupsElem}
                     </span>
                     <SectionSelect defaultValue="--Все секции--" selected={params.section} className="findfield" id="section_selector" name="section_selector" onChange={this.onSectionSelect} />
                 </div>
@@ -50,4 +61,11 @@ class Header extends Component {
     }
 }
 
-export default withRouter(Header);
+const mapStateToProps = state => {
+
+    return {
+        sections: state.sections
+    }
+}
+
+export default connect(mapStateToProps)(withRouter(Header));

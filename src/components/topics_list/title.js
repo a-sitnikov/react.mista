@@ -6,8 +6,8 @@ class Title extends Component {
     render() {
 
         return (
-            <div id="header-table" style={{ width: "100%", display: "flex" }}>
-                <div id="title-td" style={{ width: "280px", whiteSpace: "nowrap", flex: "0 0 0%" }}>
+            <div id="title" className="flex-row">
+                <div id="title-td" className="title-td">
                     <h1 className="forum-title">
                         <a href="index.php"><span>Волшебный </span>&nbsp;<span>Форум</span></a>
                     </h1>

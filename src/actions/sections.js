@@ -35,7 +35,7 @@ const shouldfetchSections = (state) => {
     if (sections.isFetching) 
         return false
     
-    if (sections.items.size > 0)
+    if (sections.items.length > 0)
         return false;
 
     return true
