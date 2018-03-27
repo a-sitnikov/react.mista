@@ -21,7 +21,9 @@ class NewMessage extends Component {
 
         const params = {
             text,
-            userid: this.props.login.userid
+            userid: this.props.login.userid,
+            userName: this.props.login.username,
+            topicId: this.props.info.id
         };
 
         dispatch(postNewMessageIfNeeded(params));

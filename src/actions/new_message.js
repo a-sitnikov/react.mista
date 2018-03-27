@@ -1,3 +1,5 @@
+import API from '../api'
+
 export const shouldPostNewMessage = (state) => {
     const newMessage = state.newMessage;
     if (!newMessage) {
@@ -20,12 +22,28 @@ const postNewMessage = (params) => dispatch => {
     dispatch({
         type: 'POST_NEW_MESSAGE_START'
     });
-    //
-    setTimeout(() => {
-    dispatch({
-        type: 'POST_NEW_MESSAGE_COMPLETE'
+
+    let fetchParams = [];
+    fetchParams.push("message_text=" + encodeURIComponent(params.text));
+    fetchParams.push("action=new");
+    fetchParams.push("topic_id=" + params.topicId);
+    fetchParams.push("user_name=" + encodeURIComponent(params.userName));
+    fetchParams.push("rnd=" + Math.round(Math.random() * 10000000));
+
+    if (params.voting_select) {
+        fetchParams.push("voting_select=" + params.voting_select);
+    }
+
+    fetch(API.newMessage, {
+        method: 'POST',
+        body: fetchParams.join('&'),
+        mode: 'no-cors',
+        credentials: 'include'
     })
-},
-    2000)
+    .then(response => {
+        dispatch({
+            type: 'POST_NEW_MESSAGE_COMPLETE'
+        })
+    });
 
 }

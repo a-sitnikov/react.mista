@@ -48,7 +48,9 @@ const api = {
         topic_id - идентификатор (topic_id) темы (!)   
     }
     */
-     newTopic: `index.php`
+    newTopic: `index.php`,
+
+    newMessage: `${domain}/ajax_newmessage.php`
 }
 
 export default api;
