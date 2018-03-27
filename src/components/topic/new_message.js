@@ -2,24 +2,53 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import TextEditor from '../text_editor'
+import { postNewMessageIfNeeded } from '../../actions/new_message'
 
 class NewMessage extends Component {
 
     constructor(props) {
         super(props);
         this.onSend = this.onSend.bind(this);
+        this.clearVoting = this.clearVoting.bind(this);
+        this.setVotingOption = this.setVotingOption.bind(this);
+        
+        this.state = { voting: undefined };
     }
 
     onSend(e, text) {
 
         const { dispatch } = this.props;
-        dispatch({});
 
+        const params = {
+            text,
+            userid: this.props.login.userid
+        };
+
+        dispatch(postNewMessageIfNeeded(params));
+
+    }
+
+    clearVoting(e) {
+        
+        e.preventDefault();
+
+        this.setState({
+            ...this.state,
+            voting: undefined
+        })
+
+    }
+
+    setVotingOption(e) {
+        this.setState({
+            ...this.state,
+            voting: e.target.value
+        })
     }
 
     render() {
 
-        const { info, login } = this.props;
+        const { info, login, newMessage } = this.props;
 
         let votingElem;
         if (info.is_voting) {
@@ -32,18 +61,18 @@ class NewMessage extends Component {
                     continue;
 
                 votingOptions.push(
-                    <div>
-                        <input id={`voting_select${i}`} name="voting_select" value={i} type="radio" />
-                        <label for={`voting_select${i}`}>{`${i}. ${item.select}`}</label>
+                    <div key={i}>
+                        <input id={`voting_select${i}`} name="voting_select" value={i} type="radio" onChange={this.setVotingOption} checked={this.state.voting === String(i) ? true : false}/>
+                        <label htmlFor={`voting_select${i}`}>{`${i}. ${item.select}`}</label>
                     </div>
                 );
             }
 
 
             votingElem = (
-                <fieldset id="voting">
+                <fieldset id="voting" value="1">
                     <legend>Ваш выбор:
-                    <small><a href="" id="voting_clear" style={{marginLeft:"5px"}} onClick="">очистить</a></small>
+                    <small><a href="" id="voting_clear" style={{marginLeft:"5px"}} onClick={this.clearVoting}>очистить</a></small>
                     </legend>
                     {votingOptions}
                     <br />
@@ -72,7 +101,7 @@ class NewMessage extends Component {
                             className="fieldbasic"
                             style={{ marginBottom: "10px" }}
                         />
-                        <TextEditor onSend={this.onSend} />
+                        <TextEditor onSend={this.onSend} isFetching={newMessage.isFetching}/>
                     </div>
                     <div style={{ flex: "0 0 30%" }}>
                         {votingElem}
@@ -86,7 +115,8 @@ class NewMessage extends Component {
 const mapStateToProps = state => {
 
     return {
-        login: state.login
+        login: state.login,
+        newMessage: state.newMessage
     };
 
 }
