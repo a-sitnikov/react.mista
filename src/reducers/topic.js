@@ -1,7 +1,7 @@
 const defaultState = {
     isFetching: false,
     info: {},
-    items: []   
+    items: []
 }
 
 const topic = (state = defaultState, action) => {
@@ -17,6 +17,18 @@ const topic = (state = defaultState, action) => {
                 isFetching: false,
                 info: action.info,
                 items: action.items,
+                lastUpdated: action.receivedAt
+            }
+        case 'REQUEST_NEW_MESSAGES':
+            return {
+                ...state,
+                isFetching: true
+            }
+        case 'RECEIVE_NEW_MESSAGES':
+            return {
+                ...state,
+                isFetching: false,
+                items: state.items.concat(action.items),
                 lastUpdated: action.receivedAt
             }
         default:

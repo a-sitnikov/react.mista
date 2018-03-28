@@ -1,15 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import queryString from 'query-string'
-import { fetchTopicIfNeeded } from '../../actions/topic'
+import { fetchTopicIfNeeded, fetchNewMessagesIfNeeded } from '../../actions/topic'
 
 import Header from './header'
 import TopicInfo from './topic_info'
 import Row from './row'
 import Footer from './footer'
 import NewMessage from './new_message';
+import { maxPage } from '../../utils';
 
 class Topic extends Component {
+
+    constructor(props) {
+        super(props)
+        this.onPostNewMessageSuccess = this.onPostNewMessageSuccess.bind(this);
+    }
 
     componentDidMount() {
 
@@ -23,6 +29,26 @@ class Topic extends Component {
         dispatch(fetchTopicIfNeeded(this.params));
     }
 
+    componentWillReceiveProps(props) {
+        if (props.info.text && document.title !== props.info.text) {
+            document.title = props.info.text;
+        }
+    }
+
+    onPostNewMessageSuccess() {
+
+        const { dispatch, info } = this.props;
+
+        const isLastPage = (this.page === maxPage(parseInt(info.answers_count, 10)));
+
+        if (isLastPage) 
+            dispatch(fetchNewMessagesIfNeeded({
+                id: info.id,
+                last: parseInt(info.answers_count, 10)
+            }));
+
+    }
+
     render() {
         const { login, info, items, bookmark } = this.props;
         
@@ -33,7 +59,7 @@ class Topic extends Component {
 
         let newMessage;
         if (login.userid)
-            newMessage = <NewMessage info={info}/>
+            newMessage = <NewMessage info={info} onPostSuccess={this.onPostNewMessageSuccess}/>
 
         return (
             <div  >

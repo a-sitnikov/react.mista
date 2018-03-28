@@ -13,6 +13,11 @@ const newTopic = (state = {
                 ...state,
                 isFetching: false
             }
+        case 'NEW_MESSAGE_TEXT':
+            return {
+                ...state,
+                text: action.text
+            }
         default:
             return state
     }

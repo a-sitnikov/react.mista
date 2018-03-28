@@ -50,7 +50,22 @@ const api = {
     */
     newTopic: `index.php`,
 
-    newMessage: `${domain}/ajax_newmessage.php`
+     /*
+    POST
+    message_text,
+    action=new,
+    topic_id,
+    user_name,
+    rnd
+    */
+    postNewMessage: `${domain}/ajax_newmessage.php`,
+
+    /*
+    topic_id - идентификатор (topic_id) темы (!)
+    last_n - последние n сообщений
+    auto - 0 или 1
+    */  
+    genNewMessages: `${domain}/ajax_jq_getnewmessages.php`
 }
 
 export default api;

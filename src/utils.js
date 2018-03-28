@@ -58,3 +58,5 @@ export const parseJSON = (text) => {
         return {};
     }
 }
+
+export const maxPage = (answ) => Math.min(Math.ceil(answ / 100), 10);

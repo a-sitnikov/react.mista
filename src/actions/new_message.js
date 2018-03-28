@@ -33,8 +33,8 @@ const postNewMessage = (params) => dispatch => {
     if (params.voting_select) {
         fetchParams.push("voting_select=" + params.voting_select);
     }
-
-    fetch(API.newMessage, {
+    
+    fetch(API.postNewMessage, {
         method: 'POST',
         body: fetchParams.join('&'),
         mode: 'no-cors',
@@ -43,7 +43,9 @@ const postNewMessage = (params) => dispatch => {
     .then(response => {
         dispatch({
             type: 'POST_NEW_MESSAGE_COMPLETE'
-        })
+        });
+        
+        params.onSuccess();
+    
     });
-
 }

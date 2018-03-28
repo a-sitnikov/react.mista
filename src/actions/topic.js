@@ -51,7 +51,7 @@ export const fetchTopic = (params) => dispatch => {
         .then(json => dispatch(receiveTopic(json)));
 }
 
-const shouldFetchTopic = (state) => {
+const shouldFetch = (state) => {
     const topic = state.topic;
     if (!topic) {
         return true
@@ -63,7 +63,31 @@ const shouldFetchTopic = (state) => {
 }
 
 export const fetchTopicIfNeeded = (params) => (dispatch, getState) => {
-    if (shouldFetchTopic(getState())) {
-        return dispatch(fetchTopic(params))
+    if (shouldFetch(getState())) {
+        return dispatch(fetchTopic(params));
+    }
+}
+
+
+export const fetchNewMessages = (params) => (dispatch) => {
+
+    dispatch({
+        type: 'REQUEST_NEW_MESSAGES'
+    });
+
+    fetch(`${API.topicMessages}?id=${params.id}&from=${params.last + 1}&to=1002`)
+        .then(response => response.json())
+        .then(json => {
+            dispatch({
+                type: 'RECEIVE_NEW_MESSAGES',
+                items: json,
+                receivedAt: Date.now()
+            });
+        });
+}
+
+export const fetchNewMessagesIfNeeded = (params) => (dispatch, getState) => {
+    if (shouldFetch(getState())) {
+        return dispatch(fetchNewMessages(params));
     }
 }

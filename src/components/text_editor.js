@@ -6,17 +6,9 @@ class TextEditor extends Component {
     constructor(props) {
         super(props);
         this.onButtonCode1c = this.onButtonCode1c.bind(this);
-        this.onSpellCheck = this.onSpellCheck.bind(this);
         this.onSendClick = this.onSendClick.bind(this);
         this.onVotingChange = this.onVotingChange.bind(this);
-    }
-
-    onSpellCheck() {
-        /*
-        const speller = new window.Speller({ url:"/speller", lang:"ru", options:Speller.IGNORE_URLS });
-        const text = this.refs.text.value
-        speller.check([ text ]);
-        */
+        this.onChange = this.onChange.bind(this);
     }
 
     onSendClick(e) {
@@ -56,17 +48,16 @@ class TextEditor extends Component {
         })
     }
 
+    onChange(e) {
+        if (this.props.onChange) {
+            const text = this.refs.text.value;
+            this.props.onChange(e, text);
+        }
+    }
+
     render() {
 
-        const { placeholder, showVoting, isFetching } = this.props;
-
-        const cpellCheckStyle = {
-            backgroundImage: "url('http://speller.yandex.net/speller/1.0/spell.gif')",
-            height: "19px",
-            width: "20px",
-            backgroundSize: "contain",
-            marginRight: "5px"
-        };
+        const { placeholder, showVoting, isFetching, text } = this.props;
 
         const buttonStyle = {
             height: "19px",
@@ -89,21 +80,22 @@ class TextEditor extends Component {
                     name="message_text"
                     id="message_text"
                     cols="70" rows="12"
+                    ref="text"
+                    value={text}
                     className="fieldbasic"
                     style={{ width: "45em" }}
-                    ref="text"
+                    onChange={this.onChange}
                 />
                 <div>
-                    <button name="cmdSpell" type="button" className="sendbutton" style={cpellCheckStyle} onClick={this.onSpellCheck}>&nbsp;</button>
                     <button name="code1C" type="button" className="sendbutton" style={buttonStyle} onClick={this.onButtonCode1c}>Код 1С</button>
                     <button
                         name="Submit"
                         type="button"
-                        className="sendbutton"
                         id="Submit"
+                        disabled={isFetching}
+                        className="sendbutton"
                         style={buttonStyle}
-                        onClick={this.onSendClick}
-                        disabled={isFetching}>
+                        onClick={this.onSendClick}>
                         {isFetching ? 'Отпарвляется' : 'Отправить'}
                     </button>
                     {voting}
@@ -114,4 +106,4 @@ class TextEditor extends Component {
     }
 }
 
-export default connect(state => ({ }))(TextEditor);
+export default connect()(TextEditor);
