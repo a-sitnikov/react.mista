@@ -25,10 +25,17 @@ const topic = (state = defaultState, action) => {
                 isFetching: true
             }
         case 'RECEIVE_NEW_MESSAGES':
+
+            let info = state.info;
+            if (action.items.length > 0) {
+                info.answers_count = action.items[action.items.length - 1].n;
+            }    
+
             return {
                 ...state,
                 isFetching: false,
                 items: state.items.concat(action.items),
+                info,
                 lastUpdated: action.receivedAt
             }
         default:

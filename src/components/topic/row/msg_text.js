@@ -1,28 +1,66 @@
 import React, { Component } from 'react'
+import activeHtml from 'react-active-html';
 
+import Code from './code1c'
 import VoteChart from './vote_chart'
+import { maxPage } from '../../../utils';
+
+const componentsMap = {
+    link: props => <LinkToPost {...props} />,
+    code: props => <Code {...props} />
+};
+
+class LinkToPost extends Component {
+
+    render() {
+
+        const topicId = this.props['data-topicid'];
+        const number = this.props['data-number'];
+        
+        const page = maxPage(number);
+      
+        let pageParam = '';
+        if (page> 1)
+            pageParam = `&page=${page}`;
+
+        return (
+            <a href={`topic.php?id=${topicId}${pageParam}#${number}`}>{number}</a>
+        )
+    }
+}
 
 class MsgText extends Component {
 
-    processLinksToAnswers(text) {
+    processLinksToPosts(text) {
 
         const topicId = this.props.info.id;
 
         const regexp = /(\()(\d+)(\))/g; // (12)
         return text.replace(regexp, (res, ...segments) => {
-            const number = segments[1]; 
-            const page = Math.min(Math.ceil(number/100), 10);
-            let pageParam = '';
-            if (page > 1)
-                pageParam = `&page=${page}`;
-
-            return `(<a href='topic.php?id=${topicId}${pageParam}#${number}'>${number}</a>)`;
+            const number = segments[1];
+            return `(<link data-topicid='${topicId}' data-number='${number}' ></link>)`
         });
     }
 
+    processCode1C(text) {
+
+        const regexp = /(\[1C\])((.|\n)*?)(\[\/1C\])/g; // [1C] text [/1C]
+
+        return text.replace(regexp, (res, ...segments) => {
+            let text = segments[1];
+
+            //remove first <br>
+            if (text.substr(0, 4) === "<br>")
+                text = text.substr(4);
+
+            return `<code>${text}</code>`
+        });
+    }
+    
     processText(text) {
 
-        text = this.processLinksToAnswers(text);
+        text = this.processLinksToPosts(text);
+        text = this.processCode1C(text);
         return text;
     }
 
@@ -57,10 +95,13 @@ class MsgText extends Component {
             voteChart = <VoteChart items={info.voting} topicId={data.id} colors={voteColors} />
         }
 
+        let textComponent = activeHtml(this.processText(data.text), componentsMap);
+
         return (
             <td id={`tdmsg${data.n}`} className="leftbottomgray va-top " style={style}>
                 {voteChart}
-                <div id={data.n} className="message-text" dangerouslySetInnerHTML={{ __html: this.processText(data.text) }}>
+                <div>
+                    {textComponent}
                 </div>
                 {voteElement}
             </td>

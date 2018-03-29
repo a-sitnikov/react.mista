@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { fetchTopic } from '../../actions/topic'
+import { fetchNewMessagesIfNeeded } from '../../actions/topic'
 import { addBookmark } from '../../actions/bookmark'
+import { maxPage } from '../../utils'
 
 const Pages = (props) => {
 
@@ -53,8 +54,14 @@ class Footer extends Component {
     }
 
     onRefreshClick() {
-        const { params, dispatch } = this.props;
-        dispatch(fetchTopic(params));
+        
+        const { info, dispatch } = this.props;
+        
+        dispatch(fetchNewMessagesIfNeeded({
+            id: info.id,
+            last: parseInt(info.answers_count, 10)
+        }));
+
     }
 
     render() {
@@ -64,6 +71,10 @@ class Footer extends Component {
         let pages;
         if (info.answers_count > 100)
             pages = <Pages info={info} currentPage={currentPage} />
+
+        let updateButton;
+        if (currentPage === maxPage(info.answers_count))    
+            updateButton = <button id="refresh_button" type="button" className="sendbutton" onClick={this.onRefreshClick}>Обновить ветку</button>
 
         return (
             <table id="under_messages" className="center-97">
@@ -79,7 +90,7 @@ class Footer extends Component {
                                 <a rel="nofollow" href="/">Список тем форума</a>
                             </span>
                             <br />
-                            <button id="refresh_button" type="button" className="sendbutton" onClick={this.onRefreshClick}>Обновить ветку</button>
+                            {updateButton}
                         </td>
                     </tr>
                 </tbody>

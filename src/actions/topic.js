@@ -40,7 +40,8 @@ export const fetchTopic = (params) => dispatch => {
         queries.push(`${API.topicMessages}?id=${params.id}&from=0&to=1`);
     }
 
-    const last = page*100 - 1;
+
+    let last = page*100 - 1;
     queries.push(`${API.topicMessages}?id=${params.id}&from=${first}&to=${last}`);
 
     Promise.all(queries.map(url => fetchJsonp(url)))

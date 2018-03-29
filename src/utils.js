@@ -47,9 +47,9 @@ export const parseJSON = (text) => {
             .replace(/\\'/g, "'")
             .replace(/\\"/g, "")
 
- //           console.log(text);
-            return JSON.parse(text);
- 
+        //           console.log(text);
+        return JSON.parse(text);
+
         //return eval(text);
     } catch (e) {
         console.error(e.message);
@@ -60,3 +60,11 @@ export const parseJSON = (text) => {
 }
 
 export const maxPage = (answ) => Math.min(Math.ceil(answ / 100), 10);
+
+export const encodeText = (text) => {
+    text = text
+        .replace(/&/g, '%26')
+
+    return text;
+}
+
