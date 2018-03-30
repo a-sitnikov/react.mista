@@ -5,8 +5,14 @@ import { maxPage } from '../../utils'
 
 const Pages = (props) => {
 
-    const { info, currentPage } = props;
+    const { info } = props;
     const maxPage = Math.min(Math.ceil(info.answers_count / 100), 10);
+
+    let currentPage = props.currentPage;
+    if (currentPage === 'last20')
+        currentPage = maxPage
+    else
+        currentPage = +currentPage;
 
     let pages = [];
 
@@ -66,18 +72,18 @@ class Footer extends Component {
 
     render() {
 
-        const { info, currentPage, bookmark } = this.props;
+        const { info, params, bookmark } = this.props;
 
         let pages;
         if (info.answers_count > 100)
-            pages = <Pages info={info} currentPage={currentPage} />
+            pages = <Pages info={info} currentPage={params.page} />
 
         let updateButton;
-        if (currentPage === maxPage(info.answers_count))    
+        if (params.page === maxPage(info.answers_count) || params.page === 'last20')    
             updateButton = <button id="refresh_button" type="button" className="sendbutton" onClick={this.onRefreshClick}>Обновить ветку</button>
 
         return (
-            <table id="under_messages" className="center-97">
+            <table id="F" className="center-97">
                 <tbody>
                     <tr>
                         <td className="ta-left va-top" style={{ width: "50%" }}>

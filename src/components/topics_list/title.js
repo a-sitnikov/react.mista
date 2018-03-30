@@ -9,7 +9,7 @@ class Title extends Component {
             <div id="title" className="flex-row">
                 <div id="title-td" className="title-td">
                     <h1 className="forum-title">
-                        <a href="index.php"><span>Волшебный </span>&nbsp;<span>Форум</span></a>
+                        <a href={`${window.hash}`}><span>Волшебный </span>&nbsp;<span>Форум</span></a>
                     </h1>
                 </div>
                 <div id="banner-center-td" style={{ flex: "1" }}>

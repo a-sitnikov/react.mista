@@ -4,20 +4,24 @@ import { today, timeStr, dateTimeStr, maxPage } from '../../utils'
 
 const TopicNameCell = (props) => {
 
-    const { column, data } = props;
+    const { column, data, login } = props;
 
     let href = `${window.hash}/topic.php?id=${data.id}`;
-    let classes = classNames('agb', { 'longtopics': data.answ >= 100 });
+    let classes = classNames('agb', {
+        'longtopics': data.answ >= 100,
+        'mytopics': data.user0 === login.username
+    });
 
     let isVoting;
     if (data.is_voting === 1) {
-        isVoting = <span className="agh">[±]</span>
+        isVoting = <span className="agh separator">[±]</span>
     }
 
     let sectionHref = `${window.hash}/index.php?section=${data.sect2}`;
     let section = [];
+
     if (data.sect1) {
-        section.push(<span key="0" className="agh" style={{margin: "auto 2px auto 5px"}}>/</span>);
+        section.push(<span key="0" className="agh" style={{ margin: "auto 2px auto 5px" }}>/</span>);
         section.push(<a key="1" rel="nofollow" className="sectionlink-gray" href={sectionHref} target="_blank">{data.sect1}</a>);
     }
 
@@ -25,18 +29,18 @@ const TopicNameCell = (props) => {
     if (data.closed)
         closed = <span className="moder-action">Ø</span>
 
-    if  (data.sect2 === 'job' && data.text.substr(0, 3) !== 'JOB')        
+    if (data.sect2 === 'job' && data.text.substr(0, 3) !== 'JOB')
         data.text = 'JOB: ' + data.text;
 
-    else if (data.forum === 'life' && data.text.substr(0, 3) !== 'OFF')        
+    else if (data.forum === 'life' && data.text.substr(0, 3) !== 'OFF')
         data.text = 'OFF: ' + data.text;
-    
-    else if  (data.sect2 === 'v7' && data.text.substr(0, 2) !== 'v7')        
+
+    else if (data.sect2 === 'v7' && data.text.substr(0, 2) !== 'v7')
         data.text = 'v7: ' + data.text;
 
     return (
         <td className={column.className}>
-            <a href={href} className={classes} style={{ marginRight: "5px" }} target="_blank" dangerouslySetInnerHTML={{ __html: data.text }}></a>
+            <a href={href} className={classes} style={{ marginRight: "5px", }} target="_blank" dangerouslySetInnerHTML={{ __html: data.text }}></a>
             {isVoting}
             <Pages answ={data.answ} topicId={data.id} />
             {closed}
@@ -64,8 +68,8 @@ const Pages = (props) => {
     }
 
     if (answ > 20) {
-        let href = `${window.hash}/topic.php?id=${topicId}&page=last20F`;
-        pages.push(<a key="last20F" className="agh" style={{ margin: "3px" }} href={href}>»</a>);
+        let href = `${window.hash}/topic.php?id=${topicId}&page=last20#F`;
+        pages.push(<a key="last20" className="agh" style={{ margin: "3px" }} href={href}>»</a>);
     }
 
     return (
@@ -77,7 +81,7 @@ const Pages = (props) => {
 
 const Row = (props) => {
 
-    const { columns, data } = props;
+    const { columns, data, login } = props;
 
     let cells = [];
     for (let i in columns) {
@@ -92,20 +96,20 @@ const Row = (props) => {
             value = <td key={i} className={column.className}>{data.answ}</td>
 
         } else if (column.name === 'Тема') {
-            value = <TopicNameCell key={i} column={column} data={data} />
+            value = <TopicNameCell key={i} column={column} data={data} login={login} />
 
         } else if (column.name === 'Автор') {
             value = <td key={i} className={column.className}>{data.user0}</td>
 
         } else if (column.name === 'Обновлено') {
-            
+
             let text = [];
-            
-            let time = new Date(data.utime*1000);
+
+            let time = new Date(data.utime * 1000);
             if (today(time)) {
                 text.push(timeStr(time));
                 text.push(data.user);
-            } else {   
+            } else {
                 text.push(dateTimeStr(time));
             }
 

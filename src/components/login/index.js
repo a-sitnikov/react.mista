@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 import LoggedUser from './logged_user'
 import LoginForm from './login_form'
 
-import { checkLogin } from '../../actions/login'
+import { checkLoginIfNeeded } from '../../actions/login'
 
 class Login extends Component {
 
     componentDidMount() {
         const { dispatch } = this.props;
-        dispatch(checkLogin());        
+        dispatch(checkLoginIfNeeded());        
     }
 
     render() {

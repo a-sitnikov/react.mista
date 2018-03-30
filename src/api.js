@@ -32,6 +32,9 @@ const api = {
     */    
     topicMessages: `${domain}/api/message.php`,
 
+    // cookies
+    cookies: `${domain}/ajax_cookie.php`,
+
     /*
     POST
     {
@@ -40,6 +43,7 @@ const api = {
     */
     addBookmark: `${domain}/ajax_addbookmark.php`,
 
+    // sections
     sections: `${domain}/ajax_getsectionslist.php`,
 
     /*

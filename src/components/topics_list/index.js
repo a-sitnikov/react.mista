@@ -52,7 +52,8 @@ class TopicsList extends Component {
             { name: 'Обновлено', className: 'cl', width: '150px' }
         ]
 
-        const { topicsList, sections } = this.props;
+        const { topicsList, sections, login } = this.props;
+
         return (
             <div>
                 <Title />
@@ -68,7 +69,7 @@ class TopicsList extends Component {
                             {columns.map((item, i) => (<th key={i}>{item.name}</th>))}
                         </tr>
                         {topicsList.items.map((item, i) => (
-                            <Row key={i} data={item} columns={columns} />
+                            <Row key={i} data={item} columns={columns} login={login}/>
                         ))}
                     </tbody>
                     <tfoot>
@@ -87,7 +88,8 @@ const mapStateToProps = state => {
 
     return {
         topicsList: state.topicsList || { items: [] },
-        sections: state.sections || { items: [] }
+        sections: state.sections || { items: [] },
+        login: state.login || {}
     }
 }
 

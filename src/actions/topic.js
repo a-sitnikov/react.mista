@@ -6,50 +6,86 @@ export const requestTopic = () => ({
     type: 'REQUEST_TOPIC'
 })
 
-export const receiveTopic = (json) => {
-
-    let items;
-    if (json.length === 2)
-        items = json[1]
-    else
-        // post 0 and others
-        items = json[1].slice(0, 1).concat(json[2]);
+export const receiveTopic = (info, item0, items) => {
 
     return {
         type: 'RECEIVE_TOPIC',
-        info: typeof (json[0]) === "string" ? parseJSON(json[0]) : json[0],
-        items: items,
+        info: typeof (info) === "string" ? parseJSON(info) : info,
+        item0,
+        items,
         receivedAt: Date.now()
     }
 }
 
 
-export const fetchTopic = (params) => async dispatch => {
+export const fetchTopic = (params, item0) => async dispatch => {
 
     dispatch(requestTopic())
 
-    const page = params.page;
-    let first = 0;
+    let page = params.page || 1;
+    let queries = [];
 
-    let queries = [
-        `${API.topicInfo}?id=${params.id}`
-    ];
+    if (page === 'last20') {
 
-    if (page > 1) {
-        first = (page - 1) * 100 + 1;
-        queries.push(`${API.topicMessages}?id=${params.id}&from=0&to=1`);
+        let response = await fetchJsonp(`${API.topicInfo}?id=${params.id}`, {
+            mode: 'no-cors',
+            credentials: 'include'
+        });
+        let info = await response.json();
+        info = typeof (info) === 'string' ? JSON.parse(info) : info;
+
+        if (info.answers_count > 21) {
+
+            if (!item0)
+                queries.push(`${API.topicMessages}?id=${params.id}&from=0&to=1`);
+
+            let first = info.answers_count - 20;
+            queries.push(`${API.topicMessages}?id=${params.id}&from=${first}&to=1010`);
+
+        } else {
+            queries.push(`${API.topicMessages}?id=${params.id}&from=0&to=1010`);
+        }
+
+    } else {
+
+        page = +page;
+        let first = 0;
+
+        queries.push(`${API.topicInfo}?id=${params.id}`);
+
+        if (page > 1) {
+
+            first = (page - 1) * 100 + 1;
+            if (!item0)
+                queries.push(`${API.topicMessages}?id=${params.id}&from=0&to=1`);
+
+        } else {
+            if (item0)
+                first = 1;
+            else
+                first = 0;
+        }
+
+        let last = page * 100 - 1;
+        queries.push(`${API.topicMessages}?id=${params.id}&from=${first}&to=${last}`);
     }
-
-    let last = page * 100 - 1;
-    queries.push(`${API.topicMessages}?id=${params.id}&from=${first}&to=${last}`);
-
+    
     try {
-        const responseArr = await Promise.all(queries.map(url => fetchJsonp(url)));
-        const jsonArr = await Promise.all(responseArr.map(singleResponse => singleResponse.json()));
+        const responseArr = await Promise.all(queries.map(url => fetchJsonp(url)))
+        const jsonArr = await Promise.all(responseArr.map(singleResponse => singleResponse.json()))
 
-        dispatch(receiveTopic(jsonArr));
+        let info = jsonArr[0];
+        let _item0, _items;
+        if (item0) {
+            _item0 = item0;
+            _items = jsonArr[1];
+        } else {
+            _item0 = jsonArr[1][0];
+            _items = jsonArr[1].slice(1);
+        }
+        dispatch(receiveTopic(info, _item0, _items));
     } catch (error) {
-        
+
         console.error('Failed to fetch topic:', error);
 
         dispatch({
@@ -72,9 +108,9 @@ const shouldFetch = (state) => {
     return true
 }
 
-export const fetchTopicIfNeeded = (params) => (dispatch, getState) => {
+export const fetchTopicIfNeeded = (params, item0) => (dispatch, getState) => {
     if (shouldFetch(getState())) {
-        return dispatch(fetchTopic(params));
+        return dispatch(fetchTopic(params, item0));
     }
 }
 

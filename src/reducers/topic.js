@@ -17,6 +17,7 @@ const topic = (state = defaultState, action) => {
                 ...state,
                 isFetching: false,
                 info: action.info,
+                item0: action.item0,
                 items: action.items,
                 lastUpdated: action.receivedAt,
                 error: undefined
