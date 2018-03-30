@@ -6,7 +6,7 @@ import MsgText from './msg_text'
 class Row extends Component {
 
     render() {
-        const { columns, data, info } = this.props;
+        const { columns, data, info, author } = this.props;
 
         let cells = [];
         let i = 0;
@@ -16,7 +16,7 @@ class Row extends Component {
             if (column.name === 'Автор') {
                 value = (
                     <td key={column.name} id={`tduser${data.n}`} className="bottomwhite ta-right va-top">
-                        <UserInfo key={i} data={data} />
+                        <UserInfo key={i} data={data} isAuthor={data.user === author}/>
                     </td>
                 )
 

@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
 import { fetchNewMessagesIfNeeded } from '../../actions/topic'
 import { addBookmark } from '../../actions/bookmark'
 import { maxPage } from '../../utils'
@@ -72,7 +74,7 @@ class Footer extends Component {
 
     render() {
 
-        const { info, params, bookmark } = this.props;
+        const { info, bookmark, isFetching, params } = this.props;
 
         let pages;
         if (info.answers_count > 100)
@@ -81,7 +83,7 @@ class Footer extends Component {
         let updateButton;
         let page = params.page;
         if (page === 'last20' || page === maxPage(info.answers_count) )    
-            updateButton = <button id="refresh_button" type="button" className="sendbutton" onClick={this.onRefreshClick}>Обновить ветку</button>
+            updateButton = <button id="refresh_button" type="button" className="sendbutton" onClick={this.onRefreshClick}>{isFetching ? 'Обновляется': 'Обновить ветку'}</button>
 
         return (
             <table id="F" className="center-97">
@@ -106,4 +108,24 @@ class Footer extends Component {
     }
 }
 
-export default Footer;
+
+const mapStateToProps = state => {
+
+    const {
+        isFetching,
+        lastUpdated,
+        info,
+    } = state.topic || {
+        isFetching: true,
+        info: {},
+    }
+
+    return {
+        info,
+        isFetching,
+        lastUpdated,
+        bookmark: state.bookmark || {}
+    }
+}
+
+export default connect(mapStateToProps)(Footer);

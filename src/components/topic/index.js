@@ -79,7 +79,7 @@ class Topic extends Component {
     }
 
     render() {
-        const { login, info, items, item0, bookmark, error } = this.props;
+        const { login, info, items, item0, error } = this.props;
 
         let columns = [
             { name: 'Автор', width: '165px' },
@@ -101,12 +101,12 @@ class Topic extends Component {
 
         let row0;
         if (item0)
-            row0 =  <Row key={item0.n} columns={columns} k="2" data={item0} info={info} />    
+            row0 =  <Row key={item0.n} columns={columns} k="2" data={item0} info={info} author={item0.user}/>    
 
         return (
             <div  >
                 {errorElem}
-                <Header info={info} currentPage={this.page} dispatch={this.props.dispatch} />
+                <Header currentPage={this.page} />
                 <table id='table_messages' style={{ width: "100%", margin: "10px auto 0px auto" }}>
                     <colgroup>
                         {columns.map((item, i) => (
@@ -114,14 +114,14 @@ class Topic extends Component {
                         ))}
                     </colgroup>
                     <tbody>
-                        <TopicInfo info={info} />
+                        <TopicInfo />
                         {row0}
                         {items.map((item, i) => (
-                            <Row key={item.n} columns={columns} k="2" data={item} info={info} />
+                            <Row key={item.n} columns={columns} k="2" data={item} info={info} author={item0.user}/>
                         ))}
                     </tbody>
                 </table>
-                <Footer info={info} dispatch={this.props.dispatch} params={this.params} bookmark={bookmark} />
+                <Footer params={this.params} />
                 {newMessage}
             </div>
         )
@@ -151,7 +151,6 @@ const mapStateToProps = state => {
         items,
         isFetching,
         lastUpdated,
-        bookmark: state.bookmark,
         error
     }
 }
