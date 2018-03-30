@@ -10,7 +10,7 @@ class Container extends Component {
 
         super(props);
         // for github pages
-        window.hash = '/#';
+        window.hash = '#';
     }
 
     render() {
