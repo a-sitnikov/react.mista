@@ -1,30 +1,28 @@
 import API from '../api'
 
-export const addBookmark = (params) => dispatch => {
+export const addBookmark = (params) => async dispatch => {
 
     dispatch({
         type: "ADD_BOOKMARK_START"
     });
 
-    fetch(API.addBookmark, {
-        method: 'POST',
-        body: JSON.stringify({ topic_id: params.id }),
-        mode: 'cors',
-        credentials: 'include'
-    })
-        .then(response => {
-            if (!response.ok)
-                throw Error(`${response.status}: ${response.statusText}`);
+    try {
+        await fetch(API.addBookmark, {
+            method: 'POST',
+            body: JSON.stringify({ topic_id: params.id }),
+            mode: 'no-cors',
+            credentials: 'include'
+        });
+        
+        dispatch({
+            type: "ADD_BOOKMARK_COMPLETE"
+        });
 
-            dispatch({
-                type: "ADD_BOOKMARK_COMPLETE"
-            });
-        })
-        .catch(error => {
-            console.log('Error adding bookmark:', error);
-            dispatch({
-                type: "ADD_BOOKMARK_FAIL"
-            });
-        })
+    } catch (err) {
+        console.error('Error adding bookmark:', err);
+        dispatch({
+            type: "ADD_BOOKMARK_FAIL"
+        });
+    }
 
 }   

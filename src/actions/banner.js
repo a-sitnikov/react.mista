@@ -30,11 +30,7 @@ export const fetchBanner = (params) => (dispatch, getState) => {
     }
     
     dispatch(receiveBanner(banner));
-    /*
-    return fetchJsonp(`https://www.mista.ru/api/message.php?id=${topicId}`)
-        .then(response => response.json())
-        .then(json => dispatch(receiveTopic(json)))
-    */    
+ 
   }
 
   export const fetchBannerIfNeeded = (params) => (dispatch, getState) => {

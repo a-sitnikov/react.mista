@@ -12,12 +12,12 @@ const UserInfo = (props) => {
         dataStr = '' + data.n + ' - ' + dateFormat(new Date(data.utime * 1000), 'dd.mm.yy - HH:MM');    
 
     return (
-        <td id={`tduser${data.n}`} className="bottomwhite ta-right va-top">
+        <div>
             <a data-user_id={data.id} data-user_name={data.user} className="registered-user" href={href}>{data.user}</a>
             <div className="message-info">
                 <button className="sendbutton">{dataStr}</button>
             </div>
-        </td>
+        </div>
     )
 
 }

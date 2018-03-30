@@ -28,12 +28,12 @@ const shouldLogin = (state) => {
 }
 
 export const checkLogin = (params) => dispatch => {
-    
-    const cookies = new Cookies(); 
-    const userid   = cookies.get('entr_id');
+
+    const cookies = new Cookies();
+    const userid = cookies.get('entr_id');
     const username = cookies.get('entr_name');
-    const hashkey  = cookies.get('entr_hash');
-    
+    const hashkey = cookies.get('entr_hash');
+
     if (userid) {
         dispatch(loginComplete({
             error: "",
@@ -45,42 +45,43 @@ export const checkLogin = (params) => dispatch => {
 }
 
 export const doLogout = (params) => dispatch => {
-    
+
     dispatch({
         type: 'LOGOUT_START'
     });
 
-    const cookies = new Cookies(); 
+    const cookies = new Cookies();
     cookies.remove('entr_id');
     cookies.remove('entr_name');
     cookies.remove('entr_hash');
-    
+
     dispatch({
         type: 'LOGOUT_COMPLETE'
     });
 
-}    
+}
 
-export const doLogin = (params) => dispatch => {
+export const doLogin = (params) => async dispatch => {
 
     dispatch(loginStart());
 
-    fetchJsonp(`https://forum.mista.ru/ajax_login.php?username=${encodeURIComponent(params.username)}&password=${params.password}`)
-        .then(response => response.json())
-        .then(json => {
+    try {
 
-            json = JSON.parse(json);
-            if (!json.error) {
-                const cookies = new Cookies();
-                cookies.set('entr_id',   json.userid,   { path: '/' });
-                cookies.set('entr_name', json.username, { path: '/' });
-                cookies.set('entr_hash', json.hashkey,  { path: '/' });
-            }
-            dispatch(loginComplete(json));
-        })
-        .catch(err => {  
-            console.log('Login error :', err);  
-        })
+        const response = await fetchJsonp(`{API.login}?username=${encodeURIComponent(params.username)}&password=${params.password}`)
+        let json = await response.json();
+
+        json = JSON.parse(json);
+        if (!json.error) {
+            const cookies = new Cookies();
+            cookies.set('entr_id', json.userid, { path: '/' });
+            cookies.set('entr_name', json.username, { path: '/' });
+            cookies.set('entr_hash', json.hashkey, { path: '/' });
+        }
+        dispatch(loginComplete(json));
+
+    } catch (err) {
+        console.error('Login error :', err);
+    }
 
 }
 

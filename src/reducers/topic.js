@@ -9,7 +9,8 @@ const topic = (state = defaultState, action) => {
         case 'REQUEST_TOPIC':
             return {
                 ...state,
-                isFetching: true
+                isFetching: true,
+                error: undefined
             }
         case 'RECEIVE_TOPIC':
             return {
@@ -17,7 +18,15 @@ const topic = (state = defaultState, action) => {
                 isFetching: false,
                 info: action.info,
                 items: action.items,
-                lastUpdated: action.receivedAt
+                lastUpdated: action.receivedAt,
+                error: undefined
+            }
+        case 'RECEIVE_TOPIC_FAILED':
+            return {
+                ...state,
+                isFetching: false,
+                lastUpdated: action.receivedAt,
+                error: action.error
             }
         case 'REQUEST_NEW_MESSAGES':
             return {
@@ -29,7 +38,7 @@ const topic = (state = defaultState, action) => {
             let info = state.info;
             if (action.items.length > 0) {
                 info.answers_count = action.items[action.items.length - 1].n;
-            }    
+            }
 
             return {
                 ...state,

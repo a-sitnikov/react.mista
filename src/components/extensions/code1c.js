@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './code1c.css'
 
 const keywords = new Set(
     "|if|если|then|тогда|elsif|иначеесли|else|иначе|endif|конецесли|do|цикл|for|для|to|по|each|каждого|in|из|while|пока|enddo|конеццикла|procedure|процедура|endprocedure|конецпроцедуры|function|функция|endfunction|конецфункции|var|перем|export|экспорт|goto|перейти|and|и|or|или|not|не|val|знач|break|прервать|continue|продолжить|return|возврат|try|попытка|except|исключение|endtry|конецпопытки|raise|вызватьисключение|false|ложь|true|истина|undefined|неопределено|null|new|новый|execute|выполнить|"

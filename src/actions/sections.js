@@ -13,16 +13,16 @@ export const receiveSections = (json) => ({
     receivedAt: Date.now()
 })
 
-export const fetchSections = (params) => dispatch => {
+export const fetchSections = (params) => async dispatch => {
 
     dispatch(requestSections());
 
-    fetchJsonp(API.sections) 
-        .then(response => response.json())
-        .then(json => {
-            const data = typeof(json) === 'string' ? JSON.parse(json) : json;
-            dispatch(receiveSections(data));
-        });
+    const response = await fetchJsonp(API.sections);
+    const json = await response.json();
+    
+    const data = typeof(json) === 'string' ? JSON.parse(json) : json;
+    dispatch(receiveSections(data));
+
 }
 
 const shouldfetchSections = (state) => {

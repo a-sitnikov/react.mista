@@ -1,33 +1,15 @@
 import React, { Component } from 'react'
 import activeHtml from 'react-active-html';
 
-import Code from './code1c'
+import Code from '../../extensions/code1c'
+import LinkToPost from '../../extensions/link_to_post'
+
 import VoteChart from './vote_chart'
-import { maxPage } from '../../../utils';
 
 const componentsMap = {
-    link: props => <LinkToPost {...props} />,
+    link: props => <LinkToPost topicId={props['data-topicid']} number={props['data-number']}  key={props.key}/>,
     code: props => <Code {...props} />
 };
-
-class LinkToPost extends Component {
-
-    render() {
-
-        const topicId = this.props['data-topicid'];
-        const number = this.props['data-number'];
-        
-        const page = maxPage(number);
-      
-        let pageParam = '';
-        if (page> 1)
-            pageParam = `&page=${page}`;
-
-        return (
-            <a href={`topic.php?id=${topicId}${pageParam}#${number}`}>{number}</a>
-        )
-    }
-}
 
 class MsgText extends Component {
 
@@ -59,6 +41,9 @@ class MsgText extends Component {
     
     processText(text) {
 
+        if (!text)
+            return text;
+
         text = this.processLinksToPosts(text);
         text = this.processCode1C(text);
         return text;
@@ -66,7 +51,6 @@ class MsgText extends Component {
 
     render() {
         const { data, info } = this.props;
-        const style = { padding: "10px", backgroundColor: "#FDFDFD" };
 
         const voteColors = {
             1: "#FF1616",
@@ -98,13 +82,13 @@ class MsgText extends Component {
         let textComponent = activeHtml(this.processText(data.text), componentsMap);
 
         return (
-            <td id={`tdmsg${data.n}`} className="leftbottomgray va-top " style={style}>
+            <div>
                 {voteChart}
                 <div>
                     {textComponent}
                 </div>
                 {voteElement}
-            </td>
+            </div>
         )
     }
 }

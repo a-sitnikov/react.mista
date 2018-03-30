@@ -10,7 +10,7 @@ export const receiveTopicsList = (data) => ({
     receivedAt: Date.now()
 })
 
-const fetchTopicsList = (params) => dispatch => {
+const fetchTopicsList = (params) => async dispatch => {
 
     dispatch(requestTopicsList())
 
@@ -30,12 +30,12 @@ const fetchTopicsList = (params) => dispatch => {
     if (params.mytopics)
         url.push(`&mytopics=${params.mytopics}`)
 
-    return fetch(url.join())
-        .then(response => response.json())
-        .then(json => {
-            let data = json.slice(-20);
-            return dispatch(receiveTopicsList(data))
-        })
+    const response = await fetch(url.join());
+    const json = await response.json();
+    
+    let data = json.slice(-20);
+    dispatch(receiveTopicsList(data));
+
 }
 
 const shouldFetchTopicsList = (state) => {

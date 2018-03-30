@@ -36,21 +36,3 @@ body {
     top: 50%;
     transform: translateY(-50%)
 }
-
-/* syntax highlights*/
-.bg
-{color: blue;}
-.num
-{color: black;}
-.str
-{color: black;}
-.par
-{color: brown;}
-.com
-{color: green;}
-.sp
-{color: red;}
-.pr
-{color: brown;}
-.key
-{color: red;}

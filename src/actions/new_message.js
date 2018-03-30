@@ -18,7 +18,7 @@ export const postNewMessageIfNeeded = (params) => (dispatch, getState) => {
     }
 }
 
-const postNewMessage = (params) => dispatch => {
+const postNewMessage = (params) => async dispatch => {
 
     dispatch({
         type: 'POST_NEW_MESSAGE_START'
@@ -35,17 +35,22 @@ const postNewMessage = (params) => dispatch => {
         fetchParams.push("voting_select=" + params.voting_select);
     }
 
-    fetch(API.postNewMessage, {
-        method: 'POST',
-        body: fetchParams.join('&'),
-        mode: 'no-cors',
-        credentials: 'include',
-    })
-        .then(response => {
-            dispatch({
-                type: 'POST_NEW_MESSAGE_COMPLETE'
-            });
-            if (params.onSuccess)
-                params.onSuccess();
-        })
+    try {
+        await fetch(API.postNewMessage, {
+            method: 'POST',
+            body: fetchParams.join('&'),
+            mode: 'no-cors',
+            credentials: 'include',
+        });
+
+        dispatch({
+            type: 'POST_NEW_MESSAGE_COMPLETE'
+        });
+
+        if (params.onSuccess)
+            params.onSuccess();
+
+    } catch (err) {
+        console.error("Faild post new message: " + err);
+    }
 }

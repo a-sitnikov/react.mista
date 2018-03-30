@@ -7,6 +7,7 @@ import bookmark from './bookmark'
 import banner from './banner'
 import newTopic from './new_topic'
 import newMessage from './new_message'
+import tooltips from './tooltips'
 
 const rootReducer = combineReducers({
     topicsList,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     banner,
     bookmark,
     newTopic,
-    newMessage
+    newMessage,
+    tooltips
 })
 
 export default rootReducer;

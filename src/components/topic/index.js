@@ -13,7 +13,7 @@ import { maxPage } from '../../utils';
 class Topic extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.onPostNewMessageSuccess = this.onPostNewMessageSuccess.bind(this);
     }
 
@@ -27,6 +27,7 @@ class Topic extends Component {
         this.params.page = this.page;
 
         dispatch(fetchTopicIfNeeded(this.params));
+
     }
 
     componentWillReceiveProps(props) {
@@ -50,7 +51,7 @@ class Topic extends Component {
     }
 
     render() {
-        const { login, info, items, bookmark } = this.props;
+        const { login, info, items, bookmark, error } = this.props;
         
         let columns = [
             { name: 'Автор', width: '165px' },
@@ -61,8 +62,18 @@ class Topic extends Component {
         if (login.userid)
             newMessage = <NewMessage info={info} onPostSuccess={this.onPostNewMessageSuccess}/>
 
+        let errorElem;
+        if (error)
+            errorElem = (
+                <div >
+                    <p className="error">ОШИБКА</p>
+                    <p className="error">{error.message}</p>
+                </div>    
+            )
+
         return (
             <div  >
+                {errorElem}
                 <Header info={info} currentPage={this.page} dispatch={this.props.dispatch}/>
                 <table id='table_messages' style={{width: "100%", margin: "10px auto 0px auto"}}>
                     <colgroup>
@@ -73,7 +84,7 @@ class Topic extends Component {
                     <tbody>
                         <TopicInfo info={info}/>
                         {items.map((item, i) => (
-                            <Row key={i} columns={columns} data={item} info={info}/>
+                            <Row key={item.n} columns={columns} k="2" data={item} info={info}/>
                         ))}
                     </tbody>
                 </table>
@@ -90,7 +101,8 @@ const mapStateToProps = state => {
         isFetching,
         lastUpdated,
         info,
-        items
+        items,
+        error
     } = state.topic || {
         isFetching: true,
         info: {},
@@ -103,7 +115,8 @@ const mapStateToProps = state => {
         items,
         isFetching,
         lastUpdated,
-        bookmark: state.bookmark
+        bookmark: state.bookmark,
+        error
     }
 }
 

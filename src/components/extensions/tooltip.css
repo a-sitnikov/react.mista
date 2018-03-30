@@ -1,0 +1,32 @@
+.tooltip-window {
+    position: absolute;
+    width: 650px;
+    border: 1px solid darkgray;
+}
+
+.tooltip-header {
+    /*cursor: move;*/
+    background: white;
+    padding: 4px;
+    border-bottom: 1px solid silver;
+    background-color: white; 
+}
+
+.tooltip-text {
+    padding: 4px;
+    background-color: #ffffe1;
+}
+
+.tooltip-close {
+    position: absolute;
+    top: 3px;
+    right: 6px;
+    display: block;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+
+.dragging {
+    cursor: move
+}
