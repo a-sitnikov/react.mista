@@ -1,5 +1,7 @@
 import { HashRouter, Switch, Route } from 'react-router-dom'
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+
 import TopicsList from './topics_list'
 import Topic from './topic'
 import SearchPage from './search_page'
@@ -9,8 +11,17 @@ class Container extends Component {
     constructor(props) {
 
         super(props);
+
+        this.onClick = this.onClick.bind(this);
         // for github pages
         window.hash = '#';
+    }
+
+    onClick() {
+        const { dispatch } = this.props;
+        dispatch({
+            type: 'CLEAR_TOOLTIPS'
+        });
     }
 
     render() {
@@ -26,7 +37,7 @@ class Container extends Component {
         if (window.hash)
 
             return (
-                <div className="container">
+                <div className="container" onClick={this.onClick}>
                     <HashRouter >
                         {routes}
                     </HashRouter >
@@ -35,7 +46,7 @@ class Container extends Component {
 
         else
             return (
-                <div className="container">
+                <div className="container" onClick={this.onClick}>
                     {routes}
                 </div >
             )
@@ -43,4 +54,4 @@ class Container extends Component {
 
 }
 
-export default Container;
+export default connect()(Container);
