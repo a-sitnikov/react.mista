@@ -79,7 +79,8 @@ class Footer extends Component {
             pages = <Pages info={info} currentPage={params.page} />
 
         let updateButton;
-        if (params.page === maxPage(info.answers_count) || params.page === 'last20')    
+        let page = params.page;
+        if (page === 'last20' || page === maxPage(info.answers_count) )    
             updateButton = <button id="refresh_button" type="button" className="sendbutton" onClick={this.onRefreshClick}>Обновить ветку</button>
 
         return (

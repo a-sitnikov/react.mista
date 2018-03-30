@@ -44,10 +44,23 @@ class Topic extends Component {
 
     updateTopic() {
        
-        const { dispatch, item0 } = this.props;
-        this.params = queryString.parse(this.location.search);
-        this.params.hash = this.location.hash;
+        let { dispatch, item0 } = this.props;
+        let params = queryString.parse(this.location.search);
+        params.hash = this.location.hash;
 
+        if (!params.page)
+            params.page = 1;
+
+        else if (params.page !== 'last20')  {
+            params.page = parseInt(this.params.page, 10)
+            if (isNaN(params.page))
+                params.page  = 1;
+        }  
+
+        if (params.id !== this.params.id)
+            item0 = undefined;
+
+        this.params = params;
         dispatch(fetchTopicIfNeeded(this.params, item0));
     }
 
