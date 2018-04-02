@@ -14,3 +14,17 @@
 {color: brown;}
 .key
 {color: red;}
+
+.button-div {
+    text-align: center;
+    margin-top: -10px;
+    font-size: 11px;
+}
+
+.button-span{
+   border: 1px dashed rgb(221, 221, 221);
+   cursor: pointer;
+   color: #999;
+   padding: 2px 5px;
+   background-color: white;
+}

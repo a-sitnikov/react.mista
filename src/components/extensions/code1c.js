@@ -313,8 +313,8 @@ class Code extends Component {
         let buttonShow;
         if (linesCount > 6)
             buttonShow = (
-                <div style={{textAlign: "center", marginTop: "-10px", fontSize: "11px"}}>
-                    <span style={{border: "1px dashed rgb(221, 221, 221)", cursor: "pointer", color: "#999", padding: "0px 5px 0px 5px"}} onClick={this.onShowClick}>{buttonText}</span>
+                <div className="button-div">
+                    <span className="button-span" onClick={this.onShowClick}>{buttonText}</span>
                 </div>    
             );
 

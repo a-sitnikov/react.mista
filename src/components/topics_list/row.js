@@ -1,6 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
-import { today, timeStr, dateTimeStr, maxPage } from '../../utils'
+import { today, timeStr, dateTimeStr, getMaxPage } from '../../utils'
 
 const TopicNameCell = (props) => {
 
@@ -55,11 +55,11 @@ const Pages = (props) => {
 
     let pages = [];
     if (answ > 100) {
-        let count = maxPage(answ);
-        for (let i = 1; i <= count; i++) {
+        let maxPage = getMaxPage(answ);
+        for (let i = 1; i <= maxPage; i++) {
             let href = `${window.hash}/topic.php?id=${topicId}&page=${i}`;
             let text;
-            if (i > 3 && i < count)
+            if (i > 3 && i < maxPage)
                 text = '•';
             else
                 text = i;

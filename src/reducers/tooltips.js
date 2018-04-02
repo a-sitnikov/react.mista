@@ -34,10 +34,13 @@ const tooltips = (state = defaultState, action) => {
                 items: state.items.filter(val => val.hash !== action.hash)
             }
         case 'CLEAR_TOOLTIPS':
-            return {
-                ...state,
-                items: []
-            }
+            if (state.items.length === 0)
+                return state
+            else     
+                return {
+                    ...state,
+                    items: []
+                }
 
         default:
             return state

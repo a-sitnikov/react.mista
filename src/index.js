@@ -6,6 +6,8 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 
 import thunk from 'redux-thunk'
+
+// eslint-disable-next-line 
 import { createLogger } from 'redux-logger'
 
 import reducer from './reducers'

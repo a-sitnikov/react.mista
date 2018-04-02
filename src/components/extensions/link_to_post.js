@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { showTooltip } from '../../actions/tooltips'
 
-import { maxPage } from '../../utils';
+import { getMaxPage } from '../../utils';
 
 class LinkToPost extends Component {
 
@@ -50,7 +50,7 @@ class LinkToPost extends Component {
     render() {
 
         const { topicId, number } = this.props;
-        const page = maxPage(number);
+        const page = getMaxPage(number);
 
         let pageParam = '';
         if (page > 1)

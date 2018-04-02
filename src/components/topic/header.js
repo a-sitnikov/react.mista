@@ -1,17 +1,24 @@
-import React, { Component } from 'react'
+// @flow
+import * as React from 'react'
 import { connect } from 'react-redux'
 
 import Login from '../login'
 
-class Header extends Component {
+type Props = {
+    info: { forum: string }
+}
+
+class Header extends React.Component<Props> {
 
     render() {
 
         const { info } = this.props;
+
         const forums = {
             '1c': '1С:Предприятие',
             'life': 'О жизни',
-            'it': 'Информационные технологии'
+            'it': 'Информационные технологии',
+            'job': 'Работа'
         };
 
         return (

@@ -26,7 +26,7 @@ class Tooltip extends Component {
 
     render() {
 
-        const { type, keys, data, coords, i } = this.props.data;
+        const { keys, data, coords, i } = this.props.data;
 
         let userInfo;
         if (!data.text) {

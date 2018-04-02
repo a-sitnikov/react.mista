@@ -79,6 +79,9 @@ class NewMessage extends Component {
 
         const { info, login, newMessage } = this.props;
 
+        if (!login.userid)
+            return null;
+
         let votingElem;
         if (info.is_voting) {
 
@@ -146,6 +149,7 @@ const mapStateToProps = state => {
 
     return {
         login: state.login,
+        info: state.topic.info,
         newMessage: state.newMessage
     };
 

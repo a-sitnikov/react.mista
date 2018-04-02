@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import TopicsList from './topics_list'
 import Topic from './topic'
 import SearchPage from './search_page'
+import { clearTooltipsIfNeeded } from '../actions/tooltips'
 
 class Container extends Component {
 
@@ -19,9 +20,7 @@ class Container extends Component {
 
     onClick() {
         const { dispatch } = this.props;
-        dispatch({
-            type: 'CLEAR_TOOLTIPS'
-        });
+        dispatch(clearTooltipsIfNeeded());
     }
 
     render() {

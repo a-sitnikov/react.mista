@@ -1,4 +1,4 @@
-import API from '../api'
+import * as API from '../api'
 import { encodeText } from '../utils';
 
 export const shouldPostNewMessage = (state) => {
@@ -24,24 +24,19 @@ const postNewMessage = (params) => async dispatch => {
         type: 'POST_NEW_MESSAGE_START'
     });
 
-    let fetchParams = [];
-    fetchParams.push("message_text=" + encodeText(params.text));
-    fetchParams.push("action=new");
-    fetchParams.push("topic_id=" + params.topicId);
-    fetchParams.push("user_name=" + encodeURIComponent(params.userName));
-    fetchParams.push("rnd=" + Math.round(Math.random() * 10000000));
+    let fetchParams = {
+        message_text: encodeText(params.text),
+        action: "new",
+        topic_id: params.topicId,
+        user_name: encodeURIComponent(params.userName),
+        rnd: Math.round(Math.random() * 10000000)    
+    };
 
-    if (params.voting_select) {
-        fetchParams.push("voting_select=" + params.voting_select);
-    }
+    if (params.voting_select)
+        fetchParams.voting_select = params.voting_select;
 
     try {
-        await fetch(API.postNewMessage, {
-            method: 'POST',
-            body: fetchParams.join('&'),
-            mode: 'no-cors',
-            credentials: 'include',
-        });
+        await API.postNewMessage(fetchParams);
 
         dispatch({
             type: 'POST_NEW_MESSAGE_COMPLETE'

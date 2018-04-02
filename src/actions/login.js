@@ -1,16 +1,15 @@
-import fetchJsonp from 'fetch-jsonp'
-import Cookies from 'universal-cookie';
+//@flow
+import * as API from '../api'
+import type { RequestLogin, ResponseLogin } from '../api'
 
-import API from '../api'
-
-export const loginStart = (json) => {
+export const loginStart = (json: any) => {
 
     return {
         type: 'LOGIN_START'
     }
 }
 
-export const loginComplete = (json) => {
+export const loginComplete = (json: ResponseLogin) => {
 
     return {
         type: 'LOGIN_COMPLETE',
@@ -29,19 +28,13 @@ const shouldLogin = (state) => {
     return true
 }
 
-export const checkLogin = (params) => async dispatch => {
+export const checkLogin = (params: any) => async (dispatch: any) => {
 
     dispatch({
         type: 'CHECK_LOGIN_START'
     });
 
-    const response = await fetchJsonp(API.cookies, {
-        mode: 'no-cors',
-        credentials: 'include'       
-    });
-    let json = await response.json();
-    json = typeof(json) === 'string' ? JSON.parse(json) : json;
-
+    const json = await API.getCookies();
     const { cookie, session } = json;
 
     if (session && session.user_id) {
@@ -54,22 +47,17 @@ export const checkLogin = (params) => async dispatch => {
     }
 }
 
-export const checkLoginIfNeeded = (params) => (dispatch, getState) => {
+export const checkLoginIfNeeded = (params: any) => (dispatch: any, getState: any) => {
     if (shouldLogin(getState())) {
         return dispatch(checkLogin(params))
     }
 }
 
-export const doLogout = (params) => dispatch => {
+export const doLogout = (params: any) => async (dispatch: any) => {
 
     dispatch({
         type: 'LOGOUT_START'
     });
-
-    const cookies = new Cookies();
-    cookies.remove('entr_id');
-    cookies.remove('entr_name');
-    cookies.remove('entr_hash');
 
     dispatch({
         type: 'LOGOUT_COMPLETE'
@@ -77,24 +65,18 @@ export const doLogout = (params) => dispatch => {
 
 }
 
-export const doLogin = (params) => async dispatch => {
+export const doLogin = (params: RequestLogin) => async (dispatch: any) => {
 
     dispatch(loginStart());
 
     try {
 
-        const response = await fetchJsonp(`{API.login}?username=${encodeURIComponent(params.username)}&password=${params.password}`)
-        let json = await response.json();
-
-        json = typeof(json) === 'string' ? JSON.parse(json) : json;
+        const json = await API.getLogin({
+            username: encodeURIComponent(params.username),
+            password: encodeURIComponent(params.password)    
+        })
         if (!json.error) {
             dispatch(loginComplete(json));
-            /*
-            const cookies = new Cookies();
-            cookies.set('entr_id', json.userid, { path: '/' });
-            cookies.set('entr_name', json.username, { path: '/' });
-            cookies.set('entr_hash', json.hashkey, { path: '/' });
-            */
         }
         dispatch(loginComplete(json));
 
@@ -104,7 +86,7 @@ export const doLogin = (params) => async dispatch => {
 
 }
 
-export const doLoginIfNeeded = (params) => (dispatch, getState) => {
+export const doLoginIfNeeded = (params: RequestLogin) => (dispatch: any, getState: any) => {
     if (shouldLogin(getState())) {
         return dispatch(doLogin(params))
     }

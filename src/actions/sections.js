@@ -1,27 +1,26 @@
-import fetchJsonp from 'fetch-jsonp'
-import API from '../api'
+//@flow
+import * as API from '../api'
+import type { ResponseSections } from '../api'
 import { groupBy } from '../utils'
 
 export const requestSections = () => ({
     type: 'REQUEST_SECTIONS'
 })
 
-export const receiveSections = (json) => ({
+export const receiveSections = (json: ResponseSections) => ({
     type: 'RECEIVE_SECTIONS',
     items: json,
     tree: groupBy(json, 'forum'),
     receivedAt: Date.now()
 })
 
-export const fetchSections = (params) => async dispatch => {
+export const fetchSections = (params: any) => async (dispatch: any) => {
 
     dispatch(requestSections());
 
-    const response = await fetchJsonp(API.sections);
-    const json = await response.json();
+    const json: ResponseSections = await API.getSections();
     
-    const data = typeof(json) === 'string' ? JSON.parse(json) : json;
-    dispatch(receiveSections(data));
+    dispatch(receiveSections(json));
 
 }
 
@@ -41,7 +40,7 @@ const shouldfetchSections = (state) => {
     return true
 }
 
-export const fetchSectionsIfNeeded = (params) => (dispatch, getState) => {
+export const fetchSectionsIfNeeded = (params: any) => (dispatch: any, getState: any) => {
     if (shouldfetchSections(getState())) {
       return dispatch(fetchSections(params));
     }

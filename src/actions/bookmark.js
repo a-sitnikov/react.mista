@@ -1,4 +1,4 @@
-import API from '../api'
+import * as API from '../api'
 
 export const addBookmark = (params) => async dispatch => {
 
@@ -7,7 +7,7 @@ export const addBookmark = (params) => async dispatch => {
     });
 
     try {
-        await fetch(API.addBookmark, {
+        await fetch(API.urlAddBookmark, {
             method: 'POST',
             body: JSON.stringify({ topic_id: params.id }),
             mode: 'no-cors',

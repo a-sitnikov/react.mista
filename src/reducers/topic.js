@@ -1,16 +1,28 @@
+//@flow 
+import type { ResponseInfo, ResponseMessages, ResponseMessage } from '../api'
+
+type State = {
+  isFetching: boolean;
+  info: ResponseInfo,
+  item0?: ResponseMessage,
+  items: ResponseMessages,
+  lastUpdated?: Date,
+  error?: ?string
+};
+
 const defaultState = {
     isFetching: false,
-    info: {},
+    info: {answers_count: "0"},
     items: []
 }
 
-const topic = (state = defaultState, action) => {
+const topic = (state: State = defaultState, action: any) => {
     switch (action.type) {
         case 'REQUEST_TOPIC':
             return {
                 ...state,
                 isFetching: true,
-                error: undefined
+                error: null
             }
         case 'RECEIVE_TOPIC':
             return {
@@ -20,7 +32,7 @@ const topic = (state = defaultState, action) => {
                 item0: action.item0,
                 items: action.items,
                 lastUpdated: action.receivedAt,
-                error: undefined
+                error: null
             }
         case 'RECEIVE_TOPIC_FAILED':
             return {

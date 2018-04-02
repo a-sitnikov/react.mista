@@ -8,7 +8,7 @@ import TopicInfo from './topic_info'
 import Row from './row'
 import Footer from './footer'
 import NewMessage from './new_message';
-import { maxPage } from '../../utils';
+import { getMaxPage } from '../../utils';
 
 class Topic extends Component {
 
@@ -68,7 +68,7 @@ class Topic extends Component {
 
         const { dispatch, info } = this.props;
 
-        const isLastPage = (this.params.page === 'last20' || this.params.page === maxPage(parseInt(info.answers_count, 10)));
+        const isLastPage = (this.params.page === 'last20' || this.params.page === getMaxPage(parseInt(info.answers_count, 10)));
 
         if (isLastPage)
             dispatch(fetchNewMessagesIfNeeded({
@@ -79,16 +79,12 @@ class Topic extends Component {
     }
 
     render() {
-        const { login, info, items, item0, error } = this.props;
+        const { info, items, item0, error } = this.props;
 
         let columns = [
             { name: 'Автор', width: '165px' },
             { name: 'Текст' }
         ];
-
-        let newMessage;
-        if (login.userid)
-            newMessage = <NewMessage info={info} onPostSuccess={this.onPostNewMessageSuccess} />
 
         let errorElem;
         if (error)
@@ -101,7 +97,7 @@ class Topic extends Component {
 
         let row0;
         if (item0)
-            row0 =  <Row key={item0.n} columns={columns} k="2" data={item0} info={info} author={item0.user}/>    
+            row0 =  <Row key='0' columns={columns} k="2" data={item0} info={info} author={item0.user}/>    
 
         return (
             <div  >
@@ -122,7 +118,7 @@ class Topic extends Component {
                     </tbody>
                 </table>
                 <Footer params={this.params} />
-                {newMessage}
+                <NewMessage onPostSuccess={this.onPostNewMessageSuccess} />
             </div>
         )
     }
