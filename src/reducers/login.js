@@ -1,4 +1,18 @@
-const login = (state = {}, action) => {
+//@flow 
+import type { LoginAction } from '../actions/login'
+
+export type LoginState = {
+  isFetching: boolean;
+  userid?: string,
+  username?: string,
+  hashkey?: string
+};
+
+export const defaultLoginState = {
+    isFetching: false
+}
+
+const login = (state: LoginState = defaultLoginState, action: LoginAction) => {
     switch (action.type) {
         case 'LOGIN_START':
             return {

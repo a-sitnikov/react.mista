@@ -1,5 +1,7 @@
-import React, { Component } from 'react'
+//@flow
+import * as React from 'react'
 import { connect } from 'react-redux'
+import type { Dispatch } from 'redux'
 
 import { fetchNewMessagesIfNeeded } from '../../actions/topic'
 import { addBookmark } from '../../actions/bookmark'
@@ -48,7 +50,18 @@ const Pages = (props) => {
 
 }
 
-class Footer extends Component {
+type FooterProps = {
+    info: any,
+    dispatch: Dispatch<*>,
+    bookmark: any,
+    isFetching: boolean,
+    params: any    
+}
+
+class Footer extends React.Component<FooterProps> {
+
+    onRefreshClick;
+    onBookmarkClick;
 
     constructor(props) {
         super(props);
@@ -88,7 +101,7 @@ class Footer extends Component {
                 <tbody>
                     <tr>
                         <td className="ta-left va-top" style={{ width: "50%" }}>
-                            <Pages maxPage={maxPage} currentPage={params.page} />
+                            <Pages maxPage={maxPage} currentPage={params.page} id={info.id}/>
                             <br />
                             <button id="bookmark" className="sendbutton" onClick={this.onBookmarkClick} disabled={bookmark.isFetching ? 'true' : ''}>{bookmark.isFetching ? 'Подождите...' : 'Закладка'}</button>
                         </td>

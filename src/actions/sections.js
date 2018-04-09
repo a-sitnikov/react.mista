@@ -1,30 +1,43 @@
 //@flow
 import * as API from '../api'
 import type { ResponseSections } from '../api'
-import { groupBy } from '../utils'
+import type { State } from '../reducers'
 
-export const requestSections = () => ({
+export type REQUEST_SECTIONS = {
+    type: 'REQUEST_SECTIONS',
+}
+
+export type RECEIVE_SECTIONS = {
+    type: 'RECEIVE_SECTIONS',
+    items: ResponseSections,
+    receivedAt: Date
+}
+
+export type SectionsAction = REQUEST_SECTIONS | RECEIVE_SECTIONS;
+
+export const requestSections = (): REQUEST_SECTIONS => ({
     type: 'REQUEST_SECTIONS'
 })
 
-export const receiveSections = (json: ResponseSections) => ({
+export const receiveSections = (json: ResponseSections): RECEIVE_SECTIONS => ({
     type: 'RECEIVE_SECTIONS',
     items: json,
-    tree: groupBy(json, 'forum'),
-    receivedAt: Date.now()
+    receivedAt: new Date()
 })
 
 export const fetchSections = (params: any) => async (dispatch: any) => {
 
-    dispatch(requestSections());
+    let action1 = requestSections();
+    dispatch(action1);
 
     const json: ResponseSections = await API.getSections();
     
-    dispatch(receiveSections(json));
+    let action2 = receiveSections(json);
+    dispatch(action2);
 
 }
 
-const shouldfetchSections = (state) => {
+const shouldfetchSections = (state: State): boolean => {
     
     const sections = state.sections;
     
@@ -40,7 +53,7 @@ const shouldfetchSections = (state) => {
     return true
 }
 
-export const fetchSectionsIfNeeded = (params: any) => (dispatch: any, getState: any) => {
+export const fetchSectionsIfNeeded = (params: {}) => (dispatch: any, getState: any) => {
     if (shouldfetchSections(getState())) {
       return dispatch(fetchSections(params));
     }

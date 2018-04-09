@@ -1,15 +1,44 @@
 //@flow
 import * as API from '../api'
 import type { RequestLogin, ResponseLogin } from '../api'
+import type { State } from '../reducers'
 
-export const loginStart = (json: any) => {
+export type LOGIN_START = {
+    type: 'LOGIN_START',
+}
+
+export type LOGIN_COMPLETE = {
+    type: 'LOGIN_COMPLETE',
+    data: {
+        error: string,
+        userid: string,
+        username: string,
+        hashkey: string        
+    }
+}
+
+export type CHECK_LOGIN_START = {
+    type: 'CHECK_LOGIN_START'
+}
+
+export type LOGOUT_START = {
+    type: 'LOGOUT_START'
+}
+
+export type LOGOUT_COMPLETE = {
+    type: 'LOGOUT_COMPLETE'
+}
+
+export type LoginAction = LOGIN_START | LOGIN_COMPLETE | CHECK_LOGIN_START | LOGOUT_START | LOGOUT_COMPLETE;
+
+export const loginStart = (): LOGIN_START => {
 
     return {
         type: 'LOGIN_START'
     }
 }
 
-export const loginComplete = (json: ResponseLogin) => {
+export const loginComplete = (json: ResponseLogin): LOGIN_COMPLETE => {
 
     return {
         type: 'LOGIN_COMPLETE',
@@ -17,8 +46,8 @@ export const loginComplete = (json: ResponseLogin) => {
     }
 }
 
-const shouldLogin = (state) => {
-    const login = state.login;
+const shouldLogin = (state: State): boolean => {
+    const { login } = state;
     if (!login) {
         return true
     }
@@ -30,21 +59,24 @@ const shouldLogin = (state) => {
 
 export const checkLogin = (params: any) => async (dispatch: any) => {
 
-    dispatch({
+    let action1: CHECK_LOGIN_START = {
         type: 'CHECK_LOGIN_START'
-    });
+    };
+    dispatch(action1);
 
     const json = await API.getCookies();
     const { cookie, session } = json;
 
     if (session && session.user_id) {
-        dispatch(loginComplete({
+        
+        let action2: LOGIN_COMPLETE = loginComplete({
             error: "",
             userid: session.user_id,
             username: session.user_name,
             hashkey: cookie.entr_hash
-        }));
-    }
+        });
+        dispatch(action2);
+   }
 }
 
 export const checkLoginIfNeeded = (params: any) => (dispatch: any, getState: any) => {

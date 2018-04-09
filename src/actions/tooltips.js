@@ -1,15 +1,50 @@
+//@flow
 import * as API from '../api'
-import { join } from '../utils'
+import type { State } from '../reducers'
 
-export const showTooltip = (params, coords, data) => async (dispatch) => {
+export type TooltipKeysTopic = {
+    type: 'TOPIC',
+    topicId: number,
+    number: number      
+}
 
-    if (params.type === 'TOPIC') {
+export type TooltipKeys = TooltipKeysTopic
+
+export type Coords = {
+    x: number, 
+    y: number    
+}
+
+export type TooltipItem = {
+    keys: TooltipKeys,
+    coords: Coords,
+    data: any
+}
+
+export type CREATE_TOOLTIP = {
+    type: 'CREATE_TOOLTIP',
+} & TooltipItem
+
+export type CLEAR_TOOLTIPS = {
+    type: 'CLEAR_TOOLTIPS',
+}
+
+export type CLOSE_TOOLTIP = {
+    type: 'CLOSE_TOOLTIP',
+    keys: TooltipKeys
+}
+
+export type TooltipsAction = CREATE_TOOLTIP | CLOSE_TOOLTIP | CLEAR_TOOLTIPS;
+
+export const showTooltip = (keys: TooltipKeys, coords: Coords, data: any) => async (dispatch: any) => {
+
+    if (keys.type === 'TOPIC') {
 
         if (!data) {
             const json = await API.getTopicMessages({
-                id: params.topicId,
-                from: +params.number,
-                to: +params.number + 1
+                id: keys.topicId,
+                from: +keys.number,
+                to: +keys.number + 1
             });
             if (json.length > 0)
                 data = json[0];
@@ -17,21 +52,25 @@ export const showTooltip = (params, coords, data) => async (dispatch) => {
                 data = {};
         }
 
-        dispatch({
+        const action: CREATE_TOOLTIP = {
             type: 'CREATE_TOOLTIP',
-            keys: params,
-            hash: join(params, '#'),
-            coords: coords,
+            keys,
+            coords,
             data
-        })
+        }
+        dispatch(action);
 
     }
 }
 
-export const clearTooltipsIfNeeded = (params) => (dispatch, getState) => {
-    const state = getState(); 
-    if (state.tooltips.items.length > 0)
-        dispatch({
+export const clearTooltipsIfNeeded = (params: {}) => (dispatch: any, getState: any) => {
+    const state: State = getState(); 
+    if (state.tooltips.items.length > 0) {
+        
+        const action: CLEAR_TOOLTIPS = {
             type: 'CLEAR_TOOLTIPS'
-        })
+        };
+        
+        dispatch(action);
+    }    
 }

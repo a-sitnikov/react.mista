@@ -1,7 +1,26 @@
+//@flow
 import * as API from '../api'
+import type { RequestNewMessage } from '../api'
+import type { State } from '../reducers'
+
 import { encodeText } from '../utils';
 
-export const shouldPostNewMessage = (state) => {
+export type POST_NEW_MESSAGE_START = {
+    type: 'POST_NEW_MESSAGE_START'
+}
+
+export type POST_NEW_MESSAGE_COMPLETE = {
+    type: 'POST_NEW_MESSAGE_COMPLETE'
+}
+
+export type NEW_MESSAGE_TEXT = {
+    type: 'NEW_MESSAGE_TEXT',
+    text: string
+}
+
+export type NewMessageAction = POST_NEW_MESSAGE_START | POST_NEW_MESSAGE_COMPLETE | NEW_MESSAGE_TEXT;
+
+export const shouldPostNewMessage = (state: State): boolean => {
     const newMessage = state.newMessage;
     if (!newMessage) {
         return false
@@ -12,19 +31,27 @@ export const shouldPostNewMessage = (state) => {
     return true
 }
 
-export const postNewMessageIfNeeded = (params) => (dispatch, getState) => {
+export type PostNewmessageParams = {
+    text: string,
+    topicId: string, 
+    userName: string,
+    voting_select?: number,
+    onSuccess?: () => void    
+}
+
+export const postNewMessageIfNeeded = (params: PostNewmessageParams) => (dispatch: any, getState: any) => {
     if (shouldPostNewMessage(getState())) {
         return dispatch(postNewMessage(params));
     }
 }
 
-const postNewMessage = (params) => async dispatch => {
+const postNewMessage = (params: PostNewmessageParams) => async (dispatch: any) => {
 
     dispatch({
         type: 'POST_NEW_MESSAGE_START'
     });
 
-    let fetchParams = {
+    let fetchParams: RequestNewMessage = {
         message_text: encodeText(params.text),
         action: "new",
         topic_id: params.topicId,
@@ -46,6 +73,6 @@ const postNewMessage = (params) => async dispatch => {
             params.onSuccess();
 
     } catch (err) {
-        console.error("Faild post new message: " + err);
+        console.error("Failed to post new message: " + err);
     }
 }

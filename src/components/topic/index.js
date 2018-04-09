@@ -1,7 +1,13 @@
+//@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import queryString from 'query-string'
 import { fetchTopicIfNeeded, fetchNewMessagesIfNeeded } from '../../actions/topic'
+
+import type { DefaultProps, Location } from '../../components'
+import type { ResponseInfo, ResponseMessage, ResponseMessages } from '../../api'
+import type { State } from '../../reducers'
+import { defaultTopicState } from '../../reducers/topic'
 
 import Header from './header'
 import TopicInfo from './topic_info'
@@ -10,81 +16,106 @@ import Footer from './footer'
 import NewMessage from './new_message';
 import { getMaxPage } from '../../utils';
 
-class Topic extends Component {
+type TopicLocationParams = {
+    id: string,
+    page?: string,
+}
+
+type Column = {
+    name: string,
+    width?: string
+}
+
+type TopicProps = {
+    info: ResponseInfo,
+    item0?: ResponseMessage,
+    items: ResponseMessages,
+    error?: any
+}
+
+type Props = {
+    fetchTopicIfNeeded: any,
+    fetchNewMessagesIfNeeded: any
+} & DefaultProps & TopicProps
+
+class Topic extends Component<Props> {
+
+    onPostNewMessageSuccess;
+    updateTopic;
+    locationParams: TopicLocationParams;
+    location: Location;
+    columns: Array<Column>;
 
     constructor(props) {
         super(props);
         this.onPostNewMessageSuccess = this.onPostNewMessageSuccess.bind(this);
         this.updateTopic = this.updateTopic.bind(this);
-        this.params = {};
+        this.locationParams = {id: ''};
+        
+        this.columns = [
+            { name: 'Автор', width: '165px' },
+            { name: 'Текст' }
+        ];
+        
     }
 
     componentDidMount() {
 
-        const { dispatch } = this.props;
-
         this.location = this.props.location;
-        this.updateTopic(dispatch);
+        this.updateTopic();
 
     }
 
-    componentWillReceiveProps(props) {
+    componentWillReceiveProps(props: Props) {
         
         if (props.info.text && document.title !== props.info.text) {
             document.title = props.info.text;
         }
 
-        const { dispatch, location } = props;
-
-        if (this.location.search !== location.search) {
-            this.location = location;
-            this.updateTopic(dispatch);
+        if (this.location.search !== props.location.search) {
+            this.location = props.location;
+            this.updateTopic();
         }
     }
 
     updateTopic() {
        
-        let { dispatch, item0 } = this.props;
-        let params = queryString.parse(this.location.search);
-        params.hash = this.location.hash;
+        let { fetchTopicIfNeeded, item0 } = this.props;
+        let locationParams = queryString.parse(this.location.search);
+        locationParams.hash = this.location.hash;
 
-        if (!params.page)
-            params.page = 1;
+        if (!locationParams.page)
+            locationParams.page = 1;
 
-        else if (params.page !== 'last20')  {
-            params.page = parseInt(this.params.page, 10)
-            if (isNaN(params.page))
-                params.page  = 1;
+        else if (locationParams.page !== 'last20')  {
+            locationParams.page = parseInt(this.locationParams.page, 10);
+            if (isNaN(locationParams.page))
+                locationParams.page  = 1;
         }  
 
-        if (params.id !== this.params.id)
-            item0 = undefined;
+        if (locationParams.id !== this.locationParams.id)
+            item0 = null;
 
-        this.params = params;
-        dispatch(fetchTopicIfNeeded(this.params, item0));
+        this.locationParams = locationParams;
+        fetchTopicIfNeeded(this.locationParams, item0);
     }
 
     onPostNewMessageSuccess() {
 
-        const { dispatch, info } = this.props;
+        const { fetchNewMessagesIfNeeded, info } = this.props;
 
-        const isLastPage = (this.params.page === 'last20' || this.params.page === getMaxPage(parseInt(info.answers_count, 10)));
+        const isLastPage = (this.locationParams.page === 'last20' || this.locationParams.page === getMaxPage(parseInt(info.answers_count, 10)));
 
         if (isLastPage)
-            dispatch(fetchNewMessagesIfNeeded({
+            fetchNewMessagesIfNeeded({
                 id: info.id,
                 last: parseInt(info.answers_count, 10)
-            }));
+            });
 
     }
 
     render() {
-        const { info, items, item0, error } = this.props;
-
-        let columns = [
-            { name: 'Автор', width: '165px' },
-            { name: 'Текст' }
-        ];
+        const { items, item0, error } = this.props;
 
         let errorElem;
         if (error)
@@ -95,36 +126,32 @@ class Topic extends Component {
                 </div>
             )
 
-        let row0;
-        if (item0)
-            row0 =  <Row key='0' columns={columns} k="2" data={item0} info={info} author={item0.user}/>    
-
         return (
             <div  >
                 {errorElem}
-                <Header currentPage={this.page} />
+                <Header currentPage={this.locationParams.page} />
                 <table id='table_messages' style={{ width: "100%", margin: "10px auto 0px auto" }}>
                     <colgroup>
-                        {columns.map((item, i) => (
+                        {this.columns.map((item, i) => (
                             <col key={i} style={{ width: item.width }} />
                         ))}
                     </colgroup>
                     <tbody>
                         <TopicInfo />
-                        {row0}
+                        <Row key='0' columns={this.columns} data={item0}/>
                         {items.map((item, i) => (
-                            <Row key={item.n} columns={columns} k="2" data={item} info={info} author={item0.user}/>
+                            <Row key={item.n} columns={this.columns} data={item}/>
                         ))}
                     </tbody>
                 </table>
-                <Footer params={this.params} />
+                <Footer params={this.locationParams} />
                 <NewMessage onPostSuccess={this.onPostNewMessageSuccess} />
             </div>
         )
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: State): TopicProps => {
 
     const {
         isFetching,
@@ -133,12 +160,7 @@ const mapStateToProps = state => {
         item0,
         items,
         error
-    } = state.topic || {
-        isFetching: true,
-        info: {},
-        item0: undefined,
-        items: []
-    }
+    } = state.topic || defaultTopicState;
 
     return {
         login: state.login,
@@ -151,4 +173,9 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Topic);
+const mapDispatchToProps = (dispatch) => ({
+    fetchTopicIfNeeded: (...params) => dispatch(fetchTopicIfNeeded(...params)),
+    fetchNewMessagesIfNeeded: (...params) => dispatch(fetchNewMessagesIfNeeded(...params))   
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Topic);

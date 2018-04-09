@@ -1,7 +1,9 @@
 //@flow 
+import { defaultInfo } from '../api'
 import type { ResponseInfo, ResponseMessages, ResponseMessage } from '../api'
+import type { TopicAction } from '../actions/topic'
 
-type State = {
+export type TopicState = {
   isFetching: boolean;
   info: ResponseInfo,
   item0?: ResponseMessage,
@@ -10,13 +12,13 @@ type State = {
   error?: ?string
 };
 
-const defaultState = {
+export const defaultTopicState = {
     isFetching: false,
-    info: {answers_count: "0"},
+    info: defaultInfo,
     items: []
 }
 
-const topic = (state: State = defaultState, action: any) => {
+const topic = (state: TopicState = defaultTopicState, action: TopicAction) => {
     switch (action.type) {
         case 'REQUEST_TOPIC':
             return {

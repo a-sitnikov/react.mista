@@ -1,7 +1,18 @@
-const topicsList = (state = {
+//@flow
+import type { TopicsListAction } from '../actions/topics_list'
+
+export type TopicsListState = {
+  isFetching: boolean;
+  items: any,
+  lastUpdated?: Date,
+};
+
+export const defaultTopicsListState = {
     isFetching: false,
     items: []
-}, action) => {
+}
+
+const topicsList = (state: TopicsListState = defaultTopicsListState, action: TopicsListAction) => {
     switch (action.type) {
         case 'REQUEST_TOPICS_LIST':
             return {

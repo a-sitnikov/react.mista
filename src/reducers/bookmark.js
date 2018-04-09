@@ -1,4 +1,15 @@
-const bookmark = (state = {}, action) => {
+//@flow
+import type { AddBookmarkAction } from '../actions/bookmark'
+
+export type BookmarkState = {
+  isFetching: boolean
+};
+
+export const defaultBookmarkState = {
+  isFetching: false
+};
+
+const bookmark = (state: BookmarkState = defaultBookmarkState, action: AddBookmarkAction) => {
     switch (action.type) {
         case 'ADD_BOOKMARK_START':
             return {

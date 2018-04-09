@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import UserInfo from './user_info'
 import MsgText from './msg_text'
@@ -7,6 +8,9 @@ class Row extends Component {
 
     render() {
         const { columns, data, info, author } = this.props;
+
+        if (!data)
+            return null;
 
         let cells = [];
         let i = 0;
@@ -44,4 +48,20 @@ class Row extends Component {
     }
 }
 
-export default Row;
+const mapStateToProps = state => {
+
+    const {
+        info,
+        item0,
+    } = state.topic || {
+        info: {},
+        item0: {},
+    }
+
+    return {
+        info,
+        author: item0 ? item0.user : ''
+    }
+}
+
+export default connect(mapStateToProps)(Row);

@@ -53,8 +53,8 @@ export type VoteItem = {
 }
 
 export type ResponseInfo = {
-    id?: string,
-    text?: string,
+    id: string,
+    text: string,
     forum?: string,
     section?: string,
     created?: string,
@@ -68,6 +68,12 @@ export type ResponseInfo = {
     voting?: Array<VoteItem>
 }
 
+export const defaultInfo = {
+    id: "",
+    text: "",
+    answers_count: ""
+}
+
 export const getTopicInfo = async (params: RequestInfo): Promise<ResponseInfo> =>  {
     const json = await fetchJsonpAndGetJson(urlTopicInfo, params);
     return json;
@@ -76,7 +82,7 @@ export const getTopicInfo = async (params: RequestInfo): Promise<ResponseInfo> =
 
 // Topic messages
 export type RequestMessages = {
-    id:    string, // идентификатор (topic_id) темы
+    id:    number | string, // идентификатор (topic_id) темы
     from?: number, // с какого сообщения. если не указан, то с первого
     to?:   number  // до какого сообщения. если не указан, то from+10
 }
@@ -164,7 +170,8 @@ export type RequestNewMessage = {
     action:       "new", 
     topic_id:     string,
     user_name:    string,
-    rnd:          number    
+    rnd:          number,
+    voting_select?: number    
 }
 
 export const postNewMessage = async (params: RequestNewMessage): Promise<any> =>  {
@@ -176,6 +183,20 @@ export const postNewMessage = async (params: RequestNewMessage): Promise<any> =>
     });
 } 
 
+
+//Bookmark
+export type RequestBookmark = {
+    id: string
+}
+
+export const postBookmark = async (params: RequestBookmark) => {
+    await fetch(urlAddBookmark, {
+        method: 'POST',
+        body: paramsToString('', params),
+        mode: 'no-cors',
+        credentials: 'include',
+    });
+}
 
 const paramsToString = (first: string, params: ?{}): string => {
 
@@ -200,20 +221,4 @@ export const fetchJsonpAndGetJson = async (url: string, params: any): Promise<an
     const responseJson = await response.json();
     const json = typeof(responseJson) === 'string' ? JSON.parse(responseJson) : responseJson;
     return json;
-}
-
-export const fetchJsonpArrayAndGetJson = async (arr: Array<{ url: string, params: any }>): Promise<Array<any>> => {
-
-    const responseArr = await Promise.all(
-        arr
-            .map(item => `${domain}/${item.url}${paramsToString('?', item.params)}`)
-            .map(url => fetchJsonp(url))
-    );
-
-    const responseJsonArr = await Promise.all(
-        responseArr
-            .map(response => response.json)
-    );    
-
-    return responseJsonArr.map(responseJson => typeof(responseJson) === 'string' ? JSON.parse(responseJson) : responseJson);
 }

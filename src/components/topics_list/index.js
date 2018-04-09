@@ -1,56 +1,81 @@
+//@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import queryString from 'query-string'
+
+import type { State } from '../../reducers'
+import type { DefaultProps, Location } from '../../components'
+
+import { defaultTopicsListState } from '../../reducers/topics_list'
 import { fetchTopicsListIfNeeded } from '../../actions/topics_list'
-import { fetchSectionsIfNeeded } from '../../actions/sections'
 import Title from './title'
 import Header from './header'
 import Row from './row'
 import Footer from './footer'
 import NewTopic from './new_topic'
 
-class TopicsList extends Component {
+type TopicsListProps = {
+    topicsList: any,
+    sections: any,
+    login: any
+}
 
-    constructor(props) {
+type Props = {
+    fetchTopicsListIfNeeded: any
+} & DefaultProps & TopicsListProps;
+
+type Column = {
+    name: string,
+    className?: string,
+    width?: string
+}
+
+class TopicsList extends Component<Props> {
+    
+    updateTopicsList: () => void;
+    columns: Array<Column>;
+    location: Location;
+    page: string;
+
+    constructor(props: Props) {
         super(props);
         this.updateTopicsList = this.updateTopicsList.bind(this);
-    }
-
-    componentDidMount() {
-        const { dispatch } = this.props;
-
-        this.location = this.props.location;
-        this.updateTopicsList(dispatch);
-        dispatch(fetchSectionsIfNeeded());
-    }
-
-    componentWillReceiveProps(props) {
-        const { dispatch, location } = props;
-
-        if (this.location.search !== location.search) {
-            this.location = location;
-            this.updateTopicsList(dispatch);
-        }
-    }
-
-    updateTopicsList(dispatch) {
-        
-        const queryParams = queryString.parse(this.location.search);
-        dispatch(fetchTopicsListIfNeeded(queryParams));
-    }
-
-    sendNewPopic(e, text) {
-
-    }
-
-    render() {
-        let columns = [
+        this.columns = [
             { name: 'Раздел', className: 'cc', width: '50px' },
             { name: 'Re', className: 'cc', width: '30px' },
             { name: 'Тема', className: 'ct' },
             { name: 'Автор', className: 'cl', width: '120px' },
             { name: 'Обновлено', className: 'cl', width: '150px' }
         ]
+    }
+
+    componentDidMount() {
+        this.location = this.props.location;
+        this.updateTopicsList();
+    }
+
+    componentWillReceiveProps(props: Props) {
+        const { location } = props;
+
+        if (this.location.search !== location.search) {
+            this.location = location;
+            this.updateTopicsList();
+        }
+    }
+
+    updateTopicsList() {
+        
+        const { fetchTopicsListIfNeeded } = this.props;       
+
+        const locationParams = queryString.parse(this.location.search);
+        fetchTopicsListIfNeeded(locationParams);
+    }
+
+    sendNewTopic(e, text) {
+
+    }
+
+    render() {
 
         const { topicsList, sections, login } = this.props;
 
@@ -60,16 +85,16 @@ class TopicsList extends Component {
                 <Header history={this.props.history} />
                 <table id='tm' style={{width: "100%", margin: "10px auto 0px auto"}}>
                     <colgroup>
-                        {columns.map((item, i) => (
+                        {this.columns.map((item, i) => (
                             <col key={i} className={item.className} style={{ width: item.width }} />
                         ))}
                     </colgroup>
                     <tbody>
                         <tr>
-                            {columns.map((item, i) => (<th key={i}>{item.name}</th>))}
+                            {this.columns.map((item, i) => (<th key={i}>{item.name}</th>))}
                         </tr>
                         {topicsList.items.map((item, i) => (
-                            <Row key={i} data={item} columns={columns} login={login}/>
+                            <Row key={i} data={item} columns={this.columns} login={login}/>
                         ))}
                     </tbody>
                     <tfoot>
@@ -77,20 +102,24 @@ class TopicsList extends Component {
                 </table>
                 <Footer page={this.page} />
                 <br />
-                <NewTopic sections={sections.items} onSend={this.sendNewPopic}/>
+                <NewTopic sections={sections.items} onSend={this.sendNewTopic}/>
             </div>
         )
     }
 }
 
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: State): TopicsListProps => {
 
     return {
-        topicsList: state.topicsList || { items: [] },
+        topicsList: state.topicsList || defaultTopicsListState,
         sections: state.sections || { items: [] },
         login: state.login || {}
     }
 }
 
-export default connect(mapStateToProps)(TopicsList);
+const mapDispatchToProps = (dispatch) => ({
+    fetchTopicsListIfNeeded: (...params) => dispatch(fetchTopicsListIfNeeded(...params)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopicsList);

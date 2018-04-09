@@ -1,7 +1,17 @@
+//@flow
+import type { NewMessageAction } from '../actions/new_message'
 
-const newTopic = (state = {
-    isFetching: false
-}, action) => {
+export type NewMessageState = {
+    isFetching: boolean;
+    text: string
+};
+
+export const defaultNewMessageState = {
+    isFetching: false,
+    text: ''
+}
+
+const newMessage = (state: NewMessageState = defaultNewMessageState, action: NewMessageAction) => {
     switch (action.type) {
         case 'POST_NEW_MESSAGE_START':
             return {
@@ -23,4 +33,4 @@ const newTopic = (state = {
     }
 }
 
-export default newTopic;
+export default newMessage;

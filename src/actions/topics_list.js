@@ -1,18 +1,31 @@
 //@flow
 import * as API from '../api'
 import type { RequestTopicsList, ResponseTopicsList } from '../api'
+import type { State } from '../reducers'
 
-export const requestTopicsList = () => ({
+export type REQUEST_TOPICS_LIST = {
+    type: 'REQUEST_TOPICS_LIST'
+}
+
+export type RECEIVE_TOPICS_LIST = {
+    type: 'RECEIVE_TOPICS_LIST',
+    items: ResponseTopicsList,
+    receivedAt: Date
+}
+
+export type TopicsListAction = REQUEST_TOPICS_LIST | RECEIVE_TOPICS_LIST;
+
+export const requestTopicsList = (): REQUEST_TOPICS_LIST => ({
     type: 'REQUEST_TOPICS_LIST'
 })
 
-export const receiveTopicsList = (data: ResponseTopicsList) => ({
+export const receiveTopicsList = (data: ResponseTopicsList): RECEIVE_TOPICS_LIST => ({
     type: 'RECEIVE_TOPICS_LIST',
     items: data,
-    receivedAt: Date.now()
+    receivedAt: new Date()
 })
 
-const fetchTopicsList = (params) => async (dispatch: any) => {
+const fetchTopicsList = (params: any) => async (dispatch: any) => {
 
     dispatch(requestTopicsList())
 
@@ -41,7 +54,7 @@ const fetchTopicsList = (params) => async (dispatch: any) => {
 
 }
 
-const shouldFetchTopicsList = (state) => {
+const shouldFetchTopicsList = (state: State) => {
     const topicsList = state.topicsList;
     if (!topicsList) {
         return true
