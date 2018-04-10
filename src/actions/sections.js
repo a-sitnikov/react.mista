@@ -25,7 +25,7 @@ export const receiveSections = (json: ResponseSections): RECEIVE_SECTIONS => ({
     receivedAt: new Date()
 })
 
-export const fetchSections = (params: any) => async (dispatch: any) => {
+export const fetchSections = () => async (dispatch: any) => {
 
     let action1 = requestSections();
     dispatch(action1);
@@ -53,8 +53,8 @@ const shouldfetchSections = (state: State): boolean => {
     return true
 }
 
-export const fetchSectionsIfNeeded = (params: {}) => (dispatch: any, getState: any) => {
+export const fetchSectionsIfNeeded = () => (dispatch: any, getState: any) => {
     if (shouldfetchSections(getState())) {
-      return dispatch(fetchSections(params));
+      return dispatch(fetchSections());
     }
   }

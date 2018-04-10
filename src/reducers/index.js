@@ -18,12 +18,16 @@ import type { BookmarkState } from './bookmark'
 
 import banner from './banner'
 import newTopic from './new_topic'
+import type { NewTopicState } from './new_topic'
 
 import newMessage from './new_message'
 import type { NewMessageState } from './new_message'
 
 import tooltips from './tooltips'
 import type { TooltipsState } from './tooltips'
+
+import search from './search'
+import type { SearchState } from './search'
 
 export type State = {
     topicsList: TopicsListState,
@@ -32,9 +36,10 @@ export type State = {
     login: LoginState,
     banner: any,
     bookmark: BookmarkState,
-    newTopic: any,
+    newTopic: NewTopicState,
     newMessage: NewMessageState,
-    tooltips: TooltipsState        
+    tooltips: TooltipsState,
+    search: SearchState        
 }
 
 const rootReducer = combineReducers({
@@ -46,7 +51,8 @@ const rootReducer = combineReducers({
     bookmark,
     newTopic,
     newMessage,
-    tooltips
+    tooltips,
+    search
 })
 
 export default rootReducer;

@@ -94,7 +94,7 @@ class Footer extends React.Component<FooterProps> {
         let updateButton;
         let page = params.page || 1;
         if (page === 'last20' || page === maxPage )    
-            updateButton = <button id="refresh_button" type="button" className="sendbutton" onClick={this.onRefreshClick}>{isFetching ? 'Обновляется': 'Обновить ветку'}</button>
+            updateButton = <button id="refresh_button" type="button" className="button" onClick={this.onRefreshClick}>{isFetching ? 'Обновляется': 'Обновить ветку'}</button>
 
         return (
             <table id="F" className="center-97">
@@ -103,7 +103,7 @@ class Footer extends React.Component<FooterProps> {
                         <td className="ta-left va-top" style={{ width: "50%" }}>
                             <Pages maxPage={maxPage} currentPage={params.page} id={info.id}/>
                             <br />
-                            <button id="bookmark" className="sendbutton" onClick={this.onBookmarkClick} disabled={bookmark.isFetching ? 'true' : ''}>{bookmark.isFetching ? 'Подождите...' : 'Закладка'}</button>
+                            <button id="bookmark" className="button" onClick={this.onBookmarkClick} disabled={bookmark.isFetching ? 'true' : ''}>{bookmark.isFetching ? 'Подождите...' : 'Закладка'}</button>
                         </td>
                         <td className="ta-right va-middle" style={{ height: "30px" }}>
                             <span className="return-string">

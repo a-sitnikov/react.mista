@@ -1,16 +1,39 @@
+//@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+
+import type { ResponseSection } from '../../api'
+
+import type { DefaultProps } from '../../components'
+import type { State } from '../../reducers'
+import type { SectionsState } from '../../reducers/sections'
+import type { NewTopicState } from '../../reducers/new_topic'
+
 import { fetchSectionsIfNeeded } from '../../actions/sections'
 import { postNewTopicIfNeeded } from '../../actions/new_topic'
-import SectionSelect from './section_select'
-import TextEditor from '../text_editor'
+import type { postNewTopicParams } from '../../actions/new_topic'
 
-class NewTopic extends Component {
+import SectionSelect from './section_select'
+import TextEditor from '../core/text_editor'
+import ErrorElem from '../core/error'
+
+type NewTopicProps = {
+    sections: SectionsState, 
+    newTopic: NewTopicState
+};
+
+type Props = NewTopicProps & DefaultProps;
+
+class NewTopic extends Component<Props> {
+
+    onSectionChange: (e: any, section: ResponseSection) => void;
+    onSend: (e: any, text: string) => void;
+    currentSection: ResponseSection | null;
 
     constructor(props) {
         super(props);
+        this.onSectionChange = this.onSectionChange.bind(this);
         this.onSend = this.onSend.bind(this);
-        this.inputs = {};
     }
 
     componentDidMount() {
@@ -18,12 +41,61 @@ class NewTopic extends Component {
         dispatch(fetchSectionsIfNeeded());
     }
 
-    onSend(e, text) {
+    onSectionChange(e, section) {
+        this.currentSection = section;
         const { dispatch } = this.props;
+        dispatch({
+            type: 'NEW_TOPIC_FORUM',
+            data: section.forum
+        });
+    }
 
-        const params = {
-            text
+    onSend(e, text) {
+        const { dispatch, newTopic } = this.props;
+
+        if (!this.currentSection) {
+            dispatch({
+                type: 'POST_NEW_TOPIC_ERROR',
+                error: 'Не выбрана секция'
+            });
+            return;
+        }
+
+        let subject = this.refs.subject.value; 
+        if (!subject) {
+            dispatch({
+                type: 'POST_NEW_TOPIC_ERROR',
+                error: 'Не указана тема'
+            });
+            return;
+        }
+
+        if (!text) {
+            dispatch({
+                type: 'POST_NEW_TOPIC_ERROR',
+                error: 'Не указано сообщение'
+            });
+            return;
+        }
+        
+        let params: postNewTopicParams = {
+            subject,
+            text,
+            section: this.currentSection.id,
+            forum: this.currentSection.forum,
+            isVoting: newTopic.isVoting,
+            votingItems: []
         };
+
+        if (newTopic.isVoting) {
+            params.votingItems = [];
+            for (let i = 1; i <= 10; i++) {
+                let val = this.refs[`vote${i}`].value;
+                if (val) {
+                    params.votingItems.push(val);
+                }
+            }           
+        }
 
         dispatch(postNewTopicIfNeeded(params));
     }
@@ -52,11 +124,12 @@ class NewTopic extends Component {
         }
 
         return (
-            <div id="F" className="newtopic" style={{ marginLeft: '3%',/* float: 'left ',*/ position: 'relative' }}>
+            <div id="F" className="newtopic" style={{ marginLeft: '3%', position: 'relative' }}>
                 <p><b>Новая тема:</b></p>
                 <div style={{ display: "flex" }}>
                     <div id="newtopic_form" style={{ felex: 0, marginRight: "10px" }}>
-                        <select name="target_forum" id="target_forum" className="fieldbasic" ref="forum">
+                        <ErrorElem text={newTopic.error} />
+                        <select name="target_forum" id="target_forum" className="fieldbasic" value={newTopic.forum} readOnly={true} ref="forum">
                             {groupsElem}
                         </select>
                         <SectionSelect
@@ -65,12 +138,13 @@ class NewTopic extends Component {
                             name="target_section"
                             className="fieldbasic"
                             style={{ width: "40.4em" }}
+                            onChange={this.onSectionChange}
                         />
                         <br />
                         <input placeholder="Тема" id="topic_text" name="topic_text" maxLength="90"
                             className="fieldbasic"
                             style={{ width: "44em", type: "text" }}
-                            ref={el => this.inputs.topic_text = el}
+                            ref='subject'
                         />
                         <br />
                         <TextEditor
@@ -89,7 +163,7 @@ class NewTopic extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: State): NewTopicProps => {
 
     return {
         sections: state.sections,

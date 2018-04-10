@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-class SearchPage extends Component {
+class FindPage extends Component {
 
     constructor(props) {
         super(props);
@@ -27,4 +27,4 @@ const mapStateToProps = state => {
 
 }
 
-export default connect(mapStateToProps)(SearchPage);
+export default connect(mapStateToProps)(FindPage);

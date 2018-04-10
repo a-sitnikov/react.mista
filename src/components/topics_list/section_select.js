@@ -1,8 +1,33 @@
+//@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchSectionsIfNeeded } from '../../actions/sections'
 
-class SectionSelect extends Component {
+import type { ResponseSection, ResponseSections } from '../../api'
+
+import type { DefaultProps } from '../../components'
+import type { State } from '../../reducers'
+
+type SectionSelectProps = {
+    defaultValue: string,
+    selected: string,
+    className: string,
+    id: string,
+    name: string,
+    style?: {},
+    onChange: (e: any, section: ResponseSection | null) => void
+}
+
+type StateProps = {
+    items: ResponseSections,
+    tree: {}
+}
+
+type Props = SectionSelectProps & StateProps & DefaultProps;
+
+class SectionSelect extends Component<Props> {
+
+    onChange;
 
     constructor(props) {
         super(props);
@@ -24,7 +49,7 @@ class SectionSelect extends Component {
             if (arr.length > 0) 
                 onChange(event, arr[0]);
             else    
-                onChange(event, undefined);
+                onChange(event, null);
         }    
     }
 
@@ -56,7 +81,7 @@ class SectionSelect extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: State): StateProps => {
 
     const { items, tree } = state.sections;
 

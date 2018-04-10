@@ -9,7 +9,9 @@ export const urlLogin         = 'ajax_login.php';
 export const urlCookies       = 'ajax_cookie.php';
 export const urlSections      = 'ajax_getsectionslist.php';
 export const urlNewMessage    = 'ajax_newmessage.php';
+export const urlNewTopic      = 'index.php';
 export const urlAddBookmark   = 'ajax_addbookmark.php';
+export const urlSearch        = 'ajax_find.php';
 
 // Topics list
 export type RequestTopicsList = {
@@ -24,14 +26,19 @@ export type RequestTopicsList = {
 
 export type ResponseTopicsListItem = {
     id: number,
-    closed: number,
-    down: number,
+    forum: string,
     sect1: string,
     sect2: string,
     v8: string,
+    closed: number,
+    down: number,
     text: string,
-    answ: number,
-    user0: string
+    utime: number,
+    created: number,
+    user: string,
+    user0: string,
+    is_voting: number,
+    answ: number
 }
 
 export type ResponseTopicsList = Array<ResponseTopicsListItem>;
@@ -153,7 +160,8 @@ export type ResponseSection = {
     id: number,
     forum: string,
     shortn: string,
-    fulln: string
+    fulln: string,
+    id: number
 }
 
 export type ResponseSections = Array<ResponseSection>;
@@ -171,11 +179,43 @@ export type RequestNewMessage = {
     topic_id:     string,
     user_name:    string,
     rnd:          number,
-    voting_select?: number    
+    voting_select?: number,
+    as_admin?: boolean    
 }
 
 export const postNewMessage = async (params: RequestNewMessage): Promise<any> =>  {
     await fetch(urlNewMessage, {
+        method: 'POST',
+        body: paramsToString('', params),
+        mode: 'no-cors',
+        credentials: 'include',
+    });
+} 
+
+
+// New topic
+export type RequestNewTopic = {
+    action:         "new", 
+    rnd:            number,
+    topic_text:     string,
+    message_text:   string,
+    target_section: string, 
+    target_forum:   string,
+    voting:         number,
+    select1?:       string,    
+    select2?:       string,    
+    select3?:       string,    
+    select4?:       string,    
+    select5?:       string,    
+    select6?:       string,    
+    select7?:       string,    
+    select8?:       string,    
+    select9?:       string,    
+    select10?:      string
+}
+
+export const postNewTopic = async (params: RequestNewTopic): Promise<any> =>  {
+    await fetch(urlNewTopic, {
         method: 'POST',
         body: paramsToString('', params),
         mode: 'no-cors',
@@ -190,7 +230,28 @@ export type RequestBookmark = {
 }
 
 export const postBookmark = async (params: RequestBookmark) => {
+
     await fetch(urlAddBookmark, {
+        method: 'POST',
+        body: paramsToString('', params),
+        mode: 'no-cors',
+        credentials: 'include',
+    });
+}
+
+
+//Search
+export type RequestSearch = {
+    keywords: string
+}
+
+export type ResponseSearch = {
+
+}
+
+export const postSearch = async (params: RequestSearch) => {
+
+    await fetch(`${domain}/${urlSearch}`, {
         method: 'POST',
         body: paramsToString('', params),
         mode: 'no-cors',

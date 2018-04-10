@@ -5,11 +5,13 @@ export type TopicsListState = {
   isFetching: boolean;
   items: any,
   lastUpdated?: Date,
+  previewItems: {}
 };
 
 export const defaultTopicsListState = {
     isFetching: false,
-    items: []
+    items: [],
+    previewItems: {}
 }
 
 const topicsList = (state: TopicsListState = defaultTopicsListState, action: TopicsListAction) => {
@@ -26,7 +28,21 @@ const topicsList = (state: TopicsListState = defaultTopicsListState, action: Top
                 items: action.items,
                 lastUpdated: action.receivedAt
             }
-        default:
+         case 'SHOW_PREVIEW':
+
+            let previewItem = state.previewItems[action.topicId];
+            if (previewItem === undefined)
+                state.previewItems[action.topicId] = {n: 0, text: ''};    
+            return {
+                ...state,
+            }
+         case 'CLOSE_PREVIEW': {
+            delete state.previewItems[action.topicId];
+            return {
+                ...state
+            }
+         }
+         default:
             return state
     }
 }

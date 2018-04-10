@@ -6,7 +6,7 @@ body {
 
 .container {
     width: 97%;
-    margin: 20px auto 0px auto  
+    margin: 18px auto 0px auto  
 }
 
 .flex-row{
@@ -35,4 +35,30 @@ body {
     position: absolute;
     top: 50%;
     transform: translateY(-50%)
+}
+
+.button {
+    background: #f7f7f6;
+    color: #000;
+    box-shadow: 0 1px 3px #bbb;
+    border: 1px solid #bbb;
+    border-radius: 3px;
+    margin-right: 5px;
+    height: 19px;
+}
+
+.button:hover:not([disabled=""]) {
+    border-color: #eee #888 #888 #eee;
+}
+
+.button:disabled {
+    color: #888;    
+}
+
+.theme-yellow {
+    background-image: url("https://forum.mista.ru/css/fon_forum.gif");
+}
+
+.theme-lightgray {
+    background-image: url("https://forum.mista.ru/css/white_carbon.png");
 }

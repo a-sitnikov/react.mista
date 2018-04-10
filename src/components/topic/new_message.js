@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import TextEditor from '../text_editor'
+import TextEditor from '../core/text_editor'
 import { postNewMessageIfNeeded } from '../../actions/new_message'
 
 class NewMessage extends Component {

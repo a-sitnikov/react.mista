@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import TopicsList from './topics_list'
 import Topic from './topic'
-import SearchPage from './search_page'
+import FindPage from './find_page'
 import { clearTooltipsIfNeeded } from '../actions/tooltips'
 
 class Container extends Component {
@@ -30,7 +30,7 @@ class Container extends Component {
                 <Route exact path='/' component={TopicsList} />
                 <Route path='/index.php' component={TopicsList} />
                 <Route path='/topic.php' component={Topic} />
-                <Route path='/find.php' component={SearchPage} />
+                <Route path='/find.php' component={FindPage} />
             </Switch>
 
         if (window.hash)

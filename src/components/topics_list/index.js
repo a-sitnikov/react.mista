@@ -8,8 +8,10 @@ import type { DefaultProps, Location } from '../../components'
 
 import { defaultTopicsListState } from '../../reducers/topics_list'
 import { fetchTopicsListIfNeeded } from '../../actions/topics_list'
+
 import Title from './title'
 import Header from './header'
+import SearchResults from './search_results'
 import Row from './row'
 import Footer from './footer'
 import NewTopic from './new_topic'
@@ -77,12 +79,13 @@ class TopicsList extends Component<Props> {
 
     render() {
 
-        const { topicsList, sections, login } = this.props;
+        const { topicsList, sections } = this.props;
 
         return (
             <div>
                 <Title />
                 <Header history={this.props.history} />
+                <SearchResults />
                 <table id='tm' style={{width: "100%", margin: "10px auto 0px auto"}}>
                     <colgroup>
                         {this.columns.map((item, i) => (
@@ -94,7 +97,7 @@ class TopicsList extends Component<Props> {
                             {this.columns.map((item, i) => (<th key={i}>{item.name}</th>))}
                         </tr>
                         {topicsList.items.map((item, i) => (
-                            <Row key={i} data={item} columns={this.columns} login={login}/>
+                            <Row key={i} data={item} columns={this.columns} preview={topicsList.previewItems[item.id]}/>
                         ))}
                     </tbody>
                     <tfoot>

@@ -1,7 +1,27 @@
+//@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-class TextEditor extends Component {
+import type { DefaultProps } from '../index'
+
+type TextEditorProps = {
+    placeholder: string,
+    showVoting: boolean,
+    text: string,
+    isFetching: boolean,
+    onChange: (e: any, text: string) => void,   
+    onSend: (e: any, text: string) => void   
+}
+
+type Props = TextEditorProps & DefaultProps;
+
+class TextEditor extends Component<Props> {
+
+    onButtonCode1c;
+    onSendClick;
+    onVotingChange;
+    onChange;
+    refs: {text: any, voting: any};
 
     constructor(props) {
         super(props);
@@ -59,11 +79,6 @@ class TextEditor extends Component {
 
         const { placeholder, showVoting, isFetching, text } = this.props;
 
-        const buttonStyle = {
-            height: "19px",
-            marginRight: "5px"
-        }
-
         let voting;
         if (showVoting)
             voting = (
@@ -87,14 +102,13 @@ class TextEditor extends Component {
                     onChange={this.onChange}
                 />
                 <div>
-                    <button name="code1C" type="button" className="sendbutton" style={buttonStyle} onClick={this.onButtonCode1c}>Код 1С</button>
+                    <button name="code1C" type="button" className="button" onClick={this.onButtonCode1c}>Код 1С</button>
                     <button
                         name="Submit"
                         type="button"
                         id="Submit"
                         disabled={isFetching}
-                        className="sendbutton"
-                        style={buttonStyle}
+                        className="button"
                         onClick={this.onSendClick}>
                         {isFetching ? 'Отпарвляется' : 'Отправить'}
                     </button>
