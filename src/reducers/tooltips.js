@@ -10,11 +10,11 @@ export type TooltipsState = {
     items: Array<TooltipItemState>
 };
 
-export const defaultState = {
+export const defaultTooltipsState = {
     items: []
 }
 
-const tooltips = (state: TooltipsState = defaultState, action: TooltipsAction) => {
+const tooltips = (state: TooltipsState = defaultTooltipsState, action: TooltipsAction) => {
     let hash: string;
     switch (action.type) {
         case 'CREATE_TOOLTIP':

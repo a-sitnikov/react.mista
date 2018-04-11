@@ -29,6 +29,9 @@ import type { TooltipsState } from './tooltips'
 import search from './search'
 import type { SearchState } from './search'
 
+import topicPreview from './topic_preview'
+import type { TopicPreviewState } from './topic_preview'
+
 export type State = {
     topicsList: TopicsListState,
     sections: SectionsState,
@@ -39,7 +42,8 @@ export type State = {
     newTopic: NewTopicState,
     newMessage: NewMessageState,
     tooltips: TooltipsState,
-    search: SearchState        
+    search: SearchState,
+    topicPreview: TopicPreviewState        
 }
 
 const rootReducer = combineReducers({
@@ -52,7 +56,8 @@ const rootReducer = combineReducers({
     newTopic,
     newMessage,
     tooltips,
-    search
+    search,
+    topicPreview
 })
 
 export default rootReducer;

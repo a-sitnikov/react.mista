@@ -7,7 +7,7 @@ import MsgText from './msg_text'
 class Row extends Component {
 
     render() {
-        const { columns, data, info, author } = this.props;
+        const { columns, data, author, topicId } = this.props;
 
         if (!data)
             return null;
@@ -30,7 +30,7 @@ class Row extends Component {
 
                 value = (
                     <td  key={column.name} id={`tdmsg${data.n}`} className="leftbottomgray va-top " style={style}>
-                        <MsgText key={i} data={data} info={info} />
+                        <MsgText key={i} data={data} topicId={topicId}/>
                     </td>
                 )
             }
@@ -59,7 +59,7 @@ const mapStateToProps = state => {
     }
 
     return {
-        info,
+        topicId: info.id,
         author: item0 ? item0.user : ''
     }
 }

@@ -8,11 +8,14 @@ import type { State } from '../../../reducers'
 
 import { defaultLoginState } from '../../../reducers/login'
 import type { LoginState } from '../../../reducers/login'
+
+import { defaultTopicPreviewState } from '../../../reducers/topic_preview'
+import type { TopicPreviewState } from '../../../reducers/topic_preview'
 import type { DefaultProps } from '../../index'
 
 import Pages from './pages';
 import PreviewLink from './preview_link'
-import Preview from './topic_preview'
+import TopicPreview from './topic_preview'
 
 type TopicNameCellProps = {
     column: any, 
@@ -22,6 +25,7 @@ type TopicNameCellProps = {
 
 type StateProps = {
     login: LoginState,
+    topicPreview: TopicPreviewState
 };
 
 type Props = TopicNameCellProps & StateProps & DefaultProps;
@@ -34,7 +38,7 @@ class TopicNameCell extends Component<Props> {
 
     render() {
 
-        const { column, data, login, preview } = this.props;
+        const { column, data, login, topicPreview } = this.props;
 
         let href = `${window.hash}/topic.php?id=${data.id}`;
         let classes = classNames('agb', {
@@ -68,15 +72,20 @@ class TopicNameCell extends Component<Props> {
         else if (data.sect2 === 'v7' && data.text.substr(0, 2) !== 'v7')
             data.text = 'v7: ' + data.text;
 
+        let previewElem;
+        const previewItem = topicPreview.items[String(data.id)];
+        if (previewItem)
+            previewElem = <TopicPreview topicId={data.id} data={previewItem}/>
+
         return (
             <td className={column.className}>
-                <PreviewLink topicId={data.id} preview={preview}/>
+                <PreviewLink topicId={data.id} expanded={previewItem === undefined ? false: true}/>
                 <a href={href} className={classes} style={{ marginRight: "5px", }} target="_blank" dangerouslySetInnerHTML={{ __html: data.text }}></a>
                 {isVoting}
                 <Pages answ={data.answ} topicId={data.id} />
                 {closed}
                 {section}
-                <Preview topicId={data.id} data={preview}/>
+                {previewElem}
             </td>
         )
 
@@ -86,7 +95,8 @@ class TopicNameCell extends Component<Props> {
 const mapStateToProps = (state: State): StateProps => {
 
     return {
-        login: state.login || defaultLoginState
+        login: state.login || defaultLoginState,
+        topicPreview: state.topicPreview || defaultTopicPreviewState
     }
 }
 

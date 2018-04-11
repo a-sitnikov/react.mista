@@ -6,7 +6,7 @@ import type { DefaultProps } from '../../index'
 
 type PreviewLinkProps = {
     topicId: string,
-    preview: any
+    expanded: boolean
 };
 
 type Props = PreviewLinkProps & DefaultProps;
@@ -21,25 +21,19 @@ class PreviewLink extends Component<Props> {
     }
 
     onClick() {
-        const { topicId, dispatch, preview } = this.props;
+        const { topicId, dispatch, expanded } = this.props;
 
-        if (preview)
-            dispatch({
-                type: 'CLOSE_PREVIEW',
-                topicId 
-            });
-        else
-            dispatch({
-                type: 'SHOW_PREVIEW',
-                topicId 
-            });
+        dispatch({
+            type: expanded ? 'CLOSE_PREVIEW' : 'SHOW_PREVIEW',
+            topicId 
+        });
     }
 
     render() {
 
-        const { preview } = this.props;
+        const { expanded } = this.props;
         let text;
-        if (preview)
+        if (expanded)
             text = '-'
         else
             text = '+'    

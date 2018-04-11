@@ -1,3 +1,4 @@
+//@flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
@@ -7,26 +8,42 @@ import MsgText from '../topic/row/msg_text'
 import UserInfo from '../topic/row/user_info';
 import './tooltip.css'
 
-class Tooltip extends Component {
+import { closeTooltip } from '../../actions/tooltips'
+
+import type { DefaultProps } from '../index'
+import type { TooltipItemState } from '../../reducers/tooltips'
+
+type TooltipProps = {
+    tooltip: TooltipItemState
+}
+
+type Props = TooltipProps & DefaultProps;
+
+class Tooltip extends Component<Props> {
+
+    onCloseClick;
 
     constructor(props) {
         super(props);
         this.onCloseClick = this.onCloseClick.bind(this);
+    }
 
-        this.state = { key: 0, isDragging: false };
+    componentDidMount() {
+
+    }
+
+    componentWillReceiveProps(props: Props) {
+
     }
 
     onCloseClick() {
-        const { dispatch, data } = this.props;
-        dispatch({
-            type: 'CLOSE_TOOLTIP',
-            hash: data.hash
-        });
+        const { dispatch, tooltip } = this.props;
+        dispatch(closeTooltip(tooltip.keys));
     }
 
     render() {
 
-        const { keys, data, coords, i } = this.props.data;
+        const { keys, data, coords, i } = this.props.tooltip;
 
         let userInfo;
         if (!data.text) {
@@ -58,33 +75,4 @@ class Tooltip extends Component {
     }
 }
 
-class TooltipsList extends Component {
-
-    render() {
-
-        const { items, dispatch } = this.props;
-
-        return (
-            <div>
-                {items.map((item, i) => (
-                    <Tooltip key={item.hash} data={item} dispatch={dispatch} />
-                ))}
-            </div>
-        )
-    }
-}
-
-const mapStateToProps = state => {
-
-    const {
-        items
-    } = state.tooltips || {
-        items: []
-    }
-
-    return {
-        items,
-    }
-}
-
-export default connect(mapStateToProps)(TooltipsList);
+export default connect()(Tooltip);

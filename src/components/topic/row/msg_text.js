@@ -1,4 +1,6 @@
+//@flow
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import activeHtml from 'react-active-html';
 
 import Code from '../../extensions/code1c'
@@ -6,16 +8,34 @@ import LinkToPost from '../../extensions/link_to_post'
 
 import VoteChart from './vote_chart'
 
+import { defaultTopicState } from '../../../reducers/topic'
+
+import type { ResponseInfo, ResponseMessage } from '../../../api'
+import type { DefaultProps } from '../../index'
+import type { State } from '../../../reducers'
+
+type MsgTextProps = {
+    topicId: string,
+    data: ResponseMessage,
+    style: {}
+}
+
+type StateProps = {
+    info: ResponseInfo
+}
+
+type Props = MsgTextProps & StateProps & DefaultProps;
+
 const componentsMap = {
     link: props => <LinkToPost topicId={props['data-topicid']} number={props['data-number']}  key={props.key}/>,
     code: props => <Code {...props} />
 };
 
-class MsgText extends Component {
+class MsgText extends Component<Props> {
 
-    processLinksToPosts(text) {
+    processLinksToPosts(text: string): string {
 
-        const topicId = this.props.info.id;
+        const { topicId } = this.props;
 
         const regexp = /(\()(\d+)(\))/g; // (12)
         return text.replace(regexp, (res, ...segments) => {
@@ -24,7 +44,7 @@ class MsgText extends Component {
         });
     }
 
-    processCode1C(text) {
+    processCode1C(text: string): string {
 
         const regexp = /(\[1C\])((.|\n)*?)(\[\/1C\])/g; // [1C] text [/1C]
 
@@ -39,7 +59,7 @@ class MsgText extends Component {
         });
     }
     
-    processText(text) {
+    processText(text: ?string): ?string {
 
         if (!text)
             return text;
@@ -50,23 +70,22 @@ class MsgText extends Component {
     }
 
     render() {
-        const { data, info } = this.props;
+        const { data, info, style } = this.props;
 
-        const voteColors = {
-            1: "#FF1616",
-            2: "#1A861A",
-            3: "#0023FF",
-            4: "#FF6B18",
-            5: "#9B3A6E",
-            6: "#567655",
-            7: "#233345",
-            8: "#CC0000",
-            9: "#00CCCC",
-            10: "#0000CC"
-        };
+        const voteColors: {[number]: string} = {};
+        voteColors[1] = "#FF1616";
+        voteColors[2] = "#1A861A";
+        voteColors[3] = "#0023FF";
+        voteColors[4] = "#FF6B18";
+        voteColors[5] = "#9B3A6E";
+        voteColors[6] = "#567655";
+        voteColors[7] = "#233345";
+        voteColors[8] = "#CC0000";
+        voteColors[9] = "#00CCCC";
+        voteColors[10] = "#0000CC";
 
         let voteElement;
-        if (data.vote) {
+        if (data.vote && info.voting) {
             let voteText = `${data.vote}. ${info.voting[data.vote - 1].select}`;
             voteElement =
                 <div><br />
@@ -82,7 +101,7 @@ class MsgText extends Component {
         let textComponent = activeHtml(this.processText(data.text), componentsMap);
 
         return (
-            <div>
+            <div style={{...style}}>
                 {voteChart}
                 <div>
                     {textComponent}
@@ -93,4 +112,15 @@ class MsgText extends Component {
     }
 }
 
-export default MsgText;
+const mapStateToProps = (state: State): StateProps => {
+
+    const { 
+        info
+    } = state.topic || defaultTopicState;
+
+    return {
+        info
+    }
+}
+
+export default connect(mapStateToProps)(MsgText);

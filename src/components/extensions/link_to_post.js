@@ -23,7 +23,7 @@ class LinkToPost extends Component {
         clearTimeout(this.timer);
     }
 
-    showToolTip(e) {
+   showToolTip(e) {
         const { topicId, number, dispatch, items, info } = this.props;
 
         const coords = {
@@ -34,6 +34,7 @@ class LinkToPost extends Component {
         if (topicId === info.id) {
             data = items.find(value => String(number) === value.n);
         }
+
         const keys = {
             type: 'TOPIC',
             topicId,
@@ -57,7 +58,7 @@ class LinkToPost extends Component {
             pageParam = `&page=${page}`;
 
         return (
-            <a href={`topic.php?id=${topicId}${pageParam}#${number}`}
+            <a href={`${window.hash}/topic.php?id=${topicId}${pageParam}#${number}`}
                 onMouseOver={this.onMouseOver}
                 onMouseOut={this.onMouseOut}
             >{number}</a>

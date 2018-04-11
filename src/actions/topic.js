@@ -112,6 +112,8 @@ export const fetchTopic = (params: any, item0: ?ResponseMessage) => async (dispa
     try {
         const jsonArr = await Promise.all(queries);
 
+        // info, item0, items 
+        // info , items
         let info: ResponseInfo = jsonArr[0];
         let _item0, _items;
         if (item0) {
@@ -119,7 +121,10 @@ export const fetchTopic = (params: any, item0: ?ResponseMessage) => async (dispa
             _items = jsonArr[1];
         } else {
             _item0 = jsonArr[1][0];
-            _items = jsonArr[1].slice(1);
+            if (jsonArr.length === 3)
+                _items = jsonArr[2];
+            else    
+                _items = jsonArr[1].slice(1);
         }
 
         dispatch(receiveTopic(info, _item0, _items));

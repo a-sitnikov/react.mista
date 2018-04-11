@@ -88,9 +88,9 @@ class Topic extends Component<Props> {
             locationParams.page = 1;
 
         else if (locationParams.page !== 'last20')  {
-            locationParams.page = parseInt(this.locationParams.page, 10);
+            locationParams.page = parseInt(locationParams.page, 10);
             if (isNaN(locationParams.page))
-                locationParams.page  = 1;
+                locationParams.page = 1;
         }  
 
         if (locationParams.id !== this.locationParams.id)

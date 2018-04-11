@@ -97,7 +97,7 @@ class TopicsList extends Component<Props> {
                             {this.columns.map((item, i) => (<th key={i}>{item.name}</th>))}
                         </tr>
                         {topicsList.items.map((item, i) => (
-                            <Row key={i} data={item} columns={this.columns} preview={topicsList.previewItems[item.id]}/>
+                            <Row key={i} data={item} columns={this.columns}/>
                         ))}
                     </tbody>
                     <tfoot>

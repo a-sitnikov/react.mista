@@ -51,7 +51,6 @@ export const showTooltip = (keys: TooltipKeys, coords: Coords, data: any) => asy
             else
                 data = {};
         }
-
         const action: CREATE_TOOLTIP = {
             type: 'CREATE_TOOLTIP',
             keys,
@@ -61,6 +60,13 @@ export const showTooltip = (keys: TooltipKeys, coords: Coords, data: any) => asy
         dispatch(action);
 
     }
+}
+
+export const closeTooltip = (keys: TooltipKeys) => (dispatch: any) => {
+    dispatch({
+        type: 'CLOSE_TOOLTIP',
+        keys
+    });
 }
 
 export const clearTooltipsIfNeeded = (params: {}) => (dispatch: any, getState: any) => {
