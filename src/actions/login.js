@@ -1,7 +1,7 @@
 //@flow
-import * as API from '../api'
-import type { RequestLogin, ResponseLogin } from '../api'
-import type { State } from '../reducers'
+import * as API from 'src/api'
+import type { RequestLogin, ResponseLogin } from 'src/api'
+import type { State } from 'src/reducers'
 
 export type LOGIN_START = {
     type: 'LOGIN_START',

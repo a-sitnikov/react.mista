@@ -1,6 +1,17 @@
+//@flow
 import React from 'react'
 
-const VoteItem = (props) => {
+import type { ResponseVoteItem } from 'src/api'
+
+type Props = {
+    topicId: string,
+    data: ResponseVoteItem,
+    colors: {},    
+    total: number,
+    n: number
+}
+
+const VoteItem = (props: Props) => {
 
     const { topicId, data, total, n, colors } = props;
 

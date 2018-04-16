@@ -1,5 +1,5 @@
 //@flow
-import type { TooltipItem, TooltipsAction } from '../actions/tooltips'
+import type { TooltipItem, TooltipsAction } from 'src/actions/tooltips'
 
 export type TooltipItemState = {
     i: number,

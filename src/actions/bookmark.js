@@ -1,6 +1,6 @@
 //@flow
-import * as API from '../api'
-import type { RequestBookmark } from '../api'
+import * as API from 'src/api'
+import type { RequestBookmark } from 'src/api'
 
 export type ADD_BOOKMARK_START = {
     type: 'ADD_BOOKMARK_START'

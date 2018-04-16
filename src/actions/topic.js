@@ -1,8 +1,8 @@
 //@flow
-import * as API from '../api'
+import * as API from 'src/api'
 import type { Dispatch } from 'redux'
 
-import type { ResponseInfo, ResponseMessage, ResponseMessages } from '../api'
+import type { ResponseInfo, ResponseMessage, ResponseMessages } from 'src/api'
 
 export type REQUEST_TOPIC = {
     type: 'REQUEST_TOPIC'

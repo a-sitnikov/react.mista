@@ -1,11 +1,12 @@
 //@flow 
-import type { LoginAction } from '../actions/login'
+import type { LoginAction } from 'src/actions/login'
 
 export type LoginState = {
   isFetching: boolean;
   userid?: string,
   username?: string,
-  hashkey?: string
+  hashkey?: string,
+  error?: string
 };
 
 export const defaultLoginState = {

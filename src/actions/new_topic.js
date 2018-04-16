@@ -1,9 +1,10 @@
 //@flow
 import * as API from '../api'
-import type { RequestNewTopic } from '../api'
-import type { State } from '../reducers'
+import type { RequestNewTopic } from 'src/api'
+import type { State } from 'src/reducers'
+import type { ResponseSection } from 'src/api'
 
-import { encodeText } from '../utils';
+import { encodeText } from 'src/utils';
     
 export type postNewTopicParams = {
     subject: string,
@@ -11,7 +12,8 @@ export type postNewTopicParams = {
     section: number,
     forum: string,
     isVoting: boolean,
-    votingItems?: Array<string>
+    votingItems?: Array<string>,
+    onSuccess?: () => void
 };
 
 export type POST_NEW_TOPIC_START = {
@@ -32,17 +34,27 @@ export type NEW_TOPIC_TEXT = {
     text: string
 }
 
+export type NEW_TOPIC_SUBJECT = {
+    type: 'NEW_TOPIC_SUBJECT',
+    text: string
+}
+
+export type NEW_TOPIC_CLEAR = {
+    type: 'NEW_TOPIC_CLEAR'
+}
+
 export type NEW_TOPIC_SHOW_VOTING = {
     type: 'SHOW_VOTING',
     data: boolean
 }
 
-export type NEW_TOPIC_FORUM = {
-    type: 'NEW_TOPIC_FORUM',
-    data: string
+export type NEW_TOPIC_SECTION = {
+    type: 'NEW_TOPIC_SECTION',
+    section: ResponseSection
 }
 
-export type NewTopicAction = POST_NEW_TOPIC_START | POST_NEW_TOPIC_COMPLETE | POST_NEW_TOPIC_ERROR | NEW_TOPIC_TEXT | NEW_TOPIC_SHOW_VOTING | NEW_TOPIC_FORUM;
+export type NewTopicAction = POST_NEW_TOPIC_START | POST_NEW_TOPIC_COMPLETE | POST_NEW_TOPIC_ERROR | 
+    NEW_TOPIC_CLEAR | NEW_TOPIC_TEXT | NEW_TOPIC_SUBJECT| NEW_TOPIC_SHOW_VOTING | NEW_TOPIC_SECTION;
 
 export const shouldPostNewTopic = (state: State): boolean => {
     const newTopic = state.newTopic;
@@ -84,11 +96,11 @@ const postNewTopic = (params: postNewTopicParams) => async (dispatch: any) => {
     /*
     await API.postNewTopic(fetchParams);
     */
-    setTimeout(() => {
+    
     dispatch({
         type: 'POST_NEW_TOPIC_COMPLETE'
-    })
-},
-    2000)
+    });
 
+    if (params.onSuccess)
+          params.onSuccess();    
 }

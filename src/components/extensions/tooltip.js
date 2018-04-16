@@ -8,10 +8,10 @@ import MsgText from '../topic/row/msg_text'
 import UserInfo from '../topic/row/user_info';
 import './tooltip.css'
 
-import { closeTooltip } from '../../actions/tooltips'
+import { closeTooltip } from 'src/actions/tooltips'
 
-import type { DefaultProps } from '../index'
-import type { TooltipItemState } from '../../reducers/tooltips'
+import type { DefaultProps } from 'src/index'
+import type { TooltipItemState } from 'src/reducers/tooltips'
 
 type TooltipProps = {
     tooltip: TooltipItemState
@@ -50,7 +50,7 @@ class Tooltip extends Component<Props> {
             data.text = 'Сообщение не найдено';
             userInfo = <b>Заголовок</b>
         } else {
-            userInfo = <UserInfo data={data}/>
+            userInfo = <UserInfo data={data} isAuthor={false}/>
         }   
 
         return (
@@ -64,7 +64,7 @@ class Tooltip extends Component<Props> {
                         {userInfo}
                     </div>
                     <div className="tooltip-text" onClick={this.onCloseClick}>
-                        <MsgText data={data} info={{ id: keys.topicId }} />
+                        <MsgText data={data} topicId={keys.topicId} />
                     </div>
                     <span className="tooltip-close" onClick={this.onCloseClick}>
                         <b> x </b>

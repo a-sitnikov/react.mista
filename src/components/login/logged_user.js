@@ -1,14 +1,27 @@
+//@flow
 import React, { Component } from 'react'
-import { doLogout } from '../../actions/login'
+import { connect } from 'react-redux'
+import { doLogout } from 'src/actions/login'
 
-class LoggedUser extends Component {
+import type { DefaultProps } from 'src/components'
 
-    constructor(props) {
+type LoggedUserProps = {
+    userId: string,
+    userName: string    
+}
+
+type Props = LoggedUserProps & DefaultProps;
+
+class LoggedUser extends Component<Props> {
+
+    onLogout;
+
+    constructor(props: Props) {
         super(props);
         this.onLogout = this.onLogout.bind(this);
     }
     
-    onLogout(event) {
+    onLogout(event: any) {
 
         event.preventDefault();
 
@@ -21,7 +34,7 @@ class LoggedUser extends Component {
         const { userId, userName } = this.props;
         return (
             <div style={{float: "left"}}>
-                Привет, <a id="me" rel="nofollow" href={`users.php?id=${userId}`}>{userName}</a>
+                Привет, <a id="me" rel="nofollow" href={`${window.hash}/users.php?id=${userId}`}>{userName}</a>
                 <span style={{margin: "5px"}}>|</span>
                 <a href="users.php?action=edit">Личные настройки</a>
                 <span style={{margin: "5px"}}>|</span>
@@ -29,13 +42,13 @@ class LoggedUser extends Component {
                 <br />
                 <span className="find-my-topics-messages">
                     <noindex>
-                        <a rel="nofollow" href={`#/index.php?user_id=${userId}`}>Мои темы</a>
+                        <a rel="nofollow" href={`${window.hash}/index.php?user_id=${userId}`}>Мои темы</a>
                     </noindex>
                 </span>
                 <span style={{margin: "5px"}}>|</span>
                 <span className="find-my-topics-messages">
                     <noindex>
-                        <a rel="nofollow" href={`#/index.php?mytopics=1`}>Темы с моим участием</a>
+                        <a rel="nofollow" href={`${window.hash}/index.php?mytopics=1`}>Темы с моим участием</a>
                     </noindex>
                 </span>
             </div>
@@ -43,4 +56,4 @@ class LoggedUser extends Component {
     }
 }
 
-export default LoggedUser;
+export default connect()(LoggedUser);

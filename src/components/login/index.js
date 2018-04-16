@@ -1,11 +1,19 @@
+//@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import LoggedUser from './logged_user'
 import LoginForm from './login_form'
 
-import { checkLoginIfNeeded } from '../../actions/login'
+import { checkLoginIfNeeded } from 'src/actions/login'
+import { defaultLoginState } from 'src/reducers/login'
 
-class Login extends Component {
+import type { State } from 'src/reducers'
+import type { DefaultProps } from 'src/components'
+import type { LoginState } from 'src/reducers/login'
+
+type Props = LoginState & DefaultProps;
+
+class Login extends Component<Props> {
 
     componentDidMount() {
         const { dispatch } = this.props;
@@ -27,24 +35,9 @@ class Login extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    const {
-        isFetching,
-        error,
-        userid,
-        username,
-        hashkey
-    } = state.login
-
-    const res = {
-        error,
-        userid,
-        username,
-        hashkey,
-        isFetching
-    }
-
-    return res;
+const mapStateToProps = (state: State): LoginState => {
+    
+    return state.login || defaultLoginState;
 }
 
 export default connect(mapStateToProps)(Login);

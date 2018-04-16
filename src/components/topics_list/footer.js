@@ -1,26 +1,86 @@
-import React from 'react'
+//@flow
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-const Footer = (props) => {
+import { defaultTopicsListState } from '../../reducers/topics_list'
+import { fetchTopicsListIfNeeded } from '../../actions/topics_list'
 
-    let currentPage = parseInt(props.page, 10);
-    let pages = [];
-    for (let i = 1; i <= 10; i++) {
-        let href = `${window.hash}/index.php?page=${i}`;
+import type { State } from '../../reducers'
+import type { DefaultProps } from '../../components'
 
-        if (currentPage === i) {
-            pages.push(<span key={i} style={{ margin: '5px' }}>{i}</span>);
-        } else {
-            pages.push(<a key={i} href={href} style={{ margin: '5px' }}>{i}</a>);
-        }
-    }
-
-    return (
-        <div id='tf' style={{ paddingTop: "4px", paddingBottom: "4px", boxSizing: "border-box", width: "100%" }}>
-            <span className='pages'>
-                {pages}
-            </span>
-        </div>
-    )
+type FooterProps = {
+    page: string,
+    locationParams: {}
 }
 
-export default Footer;
+type StateProps = {
+    isFetching: boolean
+}
+
+type DispatchProps = {
+    fetchTopicsListIfNeeded: (params: any) => void
+}
+
+type Props = FooterProps & StateProps & DispatchProps & DefaultProps;
+
+class Footer extends Component<Props> {
+
+    onRefreshClick;
+
+    constructor(props) {
+        super(props);
+        this.onRefreshClick = this.onRefreshClick.bind(this);
+    }
+    
+    onRefreshClick() {
+        const { fetchTopicsListIfNeeded, locationParams } = this.props;       
+        fetchTopicsListIfNeeded(locationParams);
+    }
+
+    render() {
+
+        const { page, isFetching } = this.props;
+
+        let currentPage = parseInt(page, 10);
+        let pages = [];
+        for (let i = 1; i <= 10; i++) {
+            let href = `${window.hash}/index.php?page=${i}`;
+
+            if (currentPage === i) {
+                pages.push(<span key={i} style={{ margin: '5px' }}>{i}</span>);
+            } else {
+                pages.push(<a key={i} href={href} style={{ margin: '5px' }}>{i}</a>);
+            }
+        }
+
+        return (
+            <div>
+                <div id='tf' style={{ paddingTop: "4px", paddingBottom: "4px", boxSizing: "border-box", width: "100%" }}>
+                    <span className='pages'>
+                        {pages}
+                    </span>
+                </div>
+                <div style={{float: "right"}}>
+                    <button id="refresh_button" type="button" className="button" onClick={this.onRefreshClick} disabled={isFetching}>{isFetching ? 'Обновляется': 'Обновить ветку'}</button>
+                </div>    
+            </div>
+        )
+    }
+}
+
+const mapStateToProps = (state: State): StateProps => {
+
+    const {
+        isFetching
+    } = state.topicsList || defaultTopicsListState;
+
+    return {
+        isFetching
+    }
+}
+
+const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+    fetchTopicsListIfNeeded: (...params) => dispatch(fetchTopicsListIfNeeded(...params)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Footer);

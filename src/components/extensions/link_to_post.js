@@ -1,11 +1,35 @@
+//@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { showTooltip } from '../../actions/tooltips'
 
-import { getMaxPage } from '../../utils';
+import { getMaxPage } from 'src/utils';
 
-class LinkToPost extends Component {
+import type { State } from 'src/reducers'
+import type { DefaultProps } from 'src/components'
+import type { ResponseInfo, ResponseMessages } from 'src/api'
+import { defaultTopicState } from 'src/reducers/topic'
+
+type LinkToPostProps = {
+    topicId: string,
+    number: number,
+    style: {}
+}
+
+type StateProps = {
+    info: ResponseInfo,
+    items: ResponseMessages
+}
+
+type Props = LinkToPostProps & StateProps & DefaultProps;
+
+class LinkToPost extends Component<Props> {
+
+    onMouseOver;
+    onMouseOut;
+    showToolTip;
+    timer;
 
     constructor(props) {
         super(props);
@@ -23,7 +47,7 @@ class LinkToPost extends Component {
         clearTimeout(this.timer);
     }
 
-   showToolTip(e) {
+    showToolTip(e) {
         const { topicId, number, dispatch, items, info } = this.props;
 
         const coords = {
@@ -40,7 +64,7 @@ class LinkToPost extends Component {
             topicId,
             number          
         }
-
+        
         dispatch(showTooltip(
             keys,
             coords,
@@ -50,7 +74,7 @@ class LinkToPost extends Component {
 
     render() {
 
-        const { topicId, number } = this.props;
+        const { topicId, number, style } = this.props;
         const page = getMaxPage(number);
 
         let pageParam = '';
@@ -61,19 +85,17 @@ class LinkToPost extends Component {
             <a href={`${window.hash}/topic.php?id=${topicId}${pageParam}#${number}`}
                 onMouseOver={this.onMouseOver}
                 onMouseOut={this.onMouseOut}
+                style={{...style}}
             >{number}</a>
         )
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: State): StateProps => {
 
     const {
         items, info
-    } = state.topic || {
-        items: [],
-        info: {}
-    }
+    } = state.topic || defaultTopicState;
 
     return {
         items,

@@ -3,16 +3,16 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import activeHtml from 'react-active-html';
 
-import Code from '../../extensions/code1c'
-import LinkToPost from '../../extensions/link_to_post'
+import Code from 'src/components/extensions/code1c'
+import LinkToPost from 'src/components/extensions/link_to_post'
 
 import VoteChart from './vote_chart'
 
-import { defaultTopicState } from '../../../reducers/topic'
+import { defaultTopicState } from 'src/reducers/topic'
 
-import type { ResponseInfo, ResponseMessage } from '../../../api'
-import type { DefaultProps } from '../../index'
-import type { State } from '../../../reducers'
+import type { ResponseInfo, ResponseMessage } from 'src/api'
+import type { DefaultProps } from 'src/components/index'
+import type { State } from 'src/reducers'
 
 type MsgTextProps = {
     topicId: string,
@@ -70,7 +70,7 @@ class MsgText extends Component<Props> {
     }
 
     render() {
-        const { data, info, style } = this.props;
+        const { topicId, data, info, style } = this.props;
 
         const voteColors: {[number]: string} = {};
         voteColors[1] = "#FF1616";
@@ -85,7 +85,7 @@ class MsgText extends Component<Props> {
         voteColors[10] = "#0000CC";
 
         let voteElement;
-        if (data.vote && info.voting) {
+        if (data.vote && info.voting && topicId === info.id) {
             let voteText = `${data.vote}. ${info.voting[data.vote - 1].select}`;
             voteElement =
                 <div><br />
@@ -94,7 +94,7 @@ class MsgText extends Component<Props> {
         }
 
         let voteChart;
-        if (data.n === "0" && info.is_voting === 1) {
+        if (data.n === "0" && info.is_voting === 1 && info.voting) {
             voteChart = <VoteChart items={info.voting} topicId={data.id} colors={voteColors} />
         }
 

@@ -1,7 +1,7 @@
 //@flow
 import * as API from '../api'
-import type { RequestTopicsList, ResponseTopicsList } from '../api'
-import type { State } from '../reducers'
+import type { RequestTopicsList, ResponseTopicsList } from 'src/api'
+import type { State } from 'src/reducers'
 
 export type REQUEST_TOPICS_LIST = {
     type: 'REQUEST_TOPICS_LIST'

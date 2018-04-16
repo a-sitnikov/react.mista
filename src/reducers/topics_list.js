@@ -1,5 +1,5 @@
 //@flow
-import type { TopicsListAction } from '../actions/topics_list'
+import type { TopicsListAction } from 'src/actions/topics_list'
 
 export type TopicsListState = {
   isFetching: boolean;

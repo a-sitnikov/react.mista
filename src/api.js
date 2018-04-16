@@ -54,7 +54,7 @@ export type RequestInfo = {
     id: string // идентификатор (topic_id) темы
 }
 
-export type VoteItem = {
+export type ResponseVoteItem = {
     select: string,
     result: number
 }
@@ -72,7 +72,7 @@ export type ResponseInfo = {
     closed?: number,
     deleted?: number,
     is_voting?: number,
-    voting?: Array<VoteItem>
+    voting?: Array<ResponseVoteItem>
 }
 
 export const defaultInfo = {

@@ -1,9 +1,19 @@
+//@flow
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import ErrorElem from '../core/error'
-import { doLoginIfNeeded } from '../../actions/login'
+import { doLoginIfNeeded } from 'src/actions/login'
 
-class LoginForm extends Component {
+import type { DefaultProps } from 'src/components'
+
+type LoggedUserProps = {
+    error: string
+}
+
+type Props = LoggedUserProps & DefaultProps;
+
+class LoginForm extends Component<Props> {
 
     onLogin;
     refs: {username: any, password:any};
@@ -29,9 +39,9 @@ class LoginForm extends Component {
 
     render() {
 
-        let errorText;
+        let errorElem;
         if (this.props.error)
-            errorText = 'ОШИБКА: Вход не выполнен! Возможно указан неверный пароль.';
+            errorElem = <ErrorElem text={'ОШИБКА: Вход не выполнен! Возможно указан неверный пароль.'} />;
 
         return (
             <div style={{width: "350px"}}>
@@ -48,10 +58,10 @@ class LoginForm extends Component {
                     <span style={{ margin: "5px" }}>|</span>
                     <a rel="nofollow" href="remember_password.php">Забыли пароль?</a>
                 </noindex>
-                <ErrorElem text={errorText} />
+                {errorElem}
             </div>
         )
     }
 }
 
-export default LoginForm;
+export default connect()(LoginForm);

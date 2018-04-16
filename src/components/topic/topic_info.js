@@ -1,7 +1,17 @@
+//@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-class TopicInfo extends Component {
+import { defaultTopicState } from 'src/reducers/topic'
+
+import type { State } from 'src/reducers'
+import type { ResponseInfo } from 'src/api'
+
+type StateProps = {
+    info: ResponseInfo
+}
+
+class TopicInfo extends Component<StateProps> {
 
     render() {
 
@@ -36,13 +46,11 @@ class TopicInfo extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: State): StateProps => {
 
     const {
         info
-    } = state.topic || {
-        info: {}
-    }
+    } = state.topic || defaultTopicState;
 
     return {
         info

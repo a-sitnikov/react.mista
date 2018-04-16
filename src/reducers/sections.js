@@ -1,8 +1,8 @@
 //@flow 
-import type { ResponseSections } from '../api'
-import type { SectionsAction } from '../actions/sections'
+import type { ResponseSections } from 'src/api'
+import type { SectionsAction } from 'src/actions/sections'
 
-import { groupBy } from '../utils'
+import { groupBy } from 'src/utils'
 
 export type SectionsState = {
   isFetching: boolean;

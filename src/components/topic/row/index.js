@@ -1,10 +1,27 @@
+//@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import UserInfo from './user_info'
 import MsgText from './msg_text'
 
-class Row extends Component {
+import type { ResponseMessage } from 'src/api'
+import type { State } from 'src/reducers'
+import type { DefaultProps } from 'src/components'
+
+type RowProps = {
+    columns: Array<any>,
+    data: ResponseMessage
+}
+
+type StateProps = {
+    topicId: string,
+    author: string
+}
+
+type Props = RowProps & StateProps & DefaultProps;
+
+class Row extends Component<Props> {
 
     render() {
         const { columns, data, author, topicId } = this.props;
@@ -48,7 +65,7 @@ class Row extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: State): StateProps => {
 
     const {
         info,

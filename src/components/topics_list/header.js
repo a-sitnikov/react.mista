@@ -1,3 +1,4 @@
+//@flow
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -8,7 +9,19 @@ import Search from './search'
 import SectionSelect from './section_select'
 import { fetchSectionsIfNeeded } from '../../actions/sections'
 
-class Header extends Component {
+import type { DefaultProps } from 'src/components'
+import type { State } from 'src/reducers'
+import type { SectionsState } from 'src/reducers/sections'
+
+type StateProps = {
+    sections: SectionsState
+}
+
+type Props = StateProps & DefaultProps;
+
+class Header extends Component<Props> {
+
+    onSectionSelect: () => void;
 
     constructor(props) {
         super(props);
@@ -61,7 +74,7 @@ class Header extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: State): StateProps => {
 
     return {
         sections: state.sections

@@ -1,7 +1,7 @@
 //@flow 
-import { defaultInfo } from '../api'
-import type { ResponseInfo, ResponseMessages, ResponseMessage } from '../api'
-import type { TopicAction } from '../actions/topic'
+import { defaultInfo } from 'src/api'
+import type { ResponseInfo, ResponseMessages, ResponseMessage } from 'src/api'
+import type { TopicAction } from 'src/actions/topic'
 
 export type TopicState = {
   isFetching: boolean;

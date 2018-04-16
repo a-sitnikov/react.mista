@@ -1,7 +1,15 @@
+//@flow
 import React from 'react'
 import VoteItem from './vote_item'
+import type { ResponseVoteItem } from 'src/api'
 
-const VoteChart = (props) => {
+type Props = {
+    items: Array<ResponseVoteItem>,
+    topicId: string,
+    colors: {}    
+}
+
+const VoteChart = (props: Props) => {
 
     const { items, topicId, colors } = props;
 

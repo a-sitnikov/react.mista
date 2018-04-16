@@ -1,7 +1,7 @@
 //@flow
 import * as API from '../api'
-import type { RequestNewMessage } from '../api'
-import type { State } from '../reducers'
+import type { RequestNewMessage } from 'src/api'
+import type { State } from 'src/reducers'
 
 import { encodeText } from '../utils';
 

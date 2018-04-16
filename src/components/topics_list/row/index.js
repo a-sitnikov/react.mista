@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import dateFormat from 'dateformat'
 
 import TopicNameCell from './topic_name_cell';
+import LinkToPost from '../../extensions/link_to_post'
 import { today } from '../../../utils'
 
 import type { ResponseTopicsListItem } from '../../../api'
@@ -40,7 +41,11 @@ const Row = (props: Props) => {
             value = <td key={i} className={column.className}>{data.forum}</td>
 
         } else if (column.name === 'Re') {
-            value = <td key={i} className={column.className}>{data.answ}</td>
+            value = (
+                <td key={i} className={column.className}>
+                    <LinkToPost topicId={data.id} number={data.answ} style={{color: "black"}}/>
+                </td>
+            )    
 
         } else if (column.name === 'Тема') {
             value = <TopicNameCell key={i} column={column} data={data} preview={preview}/>

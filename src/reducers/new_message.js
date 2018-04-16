@@ -1,5 +1,5 @@
 //@flow
-import type { NewMessageAction } from '../actions/new_message'
+import type { NewMessageAction } from 'src/actions/new_message'
 
 export type NewMessageState = {
     isFetching: boolean;

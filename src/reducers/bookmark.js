@@ -1,5 +1,5 @@
 //@flow
-import type { AddBookmarkAction } from '../actions/bookmark'
+import type { AddBookmarkAction } from 'src/actions/bookmark'
 
 export type BookmarkState = {
   isFetching: boolean

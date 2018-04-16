@@ -4,7 +4,7 @@ import type { State } from '../reducers'
 
 export type TooltipKeysTopic = {
     type: 'TOPIC',
-    topicId: number,
+    topicId: number | string,
     number: number      
 }
 

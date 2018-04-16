@@ -35,13 +35,16 @@ type Column = {
 class TopicsList extends Component<Props> {
     
     updateTopicsList: () => void;
+    onPostNewTopicSuccess: () => void;
     columns: Array<Column>;
     location: Location;
+    locationParams: {};
     page: string;
 
     constructor(props: Props) {
         super(props);
         this.updateTopicsList = this.updateTopicsList.bind(this);
+        this.onPostNewTopicSuccess = this.onPostNewTopicSuccess.bind(this);
         this.columns = [
             { name: 'Раздел', className: 'cc', width: '50px' },
             { name: 'Re', className: 'cc', width: '30px' },
@@ -69,12 +72,12 @@ class TopicsList extends Component<Props> {
         
         const { fetchTopicsListIfNeeded } = this.props;       
 
-        const locationParams = queryString.parse(this.location.search);
-        fetchTopicsListIfNeeded(locationParams);
+        this.locationParams = queryString.parse(this.location.search);
+        fetchTopicsListIfNeeded(this.locationParams);
     }
 
-    sendNewTopic(e, text) {
-
+    onPostNewTopicSuccess() {
+        this.updateTopicsList();
     }
 
     render() {
@@ -103,9 +106,9 @@ class TopicsList extends Component<Props> {
                     <tfoot>
                     </tfoot>
                 </table>
-                <Footer page={this.page} />
+                <Footer page={this.page} locationParams={this.locationParams}/>
                 <br />
-                <NewTopic sections={sections.items} onSend={this.sendNewTopic}/>
+                <NewTopic sections={sections.items} onPostSuccess={this.onPostNewTopicSuccess}/>
             </div>
         )
     }

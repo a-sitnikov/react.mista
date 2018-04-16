@@ -1,10 +1,37 @@
+//@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import TextEditor from '../core/text_editor'
-import { postNewMessageIfNeeded } from '../../actions/new_message'
+import { postNewMessageIfNeeded } from 'src/actions/new_message'
 
-class NewMessage extends Component {
+import type { State } from 'src/reducers'
+import type { LoginState } from 'src/reducers/login'
+import type { NewMessageState } from 'src/reducers/new_message'
+
+import type { ResponseInfo } from 'src/api'
+import type { DefaultProps } from 'src/index'
+
+type NewMessageProps = {
+    onPostSuccess?: () => void
+}
+
+type StateProps = {
+    login: LoginState,
+    info: ResponseInfo,
+    newMessage: NewMessageState
+}
+
+type Props = NewMessageProps & StateProps & DefaultProps;
+
+class NewMessage extends Component<Props> {
+
+    onSend;
+    onChange;
+    clearVoting;
+    setVotingOption;
+    onPostSuccess;
+    state: any;
 
     constructor(props) {
         super(props);
@@ -24,7 +51,7 @@ class NewMessage extends Component {
         const params = {
             text,
             userid: this.props.login.userid,
-            userName: this.props.login.username,
+            userName: this.props.login.username || '',
             topicId: this.props.info.id,
             onSuccess: this.onPostSuccess
         };
@@ -83,7 +110,7 @@ class NewMessage extends Component {
             return null;
 
         let votingElem;
-        if (info.is_voting) {
+        if (info.is_voting && info.voting) {
 
             let votingOptions = [];
             for (let i = 1; i <= info.voting.length; i++) {
@@ -145,7 +172,7 @@ class NewMessage extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: State): StateProps => {
 
     return {
         login: state.login,

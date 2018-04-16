@@ -2,14 +2,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import type { DefaultProps } from '../index'
+import type { DefaultProps } from 'src/index'
 
 type TextEditorProps = {
     placeholder: string,
     showVoting: boolean,
+    isVoting: boolean,
     text: string,
     isFetching: boolean,
-    onChange: (e: any, text: string) => void,   
+    onChange?: (e: any, text: string) => void,   
     onSend: (e: any, text: string) => void   
 }
 
@@ -77,13 +78,13 @@ class TextEditor extends Component<Props> {
 
     render() {
 
-        const { placeholder, showVoting, isFetching, text } = this.props;
+        const { placeholder, showVoting, isVoting, isFetching, text } = this.props;
 
         let voting;
         if (showVoting)
             voting = (
                 <div style={{ float: "right" }}>
-                    <input name="voting" id="voting" value="1" type="checkbox" onChange={this.onVotingChange} ref="voting" />
+                    <input name="voting" id="voting" checked={isVoting} type="checkbox" onChange={this.onVotingChange} ref="voting" />
                     <label htmlFor="voting" >Голосование</label>
                 </div>
             )

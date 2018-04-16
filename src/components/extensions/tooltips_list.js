@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
 import Tooltip from './tooltip'
-import { defaultTooltipsState } from  '../../reducers/tooltips'
+import { defaultTooltipsState } from  'src/reducers/tooltips'
 
-import type { State } from '../../reducers'
-import type { TooltipItemState } from '../../reducers/tooltips'
-import type { DefaultProps } from '../index'
+import type { State } from 'src/reducers'
+import type { TooltipItemState } from 'src/reducers/tooltips'
+import type { DefaultProps } from 'src/index'
 
 type StateProps = {
     items: Array<TooltipItemState>

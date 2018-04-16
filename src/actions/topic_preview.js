@@ -1,6 +1,6 @@
 //@flow
-import * as API from '../api'
-import type { ResponseMessage } from '../api'
+import * as API from 'src/api'
+import type { ResponseMessage } from 'src/api'
 
 export type PreviewTextParams = {
     topicId: string,

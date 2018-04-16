@@ -1,7 +1,7 @@
 //@flow
-import * as API from '../api'
-import type { ResponseSections } from '../api'
-import type { State } from '../reducers'
+import * as API from 'src/api'
+import type { ResponseSections } from 'src/api'
+import type { State } from 'src/reducers'
 
 export type REQUEST_SECTIONS = {
     type: 'REQUEST_SECTIONS',
