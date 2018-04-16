@@ -6,8 +6,8 @@ import TooltipsList from './components/extensions/tooltips_list';
 
 const App = () => {
  
-  //let theme = 'theme-yellow';
-  let theme = 'theme-lightgray';
+  let theme = 'theme-yellow';
+  //let theme = 'theme-lightgray';
  
   return (
     <div className = {theme}>

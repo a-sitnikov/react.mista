@@ -93,10 +93,9 @@ const postNewTopic = (params: postNewTopicParams) => async (dispatch: any) => {
         for (let i=0; i<params.votingItems.length; i++) {
             fetchParams[`section${i+1}`] = params.votingItems[i];
         }
-    /*
-    await API.postNewTopic(fetchParams);
-    */
     
+    await API.postNewTopic(fetchParams);
+        
     dispatch({
         type: 'POST_NEW_TOPIC_COMPLETE'
     });
