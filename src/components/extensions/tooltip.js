@@ -63,8 +63,8 @@ class Tooltip extends Component<Props> {
                     <div className="tooltip-header">
                         {userInfo}
                     </div>
-                    <div className="tooltip-text" onClick={this.onCloseClick}>
-                        <MsgText data={data} topicId={keys.topicId} />
+                    <div className="tooltip-text" onClick={this.onCloseClick} >
+                        <MsgText data={data} topicId={keys.topicId} style={{maxHeight: "550px", overflowY: "auto"}} />
                     </div>
                     <span className="tooltip-close" onClick={this.onCloseClick}>
                         <b> x </b>
