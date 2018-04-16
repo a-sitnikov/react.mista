@@ -35,9 +35,9 @@ class Header extends Component<Props> {
     
     onSectionSelect(event, value) {
         if (value)
-            this.props.history.push(`${window.hash}/index.php?section=${value.shortn}`);
+            this.props.history.push(`/index.php?section=${value.shortn}`);
         else
-            this.props.history.push(`${window.hash}/index.php`);
+            this.props.history.push(`/`);
     }
 
     render() {

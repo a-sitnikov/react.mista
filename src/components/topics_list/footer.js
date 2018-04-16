@@ -61,7 +61,7 @@ class Footer extends Component<Props> {
                     </span>
                 </div>
                 <div style={{float: "right"}}>
-                    <button id="refresh_button" type="button" className="button" onClick={this.onRefreshClick} disabled={isFetching}>{isFetching ? 'Обновляется': 'Обновить ветку'}</button>
+                    <button id="refresh_button" type="button" className="button" onClick={this.onRefreshClick} disabled={isFetching}>{isFetching ? 'Обновляется': 'Обновить список'}</button>
                 </div>    
             </div>
         )
