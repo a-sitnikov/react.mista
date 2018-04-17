@@ -1,6 +1,6 @@
 //@flow
 import type { TopicPreviewAction } from 'src/actions/topic_preview'
-import type { ResponseMessage } from 'scr/api'
+import type { ResponseMessage } from 'src/api'
 
 export type TopicPreviewState = {
     items: {[string]: ResponseMessage | null}

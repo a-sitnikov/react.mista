@@ -47,10 +47,10 @@ export const fetchTopic = (params: any, item0: ?ResponseMessage) => async (dispa
     let page = params.page || 1;
     let queries: Array<Promise<any>> = [];
 
+    let info: ?ResponseInfo;
     if (page === 'last20') {
 
-        const info = await API.getTopicInfo(params);
-
+        info = await API.getTopicInfo({id: params.id});
         if (+info.answers_count > 21) {
 
             if (!item0)
@@ -114,7 +114,9 @@ export const fetchTopic = (params: any, item0: ?ResponseMessage) => async (dispa
 
         // info, item0, items 
         // info , items
-        let info: ResponseInfo = jsonArr[0];
+        if (!info)
+            info = jsonArr[0];
+            
         let _item0, _items;
         if (item0) {
             _item0 = item0;
