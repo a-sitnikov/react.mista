@@ -22,6 +22,7 @@ class TextEditor extends Component<Props> {
     onSendClick;
     onVotingChange;
     onChange;
+    onKeyPress;
     refs: {text: any, voting: any};
 
     constructor(props) {
@@ -30,6 +31,7 @@ class TextEditor extends Component<Props> {
         this.onSendClick = this.onSendClick.bind(this);
         this.onVotingChange = this.onVotingChange.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.onKeyPress = this.onKeyPress.bind(this);
     }
 
     onSendClick(e) {
@@ -76,6 +78,15 @@ class TextEditor extends Component<Props> {
         }
     }
 
+    onKeyPress(e) {
+        if (e.key === 'Enter' && e.ctrlKey) {
+            if (this.props.onSend) {
+                const text = this.refs.text.value;
+                this.props.onSend(e, text);
+            }
+        }
+    }
+
     render() {
 
         const { placeholder, showVoting, isVoting, isFetching, text } = this.props;
@@ -98,9 +109,10 @@ class TextEditor extends Component<Props> {
                     cols="70" rows="12"
                     ref="text"
                     value={text}
-                    className="fieldbasic"
+                    className="field"
                     style={{ width: "45em" }}
                     onChange={this.onChange}
+                    onKeyPress={this.onKeyPress}
                 />
                 <div>
                     <button name="code1C" type="button" className="button" onClick={this.onButtonCode1c}>Код 1С</button>

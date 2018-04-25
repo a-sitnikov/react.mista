@@ -28,7 +28,7 @@ export const requestTopic = () => ({
     type: 'REQUEST_TOPIC'
 })
 
-export const receiveTopic = (info: ResponseInfo, item0: ResponseMessage, items: ResponseMessages) => {
+export const receiveTopic = (info: ResponseInfo, item0: ?ResponseMessage, items: ResponseMessages) => {
 
     return {
         type: 'RECEIVE_TOPIC',
@@ -44,91 +44,89 @@ export const fetchTopic = (params: any, item0: ?ResponseMessage) => async (dispa
 
     dispatch(requestTopic())
 
+    try {
+        
     let page = params.page || 1;
-    let queries: Array<Promise<any>> = [];
 
-    let info: ?ResponseInfo;
+    const info = await API.getTopicInfo({id: params.id});
+    let _item0 = item0;
+    let _items;
     if (page === 'last20') {
 
-        info = await API.getTopicInfo({id: params.id});
         if (+info.answers_count > 21) {
 
-            if (!item0)
-                queries.push(API.getTopicMessages({
+            if (!_item0) {
+                let items = await API.getTopicMessages({
                     id: params.id,
                     from: 0,
                     to: 1
-                }));            
+                }); 
+                _item0 = items[0];
+            }    
 
             let first = +info.answers_count - 20;
-            queries.push(API.getTopicMessages({
+            _items = await API.getTopicMessages({
                 id: params.id,
                 from: first,
                 to: 1010
-            }));            
+            });            
 
         } else {
-            queries.push(API.getTopicMessages({
+            let items = await API.getTopicMessages({
                 id: params.id,
                 from: 0,
                 to: 1010
-            }));               
+            });               
+            _item0 = items[0];
+            _items = items.slice(1);
         }
 
     } else {
 
         page = +page;
         let first = 0;
-
-        queries.push(API.getTopicInfo({
-            id: params.id
-        }));
+        let last = page * 100 - 1;
 
         if (page > 1) {
 
             first = (page - 1) * 100 + 1;
-            if (!item0)
-            queries.push(API.getTopicMessages({
+            if (!_item0) {
+                let items = await API.getTopicMessages({
+                    id: params.id,
+                    from: 0,
+                    to: 1
+                });
+                _item0 = items[0];
+            }
+
+            _items = await API.getTopicMessages({
                 id: params.id,
-                from: 0,
-                to: 1
-            }));
+                from: first,
+                to: last
+            });                
 
         } else {
-            if (item0)
+            if (_item0)
                 first = 1;
             else
                 first = 0;
-        }
 
-        let last = page * 100 - 1;
-        queries.push(API.getTopicMessages({
-            id: params.id,
-            from: first,
-            to: last
-        }));        
+            let items = await API.getTopicMessages({
+                id: params.id,
+                from: first,
+                to: last
+            });  
+
+            if (_item0) {
+                _items = items;
+            } else {
+                _item0 = items[0];
+                _items = items.slice(1);
+            }
+        }
+      
     }
     
-    try {
-        const jsonArr = await Promise.all(queries);
-
-        // info, item0, items 
-        // info , items
-        if (!info)
-            info = jsonArr[0];
-            
-        let _item0, _items;
-        if (item0) {
-            _item0 = item0;
-            _items = jsonArr[1];
-        } else {
-            _item0 = jsonArr[1][0];
-            if (jsonArr.length === 3)
-                _items = jsonArr[2];
-            else    
-                _items = jsonArr[1].slice(1);
-        }
-
         dispatch(receiveTopic(info, _item0, _items));
     } catch (error) {
 

@@ -3,11 +3,22 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import queryString from 'query-string'
 
-import type { State } from '../../reducers'
-import type { DefaultProps, Location } from '../../components'
+import type { State } from 'src/reducers'
+import type { DefaultProps, Location } from 'src/components'
 
-import { defaultTopicsListState } from '../../reducers/topics_list'
-import { fetchTopicsListIfNeeded } from '../../actions/topics_list'
+import type { TopicsListState } from 'src/reducers/topics_list'
+import { defaultTopicsListState } from 'src/reducers/topics_list'
+
+import type { SectionsState } from 'src/reducers/sections'
+import { defaultSectionsState } from 'src/reducers/sections'
+
+import type { LoginState } from 'src/reducers/login'
+import { defaultLoginState } from 'src/reducers/login'
+
+import type { Column, OptionsState } from 'src/reducers/options'
+import { defaultOptionsState } from 'src/reducers/options'
+
+import { fetchTopicsListIfNeeded } from 'src/actions/topics_list'
 
 import Title from './title'
 import Header from './header'
@@ -17,20 +28,15 @@ import Footer from './footer'
 import NewTopic from './new_topic'
 
 type TopicsListProps = {
-    topicsList: any,
-    sections: any,
-    login: any
+    topicsList: TopicsListState,
+    sections: SectionsState,
+    login: LoginState,
+    options: OptionsState
 }
 
 type Props = {
     fetchTopicsListIfNeeded: any
 } & DefaultProps & TopicsListProps;
-
-type Column = {
-    name: string,
-    className?: string,
-    width?: string
-}
 
 class TopicsList extends Component<Props> {
     
@@ -45,13 +51,6 @@ class TopicsList extends Component<Props> {
         super(props);
         this.updateTopicsList = this.updateTopicsList.bind(this);
         this.onPostNewTopicSuccess = this.onPostNewTopicSuccess.bind(this);
-        this.columns = [
-            { name: 'Раздел', className: 'cc', width: '50px' },
-            { name: 'Re', className: 'cc', width: '30px' },
-            { name: 'Тема', className: 'ct' },
-            { name: 'Автор', className: 'cl', width: '120px' },
-            { name: 'Обновлено', className: 'cl', width: '150px' }
-        ]
     }
 
     componentDidMount() {
@@ -82,25 +81,33 @@ class TopicsList extends Component<Props> {
 
     render() {
 
-        const { topicsList, sections } = this.props;
+        const { topicsList, sections, options } = this.props;
 
         return (
             <div>
-                <Title />
+                {options.showTitle.value ? (
+                    <Title />
+                    ) : null
+                }
                 <Header history={this.props.history} />
                 <SearchResults />
                 <table id='tm' style={{width: "100%", margin: "10px auto 0px auto"}}>
                     <colgroup>
-                        {this.columns.map((item, i) => (
+                        {options.listColumns.map((item, i) => (
                             <col key={i} className={item.className} style={{ width: item.width }} />
                         ))}
                     </colgroup>
                     <tbody>
                         <tr>
-                            {this.columns.map((item, i) => (<th key={i}>{item.name}</th>))}
+                            {options.listColumns.map((item, i) => {
+                                if (item.name === 'Обновлено')
+                                    return <th key={i}><a style={{cursor: "pointer"}} title="Обновить список" onClick={this.updateTopicsList}>{item.name}</a></th>
+                                else 
+                                    return <th key={i}>{item.name}</th>
+                            })}
                         </tr>
                         {topicsList.items.map((item, i) => (
-                            <Row key={i} data={item} columns={this.columns}/>
+                            <Row key={i} data={item} columns={options.listColumns}/>
                         ))}
                     </tbody>
                     <tfoot>
@@ -119,8 +126,9 @@ const mapStateToProps = (state: State): TopicsListProps => {
 
     return {
         topicsList: state.topicsList || defaultTopicsListState,
-        sections: state.sections || { items: [] },
-        login: state.login || {}
+        sections: state.sections || defaultSectionsState,
+        login: state.login || defaultLoginState,
+        options: state.options || defaultOptionsState
     }
 }
 

@@ -2,19 +2,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import queryString from 'query-string'
-import { fetchTopicIfNeeded, fetchNewMessagesIfNeeded } from '../../actions/topic'
+import { fetchTopicIfNeeded, fetchNewMessagesIfNeeded } from 'src/actions/topic'
 
-import type { DefaultProps, Location } from '../../components'
-import type { ResponseInfo, ResponseMessage, ResponseMessages } from '../../api'
-import type { State } from '../../reducers'
-import { defaultTopicState } from '../../reducers/topic'
+import type { DefaultProps, Location } from 'src/components'
+import type { ResponseInfo, ResponseMessage, ResponseMessages } from 'src/api'
+import type { State } from 'src/reducers'
+import { defaultTopicState } from 'src/reducers/topic'
 
 import Header from './header'
 import TopicInfo from './topic_info'
 import Row from './row'
 import Footer from './footer'
 import NewMessage from './new_message';
-import { getMaxPage } from '../../utils';
+import { getMaxPage } from 'src/utils';
 
 type TopicLocationParams = {
     id: string,

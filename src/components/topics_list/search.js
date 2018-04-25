@@ -34,8 +34,8 @@ class Search extends Component<Props> {
     render() {
         return (
             <div name="find_form" style={{ width: "100%" }}>
-                <a id="findlink" href="/find.php" className="findlink" target="_blank" style={{ marginRight: "5px"  }}>Поиск</a>
-                <input className="findfield" name="keywords" id="keywords" type="text" style={{ maxWidth: "100%", width: "calc(100% - 80px)" }} ref='input'/>
+                <a href="/find.php" className="agh mr5" target="_blank" >Поиск</a>
+                <input className="field" name="keywords" id="keywords" type="text" style={{ maxWidth: "100%", width: "calc(100% - 80px)" }} ref='input'/>
             </div>
         )
     }

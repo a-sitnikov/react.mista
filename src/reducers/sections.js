@@ -7,7 +7,8 @@ import { groupBy } from 'src/utils'
 export type SectionsState = {
   isFetching: boolean;
   items: ResponseSections,
-  tree: {},
+  tree: {[string]: any},
+  map: {[string]: any},
   lastUpdated?: Date,
   error?: ?string
 };
@@ -15,7 +16,8 @@ export type SectionsState = {
 export const defaultSectionsState = {
     isFetching: false,
     items: [],
-    tree: {}
+    tree: {},
+    map: {}
 }
 
 const sections = (state: SectionsState = defaultSectionsState, action: SectionsAction) => {
@@ -26,11 +28,18 @@ const sections = (state: SectionsState = defaultSectionsState, action: SectionsA
                 isFetching: true
             }
         case 'RECEIVE_SECTIONS':
+
+            let map = {};
+            action.items.forEach(val => {
+                map[val.shortn] = val.fulln
+            });
+
             return {
                 ...state,
                 isFetching: false,
                 items: action.items,
                 tree: groupBy(action.items, 'forum'),
+                map,
                 lastUpdated: action.receivedAt
             }
         default:

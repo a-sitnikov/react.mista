@@ -6,7 +6,7 @@ import type { ResponseVoteItem } from 'src/api'
 type Props = {
     items: Array<ResponseVoteItem>,
     topicId: string,
-    colors: {}    
+    colors: Array<string>    
 }
 
 const VoteChart = (props: Props) => {

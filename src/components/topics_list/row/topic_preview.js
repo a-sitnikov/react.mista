@@ -3,11 +3,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import dateFormat from 'dateformat'
 
-import { fetchTopicPreviewText } from '../../../actions/topic_preview'
+import { fetchTopicPreviewText } from 'src/actions/topic_preview'
 
 import MsgText from '../../topic/row/msg_text'
-import type { DefaultProps } from '../../index'
-import type { ResponseMessage } from '../../../api'
+import type { DefaultProps } from 'src/components'
+import type { ResponseMessage } from 'src/api'
 
 type TopicPreviewProps = {
     topicId: string,

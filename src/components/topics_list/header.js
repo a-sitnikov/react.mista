@@ -13,6 +13,8 @@ import type { DefaultProps } from 'src/components'
 import type { State } from 'src/reducers'
 import type { SectionsState } from 'src/reducers/sections'
 
+import './header.css'
+
 type StateProps = {
     sections: SectionsState
 }
@@ -53,21 +55,26 @@ class Header extends Component<Props> {
 
         return (
             <div className="flex-row">
-                <div id="user-td" style={{ flex: "0 auto", marginRight: "15px", paddingTop: "5px", verticalAlign: "top" }}>
+                <div className="user-td">
                     <Login />
                 </div>
-                <div style={{ flex: 1, height: "auto", position: "relative" }}>
-                    <div style={{ position: "absolute", bottom: "0px", width: "100%" }}>
+                <div className="search-td-container">
+                    <div className="search-td">
                         <Search />
                     </div>
                 </div>
-                <div id="section-td" style={{ flex: 0, paddingTop: "5px", verticalAlign: "top" }}>
+                <div className="section-td">
 
                     <span className="ah">
                         <a rel="nofollow" href="">Все</a>
                         {groupsElem}
                     </span>
-                    <SectionSelect defaultValue="--Все секции--" selected={params.section} className="findfield" id="section_selector" name="section_selector" onChange={this.onSectionSelect} />
+                    <SectionSelect 
+                        defaultValue="--Все секции--" 
+                        selected={params.section} 
+                        className="field" 
+                        onChange={this.onSectionSelect} 
+                    />
                 </div>
             </div>
         )

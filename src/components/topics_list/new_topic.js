@@ -174,25 +174,25 @@ class NewTopic extends Component<Props> {
         }
 
         return (
-            <div id="F" className="newtopic" style={{ marginLeft: '3%', position: 'relative' }}>
+            <div id="F" className="newtopic" style={{ marginLeft: '3%', marginBottom: "10px", position: 'relative' }}>
                 <p><b>Новая тема:</b></p>
                 <div style={{ display: "flex" }}>
-                    <div id="newtopic_form" style={{ felex: 0, marginRight: "10px" }}>
+                    <div id="newtopic_form" style={{ flex: 0, marginRight: "10px" }}>
                         <ErrorElem text={newTopic.error} />
-                        <select name="target_forum" id="target_forum" className="fieldbasic" value={newTopic.forum} readOnly={true} ref="forum">
+                        <select name="target_forum" id="target_forum" className="field" value={newTopic.forum} readOnly={true} ref="forum">
                             {groupsElem}
                         </select>
                         <SectionSelect
                             defaultValue="Секция"
                             id="target_section"
                             name="target_section"
-                            className="fieldbasic"
+                            className="field"
                             style={{ width: "40.4em" }}
                             onChange={this.onSectionChange}
                         />
                         <br />
                         <input placeholder="Тема" id="topic_text" name="topic_text" maxLength="90"
-                            className="fieldbasic"
+                            className="field"
                             style={{ width: "44em", type: "text" }}
                             onChange={this.onSubjectChange}
                             value={newTopic.subject}

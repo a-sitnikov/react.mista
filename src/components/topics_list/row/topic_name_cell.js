@@ -3,15 +3,17 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 
-import type { ResponseTopicsListItem } from '../../../api'
-import type { State } from '../../../reducers'
+import type { ResponseTopicsListItem } from 'src/api'
+import type { State } from 'src/reducers'
 
-import { defaultLoginState } from '../../../reducers/login'
-import type { LoginState } from '../../../reducers/login'
+import { defaultLoginState } from 'src/reducers/login'
+import type { LoginState } from 'src/reducers/login'
 
-import { defaultTopicPreviewState } from '../../../reducers/topic_preview'
-import type { TopicPreviewState } from '../../../reducers/topic_preview'
-import type { DefaultProps } from '../../index'
+import { defaultTopicPreviewState } from 'src/reducers/topic_preview'
+import type { TopicPreviewState } from 'src/reducers/topic_preview'
+import { defaultSectionsState } from 'src/reducers/sections'
+import type { SectionsState } from 'src/reducers/sections'
+import type { DefaultProps } from 'src/components/index'
 
 import Pages from './pages';
 import PreviewLink from './preview_link'
@@ -25,6 +27,7 @@ type TopicNameCellProps = {
 
 type StateProps = {
     login: LoginState,
+    sections: SectionsState,
     topicPreview: TopicPreviewState
 };
 
@@ -38,10 +41,10 @@ class TopicNameCell extends Component<Props> {
 
     render() {
 
-        const { column, data, login, topicPreview } = this.props;
+        const { column, data, login, sections, topicPreview } = this.props;
 
         let href = `${window.hash}/topic.php?id=${data.id}`;
-        let classes = classNames('agb', {
+        let classes = classNames('agb', 'mr5', {
             'longtopics': data.answ >= 100,
             'mytopics': data.user0 === login.username
         });
@@ -56,12 +59,12 @@ class TopicNameCell extends Component<Props> {
 
         if (data.sect1) {
             section.push(<span key="0" className="agh" style={{ margin: "auto 2px auto 5px" }}>/</span>);
-            section.push(<a key="1" rel="nofollow" className="sectionlink-gray" href={sectionHref} target="_blank">{data.sect1}</a>);
+            section.push(<a key="1" rel="nofollow" className="agh" href={sectionHref} target="_blank">{sections.map[data.sect2]}</a>);
         }
 
         let closed;
         if (data.closed)
-            closed = <span className="moder-action">Ø</span>
+            closed = <span className="agh">Ø</span>
 
         if (data.sect2 === 'job' && data.text.substr(0, 3) !== 'JOB')
             data.text = 'JOB: ' + data.text;
@@ -80,7 +83,7 @@ class TopicNameCell extends Component<Props> {
         return (
             <td className={column.className}>
                 <PreviewLink topicId={data.id} expanded={previewItem === undefined ? false: true}/>
-                <a href={href} className={classes} style={{ marginRight: "5px", }} target="_blank" dangerouslySetInnerHTML={{ __html: data.text }}></a>
+                <a href={href} className={classes} target="_blank" dangerouslySetInnerHTML={{ __html: data.text }}></a>
                 {isVoting}
                 <Pages answ={data.answ} topicId={data.id} />
                 {closed}
@@ -96,6 +99,7 @@ const mapStateToProps = (state: State): StateProps => {
 
     return {
         login: state.login || defaultLoginState,
+        sections: state.sections || defaultSectionsState,
         topicPreview: state.topicPreview || defaultTopicPreviewState
     }
 }

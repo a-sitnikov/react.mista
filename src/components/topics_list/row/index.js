@@ -5,15 +5,15 @@ import dateFormat from 'dateformat'
 
 import TopicNameCell from './topic_name_cell';
 import LinkToPost from '../../extensions/link_to_post'
-import { today } from '../../../utils'
+import { today } from 'src/utils'
 
-import type { ResponseTopicsListItem } from '../../../api'
+import type { ResponseTopicsListItem } from 'srcapi'
 
-import type { State } from '../../../reducers'
+import type { State } from 'src/reducers'
 
-import { defaultLoginState } from '../../../reducers/login'
-import type { LoginState } from '../../../reducers/login'
-import type { DefaultProps } from '../../index'
+import { defaultLoginState } from 'src/reducers/login'
+import type { LoginState } from 'src/reducers/login'
+import type { DefaultProps } from 'src/components/index'
 
 type RowProps = {
     columns: any,

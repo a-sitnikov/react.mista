@@ -9,6 +9,7 @@ import LinkToPost from 'src/components/extensions/link_to_post'
 import VoteChart from './vote_chart'
 
 import { defaultTopicState } from 'src/reducers/topic'
+import { defaultOptionsState } from 'src/reducers/options'
 
 import type { ResponseInfo, ResponseMessage } from 'src/api'
 import type { DefaultProps } from 'src/components/index'
@@ -21,7 +22,8 @@ type MsgTextProps = {
 }
 
 type StateProps = {
-    info: ResponseInfo
+    info: ResponseInfo,
+    voteColors: Array<string>
 }
 
 type Props = MsgTextProps & StateProps & DefaultProps;
@@ -70,27 +72,16 @@ class MsgText extends Component<Props> {
     }
 
     render() {
-        const { topicId, data, info, style } = this.props;
-
-        const voteColors: {[number]: string} = {};
-        voteColors[1] = "#FF1616";
-        voteColors[2] = "#1A861A";
-        voteColors[3] = "#0023FF";
-        voteColors[4] = "#FF6B18";
-        voteColors[5] = "#9B3A6E";
-        voteColors[6] = "#567655";
-        voteColors[7] = "#233345";
-        voteColors[8] = "#CC0000";
-        voteColors[9] = "#00CCCC";
-        voteColors[10] = "#0000CC";
+        const { topicId, data, info, style, voteColors } = this.props;
 
         let voteElement;
         if (data.vote && info.voting && topicId === info.id) {
-            let voteText = `${data.vote}. ${info.voting[data.vote - 1].select}`;
-            voteElement =
-                <div><br />
-                    <b><span style={{ color: voteColors[data.vote] }}>{voteText}</span></b>
-                </div>
+            let voteOption = info.voting[data.vote - 1];
+            if (voteOption)
+                voteElement =
+                    <div><br />
+                        <b><span style={{ color: voteColors[data.vote] }}>{`${data.vote}. ${info.voting[data.vote - 1].select}`}</span></b>
+                    </div>
         }
 
         let voteChart;
@@ -114,12 +105,12 @@ class MsgText extends Component<Props> {
 
 const mapStateToProps = (state: State): StateProps => {
 
-    const { 
-        info
-    } = state.topic || defaultTopicState;
-
+    const { info } = state.topic || defaultTopicState;
+    const { voteColors } = state.options || defaultOptionsState;
+    
     return {
-        info
+        info,
+        voteColors
     }
 }
 

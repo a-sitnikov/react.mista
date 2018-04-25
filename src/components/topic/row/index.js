@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import UserInfo from './user_info'
 import MsgText from './msg_text'
 
-import type { ResponseMessage } from 'src/api'
+import type { ResponseMessage, ResponseLogin } from 'src/api'
 import type { State } from 'src/reducers'
 import type { DefaultProps } from 'src/components'
 
@@ -16,7 +16,8 @@ type RowProps = {
 
 type StateProps = {
     topicId: string,
-    author: string
+    author: string,
+    login: ResponseLogin
 }
 
 type Props = RowProps & StateProps & DefaultProps;
@@ -24,7 +25,7 @@ type Props = RowProps & StateProps & DefaultProps;
 class Row extends Component<Props> {
 
     render() {
-        const { columns, data, author, topicId } = this.props;
+        const { columns, data, author, topicId, login } = this.props;
 
         if (!data)
             return null;
@@ -37,7 +38,7 @@ class Row extends Component<Props> {
             if (column.name === 'Автор') {
                 value = (
                     <td key={column.name} id={`tduser${data.n}`} className="bottomwhite ta-right va-top">
-                        <UserInfo key={i} data={data} isAuthor={data.user === author}/>
+                        <UserInfo key={i} data={data} isAuthor={data.user === author} isYou={data.user === login.username}/>
                     </td>
                 )
 
@@ -77,7 +78,8 @@ const mapStateToProps = (state: State): StateProps => {
 
     return {
         topicId: info.id,
-        author: item0 ? item0.user : ''
+        author: item0 ? item0.user : '',
+        login: state.login
     }
 }
 

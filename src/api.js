@@ -184,7 +184,7 @@ export type RequestNewMessage = {
 }
 
 export const postNewMessage = async (params: RequestNewMessage): Promise<any> =>  {
-    await fetch(urlNewMessage, {
+    await fetch(`${domain}/${urlNewMessage}`, {
         method: 'POST',
         body: paramsToString('', params),
         mode: 'no-cors',

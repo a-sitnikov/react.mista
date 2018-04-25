@@ -6,7 +6,7 @@ import type { ResponseVoteItem } from 'src/api'
 type Props = {
     topicId: string,
     data: ResponseVoteItem,
-    colors: {},    
+    colors: Array<string>,    
     total: number,
     n: number
 }
@@ -29,14 +29,14 @@ const VoteItem = (props: Props) => {
 
     return (
         <div className="flex-row" style={{ marginBottom: "3px" }}>
-            <div style={{ flex: "1 1 400px" }}>
+            <div style={{ flex: "1 1 200px" }}>
                 <a rel="nofollow" style={{ textDecoration: "none" }} href={`${window.hash}/topic.php?id=${topicId}&sel=${n}`}>
                     <b><span style={{ color: colors[n] }}>{`${n}. ${data.select}`}</span></b>
                 </a>
             </div>
             <div style={{ flex: "0 0 100px", position: "relative" }} className="ta-left va-middle">
                 <div className="div-va-middle">
-                    <b><span style={{ color: colors[n] }}>{`${percent}% (${data.result})`}</span></b>
+                    <b><span style={{ color: colors[n-1] }}>{`${percent}% (${data.result})`}</span></b>
                 </div>
             </div>
             <div style={{ flex: "1 1 400px", position: "relative" }}>

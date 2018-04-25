@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Banner from '../banner'
+import './title.css'
 
 class Title extends Component {
 
@@ -7,9 +8,9 @@ class Title extends Component {
 
         return (
             <div id="title" className="flex-row">
-                <div id="title-td" className="title-td">
-                    <h1 className="forum-title">
-                        <a href={`${window.hash}`}><span>Волшебный </span>&nbsp;<span>Форум</span></a>
+                <div /*id="title-td" className="title-td"*/>
+                    <h1 className="title">
+                        <a href={`${window.hash}`}><span>В</span>олшебный&nbsp;<span>Ф</span>орум</a>
                     </h1>
                 </div>
                 <div id="banner-center-td" style={{ flex: "1" }}>

@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames'
 
+import './nav_bar.css'
+
 const NavBar = (props) => {
 
     const menu = [
