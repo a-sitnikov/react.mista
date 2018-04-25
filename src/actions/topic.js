@@ -128,6 +128,14 @@ export const fetchTopic = (params: any, item0: ?ResponseMessage) => async (dispa
     }
     
         dispatch(receiveTopic(info, _item0, _items));
+
+        setInterval(() => {
+            dispatch(fetchNewMessagesIfNeeded({
+                id: info.id,
+                last: parseInt(info.answers_count, 10)
+            }))
+        }, 60000);
+
     } catch (error) {
 
         console.error('Failed to fetch topic:', error);

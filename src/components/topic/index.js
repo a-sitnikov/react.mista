@@ -61,17 +61,9 @@ class Topic extends Component<Props> {
 
     componentDidMount() {
         
-        const { info, fetchNewMessagesIfNeeded } = this.props;
-
         this.location = this.props.location;
         this.updateTopic();
         
-        this.timer = setInterval(() => { 
-            fetchNewMessagesIfNeeded({
-                id: info.id,
-                last: parseInt(info.answers_count, 10)
-            })
-        }, 60000);
     }
 
     componentWillReceiveProps(props: Props) {
