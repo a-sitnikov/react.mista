@@ -5,8 +5,9 @@ import { connect } from 'react-redux'
 import UserInfo from './user_info'
 import MsgText from './msg_text'
 
-import type { ResponseMessage, ResponseLogin } from 'src/api'
+import type { ResponseMessage } from 'src/api'
 import type { State } from 'src/reducers'
+import type { LoginState } from 'src/reducers/login'
 import type { DefaultProps } from 'src/components'
 
 type RowProps = {
@@ -17,7 +18,7 @@ type RowProps = {
 type StateProps = {
     topicId: string,
     author: string,
-    login: ResponseLogin
+    login: LoginState
 }
 
 type Props = RowProps & StateProps & DefaultProps;

@@ -74,19 +74,25 @@ class LinkToPost extends Component<Props> {
 
     render() {
 
-        const { topicId, number, style } = this.props;
+        const { topicId, number, style, children } = this.props;
         const page = getMaxPage(number);
 
         let pageParam = '';
         if (page > 1)
             pageParam = `&page=${page}`;
 
+	let text;
+        if (children)
+    	    text = children;
+        else
+            text = number;	
+
         return (
             <a href={`${window.hash}/topic.php?id=${topicId}${pageParam}#${number}`}
                 onMouseOver={this.onMouseOver}
                 onMouseOut={this.onMouseOut}
                 style={{...style}}
-            >{number}</a>
+            >{text}</a>
         )
     }
 }

@@ -70,7 +70,7 @@ class Footer extends React.Component<FooterProps> {
         this.onBookmarkClick = this.onBookmarkClick.bind(this);
     }
 
-    onBookmarkClick() {
+     onBookmarkClick() {
         const { info, dispatch } = this.props;
         dispatch(addBookmark(info));
     }

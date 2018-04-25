@@ -5,6 +5,7 @@ import activeHtml from 'react-active-html';
 
 import Code from 'src/components/extensions/code1c'
 import LinkToPost from 'src/components/extensions/link_to_post'
+import CustomLink from 'src/components/extensions/custom_link'
 
 import VoteChart from './vote_chart'
 
@@ -30,7 +31,8 @@ type Props = MsgTextProps & StateProps & DefaultProps;
 
 const componentsMap = {
     link: props => <LinkToPost topicId={props['data-topicid']} number={props['data-number']}  key={props.key}/>,
-    code: props => <Code {...props} />
+    code: props => <Code {...props} />,
+    a: props => <CustomLink {...props} />
 };
 
 class MsgText extends Component<Props> {
@@ -92,7 +94,7 @@ class MsgText extends Component<Props> {
         let textComponent = activeHtml(this.processText(data.text), componentsMap);
 
         return (
-            <div style={{...style}}>
+            <div style={{...style, minHeight: "45px"}}>
                 {voteChart}
                 <div>
                     {textComponent}

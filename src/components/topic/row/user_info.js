@@ -7,7 +7,7 @@ import type { ResponseMessage } from 'src/api'
 type Props = {
     data: ResponseMessage,
     isAuthor: boolean,
-    isYou: boolean
+    isYou?: boolean
 }
 
 const UserInfo = (props: Props) => {
