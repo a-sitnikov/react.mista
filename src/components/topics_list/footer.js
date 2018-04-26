@@ -2,11 +2,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { defaultTopicsListState } from '../../reducers/topics_list'
-import { fetchTopicsListIfNeeded } from '../../actions/topics_list'
+import { defaultTopicsListState } from 'src/reducers/topics_list'
+import { fetchTopicsListIfNeeded } from 'src/actions/topics_list'
 
-import type { State } from '../../reducers'
-import type { DefaultProps } from '../../components'
+import type { State } from 'src/reducers'
+import type { DefaultProps } from 'src/components'
 
 type FooterProps = {
     page: string,

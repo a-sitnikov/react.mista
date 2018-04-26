@@ -7,7 +7,7 @@ import queryString from 'query-string'
 import Login from '../login'
 import Search from './search'
 import SectionSelect from './section_select'
-import { fetchSectionsIfNeeded } from '../../actions/sections'
+import { fetchSectionsIfNeeded } from 'src/actions/sections'
 
 import type { DefaultProps } from 'src/components'
 import type { State } from 'src/reducers'

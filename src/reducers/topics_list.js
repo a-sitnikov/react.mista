@@ -4,6 +4,7 @@ import type { TopicsListAction } from 'src/actions/topics_list'
 export type TopicsListState = {
   isFetching: boolean;
   items: any,
+  error?: string,
   lastUpdated?: Date
 };
 
@@ -25,6 +26,13 @@ const topicsList = (state: TopicsListState = defaultTopicsListState, action: Top
                 ...state,
                 isFetching: false,
                 items: action.items,
+                lastUpdated: action.receivedAt
+            }
+        case 'RECEIVE_TOPICS_LIST_FAILED':
+            return {
+                ...state,
+                isFetching: false,
+                eror: action.error,
                 lastUpdated: action.receivedAt
             }
         default:

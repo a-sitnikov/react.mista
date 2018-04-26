@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { getMaxPage } from '../../../utils'
+import { getMaxPage } from 'src/utils'
 
 
 const Pages = (props) => {

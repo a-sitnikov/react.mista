@@ -46,95 +46,88 @@ export const fetchTopic = (params: any, item0: ?ResponseMessage) => async (dispa
 
     try {
         
-    let page = params.page || 1;
+        let page = params.page || 1;
 
-    const info = await API.getTopicInfo({id: params.id});
-    let _item0 = item0;
-    let _items;
-    if (page === 'last20') {
+        const info = await API.getTopicInfo({id: params.id});
+        let _item0 = item0;
+        let _items;
+        if (page === 'last20') {
 
-        if (+info.answers_count > 21) {
+            if (+info.answers_count > 21) {
 
-            if (!_item0) {
-                let items = await API.getTopicMessages({
+                if (!_item0) {
+                    let items = await API.getTopicMessages({
+                        id: params.id,
+                        from: 0,
+                        to: 1
+                    }); 
+                    _item0 = items[0];
+                }    
+
+                let first = +info.answers_count - 20;
+                _items = await API.getTopicMessages({
                     id: params.id,
-                    from: 0,
-                    to: 1
-                }); 
-                _item0 = items[0];
-            }    
+                    from: first,
+                    to: 1010
+                });            
 
-            let first = +info.answers_count - 20;
-            _items = await API.getTopicMessages({
-                id: params.id,
-                from: first,
-                to: 1010
-            });            
-
-        } else {
-            let items = await API.getTopicMessages({
-                id: params.id,
-                from: 0,
-                to: 1010
-            });               
-            _item0 = items[0];
-            _items = items.slice(1);
-        }
-
-    } else {
-
-        page = +page;
-        let first = 0;
-        let last = page * 100 - 1;
-
-        if (page > 1) {
-
-            first = (page - 1) * 100 + 1;
-            if (!_item0) {
-                let items = await API.getTopicMessages({
-                    id: params.id,
-                    from: 0,
-                    to: 1
-                });
-                _item0 = items[0];
-            }
-
-            _items = await API.getTopicMessages({
-                id: params.id,
-                from: first,
-                to: last
-            });                
-
-        } else {
-            if (_item0)
-                first = 1;
-            else
-                first = 0;
-
-            let items = await API.getTopicMessages({
-                id: params.id,
-                from: first,
-                to: last
-            });  
-
-            if (_item0) {
-                _items = items;
             } else {
+                let items = await API.getTopicMessages({
+                    id: params.id,
+                    from: 0,
+                    to: 1010
+                });               
                 _item0 = items[0];
                 _items = items.slice(1);
             }
+
+        } else {
+
+            page = +page;
+            let first = 0;
+            let last = page * 100 - 1;
+
+            if (page > 1) {
+
+                first = (page - 1) * 100 + 1;
+                if (!_item0) {
+                    let items = await API.getTopicMessages({
+                        id: params.id,
+                        from: 0,
+                        to: 1
+                    });
+                    _item0 = items[0];
+                }
+
+                _items = await API.getTopicMessages({
+                    id: params.id,
+                    from: first,
+                    to: last
+                });                
+
+            } else {
+                if (_item0)
+                    first = 1;
+                else
+                    first = 0;
+
+                let items = await API.getTopicMessages({
+                    id: params.id,
+                    from: first,
+                    to: last
+                });  
+
+                if (_item0) {
+                    _items = items;
+                } else {
+                    _item0 = items[0];
+                    _items = items.slice(1);
+                }
+            }
+        
         }
-      
-    }
     
         dispatch(receiveTopic(info, _item0, _items));
-
-        setInterval(() => {
-            dispatch(fetchNewMessagesIfNeeded({
-                id: info.id,
-                last: parseInt(info.answers_count, 10)
-            }))
-        }, 60000);
 
     } catch (error) {
 

@@ -42,14 +42,18 @@ class Topic extends Component<Props> {
 
     onPostNewMessageSuccess;
     updateTopic;
+    autoUpdate;
     locationParams: TopicLocationParams;
     location: Location;
     columns: Array<Column>;
+    timer;
 
     constructor(props) {
         super(props);
         this.onPostNewMessageSuccess = this.onPostNewMessageSuccess.bind(this);
-        this.updateTopic = this.updateTopic.bind(this);
+        this.updateTopic = this.updateTopic.bind(this)
+        this.autoUpdate = this.autoUpdate.bind(this)
+        
         this.locationParams = {id: ''};
         
         this.columns = [
@@ -63,7 +67,13 @@ class Topic extends Component<Props> {
         
         this.location = this.props.location;
         this.updateTopic();
+
+        this.timer = setInterval(this.autoUpdate, 60000);
         
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timer);
     }
 
     componentWillReceiveProps(props: Props) {
@@ -76,6 +86,17 @@ class Topic extends Component<Props> {
             this.location = props.location;
             this.updateTopic();
         }
+    }
+    
+    autoUpdate() {
+        const { info, fetchNewMessagesIfNeeded } = this.props;
+        const isLastPage = (this.locationParams.page === 'last20' || this.locationParams.page === getMaxPage(parseInt(info.answers_count, 10)));
+
+        if (isLastPage) 
+            fetchNewMessagesIfNeeded({
+                id: info.id,
+                last: parseInt(info.answers_count, 10)
+            })
     }
 
     updateTopic() {

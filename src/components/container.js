@@ -14,8 +14,7 @@ class Container extends Component {
         super(props);
 
         this.onClick = this.onClick.bind(this);
-        // for github pages
-        window.hash = '#';
+
     }
 
     onClick() {

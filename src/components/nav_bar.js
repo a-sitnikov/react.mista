@@ -6,9 +6,9 @@ import './nav_bar.css'
 const NavBar = (props) => {
 
     const menu = [
-        { name: 'Форум', link: '/' },
-        { name: '1С:Предприятие', link: '/' },
-        { name: 'Работа', link: '/' },
+        { name: 'Форум', link: `${window.hash}` },
+        { name: '1С:Предприятие', link: `${window.hash}/index.php?forum=1C` },
+        { name: 'Работа', link: `${window.hash}/index.php?forum=JOB` },
         { name: 'Wiki', link: 'http://wiki.mista.ru' },
         { name: 'Книга знаний', link: 'http://kb.mista.ru' },
         { name: 'Каталог разработок', link: 'http://catalog.mista.ru' }

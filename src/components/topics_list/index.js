@@ -85,7 +85,7 @@ class TopicsList extends Component<Props> {
 
         return (
             <div>
-                {options.showTitle.value ? (
+                {options.showTitle ? (
                     <Title />
                     ) : null
                 }

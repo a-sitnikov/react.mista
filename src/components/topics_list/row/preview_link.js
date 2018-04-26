@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import type { DefaultProps } from '../../index'
+import type { DefaultProps } from 'src/components'
 
 type PreviewLinkProps = {
     topicId: string,

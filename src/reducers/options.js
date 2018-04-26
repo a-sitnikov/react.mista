@@ -1,18 +1,4 @@
 
-export type ParamDescr =  {
-    title: string,
-    postfix?: string,
-    group: string
-}
-
-export type BoolParam = {
-    value: boolean,
-} & ParamDescr;
-
-export type NumberParam = {
-    value: number,
-} & ParamDescr;
-
 export type Column = {
     name: string,
     className?: string,
@@ -22,7 +8,8 @@ export type Column = {
 export type OptionsState = {
     voteColors: Array<string>,
     listColumns: Array<Column>,
-    showTitle: BoolParam
+    showTitle: boolean,
+    theme: 'theme-yellow' | 'theme-lightgray'
 };
 
 export const defaultOptionsState = {
@@ -45,7 +32,8 @@ export const defaultOptionsState = {
         { name: 'Автор', className: 'cl', width: '120px' },
         { name: 'Обновлено', className: 'cl', width: '150px' }
     ],    
-    showTitle: {value: false, title: 'Показывать заголовок', group: 'Общее'},
+    showTitle: false,
+    theme: 'theme-lightgray'
 }
 
 const options = (state: OptionsState = defaultOptionsState, action: any) => {

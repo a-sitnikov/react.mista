@@ -5,18 +5,18 @@ const NavBarFooter = (props) => {
     return (
         <div id="footer" className="flex-row" style={{ borderTop: "1px solid #ccc", padding: "5px 0px 5px 0px" }}>
             <div className="navigation-link" style={{ flex: 1 }}>
-                <a href="rules.php">Правила</a>
+                <a href="https://www.forum.mista.ru/rules.php">Правила</a>
                 <span className="separator">|</span>
-                <a href="about.php">Описание</a>
+                <a href="https://www.forum.mista.ru/about.php">Описание</a>
                 <span className="separator">|</span>
-                <b><a href="ad.php">Реклама на сайте</a>  </b>
+                <b><a href="https://www.forum.mista.ru/ad.php">Реклама на сайте</a>  </b>
                 <span className="separator">|</span>
-                <a href={`${window.hash}/find.php`}>Поиск</a>
+                <a href="https://www.forum.mista.ru/find.php">Поиск</a>
                 <span className="separator">|</span>
                 <noindex>
-                    <a rel="nofollow" href={`${window.hash}/sections_list.php`} >Секции</a>
+                    <a rel="nofollow" href="https://www.forum.mista.ru/sections_list.php" >Секции</a>
                     <span className="separator">|</span>
-                    <a rel="nofollow" href={`${window.hash}/rating.php`}>Рейтинг</a>
+                    <a rel="nofollow" href="https://www.forum.mista.ru/sections_list.php">Рейтинг</a>
                     <span className="separator">|</span>
                     <a href="http://kb.mista.ru">Книга знаний</a>
                     <span className="separator">|</span>
@@ -24,11 +24,11 @@ const NavBarFooter = (props) => {
                     <span className="separator">|</span>
                     <a rel="nofollow" href="http://m.mista.ru/">Мобильная</a>
                     <span className="separator">|</span>
-                    <a href="archive.php">Архив</a>
+                    <a href="https://www.forum.mista.ru/archive.php">Архив</a>
                     <span className="separator">|</span>
-                    <a href="moders.php">Модераторы</a>
+                    <a href="https://www.forum.mista.ru/moders.php">Модераторы</a>
                     <span className="separator">|</span>
-                    <a href="users_gallery.php">Галерея</a>
+                    <a href="https://www.forum.mista.ru/users_gallery.php">Галерея</a>
                     <span className="separator">|</span>
                     <span>18+</span>
                 </noindex>

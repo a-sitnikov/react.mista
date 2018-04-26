@@ -13,7 +13,13 @@ export type RECEIVE_TOPICS_LIST = {
     receivedAt: Date
 }
 
-export type TopicsListAction = REQUEST_TOPICS_LIST | RECEIVE_TOPICS_LIST;
+export type RECEIVE_TOPICS_LIST_FAILED = {
+    type: 'RECEIVE_TOPICS_LIST_FAILED',
+    error: string,
+    receivedAt: Date
+}
+
+export type TopicsListAction = REQUEST_TOPICS_LIST | RECEIVE_TOPICS_LIST | RECEIVE_TOPICS_LIST_FAILED;
 
 export const requestTopicsList = (): REQUEST_TOPICS_LIST => ({
     type: 'REQUEST_TOPICS_LIST'
@@ -47,10 +53,21 @@ const fetchTopicsList = (params: any) => async (dispatch: any) => {
     if (params.mytopics)
         reqestParams.mytopics = params.mytopics;
 
-    const json = await API.getTopicsList(reqestParams);
+    try {
+        const json = await API.getTopicsList(reqestParams);
 
-    let data = json.slice(-20);
-    dispatch(receiveTopicsList(data));
+        let data = json.slice(-20);
+        dispatch(receiveTopicsList(data));
+    } catch(e) {
+        
+        let action: RECEIVE_TOPICS_LIST_FAILED = {
+            type: 'RECEIVE_TOPICS_LIST_FAILED',
+            error: e.message,
+            receivedAt: new Date()            
+        }
+        dispatch(action);
+        console.error(e);
+    }   
 
 }
 
