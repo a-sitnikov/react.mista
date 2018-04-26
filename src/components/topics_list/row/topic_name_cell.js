@@ -45,7 +45,7 @@ class TopicNameCell extends Component<Props> {
 
         let href = `${window.hash}/topic.php?id=${data.id}`;
         let classes = classNames('agb', 'mr5', {
-            'longtopics': data.answ >= 100,
+            'bold': data.answ >= 100,
             'mytopics': data.user0 === login.username
         });
 

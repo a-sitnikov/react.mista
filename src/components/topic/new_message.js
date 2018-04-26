@@ -143,7 +143,7 @@ class NewMessage extends Component<Props> {
 
         return (
             <form>
-                <p className="newmessage">Добавить сообщение в тему:</p>
+                <p className="bold">Добавить сообщение в тему:</p>
                 <div className="flex-row">
                     <div style={{ flex: 0, marginRight: "20px" }}>
                         <label htmlFor="user_name" style={{ display: "block", marginBottom: "10px" }}>Имя*:</label>
@@ -158,7 +158,7 @@ class NewMessage extends Component<Props> {
                             size="30" maxLength="20"
                             readOnly={true}
                             type="text"
-                            className="fieldbasic"
+                            className="field"
                             style={{ marginBottom: "10px" }}
                         />
                         <TextEditor onSend={this.onSend} isFetching={newMessage.isFetching} onChange={this.onChange} text={newMessage.text} />

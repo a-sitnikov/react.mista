@@ -8,6 +8,8 @@ import { fetchTopicsListIfNeeded } from 'src/actions/topics_list'
 import type { State } from 'src/reducers'
 import type { DefaultProps } from 'src/components'
 
+import './footer.css'
+
 type FooterProps = {
     page: string,
     locationParams: {}
@@ -55,7 +57,7 @@ class Footer extends Component<Props> {
 
         return (
             <div>
-                <div id='tf' style={{ paddingTop: "4px", paddingBottom: "4px", boxSizing: "border-box", width: "100%" }}>
+                <div id='tf' className="tf">
                     <span className='pages'>
                         {pages}
                     </span>

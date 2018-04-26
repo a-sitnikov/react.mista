@@ -44,11 +44,21 @@ export const fetchTopic = (params: any, item0: ?ResponseMessage) => async (dispa
 
     dispatch(requestTopic())
 
+    let info;
     try {
-        
+        info = await API.getTopicInfo({id: params.id});
+    } catch(e) {
+        console.error(e);
+        info = {
+            id: params.id,
+            text: '',
+            answers_count: "0"
+        };
+    }   
+
+    try {    
         let page = params.page || 1;
 
-        const info = await API.getTopicInfo({id: params.id});
         let _item0 = item0;
         let _items;
         if (page === 'last20') {
@@ -69,7 +79,7 @@ export const fetchTopic = (params: any, item0: ?ResponseMessage) => async (dispa
                     id: params.id,
                     from: first,
                     to: 1010
-                });            
+                }); 
 
             } else {
                 let items = await API.getTopicMessages({
@@ -127,6 +137,9 @@ export const fetchTopic = (params: any, item0: ?ResponseMessage) => async (dispa
         
         }
     
+        if (info.answers_count === "0" && _items.length > 0)
+            info.answers_count = _items[_items.length - 1].n;
+
         dispatch(receiveTopic(info, _item0, _items));
 
     } catch (error) {

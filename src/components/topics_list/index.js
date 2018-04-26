@@ -91,7 +91,7 @@ class TopicsList extends Component<Props> {
                 }
                 <Header history={this.props.history} />
                 <SearchResults />
-                <table id='tm' style={{width: "100%", margin: "10px auto 0px auto"}}>
+                <table id='tm' className="border1">
                     <colgroup>
                         {options.listColumns.map((item, i) => (
                             <col key={i} className={item.className} style={{ width: item.width }} />

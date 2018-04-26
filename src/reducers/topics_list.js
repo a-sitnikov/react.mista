@@ -19,6 +19,7 @@ const topicsList = (state: TopicsListState = defaultTopicsListState, action: Top
         case 'REQUEST_TOPICS_LIST':
             return {
                 ...state,
+                error: null,
                 isFetching: true
             }
         case 'RECEIVE_TOPICS_LIST':

@@ -1,0 +1,11 @@
+.tf {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+    border: 2px solid #CCC;
+    border-top: 1px solid #CCC;
+    margin: auto;
+    background-color: #EEE;
+}    

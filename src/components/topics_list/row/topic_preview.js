@@ -9,6 +9,8 @@ import MsgText from '../../topic/row/msg_text'
 import type { DefaultProps } from 'src/components'
 import type { ResponseMessage } from 'src/api'
 
+import './topic_preview.css'
+
 type TopicPreviewProps = {
     topicId: string,
     data?: ResponseMessage   

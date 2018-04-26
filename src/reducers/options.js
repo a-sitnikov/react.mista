@@ -6,6 +6,7 @@ export type Column = {
 }
 
 export type OptionsState = {
+    show: boolean,
     voteColors: Array<string>,
     listColumns: Array<Column>,
     showTitle: boolean,
@@ -13,6 +14,7 @@ export type OptionsState = {
 };
 
 export const defaultOptionsState = {
+    show: false,
     voteColors: [
         "#FF1616", //1
         "#1A861A", //2
@@ -38,6 +40,16 @@ export const defaultOptionsState = {
 
 const options = (state: OptionsState = defaultOptionsState, action: any) => {
     switch (action.type) {
+        case 'SHOW_OPTIONS': 
+            return {
+                ...state,
+                show: true
+            }
+        case 'CLOSE_OPTIONS': 
+            return {
+                ...state,
+                show: false
+            }
         default:
             return state
     }

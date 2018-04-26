@@ -1,0 +1,13 @@
+.plus-minus {
+    color: gray;
+    font-family: "Courier New", monospace;
+    font-size: 80%;
+    cursor: pointer;
+    margin: 0 8px 0 4px;
+}
+
+.plus-nav {
+    cursor: pointer;
+    color: gray;
+    text-decoration: none;
+}

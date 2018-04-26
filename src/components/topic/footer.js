@@ -97,24 +97,22 @@ class Footer extends React.Component<FooterProps> {
             updateButton = <button id="refresh_button" type="button" className="button" onClick={this.onRefreshClick}>{isFetching ? 'Обновляется': 'Обновить ветку'}</button>
 
         return (
-            <table id="F" className="center-97">
-                <tbody>
-                    <tr>
-                        <td className="ta-left va-top" style={{ width: "50%" }}>
-                            <Pages maxPage={maxPage} currentPage={params.page} id={info.id}/>
-                            <br />
-                            <button id="bookmark" className="button" onClick={this.onBookmarkClick} disabled={bookmark.isFetching ? 'true' : ''}>{bookmark.isFetching ? 'Подождите...' : 'Закладка'}</button>
-                        </td>
-                        <td className="ta-right va-middle" style={{ height: "30px" }}>
-                            <span className="return-string">
-                                <a rel="nofollow" href="/">Список тем форума</a>
-                            </span>
-                            <br />
-                            {updateButton}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div id="F" className="center-97">
+                <div className="flex-row">
+                    <div className="ta-left va-top" style={{ width: "50%" }}>
+                        <Pages maxPage={maxPage} currentPage={params.page} id={info.id}/>
+                        <br />
+                        <button id="bookmark" className="button" onClick={this.onBookmarkClick} disabled={bookmark.isFetching ? 'true' : ''}>{bookmark.isFetching ? 'Подождите...' : 'Закладка'}</button>
+                    </div>
+                    <div className="ta-right va-middle" style={{ height: "30px", marginLeft: "auto" }}>
+                        <span className="bold120">
+                            <a rel="nofollow" href="/">Список тем форума</a>
+                        </span>
+                        <br />
+                        {updateButton}
+                    </div>
+                </div>
+            </div>
         )
     }
 }

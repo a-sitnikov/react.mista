@@ -83,3 +83,102 @@ body {
 .mr5 {
     margin-right: 5px;
 }
+
+.bold {
+    font-weight: bold;
+}
+
+#tm {
+    border: 2px solid #CCC;
+    border-bottom: 0;
+    border-spacing: 0;
+    background-color: white;
+    table-layout: fixed;
+    line-height: 1.4em;
+    font-size: 1em;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 10px auto 0px;
+}
+
+#tm th {
+    background-color: #EEE;
+    border-left: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+}
+
+#tm td {
+    padding: 4px;
+    vertical-align: top;
+}
+
+.border1 td {
+    border-left: 1px solid #EEEEEE;
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.border2 td {
+    border-left: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+}
+
+.cc {
+    text-align: center;
+    vertical-align: top;
+    font-size: 80%;
+}
+
+.ct {
+    text-align: left;
+    vertical-align: top;
+}
+
+.cl {
+    text-align: left;
+    vertical-align: top;
+    font-size: 80%;
+    word-wrap: break-word;
+}
+
+a {
+    color: #00C;
+}
+
+a:hover {
+    color: #D00;
+}
+
+.registered-user {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.mytopics {
+    color: #052;
+}
+
+.va-middle {
+    vertical-align: middle !important;
+}
+
+.ta-right {
+    text-align: right !important;
+}
+
+.va-top {
+    vertical-align: top !important;
+}
+.ta-left {
+    text-align: left !important;
+}
+
+.ta-center {
+    text-align: center !important;
+}
+
+.bold120 {
+    color: #309;
+    font-weight: bold;
+    font-size: 120%;
+}

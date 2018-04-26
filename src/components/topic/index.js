@@ -151,7 +151,7 @@ class Topic extends Component<Props> {
             <div  >
                 {errorElem}
                 <Header currentPage={this.locationParams.page} />
-                <table id='table_messages' style={{ width: "100%", margin: "10px auto 0px auto" }}>
+                <table id='tm' className="border2" style={{ width: "100%", margin: "10px auto 0px auto" }}>
                     <colgroup>
                         {this.columns.map((item, i) => (
                             <col key={i} style={{ width: item.width }} />

@@ -27,9 +27,9 @@ class Header extends React.Component<Props> {
                 <div id="user-td" style={{ flex: "0 auto", marginRight: "15px", paddingTop: "5px", verticalAlign: "top" }}>
                     <Login />
                 </div>
-                <div id="section-td" style={{ flex: 1, paddingTop: "5px", verticalAlign: "top" }}>
-                    <span id="forum_string" className="section-name">
-                        <a rel="nofollow" href={`&{window.hash}/index.php?forum=${info.forum}`} style={{ textDecoration: "none" }}>{forums[info.forum]}</a>
+                <div id="section-td" className="ta-right" style={{ flex: 1, paddingTop: "5px", verticalAlign: "top", marginLeft: "auto" }}>
+                    <span id="forum_string" className="bold120">
+                        <a rel="nofollow" href={`${window.hash}/index.php?forum=${info.forum}`} style={{ textDecoration: "none" }}>{forums[info.forum]}</a>
                     </span>
                 </div>
             </div>
