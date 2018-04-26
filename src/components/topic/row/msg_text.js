@@ -50,16 +50,16 @@ class MsgText extends Component<Props> {
 
     processCode1C(text: string): string {
 
-        const regexp = /(\[1C\])((.|\n)*?)(\[\/1C\])/g; // [1C] text [/1C]
+        const regexp = /(\[1[CС]\])((.|\n)*?)(\[\/1[CС]\])/g; // [1C] text [/1C]
 
         return text.replace(regexp, (res, ...segments) => {
-            let text = segments[1];
+            let txt = segments[1];
 
             //remove first <br>
-            if (text.substr(0, 4) === "<br>")
-                text = text.substr(4);
+            if (txt.substr(0, 4) === "<br>")
+                txt = txt.substr(4);
 
-            return `<code>${text}</code>`
+            return `<code>${txt}</code>`
         });
     }
     

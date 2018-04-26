@@ -303,7 +303,9 @@ class Code extends Component {
     render() {
 
         let buttonText;
-        let linesCount = this.text.split("\n").length;
+        let linesCount = 0;
+        if (this.text)
+            linesCount = this.text.split("\n").length;
 
         if (this.state.hidden)
             buttonText = `Показать: ${linesCount} строк`;

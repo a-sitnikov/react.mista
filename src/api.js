@@ -279,7 +279,17 @@ export const fetchJsonpAndGetJson = async (url: string, params: any): Promise<an
 
     let fullUrl = `${domain}/${url}${paramsToString('?', params)}`; 
     const response =  await fetchJsonp(fullUrl);
-    const responseJson = await response.json();
-    const json = typeof(responseJson) === 'string' ? JSON.parse(responseJson) : responseJson;
+    let responseJson = await response.json();
+    let json;
+    if (typeof(responseJson) === 'string') {
+        // что делатьс кавычками в строке?
+        responseJson = responseJson
+            .replace(/" /, "' ")
+            .replace(/ "/, " '");
+            
+        json = JSON.parse(responseJson);
+    } else {
+        json = responseJson;
+    }
     return json;
 }
