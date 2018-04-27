@@ -108,7 +108,7 @@ function РазукраситьСтроку(СтрокаКода) {
                     ДобавитьЧастьСтроки1С(Токен + " ", мЦветСтроки);
                     ВСтрокеТильда = false;
 
-                } else if (isKeyword(Токен)) {
+                } else if (isKeyword(Токен.trim())) {
                     ДобавитьЧастьСтроки1С(Токен + " ", мЦветКлючевогоСлова1);
 
                 } else if (!isNaN(parseInt(Токен, 10))) {
@@ -323,15 +323,12 @@ class Code extends Component {
         let buttonShow;
         if (linesCount > 6)
             buttonShow = (
-                <div className="button-div">
-                    <span className="button-span" onClick={this.onShowClick}>{buttonText}</span>
+                <div className="expand-button-div">
+                    <span className="expand-button-span" onClick={this.onShowClick}>{buttonText}</span>
                 </div>    
             );
 
         let preStyle =  { 
-            textAlign: "left", 
-            fontFamily: "courier new,courier", 
-            color: "blue"
         } 
         
         if (this.state.hidden && linesCount > 6) {
@@ -343,8 +340,8 @@ class Code extends Component {
         }    
 
         return (
-            <div>
-                <pre style={preStyle} dangerouslySetInnerHTML={{ __html: this.text }}>
+            <div style={{marginTop: "5px"}}>
+                <pre className="code-pre" style={preStyle} dangerouslySetInnerHTML={{ __html: this.text }}>
                 </pre>
                 {buttonShow}
             </div>

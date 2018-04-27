@@ -15,16 +15,24 @@
 .key
 {color: red;}
 
-.button-div {
+.expand-button-div {
     text-align: center;
-    margin-top: -10px;
+    margin-top: -16px;
     font-size: 11px;
 }
 
-.button-span{
+.expand-button-span{
    border: 1px dashed rgb(221, 221, 221);
    cursor: pointer;
    color: #999;
    padding: 2px 5px;
    background-color: white;
+}
+
+.code-pre {
+    text-align: left;
+    font-family: courier new,courier;
+    color: blue;
+    margin: 5px auto;
+    border: 1px dashed rgb(221, 221, 221);
 }

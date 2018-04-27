@@ -153,6 +153,7 @@ a:hover {
     color: black;
     text-decoration: none;
     font-weight: bold;
+    margin-right: 6px;
 }
 
 .mytopics {
