@@ -3,7 +3,7 @@ import React from 'react'
 const NavBarFooter = (props) => {
 
     return (
-        <div id="footer" className="flex-row" style={{ borderTop: "1px solid #ccc", padding: "5px 0px 5px 0px", marginTop: "10px" }}>
+        <div id="footer" className="flex-row navbar-footer">
             <div className="navigation-link" style={{ flex: 1 }}>
                 <a href="https://www.forum.mista.ru/rules.php">Правила</a>
                 <span className="separator">|</span>

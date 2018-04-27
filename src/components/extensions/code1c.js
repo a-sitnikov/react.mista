@@ -289,7 +289,15 @@ class Code extends Component {
             });
 
             this.text = textArr.join('');
-            this.text = this.text.replace(/<br>/g, '\n');
+            
+            // replace double new-lines
+            this.text = this.text
+                .replace(/\n<br>/g, '\n')
+                .replace(/<br>\n/g, '\n')
+                .replace(/\r<br>/g, '\n')
+                .replace(/<br>\r/g, '\n')
+                .replace(/<br>/g, '\n');
+
             this.text = highLightSyntax(this.text);
         }
     }

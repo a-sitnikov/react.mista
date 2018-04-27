@@ -19,7 +19,7 @@ class CustomLink extends Component<Props> {
 
         const { href, children } = this.props;
 
-        if (href.search(/mista.ru/) !== -1) {
+        if (href.search(/forum\.mista.ru/) !== -1) {
             let arr = href.split('?');
             if (arr.length > 0) {
                 let params = queryString.parse(arr[1]);
@@ -29,8 +29,8 @@ class CustomLink extends Component<Props> {
             }
         }    
 
-        if (href.search(/youtube.com/) !== -1
-            || href.search(/youtu\.be/) !==-1) {
+        if (href.search(/youtube/) !== -1
+            || href.search(/youtu\.be/) !== -1) {
             return <YoutubeLink href={href} />
         }
 

@@ -79,3 +79,10 @@ li.nav-item a:hover{
     color:#0000EE;
     background-color: #ccc;
 }
+
+.navbar-footer {
+    border-top: 1px solid #ccc;
+    padding: 5px 0px 5px 0px;
+    margin-top: 10px;
+    bottom: 0px;
+}

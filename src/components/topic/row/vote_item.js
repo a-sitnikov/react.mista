@@ -29,7 +29,7 @@ const VoteItem = (props: Props) => {
 
     return (
         <div className="flex-row" style={{ marginBottom: "3px" }}>
-            <div style={{ flex: "1 1 200px" }}>
+            <div style={{ flex: "1 1 200px", maxWidth: "400px", marginRight: "5px" }}>
                 <a rel="nofollow" style={{ textDecoration: "none" }} href={`${window.hash}/topic.php?id=${topicId}&sel=${n}`}>
                     <b><span style={{ color: colors[n] }}>{`${n}. ${data.select}`}</span></b>
                 </a>

@@ -22,3 +22,28 @@
     font-weight: normal;
     z-index: 1001;
 }
+
+.options-header {
+    cursor: move;
+    background: white;
+    padding: 4px;
+    border-bottom: 1px solid silver;
+}
+
+.close-button {
+    display: block;
+    position: absolute;
+    right: 6px;
+    top: 3px;
+    cursor: pointer;
+}
+
+.button-row {
+    padding: 5px 10px 5px 10px;
+    border-top: 1px solid silver;
+    background-color: #eee;
+    bottom: 0px;
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+}

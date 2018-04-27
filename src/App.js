@@ -21,11 +21,15 @@ class App extends Component<StateProps> {
     window.hash = '#';
   }
 
-  render() {
-    const { theme } = this.props;
+  componentWillMount() {
+      const { theme } = this.props;
+      if (document.body)
+        document.body.className = theme;
+  }
 
+  render() {
     return (
-      <div className = {theme}>
+      <div>
         <NavBar />
         <Container />
         <NavBarFooter />

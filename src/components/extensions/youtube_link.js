@@ -2,26 +2,21 @@
 import React, { Component } from 'react'
 import queryString from 'query-string'
 
-import type { DefaultProps } from 'src/components'
-
 type YoutubeLinkProps = {
     href: string,
 }
 
-type Props = YoutubeLinkProps;
-
-class YoutubeLink extends Component<Props> {
+class YoutubeLink extends Component<YoutubeLinkProps> {
 
     state: any;
 
-    constructor(props: Props) {
+    constructor(props: YoutubeLinkProps) {
         super(props);
         this.state = {hrefName: props.href, title: ''};
     }
 
     getVideoId(href: string): ?string {
         
-        console.log(href);
         if (href.search(/youtube/) !== -1) {
             let arr = href.split('?');
             return queryString.parse(arr[1]).v;
@@ -43,14 +38,15 @@ class YoutubeLink extends Component<Props> {
         const response = await fetch(apiUrl);
         const json = await response.json();
 
-        let fullTitle = json.items[0].snippet.title;
-        let title = fullTitle;
+        let title = json.items[0].snippet.title;
+        let hrefName = title;
         let maxLength = 50;
-        if (fullTitle.length > maxLength + 5) title = title.substring(0, maxLength) + '...'       
+        if (title.length > maxLength + 5) 
+            hrefName = hrefName.substring(0, maxLength) + '...'       
 
         return {
-            hrefName: title,
-            title: fullTitle
+            hrefName,
+            title
         }
     }
 

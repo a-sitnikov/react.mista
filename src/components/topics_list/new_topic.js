@@ -175,9 +175,9 @@ class NewTopic extends Component<Props> {
 
         return (
             <div id="F" className="newtopic" style={{ marginLeft: '3%', marginBottom: "10px", position: 'relative' }}>
-                <p><b>Новая тема:</b></p>
                 <div style={{ display: "flex" }}>
                     <div id="newtopic_form" style={{ flex: 0, marginRight: "10px" }}>
+                        <p><b>Новая тема:</b></p>
                         <ErrorElem text={newTopic.error} />
                         <select name="target_forum" id="target_forum" className="field" value={newTopic.forum} readOnly={true} ref="forum">
                             {groupsElem}
