@@ -82,7 +82,7 @@ class MsgText extends Component<Props> {
             if (voteOption)
                 voteElement =
                     <div><br />
-                        <b><span style={{ color: voteColors[data.vote] }}>{`${data.vote}. ${info.voting[data.vote - 1].select}`}</span></b>
+                        <b><span style={{ color: voteColors[data.vote] }}>{`${data.vote}. ${voteOption.select}`}</span></b>
                     </div>
         }
 

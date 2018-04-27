@@ -8,5 +8,5 @@ export type DefaultProps = {
     location: Location,
     history: Array<any>,
     dispatch: any,
-    children: Array<any>
+    children?: Array<any>
 }

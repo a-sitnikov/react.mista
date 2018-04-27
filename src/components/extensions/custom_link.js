@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import queryString from 'query-string'
 
 import LinkToPost from './link_to_post'
+import YoutubeLink from './youtube_link'
 
 import type { DefaultProps } from 'src/components'
 
@@ -27,6 +28,11 @@ class CustomLink extends Component<Props> {
                 return <a href={href}>{children}</a>
             }
         }    
+
+        if (href.search(/youtube.com/) !== -1
+            || href.search(/youtu\.be/) !==-1) {
+            return <YoutubeLink href={href} />
+        }
 
         return (
             <a href={href} {...this.props}>{children}</a>
