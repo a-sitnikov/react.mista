@@ -1,6 +1,8 @@
 //@flow
 import React, { Component } from 'react'
 
+import './search.css'
+
 type Props = {};
 
 class Search extends Component<Props> {
@@ -74,14 +76,13 @@ class Search extends Component<Props> {
                     <option>yandex</option>
                 </select>
                 <input 
-                    className="field" 
+                    className="field search-text" 
                     type="text" 
-                    style={{ maxWidth: "100%", width: "calc(100% - 250px)", paddingLeft: "5px" }} 
                     value={this.state.text}
                     onKeyPress={this.onKeyPress}
                     onChange={this.onSearchTextChange}
                 />
-                <button className="button" style={{width: "80px", marginLeft: "3px"}} onClick={this.doSearch}>Найти</button>
+                <button className="search-button" onClick={this.doSearch}>Найти</button>
             </div>
         )
     }
