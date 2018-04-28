@@ -47,3 +47,24 @@
     width: 100%;
     box-sizing: border-box;
 }
+
+.tab {
+
+    float: left;
+    cursor: pointer;
+    background-color: #eee;
+    margin-top: 3px;
+    border-radius: 10px 10px 0px 0px;
+    border-left: solid 1px grey;
+    border-top: solid 1px grey;
+    padding: 10px 20px;
+
+}
+
+.tab.active {
+
+    background-color: #FFFFE1;
+    border-bottom: solid 1px transparent;
+    margin-bottom: -1px;
+
+}
