@@ -48,7 +48,7 @@ class NewMessage extends Component<Props> {
 
         const { dispatch } = this.props;
 
-        const params = {
+        let params = {
             text,
             userid: this.props.login.userid,
             userName: this.props.login.username || '',
