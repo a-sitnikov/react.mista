@@ -282,11 +282,11 @@ export const fetchJsonpAndGetJson = async (url: string, params: any): Promise<an
     let responseJson = await response.json();
     let json;
     if (typeof(responseJson) === 'string') {
-        // что делатьс кавычками в строке?
+        // getting rid of double quotes in string
         responseJson = responseJson
-            .replace(/" /, "' ")
-            .replace(/ "/, " '");
-            
+            .replace(/" /, "' ")  // d" a => d' a
+            .replace(/ "/, " '")  // a "d => a 'd
+            .replace(/([^:])("")/, "$1'\""); // a"", => a'", but not "a":""
         json = JSON.parse(responseJson);
     } else {
         json = responseJson;

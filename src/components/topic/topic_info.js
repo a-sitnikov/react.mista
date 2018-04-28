@@ -33,7 +33,9 @@ class TopicInfo extends Component<StateProps> {
                 <td className="leftbottomgray ta-center" style={{ backgroundColor: "#FDFDFD" }}>
                     <div className="flex-row">
                         <div id="td_topic_text" style={{ flex: 1 }}>
-                            <h1 className="topic-title " dangerouslySetInnerHTML={{ __html: info.text }}></h1>
+                            <a href={`https://www.forum.mista.ru/topic.php?id=${info.id}`}>
+                                <h1 className="topic-title " dangerouslySetInnerHTML={{ __html: info.text }}></h1>
+                            </a>
                             <div className="moder-action"></div>
                         </div>
                         <div style={{ flex: "0 0 20px", position: "relative" }}>

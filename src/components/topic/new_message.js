@@ -56,6 +56,10 @@ class NewMessage extends Component<Props> {
             onSuccess: this.onPostSuccess
         };
 
+        if (this.state.voting) {
+            params.voting_select = this.state.voting;
+        }
+
         dispatch(postNewMessageIfNeeded(params));
 
     }
@@ -68,7 +72,12 @@ class NewMessage extends Component<Props> {
             type: 'NEW_MESSAGE_TEXT',
             text: ''
         });
-
+        
+        this.setState({
+            ...this.state,
+            voting: undefined
+        });
+        
         if (this.props.onPostSuccess) {
             this.props.onPostSuccess();
         }

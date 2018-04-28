@@ -21,9 +21,16 @@ class CustomLink extends Component<Props> {
 
         if (href.search(/forum\.mista.ru/) !== -1) {
             let arr = href.split('?');
-            if (arr.length > 0) {
-                let params = queryString.parse(arr[1]);
-                return <LinkToPost topicId={params.id} number={params.hash || "0"}>{children}</LinkToPost>
+            if (arr.length > 1) {
+                
+                let arr2 = arr[1].split('#');
+                let hash;
+                if (arr2.length > 1) 
+                    hash = arr2[1];
+
+                let params = queryString.parse(arr2[0]);
+                console.log(params);
+                return <LinkToPost topicId={params.id} number={hash || "0"}>{children}</LinkToPost>
             } else {
                 return <a href={href}>{children}</a>
             }
