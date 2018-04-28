@@ -59,7 +59,7 @@ export const parseJSON = (text) => {
     }
 }
 
-export const getMaxPage = (answ) => Math.min(Math.ceil(answ / 100), 10);
+export const getMaxPage = (answ) => Math.min(Math.ceil(answ / 100), 10) || 1;
 
 export const encodeText = (text) => {
     text = text

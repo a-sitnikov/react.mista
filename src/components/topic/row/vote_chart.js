@@ -17,7 +17,7 @@ const VoteChart = (props: Props) => {
 
     return (
         <div style={{marginBottom: "10px" }}>
-            {items.filter(val => val.result).map((data, i) => <VoteItem key={i} data={data} total={total} n={i+1} topicId={topicId} colors={colors}/>)}
+            {items.filter(val => val.select).map((data, i) => <VoteItem key={i} data={data} total={total} n={i+1} topicId={topicId} colors={colors}/>)}
         </div>    
     )
 }

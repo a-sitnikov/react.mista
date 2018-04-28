@@ -31,7 +31,7 @@ const VoteItem = (props: Props) => {
         <div className="flex-row" style={{ marginBottom: "3px" }}>
             <div style={{ flex: "1 1 200px", maxWidth: "400px", marginRight: "5px" }}>
                 <a rel="nofollow" style={{ textDecoration: "none" }} href={`${window.hash}/topic.php?id=${topicId}&sel=${n}`}>
-                    <b><span style={{ color: colors[n] }}>{`${n}. ${data.select}`}</span></b>
+                    <b><span style={{ color: colors[n-1] }}>{`${n}. ${data.select}`}</span></b>
                 </a>
             </div>
             <div style={{ flex: "0 0 100px", position: "relative" }} className="ta-left va-middle">

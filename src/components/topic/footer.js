@@ -106,7 +106,7 @@ class Footer extends React.Component<FooterProps> {
                     </div>
                     <div className="ta-right va-middle" style={{ height: "30px", marginLeft: "auto" }}>
                         <span className="bold120">
-                            <a rel="nofollow" href="/">Список тем форума</a>
+                            <a rel="nofollow" href={`${window.hash}`}>Список тем форума</a>
                         </span>
                         <br />
                         {updateButton}
