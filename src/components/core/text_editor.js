@@ -123,7 +123,7 @@ class TextEditor extends Component<Props> {
                         disabled={isFetching}
                         className="button"
                         onClick={this.onSendClick}>
-                        {isFetching ? 'Отпарвляется' : 'Отправить'}
+                        {isFetching ? 'Отправляется' : 'Отправить'}
                     </button>
                     {voting}
                 </div>

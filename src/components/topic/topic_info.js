@@ -6,6 +6,7 @@ import { defaultTopicState } from 'src/reducers/topic'
 
 import type { State } from 'src/reducers'
 import type { ResponseInfo } from 'src/api'
+import { domain, urlTopicInfo, urlTopicMessages} from 'src/api'
 
 import './topic_info.css'
 
@@ -26,6 +27,8 @@ class TopicInfo extends Component<StateProps> {
                 <td id="topic-moder-tools">
                     <div className="moder-action">
                         <div>
+                            <a title="API.info" href={`${domain}/${urlTopicInfo}?id=${info.id}`} className="agh" style={{display: "block", lineHeight: "1em"}}>i</a>
+                            <a title="API.messages" href={`${domain}/${urlTopicMessages}?id=${info.id}&from=0&to=20`} className="agh" style={{display: "block", lineHeight: "1em"}}>m</a>
                             {/*<a href="add_voting.php?topic_id=815217" title="Добавить голосование">vote</a> &nbsp;&nbsp;*/}
                         </div>
                     </div>

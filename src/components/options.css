@@ -48,9 +48,16 @@
     box-sizing: border-box;
 }
 
-.tab {
+.tabs {
+    border-right: none;
+    background-color: #eee;
+    border-bottom: solid 1px silver;
+    position: absolute;
+    width: 100%;
+}
 
-    float: left;
+.tab {
+   float: left;
     cursor: pointer;
     background-color: #eee;
     margin-top: 3px;
@@ -58,7 +65,14 @@
     border-left: solid 1px grey;
     border-top: solid 1px grey;
     padding: 10px 20px;
+}
 
+.tab:first-child {
+    margin-left: 10px;
+}
+
+.tab:last-child {
+    border-right: solid 1px grey;
 }
 
 .tab.active {

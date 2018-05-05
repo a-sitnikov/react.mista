@@ -13,7 +13,7 @@ type Props = {
 const UserInfo = (props: Props) => {
 
     const { data, isAuthor, isYou } = props;
-    const href = `https://www.forum.mista.ru/users.php?name=${data.user}`;
+    const href = `https://www.forum.mista.ru/users.php?id=${data.userId}`;
     let dataStr;
     if (!data) {
         dataStr = '';
@@ -30,7 +30,7 @@ const UserInfo = (props: Props) => {
         style.backgroundColor = 'rgb(155, 197, 239)';
 
     return (
-        <div>
+        <div style={{ wordBreak: "break-all" }}>
             <a data-user_id={data.id} data-user_name={data.user} className="registered-user" style={style} href={href}>{data.user}</a>
             <div className="message-info">
                 <button className="button">{dataStr}</button>

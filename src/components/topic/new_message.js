@@ -53,7 +53,8 @@ class NewMessage extends Component<Props> {
             userid: this.props.login.userid,
             userName: this.props.login.username || '',
             topicId: this.props.info.id,
-            onSuccess: this.onPostSuccess
+            onSuccess: this.onPostSuccess,
+            voting_select: undefined
         };
 
         if (this.state.voting) {

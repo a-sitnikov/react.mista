@@ -24,6 +24,7 @@ const topicPreview = (state: TopicPreviewState = defaultTopicPreviewState, actio
                     id: action.topicId,
                     text: '',
                     user: '',
+                    userId: '',
                     utime: '0',
                     vote: 0
                 };    

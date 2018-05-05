@@ -11,8 +11,6 @@ import type { LoginState } from 'src/reducers/login'
 
 import { defaultTopicPreviewState } from 'src/reducers/topic_preview'
 import type { TopicPreviewState } from 'src/reducers/topic_preview'
-import { defaultSectionsState } from 'src/reducers/sections'
-import type { SectionsState } from 'src/reducers/sections'
 import type { DefaultProps } from 'src/components/index'
 
 import Pages from './pages';
@@ -27,7 +25,6 @@ type TopicNameCellProps = {
 
 type StateProps = {
     login: LoginState,
-    sections: SectionsState,
     topicPreview: TopicPreviewState
 };
 
@@ -41,7 +38,7 @@ class TopicNameCell extends Component<Props> {
 
     render() {
 
-        const { column, data, login, sections, topicPreview } = this.props;
+        const { column, data, login, topicPreview } = this.props;
 
         let href = `${window.hash}/topic.php?id=${data.id}`;
         let classes = classNames('agb', 'mr5', {
@@ -59,7 +56,7 @@ class TopicNameCell extends Component<Props> {
 
         if (data.sect1) {
             section.push(<span key="0" className="agh" style={{ margin: "auto 2px auto 5px" }}>/</span>);
-            section.push(<a key="1" rel="nofollow" className="agh" href={sectionHref} target="_blank">{sections.map[data.sect2]}</a>);
+            section.push(<a key="1" rel="nofollow" className="agh" href={sectionHref} target="_blank">{data.sect1}</a>);
         }
 
         let closed;
@@ -99,7 +96,6 @@ const mapStateToProps = (state: State): StateProps => {
 
     return {
         login: state.login || defaultLoginState,
-        sections: state.sections || defaultSectionsState,
         topicPreview: state.topicPreview || defaultTopicPreviewState
     }
 }

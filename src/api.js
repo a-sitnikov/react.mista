@@ -1,7 +1,8 @@
 //@flow
 import fetchJsonp from 'fetch-jsonp'
 
-export const domain = 'https://www.forum.mista.ru';
+//export const domain = 'https://www.forum.mista.ru';
+export const domain = 'https://dev.mista.ru';
 export const urlTopicsList    = 'api/topic.php';
 export const urlTopicInfo     = 'ajax_gettopic.php';
 export const urlTopicMessages = 'api/message.php';
@@ -98,6 +99,7 @@ export type ResponseMessage = {
     id:    string,
     n:     string,
     user:  string,
+    userId: string,
     text:  string,
     utime: string,
     vote:  number
@@ -266,7 +268,8 @@ const paramsToString = (first: string, params: ?{}): string => {
 
     let arr = [];
     for (let key in params) {
-        arr.push(key + '=' + params[key]);
+        if (params[key] !== undefined)
+            arr.push(key + '=' + params[key]);
     }
 
     if (arr.length > 0)
