@@ -43,7 +43,7 @@ const Row = (props: Props) => {
         } else if (column.name === 'Re') {
             value = (
                 <td key={i} className={column.className}>
-                    <LinkToPost topicId={data.id} number={data.answ} style={{color: "black"}}/>
+                    <LinkToPost topicId={data.id} number={data.answ} style={{color: "black"}} isPreview={true}/>
                 </td>
             )    
 

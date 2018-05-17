@@ -5,7 +5,7 @@ import dateFormat from 'dateformat'
 
 import { fetchTopicPreviewText } from 'src/actions/topic_preview'
 
-import MsgText from '../../topic/row/msg_text'
+import MsgText from 'src/components/topic/row/msg_text'
 import type { DefaultProps } from 'src/components'
 import type { ResponseMessage } from 'src/api'
 

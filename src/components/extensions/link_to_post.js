@@ -14,6 +14,7 @@ import { defaultTopicState } from 'src/reducers/topic'
 type LinkToPostProps = {
     topicId: string,
     number: number,
+    isPreview: boolean,
     style: {}
 }
 
@@ -48,7 +49,7 @@ class LinkToPost extends Component<Props> {
     }
 
     showToolTip(e) {
-        const { topicId, number, dispatch, items, info } = this.props;
+        const { topicId, number, dispatch, items, info, isPreview } = this.props;
 
         const coords = {
             x: e.pageX,
@@ -60,7 +61,7 @@ class LinkToPost extends Component<Props> {
         }
 
         const keys = {
-            type: 'TOPIC',
+            type: isPreview ? 'TOPIC_PREVIEW' : 'TOPIC',
             topicId,
             number          
         }

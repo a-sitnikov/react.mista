@@ -83,7 +83,7 @@ const postNewTopic = (params: postNewTopicParams) => async (dispatch: any) => {
         message_text: encodeText(params.text),
         topic_text: encodeText(params.subject),
         target_section: String(params.section),
-        target_forum: params.forum,
+        target_forum: params.forum.toLowerCase(),
         action: 'new',
         rnd: Math.round(Math.random() * 10000000),
         voting: params.isVoting ? 1 : 0

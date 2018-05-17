@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 
+import RadioOption from './radio_option'
+
 import type { State } from 'src/reducers'
 import type { OptionsState } from 'src/reducers/options'
 
@@ -29,7 +31,15 @@ class Options extends Component<OptionsState> {
             {
                 tab: 'Общие', 
                 rows: [
-                    ['theme']
+                    [{
+                        name: 'theme', 
+                        type: "radio", 
+                        label: "Цветовая палитра", 
+                        values: [
+                            {name: 'theme-yellow', descr: 'Золотая'}, 
+                            {name: 'theme-gray', descr: 'Серая'}
+                            ]
+                    }]
                 ]
             },
             {
@@ -61,12 +71,39 @@ class Options extends Component<OptionsState> {
             return null;
 
         let tabs = [];
+        let tab_cont = [];
         for (let tab of this.form) {
+            
             let classes = classNames("tab", {
                 active: tab.tab === this.state.activeTab
             });
             tabs.push(<div key={tab.tab} className={classes} onClick={this.onTabClick}>{tab.tab}</div>);
+
+            let classesTabCont = classNames("tab-cont", {
+                active: tab.tab === this.state.activeTab
+            });
+
+            let rows = [];
+            for (let row of tab.rows) {
+                
+                let rowElem = [];
+                for (let i in row) {
+
+                    const item = row[i];
+                    
+                    if (item.type === 'radio') {
+                        console.log
+                        rowElem.push(<RadioOption key={i} name={item.name} label={item.label} values={item.values} value='theme-gray'/>);
+                    } else if (item.type === 'radio') {}
+                }
+
+                rows.push(rowElem);
+
+            }
+
+            tab_cont.push(<div key={tab.tab} className={classesTabCont}>{rows}</div>);
         }
+
 
         return (
             <div>
@@ -83,6 +120,7 @@ class Options extends Component<OptionsState> {
                     {tabs}
                     </div>
                     <div id="tab_content">
+                    {tab_cont}
                     </div>
                     <div className="button-row">
                         <button id="applyOptions" className="button" style={{margin: "5px", height: "30px"}}>OK</button>

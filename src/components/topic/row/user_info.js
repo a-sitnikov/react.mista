@@ -33,7 +33,7 @@ const UserInfo = (props: Props) => {
         <div style={{ wordBreak: "break-all" }}>
             <a data-user_id={data.id} data-user_name={data.user} className="registered-user" style={style} href={href}>{data.user}</a>
             <div className="message-info">
-                <button className="button">{dataStr}</button>
+                <button className="button ah">{dataStr}</button>
             </div>
         </div>
     )

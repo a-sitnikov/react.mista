@@ -217,7 +217,8 @@ export type RequestNewTopic = {
 }
 
 export const postNewTopic = async (params: RequestNewTopic): Promise<any> =>  {
-    await fetch(urlNewTopic, {
+
+    await fetch(`${domain}/${urlNewTopic}`, {
         method: 'POST',
         body: paramsToString('', params),
         mode: 'no-cors',
@@ -233,7 +234,7 @@ export type RequestBookmark = {
 
 export const postBookmark = async (params: RequestBookmark) => {
 
-    await fetch(urlAddBookmark, {
+    await fetch(`${domain}/${urlAddBookmark}`, {
         method: 'POST',
         body: paramsToString('', params),
         mode: 'no-cors',
@@ -261,7 +262,7 @@ export const postSearch = async (params: RequestSearch) => {
     });
 }
 
-const paramsToString = (first: string, params: ?{}): string => {
+const paramsToString = (paramsPrefix: string, params: ?{}): string => {
 
     if (!params)
         return '';
@@ -273,7 +274,7 @@ const paramsToString = (first: string, params: ?{}): string => {
     }
 
     if (arr.length > 0)
-        return first + arr.join('&');
+        return paramsPrefix + arr.join('&');
     else    
         return '';
 }
@@ -285,12 +286,18 @@ export const fetchJsonpAndGetJson = async (url: string, params: any): Promise<an
     let responseJson = await response.json();
     let json;
     if (typeof(responseJson) === 'string') {
-        // getting rid of double quotes in string
-        responseJson = responseJson
-            .replace(/" /, "' ")  // d" a => d' a
-            .replace(/ "/, " '")  // a "d => a 'd
-            .replace(/([^:])("")/, "$1'\""); // a"", => a'", but not "a":""
-        json = JSON.parse(responseJson);
+        
+        try {
+             json = JSON.parse(responseJson)    
+        } catch(e) {
+            // getting rid of double quotes in the string
+
+            responseJson = responseJson
+                .replace(/" /, "' ")  // d" a => d' a
+                .replace(/ "[^(,")]/, " '")  // a "d => a 'd
+                .replace(/([^:])("")/, "$1'\""); // a"", => a'", but not "a":""
+            json = JSON.parse(responseJson);
+        }
     } else {
         json = responseJson;
     }

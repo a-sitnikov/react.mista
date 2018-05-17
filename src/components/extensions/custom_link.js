@@ -19,7 +19,9 @@ class CustomLink extends Component<Props> {
 
         const { href, children } = this.props;
 
-        if (href.search(/forum\.mista.ru/) !== -1) {
+        if (href.search(/forum\.mista.ru/) !== -1 && 
+            href.search(/users\.php/) === -1) {
+            
             let arr = href.split('?');
             if (arr.length > 1) {
                 
@@ -29,7 +31,6 @@ class CustomLink extends Component<Props> {
                     hash = arr2[1];
 
                 let params = queryString.parse(arr2[0]);
-                console.log(params);
                 return <LinkToPost topicId={params.id} number={hash || "0"}>{children}</LinkToPost>
             } else {
                 return <a href={href}>{children}</a>

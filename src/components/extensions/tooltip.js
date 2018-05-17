@@ -10,6 +10,8 @@ import './tooltip.css'
 
 import { closeTooltip } from 'src/actions/tooltips'
 
+import TopicPreview from "./topic_preview";
+
 import type { DefaultProps } from 'src/index'
 import type { TooltipItemState } from 'src/reducers/tooltips'
 
@@ -53,25 +55,44 @@ class Tooltip extends Component<Props> {
             userInfo = <UserInfo data={data} isAuthor={false}/>
         }   
 
-        return (
-            <Draggable
-                handle=".tooltip-header"
-                defaultClassNameDragging="dragging"
-                key={i}>
+        if (keys.type === 'TOPIC' || keys.type === 'TOPIC_PREVIEW') 
+            return (
+                <Draggable
+                    handle=".tooltip-header"
+                    defaultClassNameDragging="dragging"
+                    key={i}>
 
-                <div className="tooltip-window" style={{ top: coords.y, left: coords.x }} >
-                    <div className="tooltip-header">
-                        {userInfo}
+                    <div className="tooltip-window" style={{ top: coords.y, left: coords.x }} >
+                        <div className="tooltip-header">
+                            {userInfo}
+                        </div>
+                        <div className="tooltip-text" onClick={this.onCloseClick} >
+                            <MsgText data={data} topicId={keys.topicId} style={{maxHeight: "550px", overflowY: "auto"}} />
+                        </div>
+                        <span className="tooltip-close" onClick={this.onCloseClick}>
+                            <b> x </b>
+                        </span>
                     </div>
-                    <div className="tooltip-text" onClick={this.onCloseClick} >
-                        <MsgText data={data} topicId={keys.topicId} style={{maxHeight: "550px", overflowY: "auto"}} />
+                </Draggable>
+            )
+        else if (keys.type === 'TOPIC_PREVIEW')        
+            return (
+                <Draggable
+                    handle=".tooltip-header"
+                    defaultClassNameDragging="dragging"
+                    key={i}>
+
+                    <div className="tooltip-window" style={{ top: coords.y, left: coords.x, background: "white" }} >
+                        <div className="tooltip-header">
+                           Заголовок
+                        </div>
+                         <span className="tooltip-close" onClick={this.onCloseClick}>
+                            <b> x </b>
+                        </span>
+                        <TopicPreview topicId={keys.topicId} data={data}/>
                     </div>
-                    <span className="tooltip-close" onClick={this.onCloseClick}>
-                        <b> x </b>
-                    </span>
-                </div>
-            </Draggable>
-        )
+                </Draggable>
+            )
     }
 }
 

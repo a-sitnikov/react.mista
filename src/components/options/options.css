@@ -1,5 +1,5 @@
 .options-form-overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -52,8 +52,15 @@
     border-right: none;
     background-color: #eee;
     border-bottom: solid 1px silver;
-    position: absolute;
+    position: relative;
     width: 100%;
+}
+
+.tabs::after {
+    content: "";
+    display: block;
+    clear: both;
+    height: 0;
 }
 
 .tab {
@@ -81,4 +88,13 @@
     border-bottom: solid 1px transparent;
     margin-bottom: -1px;
 
+}
+
+.tab-cont.active {
+    display: block;
+}
+
+.tab-cont {
+    display: none;
+    padding: 5px 10px;
 }

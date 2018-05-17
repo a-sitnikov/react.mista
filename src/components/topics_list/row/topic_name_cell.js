@@ -15,7 +15,7 @@ import type { DefaultProps } from 'src/components/index'
 
 import Pages from './pages';
 import PreviewLink from './preview_link'
-import TopicPreview from './topic_preview'
+import TopicPreview from 'src/components/extensions/topic_preview'
 
 type TopicNameCellProps = {
     column: any, 

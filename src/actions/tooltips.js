@@ -3,7 +3,7 @@ import * as API from '../api'
 import type { State } from '../reducers'
 
 export type TooltipKeysTopic = {
-    type: 'TOPIC',
+    type: 'TOPIC' | 'TOPIC_PREVIEW',
     topicId: number | string,
     number: number      
 }
@@ -38,7 +38,7 @@ export type TooltipsAction = CREATE_TOOLTIP | CLOSE_TOOLTIP | CLEAR_TOOLTIPS;
 
 export const showTooltip = (keys: TooltipKeys, coords: Coords, data: any) => async (dispatch: any) => {
 
-    if (keys.type === 'TOPIC') {
+    if (keys.type === 'TOPIC' || keys.type === 'TOPIC_PREVIEW' ) {
 
         if (!data) {
             const json = await API.getTopicMessages({
