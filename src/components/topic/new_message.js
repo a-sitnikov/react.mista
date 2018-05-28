@@ -159,7 +159,7 @@ class NewMessage extends Component<Props> {
                         <label htmlFor="user_name" style={{ display: "block", marginBottom: "10px" }}>Имя*:</label>
                         <label htmlFor="message_text">Сообщение*:</label>
                     </div>
-                    <div style={{ flex: 0, marginRight: "15px" }}>
+                    <div style={{ flex: 1, marginRight: "15px" }}>
                         <input
                             name="user_name"
                             component="input"

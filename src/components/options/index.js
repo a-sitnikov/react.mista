@@ -92,7 +92,6 @@ class Options extends Component<OptionsState> {
                     const item = row[i];
                     
                     if (item.type === 'radio') {
-                        console.log
                         rowElem.push(<RadioOption key={i} name={item.name} label={item.label} values={item.values} value='theme-gray'/>);
                     } else if (item.type === 'radio') {}
                 }

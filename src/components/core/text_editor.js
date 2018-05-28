@@ -110,7 +110,7 @@ class TextEditor extends Component<Props> {
                     ref="text"
                     value={text}
                     className="field"
-                    style={{ width: "45em" }}
+                    style={{ width: "100%", boxSizing: "border-box" }}
                     onChange={this.onChange}
                     onKeyPress={this.onKeyPress}
                 />

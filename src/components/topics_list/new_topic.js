@@ -176,10 +176,17 @@ class NewTopic extends Component<Props> {
         return (
             <div id="F" className="newtopic" style={{ marginLeft: '3%', marginBottom: "10px", position: 'relative' }}>
                 <div style={{ display: "flex" }}>
-                    <div id="newtopic_form" style={{ flex: 0, marginRight: "10px" }}>
+                    <div id="newtopic_form" style={{ flex: "0 1 60%", marginRight: "10px" }}>
                         <p><b>Новая тема:</b></p>
                         <ErrorElem text={newTopic.error} />
-                        <select name="target_forum" id="target_forum" className="field" value={newTopic.forum} readOnly={true} ref="forum">
+                        <select 
+                            name="target_forum" 
+                            id="target_forum" 
+                            className="field" 
+                            value={newTopic.forum} 
+                            readOnly={true} 
+                            ref="forum"
+                            style={{width: "10%", marginRight: "2px"}}>
                             {groupsElem}
                         </select>
                         <SectionSelect
@@ -187,18 +194,16 @@ class NewTopic extends Component<Props> {
                             id="target_section"
                             name="target_section"
                             className="field"
-                            style={{ width: "40.4em" }}
+                            style={{ width: "calc(90% - 2px)", marginBottom: "1px" }}
                             onChange={this.onSectionChange}
                         />
-                        <br />
                         <input placeholder="Тема" id="topic_text" name="topic_text" maxLength="90"
                             className="field"
-                            style={{ width: "44em", type: "text" }}
+                            style={{ type: "text", width: "100%", boxSizing: "border-box", marginBottom: "2px" }}
                             onChange={this.onSubjectChange}
                             value={newTopic.subject}
                             ref='subject'
                         />
-                        <br />
                         <TextEditor
                             placeholder="Сообщение"
                             showVoting={true}

@@ -32,10 +32,10 @@ class Search extends Component<Props> {
         let text = this.state.text;
 
         if (this.state.searchEngine === 'yandex') {
-            url = `https://www.yandex.ru/search/?text=${text}&site=mista.ru`;
+            url = `https://www.yandex.ru/search/?text=${text}&site=forum.mista.ru`;
 
         } else if (this.state.searchEngine === 'google') {
-            url = `https://www.google.ru/search?q=${text}+site:mista.ru`
+            url = `https://www.google.ru/search?q=${text}+site:forum.mista.ru`
         }    
 
         window.open(url);

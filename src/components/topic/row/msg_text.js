@@ -66,8 +66,8 @@ class MsgText extends Component<Props> {
         if (!text)
             return text;
 
-        text = this.processLinksToPosts(text);
         text = this.processCode1C(text);
+        text = this.processLinksToPosts(text);
         return text;
     }
 

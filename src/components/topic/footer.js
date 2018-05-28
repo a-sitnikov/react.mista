@@ -3,52 +3,11 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
 
-import { fetchNewMessagesIfNeeded } from '../../actions/topic'
-import { addBookmark } from '../../actions/bookmark'
-import { getMaxPage } from '../../utils'
+import Pages from './pages'
 
-const Pages = (props) => {
-
-    const { maxPage, id } = props;
-    if (maxPage === 1) 
-        return null;
-
-    let currentPage = props.currentPage;
-    if (currentPage === 'last20')
-        currentPage = maxPage
-    else
-        currentPage = +currentPage;
-
-    let pages = [];
-
-    if (currentPage > 1) {
-        const prevPage = currentPage - 1;
-        const href = `${window.hash}/topic.php?id=${id}&page=${prevPage}`;
-        pages.push(<a id="go_back" key="prev" href={href} title="Назад" className="prev-next-pagelink" data-page={prevPage} style={{ margin: "5px" }}><big>◄</big></a>);
-    }
-
-    for (let i = 1; i <= maxPage; i++) {
-        if (currentPage === i)
-            pages.push(<span key={i} className="curpage" style={{ margin: "5px" }}><b>{i}</b></span>);
-        else {
-            const href = `${window.hash}/topic.php?id=${id}&page=${i}`
-            pages.push(<a key={i} href={href} title={`Страница ${i}`} data-page={i} style={{ margin: "5px" }}>{i}</a>);
-        }
-    }
-
-    if (currentPage < maxPage) {
-        const nextPage = currentPage + 1;
-        const href = `${window.hash}/topic.php?id=${id}&page=${nextPage}`;
-        pages.push(<a id="go_back" key="next" href={href} title="Назад" className="prev-next-pagelink" data-page={nextPage} style={{ margin: "5px" }}><big>►</big></a>);
-    }
-
-    return (
-        <span className="pages">
-            {pages}
-        </span>
-    )
-
-}
+import { fetchNewMessagesIfNeeded } from 'src/actions/topic'
+import { addBookmark } from 'src/actions/bookmark'
+import { getMaxPage } from 'src/utils'
 
 type FooterProps = {
     info: any,
