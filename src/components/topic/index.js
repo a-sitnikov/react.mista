@@ -87,7 +87,10 @@ class Topic extends Component<Props> {
     componentWillReceiveProps(props: Props) {
         
         if (props.info.text && document.title !== props.info.text) {
-            document.title = props.info.text;
+            let title = props.info.text;
+            title = title.replace(/&quot;/g, '"');
+            
+            document.title = title;
         }
 
         if (this.location.search !== props.location.search) {

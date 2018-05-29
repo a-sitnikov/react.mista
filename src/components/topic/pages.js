@@ -2,7 +2,13 @@
 import * as React from 'react'
 import './pages.css'
 
-const Pages = (props) => {
+type Props = {
+    maxPage: number,
+    id: number,
+    currentPage: string
+}
+
+const Pages = (props: Props) => {
 
     const { maxPage, id } = props;
     if (maxPage === 1) 

@@ -21,6 +21,7 @@ import ErrorElem from '../core/error'
 type NewTopicProps = {
     sections: SectionsState, 
     newTopic: NewTopicState,
+    isFetching: boolean,
     onPostSuccess?: () => void
 };
 

@@ -296,8 +296,9 @@ export const fetchJsonpAndGetJson = async (url: string, params: any): Promise<an
             // getting rid of double quotes in the string
 
             responseJson = responseJson
-                .replace(/" /, "' ")  // d" a => d' a
-                .replace(/ "[^(,")]/, " '")  // a "d => a 'd
+                .replace(/" /g, "' ")  // d" a => d' a
+                .replace(/"\(/g, "'(")  // d"(a => d'(a
+                .replace(/ "([^,"])/g, " '$1")  // a "d => a 'd
                 .replace(/([^:])("")/, "$1'\""); // a"", => a'", but not "a":""
             json = JSON.parse(responseJson);
         }

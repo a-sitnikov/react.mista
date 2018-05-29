@@ -1,8 +1,6 @@
 //@flow
 import React, { Component } from 'react'
 
-import type { DefaultProps } from 'src/components'
-
 import './footer.css'
 
 type FooterProps = {
@@ -10,7 +8,7 @@ type FooterProps = {
     locationParams: {}
 }
 
-type Props = FooterProps & DefaultProps;
+type Props = FooterProps;
 
 class Footer extends Component<Props> {
 

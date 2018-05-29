@@ -287,7 +287,7 @@ class Code extends Component {
                 if (typeof (value) === "string") {
                     return value;
                 } else if (value.type.displayName === 'Connect(LinkToPost)') {
-                    return value.key;
+                    return value.props.number;
                 }   
                 return `<${value.type}>`
             });

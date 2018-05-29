@@ -61,7 +61,18 @@ class CustomLink extends Component<Props> {
                     hash = arr2[1];
 
                 let params = queryString.parse(arr2[0]);
-                return <LinkToPost topicId={params.id} number={hash || "0"}>{children}</LinkToPost>
+                return (
+                    <LinkToPost topicId={params.id} number={hash || "0"}>
+                        {children.map((value, i) => {
+                            if (typeof(value) === 'string') {
+                                return value;
+                            } else if (value.type.displayName === 'Connect(LinkToPost)') {
+                                return value.props.number;
+                            } else   
+                                return value
+                        })}
+                    </LinkToPost>
+                )    
             } else {
                 return <a href={href}>{children}</a>
             }

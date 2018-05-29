@@ -46,6 +46,7 @@ class TopicsList extends Component<Props> {
     location: Location;
     locationParams: {};
     page: string;
+    timer: any;
 
     constructor(props: Props) {
         super(props);
