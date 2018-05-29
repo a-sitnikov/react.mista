@@ -4,8 +4,6 @@ import type { RequestNewTopic } from 'src/api'
 import type { State } from 'src/reducers'
 import type { ResponseSection } from 'src/api'
 
-import { encodeText } from 'src/utils';
-    
 export type postNewTopicParams = {
     subject: string,
     text: string,

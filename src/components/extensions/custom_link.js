@@ -7,6 +7,8 @@ import YoutubeLink from './youtube_link'
 
 import type { DefaultProps } from 'src/components'
 
+import { childrenToText } from 'src/utils'
+
 type CustomLinkProps = {
     href: string,
     parentText: string
@@ -63,14 +65,7 @@ class CustomLink extends Component<Props> {
                 let params = queryString.parse(arr2[0]);
                 return (
                     <LinkToPost topicId={params.id} number={hash || "0"}>
-                        {children.map((value, i) => {
-                            if (typeof(value) === 'string') {
-                                return value;
-                            } else if (value.type.displayName === 'Connect(LinkToPost)') {
-                                return value.props.number;
-                            } else   
-                                return value
-                        })}
+                        {childrenToText(children)}
                     </LinkToPost>
                 )    
             } else {

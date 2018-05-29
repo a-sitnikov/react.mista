@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { childrenToText } from 'src/utils'
 import './code1c.css'
     
 function highLightSyntax(text) {
@@ -283,14 +284,7 @@ class Code extends Component {
         const { children } = props;
         if (children) {
 
-            const textArr = children.map((value, i) => {
-                if (typeof (value) === "string") {
-                    return value;
-                } else if (value.type.displayName === 'Connect(LinkToPost)') {
-                    return value.props.number;
-                }   
-                return `<${value.type}>`
-            });
+            const textArr = childrenToText(children);
 
             this.text = textArr.join('');
             

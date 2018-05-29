@@ -5,7 +5,6 @@ import './footer.css'
 
 type FooterProps = {
     page: string,
-    locationParams: {}
 }
 
 type Props = FooterProps;

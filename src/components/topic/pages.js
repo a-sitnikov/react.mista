@@ -24,7 +24,7 @@ const Pages = (props: Props) => {
         pages.push(<a id="go_back" key="prev" href={href} title="Назад" className="page"><big>◄</big></a>);
         
     } else if (+currentPage > 1) {
-        const prevPage = currentPage - 1;
+        const prevPage = +currentPage - 1;
         const href = `${window.hash}/topic.php?id=${id}&page=${prevPage}`;
         pages.push(<a id="go_back" key="prev" href={href} title="Назад" className="page"><big>◄</big></a>);
     }
@@ -43,7 +43,7 @@ const Pages = (props: Props) => {
     else
         pages.push(<a key='last20' href={`${window.hash}/topic.php?id=${id}&page=last20`} title={`Последние 20`} className="page">»</a>);
 
-    if (currentPage < maxPage) {
+    if (+currentPage < maxPage) {
         const nextPage = currentPage + 1;
         const href = `${window.hash}/topic.php?id=${id}&page=${nextPage}`;
         pages.push(<a id="go_back" key="next" href={href} title="Назад" className="page" data-page={nextPage}><big>►</big></a>);

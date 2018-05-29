@@ -18,14 +18,18 @@ import SectionSelect from './section_select'
 import TextEditor from '../core/text_editor'
 import ErrorElem from '../core/error'
 
-type NewTopicProps = {
+type StateProps = {
     sections: SectionsState, 
     newTopic: NewTopicState,
     isFetching: boolean,
+}    
+
+type NewTopicProps = {
+    locationParams: {},
     onPostSuccess?: () => void
 };
 
-type Props = NewTopicProps & DefaultProps;
+type Props = NewTopicProps & StateProps & DefaultProps;
 
 class NewTopic extends Component<Props> {
 
@@ -235,7 +239,7 @@ class NewTopic extends Component<Props> {
     }
 }
 
-const mapStateToProps = (state: State): NewTopicProps => {
+const mapStateToProps = (state: State): StateProps => {
 
     return {
         sections: state.sections,

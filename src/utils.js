@@ -240,3 +240,17 @@ export const throttle = (func, wait, options) => {
         trailing,
     });
 }
+
+export const childrenToText = (children) => {
+
+    if (!children) return children;
+
+    return children.map(value => {
+        if (typeof(value) === 'string') {
+            return value;
+        } else if (value.type.displayName === 'Connect(LinkToPost)') {
+            return value.props.number;
+        } else   
+            return value;
+    })    
+}
