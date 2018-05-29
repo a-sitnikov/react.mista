@@ -225,7 +225,7 @@ class NewTopic extends Component<Props> {
                     <div style={{ flex: 1 }}>
                         {votingOptions}
                     </div>
-                    <div style={{float: "right"}}>
+                    <div style={{ marginLeft: "auto"}}>
                         <button id="refresh_button" type="button" className="button" onClick={this.onRefreshClick} disabled={isFetching}>{isFetching ? 'Обновляется': 'Обновить список'}</button>
                     </div>    
                 </div>

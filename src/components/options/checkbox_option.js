@@ -1,21 +1,23 @@
 //@flow
 import React, { Component } from 'react'
 
-type NumberOptionProps = {
+type CheckboxOptionProps = {
     name: string,
     label: string,
     value: string,
     onChange: any,
 }
 
-class CheckboxOption extends Component<NumberOptionProps> {
+class CheckboxOption extends Component<CheckboxOptionProps> {
     
-    constructor(props) {
+    onChange: (e: any) => void;
+
+    constructor(props: CheckboxOptionProps) {
         super(props);
         this.onChange = this.onChange.bind(this);
     }
 
-    onChange(e) {
+    onChange(e: any) {
         const { name } = this.props;
         this.props.onChange(e, name, String(e.target.checked));
     }

@@ -16,7 +16,7 @@ type Props = CustomLinkProps & DefaultProps;
 
 class CustomLink extends Component<Props> {
 
-    fixBrokenLink(href, parentText) {
+    fixBrokenLink(href: string, parentText: string): string {
         let escapedHref = href
             .replace(/\[/g, '\\[')
             .replace(/\]/g, '\\]')
@@ -42,6 +42,7 @@ class CustomLink extends Component<Props> {
             } catch(e) {
                 console.error(e);
             }
+        return href;    
     }
 
     render() {

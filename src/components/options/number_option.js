@@ -13,12 +13,14 @@ type NumberOptionProps = {
 
 class NumberOption extends Component<NumberOptionProps> {
     
-    constructor(props) {
+    onChange: (e: any) => void;
+
+    constructor(props: NumberOptionProps) {
         super(props);
         this.onChange = this.onChange.bind(this);
     }
 
-    onChange(e) {
+    onChange(e: any) {
         const { name } = this.props;
         this.props.onChange(e, name, e.target.value);
     }

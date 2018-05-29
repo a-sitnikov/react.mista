@@ -20,6 +20,9 @@ class Options extends Component<OptionsState> {
     state: any;
     setState;
     closeForm;
+    applyOptions;
+    resetOptions;
+    onChange;
     onTabClick;
     form: Array<any>;
 
