@@ -56,7 +56,7 @@ const postNewMessage = (params: PostNewmessageParams) => async (dispatch: any) =
         action: "new",
         topic_id: params.topicId,
         user_name: encodeURIComponent(params.userName),
-        rnd: Math.round(Math.random() * 10000000)    
+        rnd: Math.round(Math.random() * 10000000000)    
     };
 
     if (params.voting_select)

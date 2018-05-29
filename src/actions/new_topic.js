@@ -80,16 +80,16 @@ const postNewTopic = (params: postNewTopicParams) => async (dispatch: any) => {
     });
 
     let fetchParams: RequestNewTopic = {
-        message_text: encodeText(params.text),
-        topic_text: encodeText(params.subject),
+        message_text: encodeURIComponent(params.text),
+        topic_text: encodeURIComponent(params.subject),
         target_section: String(params.section),
         target_forum: params.forum.toLowerCase(),
         action: 'new',
-        rnd: Math.round(Math.random() * 10000000),
+        rnd: Math.round(Math.random() * 10000000000),
         voting: params.isVoting ? 1 : 0
     };
 
-    if (params.isVoting && params.votingItems) 
+    if (params.votingItems) 
         for (let i=0; i<params.votingItems.length; i++) {
             fetchParams[`section${i+1}`] = params.votingItems[i];
         }

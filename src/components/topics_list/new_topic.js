@@ -9,6 +9,7 @@ import type { State } from 'src/reducers'
 import type { SectionsState } from 'src/reducers/sections'
 import type { NewTopicState } from 'src/reducers/new_topic'
 
+import { fetchTopicsListIfNeeded } from 'src/actions/topics_list'
 import { fetchSectionsIfNeeded } from 'src/actions/sections'
 import { postNewTopicIfNeeded } from 'src/actions/new_topic'
 import type { NewTopicAction, postNewTopicParams } from 'src/actions/new_topic'
@@ -32,6 +33,7 @@ class NewTopic extends Component<Props> {
     onSend: (e: any, text: string) => void;
     onSubjectChange: (e: any) => void;
     onPostSuccess: () => void;
+    onRefreshClick: () => void;
     currentSection: ResponseSection | null;
 
     constructor(props) {
@@ -41,6 +43,7 @@ class NewTopic extends Component<Props> {
         this.onSubjectChange = this.onSubjectChange.bind(this);
         this.onSend = this.onSend.bind(this);
         this.onPostSuccess = this.onPostSuccess.bind(this);
+        this.onRefreshClick = this.onRefreshClick.bind(this);
     }
 
     componentDidMount() {
@@ -150,9 +153,14 @@ class NewTopic extends Component<Props> {
         }
     }
 
+    onRefreshClick() {
+        const { dispatch, locationParams } = this.props;       
+        dispatch(fetchTopicsListIfNeeded(locationParams));
+    }
+    
     render() {
 
-        const { sections, newTopic } = this.props;
+        const { sections, newTopic, isFetching } = this.props;
 
         let groupsElem = [];
         for (let forum in sections.tree) {
@@ -217,6 +225,9 @@ class NewTopic extends Component<Props> {
                     <div style={{ flex: 1 }}>
                         {votingOptions}
                     </div>
+                    <div style={{float: "right"}}>
+                        <button id="refresh_button" type="button" className="button" onClick={this.onRefreshClick} disabled={isFetching}>{isFetching ? 'Обновляется': 'Обновить список'}</button>
+                    </div>    
                 </div>
             </div>
         )
@@ -228,7 +239,8 @@ const mapStateToProps = (state: State): NewTopicProps => {
     return {
         sections: state.sections,
         login: state.login,
-        newTopic: state.newTopic
+        newTopic: state.newTopic,
+        isFetching: state.topicsList.isFetching
     }
 }
 

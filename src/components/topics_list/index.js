@@ -126,8 +126,8 @@ class TopicsList extends Component<Props> {
                     <tfoot>
                     </tfoot>
                 </table>
-                <Footer page={this.page} locationParams={this.locationParams}/>
-                <NewTopic sections={sections.items} onPostSuccess={this.onPostNewTopicSuccess}/>
+                <Footer page={this.page}/>
+                <NewTopic sections={sections.items} onPostSuccess={this.onPostNewTopicSuccess} locationParams={this.locationParams}/>
             </div>
         )
     }

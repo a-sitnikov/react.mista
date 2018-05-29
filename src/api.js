@@ -223,6 +223,9 @@ export const postNewTopic = async (params: RequestNewTopic): Promise<any> =>  {
         body: paramsToString('', params),
         mode: 'no-cors',
         credentials: 'include',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }    
     });
 } 
 
