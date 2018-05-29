@@ -9,15 +9,44 @@ import type { DefaultProps } from 'src/components'
 
 type CustomLinkProps = {
     href: string,
+    parentText: string
 }
 
 type Props = CustomLinkProps & DefaultProps;
 
 class CustomLink extends Component<Props> {
 
+    fixBrokenLink(href, parentText) {
+        let escapedHref = href
+            .replace(/\[/g, '\\[')
+            .replace(/\]/g, '\\]')
+            .replace(/\./g, '\\.')
+            .replace(/\./g, '\.')
+            .replace(/\*/g, '\\*')
+            .replace(/\+/g, '\\+')
+            .replace(/\(/g, '\\(')
+            .replace(/\)/g, '\\)')
+            .replace(/\?/g, '\\?')
+            .replace(/\//g, '\\/');
+
+            try {
+                let regExp = new RegExp(escapedHref + '<\\/a>(\\)|[а-яёА-ЯЁ0-9#\\-\\+\\_\\%\\?=]*)');
+                let arr = parentText.match(regExp);
+                if (arr && arr.length > 1) {
+                    if (arr[1] === ')' &&  href.search('\\(') === -1) {
+                        return href;
+                    }
+                    href = href + arr[1];
+                    return href;
+                }
+            } catch(e) {
+                console.error(e);
+            }
+    }
+
     render() {
 
-        const { href, children } = this.props;
+        const { href, children, parentText } = this.props;
 
         if (href.search(/forum\.mista.ru/) !== -1 && 
             href.search(/users\.php/) === -1) {
@@ -42,8 +71,12 @@ class CustomLink extends Component<Props> {
             return <YoutubeLink href={href} />
         }
 
+        let newProps = Object.assign({}, this.props);
+        delete newProps.parentText;
+        let newHref = this.fixBrokenLink(href, parentText);
+        
         return (
-            <a href={href} {...this.props}>{children}</a>
+            <a {...newProps} href={newHref} >{children}</a>
         )
     }
 }

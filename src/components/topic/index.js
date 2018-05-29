@@ -8,6 +8,7 @@ import type { DefaultProps, Location } from 'src/components'
 import type { ResponseInfo, ResponseMessage, ResponseMessages } from 'src/api'
 import type { State } from 'src/reducers'
 import { defaultTopicState } from 'src/reducers/topic'
+import { OptionsItems } from 'src/reducers/options'
 
 import Header from './header'
 import TopicInfo from './topic_info'
@@ -30,7 +31,8 @@ type TopicProps = {
     info: ResponseInfo,
     item0?: ResponseMessage,
     items: ResponseMessages,
-    error?: any
+    error?: any,
+    options: OptionsItems
 }
 
 type Props = {
@@ -68,7 +70,13 @@ class Topic extends Component<Props> {
         this.location = this.props.location;
         this.updateTopic();
 
-        this.timer = setInterval(this.autoUpdate, 60000);
+        if (this.props.options.autoRefreshTopic === 'true') {
+            
+            let autoRefreshTopicInterval = +this.props.options.autoRefreshTopicInterval;
+            if (autoRefreshTopicInterval < 60) autoRefreshTopicInterval = 60;
+
+            this.timer = setInterval(this.autoUpdate, autoRefreshTopicInterval * 1000);
+        }
         
     }
 
@@ -190,7 +198,8 @@ const mapStateToProps = (state: State): TopicProps => {
         items,
         isFetching,
         lastUpdated,
-        error
+        error,
+        options: state.options.items
     }
 }
 

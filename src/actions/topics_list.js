@@ -31,14 +31,17 @@ export const receiveTopicsList = (data: ResponseTopicsList): RECEIVE_TOPICS_LIST
     receivedAt: new Date()
 })
 
-const fetchTopicsList = (params: any) => async (dispatch: any) => {
+const fetchTopicsList = (params: any) => async (dispatch: any, getState: any) => {
 
     dispatch(requestTopicsList())
 
     const page = params.page || 1;
     let reqestParams: RequestTopicsList = {};
 
-    let topicsCount = page * 20;
+    let topicsPerPage = +getState().options.items.topicsPerPage;
+    if (topicsPerPage > 99) topicsPerPage = 99;
+
+    let topicsCount = page * topicsPerPage;
     reqestParams.topics = topicsCount;
 
     if (params.section)
@@ -56,7 +59,7 @@ const fetchTopicsList = (params: any) => async (dispatch: any) => {
     try {
         const json = await API.getTopicsList(reqestParams);
 
-        let data = json.slice(-20);
+        let data = json.slice(-topicsPerPage);
         dispatch(receiveTopicsList(data));
     } catch(e) {
         

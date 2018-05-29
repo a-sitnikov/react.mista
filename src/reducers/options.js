@@ -5,13 +5,26 @@ export type Column = {
     width?: string
 }
 
+export type OptionsItems = {
+    theme: 'theme-yellow' | 'theme-lightgray',
+    topicsPerPage: string,
+    autoRefreshTopicsList: string,
+    autoRefreshTopicsListInterval: string,
+    autoRefreshTopic: string,
+    autoRefreshTopicInterval: string,
+}
+
 export type OptionsState = {
     show: boolean,
     voteColors: Array<string>,
     listColumns: Array<Column>,
     showTitle: boolean,
-    theme: 'theme-yellow' | 'theme-lightgray'
+    items: OptionsItems    
 };
+
+function readOption(name, defaultValue) {
+    return window.localStorage.getItem(name) || defaultValue;
+}
 
 export const defaultOptionsState = {
     show: false,
@@ -34,11 +47,19 @@ export const defaultOptionsState = {
         { name: 'Автор', className: 'cl', width: '120px' },
         { name: 'Обновлено', className: 'cl', width: '150px' }
     ],    
-    showTitle: false,
-    theme: 'theme-lightgray'
+    items: {
+        showTitle: 'false',
+        theme: 'theme-lightgray',
+        topicsPerPage: '20',
+        autoRefreshTopicsList: 'false',
+        autoRefreshTopicsListInterval: '60',
+        autoRefreshTopic: 'true',
+        autoRefreshTopicInterval: '60'
+    }    
 }
 
 const options = (state: OptionsState = defaultOptionsState, action: any) => {
+
     switch (action.type) {
         case 'SHOW_OPTIONS': 
             return {
@@ -49,6 +70,29 @@ const options = (state: OptionsState = defaultOptionsState, action: any) => {
             return {
                 ...state,
                 show: false
+            }
+
+        case 'READ_OPTIONS': 
+            
+            let items = Object.assign({}, defaultOptionsState.items);
+            for (let key in items) {
+                items[key] = readOption(key, defaultOptionsState.items[key]);
+            }
+
+            return {
+                ...state,
+                items
+            }
+
+        case 'SAVE_OPTIONS': 
+
+            for (let key in action.options) {
+                window.localStorage.setItem(key, String(action.options[key]));
+            }
+
+            return {
+                ...state,
+                items: action.options
             }
         default:
             return state

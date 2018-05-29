@@ -5,21 +5,33 @@ type RadioOptionProps = {
     name: string,
     label: string,
     value: string,
-    values: Array<{name: string, descr: string}>
+    values: Array<{name: string, descr: string}>,
+    onChange: any,
+    oneLine: boolean
 }
 
 class RadioOption extends Component<RadioOptionProps> {
     
+    constructor(props) {
+        super(props);
+        this.onChange = this.onChange.bind(this);
+    }
+
+    onChange(e) {
+        const { name } = this.props;
+        this.props.onChange(e, name, e.target.value);
+    }
+
     render() {
 
-        const { name, label, value, values } = this.props;
+        const { name, label, values, oneLine } = this.props;
 
         let valuesElem = [];
         for (let i=0; i<values.length; i++) {
             let item = values[i];
             valuesElem.push(
                 <label key={i} htmlFor={item.name} style={{marginRight: "5px"}}>
-                    <input type="radio" name={name} id={item.name} value={item.name} checked={item.name === value}/>
+                    <input type="radio" name={name} value={item.name} checked={item.name === this.props.value} onChange={this.onChange}/>
                     {item.descr}
                 </label>
                 );    
@@ -28,7 +40,7 @@ class RadioOption extends Component<RadioOptionProps> {
         return (
             <span>
                 <span>{label}</span>
-                <br/>   
+                {oneLine ? null : <br/>}   
                 {valuesElem}
             </span>
         );

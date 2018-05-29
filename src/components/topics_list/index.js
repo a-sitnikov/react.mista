@@ -56,6 +56,19 @@ class TopicsList extends Component<Props> {
     componentDidMount() {
         this.location = this.props.location;
         this.updateTopicsList();
+        
+        if (this.props.options.items.autoRefreshTopicsList === 'true') {
+            
+            let autoRefreshTopicsListInterval = +this.props.options.items.autoRefreshTopicsListInterval;
+            if (autoRefreshTopicsListInterval < 60) autoRefreshTopicsListInterval = 60;
+
+            this.timer = setInterval(this.updateTopicsList, autoRefreshTopicsListInterval * 1000);
+        }
+        
+    }
+    
+    componentWillUnmount() {
+        clearInterval(this.timer);
     }
 
     componentWillReceiveProps(props: Props) {
@@ -85,7 +98,7 @@ class TopicsList extends Component<Props> {
 
         return (
             <div>
-                {options.showTitle ? (
+                {options.items.showTitle === 'true' ? (
                     <Title />
                     ) : null
                 }

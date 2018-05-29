@@ -22,7 +22,7 @@ class Banner extends Component {
     render() {
         return (
             <div>
-                banner
+                
             </div>   
         )
     }

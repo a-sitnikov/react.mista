@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { doLogout } from 'src/actions/login'
+import { showOptions } from 'src/actions/options'
 
 import type { DefaultProps } from 'src/components'
 
@@ -36,9 +37,7 @@ class LoggedUser extends Component<Props> {
         event.preventDefault();
 
         const { dispatch } = this.props;
-        dispatch({
-            type: 'SHOW_OPTIONS'
-        });  
+        dispatch(showOptions());  
     }
 
     render() {

@@ -29,12 +29,6 @@ type StateProps = {
 
 type Props = MsgTextProps & StateProps & DefaultProps;
 
-const componentsMap = {
-    link: props => <LinkToPost topicId={props['data-topicid']} number={props['data-number']}  key={props.key}/>,
-    code: props => <Code {...props} />,
-    a: props => <CustomLink {...props} />
-};
-
 class MsgText extends Component<Props> {
 
     processLinksToPosts(text: string): string {
@@ -89,7 +83,13 @@ class MsgText extends Component<Props> {
             voteChart = <VoteChart items={info.voting} topicId={data.id} colors={voteColors} />
         }
 
-        let textComponent = activeHtml(this.processText(data.text), componentsMap);
+        let text = this.processText(data.text);
+        const componentsMap = {
+            link: props => <LinkToPost topicId={props['data-topicid']} number={props['data-number']}  key={props.key}/>,
+            code: props => <Code {...props} />,
+            a: props => <CustomLink {...props} parentText={text}/>
+        };
+        let textComponent = activeHtml(text, componentsMap);
 
         return (
             <div style={{...style, minHeight: "45px"}}>

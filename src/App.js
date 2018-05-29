@@ -7,22 +7,34 @@ import NavBarFooter from './components/nav_bar_footer';
 import TooltipsList from './components/extensions/tooltips_list';
 import Options from './components/options';
 
+import { readOptions } from 'src/actions/options'
+
 import type { State } from 'src/reducers'
+import type { DefaultProps } from 'src/components'
 
 type StateProps = {
   theme: string   
 }
 
-class App extends Component<StateProps> {
+type Props = StateProps & DefaultProps
+
+class App extends Component<Props> {
  
   constructor(props) {
     super(props);
     // for github pages
     window.hash = '#';
+    props.dispatch(readOptions());
   }
 
   componentWillMount() {
       const { theme } = this.props;
+      if (document.body)
+        document.body.className = theme;
+  }
+  
+  componentWillReceiveProps(props) {
+      const { theme } = props;
       if (document.body)
         document.body.className = theme;
   }
@@ -43,7 +55,7 @@ class App extends Component<StateProps> {
 const mapStateToProps = (state: State): StateProps => {
 
     return {
-        theme: state.options.theme
+        theme: state.options.items.theme
     }
 }
 
