@@ -12,6 +12,7 @@ export type OptionsItems = {
     autoRefreshTopicsListInterval: string,
     autoRefreshTopic: string,
     autoRefreshTopicInterval: string,
+    contetnMaxWidth: string
 }
 
 export type OptionsState = {
@@ -58,7 +59,8 @@ export const defaultOptionsState = {
         showTooltips: 'true',
         tooltipsDelay: '500',
         showTooltipsOnTopicsList: 'true',
-        showTooltipsOnPostLink: 'true'
+        showTooltipsOnPostLink: 'true',
+        contetnMaxWidth: ''
     }    
 }
 

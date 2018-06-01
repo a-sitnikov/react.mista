@@ -146,7 +146,7 @@ const mapStateToProps = (state: State): StateProps => {
         options: state.options,
         topicsPerPage: state.options.items.topicsPerPage,
         autoRefreshTopicsList: state.options.items.autoRefreshTopicsList,
-        autoRefreshTopicsListInterval: state.options.items.autoRefreshTopicsListInterval
+        autoRefreshTopicsListInterval: state.options.items.autoRefreshTopicsListInterval,
     }
 }
 

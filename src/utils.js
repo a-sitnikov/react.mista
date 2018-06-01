@@ -248,6 +248,8 @@ export const childrenToText = (children) => {
     return children.map(value => {
         if (typeof(value) === 'string') {
             return value;
+        } else if (value.type === 'br') {
+            return '<br>'
         } else if (value.type.displayName === 'Connect(LinkToPost)') {
             return value.props.number;
         } else   

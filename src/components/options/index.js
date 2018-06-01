@@ -5,6 +5,7 @@ import classNames from 'classnames'
 
 import RadioOption from './radio_option'
 import NumberOption from './number_option'
+import StringOption from './string_option'
 import CheckboxOption from './checkbox_option'
 
 import { saveOptions, closeOptions } from 'src/actions/options'
@@ -87,7 +88,13 @@ class Options extends Component<OptionsState> {
                         min: 60,
                         max: 1000000,
                         postfix: 'сек'
-                   }]
+                    }],
+                    [{
+                        name: 'contetnMaxWidth',
+                        type: 'string',
+                        label: 'Максимальная ширина таблиц:',
+                        postfix: 'css свойство max-width'
+                    }],                   
                 ]
             },
             {
@@ -204,6 +211,17 @@ class Options extends Component<OptionsState> {
                                 min={item.min}
                                 max={item.max}
                                 postfix={item.postfix}
+                                onChange={this.onChange}
+                            />
+                        );
+                    } else if (item.type === 'string') {
+                        rowElem.push(
+                            <StringOption 
+                                key={j} 
+                                name={item.name} 
+                                label={item.label} 
+                                postfix={item.postfix}
+                                value={this.state.items[item.name]} 
                                 onChange={this.onChange}
                             />
                         );

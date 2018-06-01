@@ -24,7 +24,12 @@ class Container extends Component {
 
     render() {
 
-        const routes =
+        const { contetnMaxWidth } = this.props;
+        let style = {};
+        if (contetnMaxWidth)
+            style.maxWidth = contetnMaxWidth;
+
+       const routes =
             <Switch>
                 <Route exact path='/' component={TopicsList} />
                 <Route path='/index.php' component={TopicsList} />
@@ -35,7 +40,7 @@ class Container extends Component {
         if (window.hash)
 
             return (
-                <div className="container" onClick={this.onClick}>
+                <div className="container"  style={style} onClick={this.onClick}>
                     <HashRouter >
                         {routes}
                     </HashRouter >
@@ -44,12 +49,18 @@ class Container extends Component {
 
         else
             return (
-                <div className="container" onClick={this.onClick}>
+                <div className="container"  style={style} onClick={this.onClick}>
                     {routes}
                 </div >
             )
     }
 
 }
+const mapStateToProps = (state: State): StateProps => {
 
-export default connect()(Container);
+    return {
+        contetnMaxWidth: state.options.items.contetnMaxWidth,
+    }
+}
+
+export default connect(mapStateToProps)(Container);
