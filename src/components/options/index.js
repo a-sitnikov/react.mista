@@ -93,7 +93,28 @@ class Options extends Component<OptionsState> {
             {
                 tabName: 'Тултипы',
                 rows: [
-
+                    [{
+                        name: 'showTooltips',
+                        type: 'checkbox',
+                        label: 'Показывать тултипы, задержка'
+                    }, {
+                        name: 'tooltipsDelay',
+                        type: 'number',
+                        max: 1000000,
+                        label: '',
+                        postfix: 'мс'
+                    }],
+                    [{
+                        name: 'showTooltipsOnTopicsList',
+                        type: 'checkbox',
+                        label: 'Показывать тултипы на главной странице, при наведении на кол-во ответов'                    
+                    }],
+                    [{
+                        name: 'showTooltipsOnPostLink',
+                        type: 'checkbox',
+                        label: 'Отображать тултип нулевого поста ссыки на другую ветку'                    
+                    }]
+                    
                 ]
             }
         ]

@@ -54,7 +54,11 @@ export const defaultOptionsState = {
         autoRefreshTopicsList: 'false',
         autoRefreshTopicsListInterval: '60',
         autoRefreshTopic: 'true',
-        autoRefreshTopicInterval: '60'
+        autoRefreshTopicInterval: '60',
+        showTooltips: 'true',
+        tooltipsDelay: '500',
+        showTooltipsOnTopicsList: 'true',
+        showTooltipsOnPostLink: 'true'
     }    
 }
 

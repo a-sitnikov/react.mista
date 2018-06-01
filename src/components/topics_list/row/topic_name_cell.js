@@ -60,17 +60,18 @@ class TopicNameCell extends Component<Props> {
         }
 
         let closed;
+        let text = data.text;
         if (data.closed)
             closed = <span className="agh">Ø</span>
 
-        if (data.sect2 === 'job' && data.text.substr(0, 3) !== 'JOB')
-            data.text = 'JOB: ' + data.text;
+        if (data.sect2 === 'job' && text.substr(0, 3) !== 'JOB')
+            text = 'JOB: ' + text;
 
-        else if (data.forum === 'life' && data.text.substr(0, 3) !== 'OFF')
-            data.text = 'OFF: ' + data.text;
+        else if (data.forum === 'life' && text.substr(0, 3) !== 'OFF')
+            text = 'OFF: ' + text;
 
-        else if (data.sect2 === 'v7' && data.text.substr(0, 2) !== 'v7')
-            data.text = 'v7: ' + data.text;
+        else if (data.sect2 === 'v7' && text.substr(0, 2) !== 'v7')
+            text = 'v7: ' + text;
 
         let previewElem;
         const previewItem = topicPreview.items[String(data.id)];
@@ -80,7 +81,7 @@ class TopicNameCell extends Component<Props> {
         return (
             <td className={column.className}>
                 <PreviewLink topicId={data.id} expanded={previewItem === undefined ? false: true}/>
-                <a href={href} className={classes} target="_blank" dangerouslySetInnerHTML={{ __html: data.text }}></a>
+                <a href={href} className={classes} target="_blank" dangerouslySetInnerHTML={{ __html: text }}></a>
                 {isVoting}
                 <Pages answ={data.answ} topicId={data.id} />
                 {closed}

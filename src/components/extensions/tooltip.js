@@ -24,10 +24,12 @@ type Props = TooltipProps & DefaultProps;
 class Tooltip extends Component<Props> {
 
     onCloseClick;
+    onMouseUp;
 
     constructor(props) {
         super(props);
         this.onCloseClick = this.onCloseClick.bind(this);
+        this.onMouseUp = this.onMouseUp.bind(this);
     }
 
     componentDidMount() {
@@ -41,6 +43,12 @@ class Tooltip extends Component<Props> {
     onCloseClick() {
         const { dispatch, tooltip } = this.props;
         dispatch(closeTooltip(tooltip.keys));
+    }
+    
+    onMouseUp() {
+        const { dispatch, tooltip } = this.props;
+        if (window.getSelection().type === 'Caret')
+            dispatch(closeTooltip(tooltip.keys));
     }
 
     render() {
@@ -66,7 +74,7 @@ class Tooltip extends Component<Props> {
                         <div className="tooltip-header">
                             {userInfo}
                         </div>
-                        <div className="tooltip-text" onClick={this.onCloseClick} >
+                        <div className="tooltip-text" onMouseUp={this.onMouseUp} >
                             <MsgText data={data} topicId={keys.topicId} style={{maxHeight: "550px", overflowY: "auto"}} />
                         </div>
                         <span className="tooltip-close" onClick={this.onCloseClick}>

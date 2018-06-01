@@ -7,16 +7,9 @@ import type { State } from 'src/reducers'
 import type { DefaultProps, Location } from 'src/components'
 
 import type { TopicsListState } from 'src/reducers/topics_list'
-import { defaultTopicsListState } from 'src/reducers/topics_list'
-
 import type { SectionsState } from 'src/reducers/sections'
-import { defaultSectionsState } from 'src/reducers/sections'
-
 import type { LoginState } from 'src/reducers/login'
-import { defaultLoginState } from 'src/reducers/login'
-
 import type { Column, OptionsState } from 'src/reducers/options'
-import { defaultOptionsState } from 'src/reducers/options'
 
 import { fetchTopicsListIfNeeded } from 'src/actions/topics_list'
 
@@ -27,16 +20,19 @@ import Row from './row'
 import Footer from './footer'
 import NewTopic from './new_topic'
 
-type TopicsListProps = {
+type StateProps = {
     topicsList: TopicsListState,
     sections: SectionsState,
     login: LoginState,
-    options: OptionsState
+    options: OptionsState,
+    topicsPerPage: string,
+    autoRefreshTopicsList: string,
+    autoRefreshTopicsListInterval: string
 }
 
 type Props = {
     fetchTopicsListIfNeeded: any
-} & DefaultProps & TopicsListProps;
+} & DefaultProps & StateProps;
 
 class TopicsList extends Component<Props> {
     
@@ -52,15 +48,19 @@ class TopicsList extends Component<Props> {
         super(props);
         this.updateTopicsList = this.updateTopicsList.bind(this);
         this.onPostNewTopicSuccess = this.onPostNewTopicSuccess.bind(this);
+        this.locationParams = {};
     }
 
     componentDidMount() {
-        this.location = this.props.location;
+
+        let { location, autoRefreshTopicsList, autoRefreshTopicsListInterval } = this.props;
+
+        this.location = location;
         this.updateTopicsList();
         
-        if (this.props.options.items.autoRefreshTopicsList === 'true') {
+        if (autoRefreshTopicsList === 'true') {
             
-            let autoRefreshTopicsListInterval = +this.props.options.items.autoRefreshTopicsListInterval;
+            autoRefreshTopicsListInterval = +autoRefreshTopicsListInterval;
             if (autoRefreshTopicsListInterval < 60) autoRefreshTopicsListInterval = 60;
 
             this.timer = setInterval(this.updateTopicsList, autoRefreshTopicsListInterval * 1000);
@@ -73,9 +73,12 @@ class TopicsList extends Component<Props> {
     }
 
     componentWillReceiveProps(props: Props) {
-        const { location } = props;
+        
+        const { location, topicsPerPage } = props;
 
-        if (this.location.search !== location.search) {
+        if (this.location.search !== location.search 
+            || this.props.topicsPerPage !== topicsPerPage) {
+
             this.location = location;
             this.updateTopicsList();
         }
@@ -96,6 +99,7 @@ class TopicsList extends Component<Props> {
     render() {
 
         const { topicsList, sections, options } = this.props;
+        const { page } = this.locationParams;
 
         return (
             <div>
@@ -124,10 +128,8 @@ class TopicsList extends Component<Props> {
                             <Row key={i} data={item} columns={options.listColumns}/>
                         ))}
                     </tbody>
-                    <tfoot>
-                    </tfoot>
                 </table>
-                <Footer page={this.page}/>
+                <Footer page={page}/>
                 <NewTopic sections={sections.items} onPostSuccess={this.onPostNewTopicSuccess} locationParams={this.locationParams}/>
             </div>
         )
@@ -135,13 +137,16 @@ class TopicsList extends Component<Props> {
 }
 
 
-const mapStateToProps = (state: State): TopicsListProps => {
+const mapStateToProps = (state: State): StateProps => {
 
     return {
-        topicsList: state.topicsList || defaultTopicsListState,
-        sections: state.sections || defaultSectionsState,
-        login: state.login || defaultLoginState,
-        options: state.options || defaultOptionsState
+        topicsList: state.topicsList,
+        sections: state.sections,
+        login: state.login,
+        options: state.options,
+        topicsPerPage: state.options.items.topicsPerPage,
+        autoRefreshTopicsList: state.options.items.autoRefreshTopicsList,
+        autoRefreshTopicsListInterval: state.options.items.autoRefreshTopicsListInterval
     }
 }
 
