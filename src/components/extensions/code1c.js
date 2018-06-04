@@ -43,7 +43,7 @@ function highLightSyntax(text) {
     }
 
     function isKeyword(token) {
-        return keywords.has(token.toLowerCase());
+        return keywords.has(token.toLowerCase().trim());
     }
 
     function ДобавитьЧастьСтроки1С(Часть, Цвет) {
@@ -284,7 +284,6 @@ class Code extends Component {
         const { children } = props;
         if (children) {
 
-            console.log(children);
             const textArr = childrenToText(children);
 
             this.text = textArr.join('');
@@ -297,7 +296,6 @@ class Code extends Component {
                 .replace(/<br>\r/g, '\n')
                 .replace(/<br>/g, '\n');
 
-            console.log(this.text);
             this.text = highLightSyntax(this.text);
         }
     }
