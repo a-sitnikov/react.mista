@@ -265,7 +265,7 @@ export const postSearch = async (params: RequestSearch) => {
     });
 }
 
-const paramsToString = (paramsPrefix: string, params: ?{}): string => {
+export const paramsToString = (paramsPrefix: string, params: ?{}): string => {
 
     if (!params)
         return '';

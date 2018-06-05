@@ -1,11 +1,36 @@
 .tf {
-    padding-top: 4px;
-    padding-bottom: 4px;
     box-sizing: border-box;
     width: 100%;
-    text-align: center;
     border: 2px solid #CCC;
     border-top: 1px solid #CCC;
     margin: auto;
     background-color: #EEE;
 }    
+
+.tf ul {
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+}
+
+.tf .active {
+    border: solid 1px #CCC;
+}
+
+.tf li {
+    list-style: none;
+    display: block;
+    width: 25px;
+    text-align: center;
+    padding: 0px 2px;
+    border: solid 1px #EEE;
+}
+
+.tf li a {
+    display: block;
+    margin: auto;
+}
+
+.tf li:hover {
+    border: solid 1px #CCC;
+}

@@ -40,7 +40,7 @@ class TopicsList extends Component<Props> {
     onPostNewTopicSuccess: () => void;
     columns: Array<Column>;
     location: Location;
-    locationParams: {};
+    locationParams: { page: string };
     page: string;
     timer: any;
 
@@ -48,7 +48,7 @@ class TopicsList extends Component<Props> {
         super(props);
         this.updateTopicsList = this.updateTopicsList.bind(this);
         this.onPostNewTopicSuccess = this.onPostNewTopicSuccess.bind(this);
-        this.locationParams = {};
+        this.locationParams = { };
     }
 
     componentDidMount() {
@@ -129,7 +129,7 @@ class TopicsList extends Component<Props> {
                         ))}
                     </tbody>
                 </table>
-                <Footer page={page}/>
+                <Footer page={page} locationParams={this.locationParams}/>
                 <NewTopic sections={sections.items} onPostSuccess={this.onPostNewTopicSuccess} locationParams={this.locationParams}/>
             </div>
         )
