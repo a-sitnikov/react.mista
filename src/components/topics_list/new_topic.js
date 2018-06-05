@@ -15,8 +15,8 @@ import { postNewTopicIfNeeded } from 'src/actions/new_topic'
 import type { NewTopicAction, postNewTopicParams } from 'src/actions/new_topic'
 
 import SectionSelect from './section_select'
-import TextEditor from '../core/text_editor'
-import ErrorElem from '../core/error'
+import TextEditor from '../common/text_editor'
+import ErrorElem from '../common/error'
 
 type StateProps = {
     sections: SectionsState, 

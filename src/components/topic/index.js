@@ -101,7 +101,7 @@ class Topic extends Component<Props> {
     
     autoUpdate() {
         const { info, fetchNewMessagesIfNeeded } = this.props;
-        const isLastPage = (this.locationParams.page === 'last20' || this.locationParams.page === getMaxPage(parseInt(info.answers_count, 10)));
+        const isLastPage = (this.locationParams.page === 'last20' || this.locationParams.page === getMaxPage(+info.answers_count));
 
         if (isLastPage) 
             fetchNewMessagesIfNeeded({
@@ -114,13 +114,12 @@ class Topic extends Component<Props> {
        
         let { fetchTopicIfNeeded, item0 } = this.props;
         let locationParams = queryString.parse(this.location.search);
-        locationParams.hash = this.location.hash;
 
         if (!locationParams.page)
             locationParams.page = 1;
 
         else if (locationParams.page !== 'last20')  {
-            locationParams.page = parseInt(locationParams.page, 10);
+            locationParams.page = +locationParams.page;
             if (isNaN(locationParams.page))
                 locationParams.page = 1;
         }  
@@ -136,7 +135,7 @@ class Topic extends Component<Props> {
 
         const { fetchNewMessagesIfNeeded, info } = this.props;
 
-        const isLastPage = (this.locationParams.page === 'last20' || this.locationParams.page === getMaxPage(parseInt(info.answers_count, 10)));
+        const isLastPage = (this.locationParams.page === 'last20' || this.locationParams.page === getMaxPage(+info.answers_count));
 
         if (isLastPage)
             fetchNewMessagesIfNeeded({

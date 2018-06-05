@@ -15,9 +15,8 @@ import { fetchTopicsListIfNeeded } from 'src/actions/topics_list'
 
 import Title from './title'
 import Header from './header'
-import SearchResults from './search_results'
 import Row from './row'
-import Footer from './footer'
+import Pages from 'src/components/common/pages'
 import NewTopic from './new_topic'
 
 type StateProps = {
@@ -48,7 +47,7 @@ class TopicsList extends Component<Props> {
         super(props);
         this.updateTopicsList = this.updateTopicsList.bind(this);
         this.onPostNewTopicSuccess = this.onPostNewTopicSuccess.bind(this);
-        this.locationParams = { };
+        this.locationParams = { page: '1' };
     }
 
     componentDidMount() {
@@ -107,7 +106,6 @@ class TopicsList extends Component<Props> {
                     ) : null
                 }
                 <Header history={this.props.history} />
-                <SearchResults />
                 <table id='tm' className="border1">
                     <colgroup>
                         {options.listColumns.map((item, i) => (
@@ -128,7 +126,7 @@ class TopicsList extends Component<Props> {
                         ))}
                     </tbody>
                 </table>
-                <Footer locationParams={this.locationParams}/>
+                <Pages baseUrl='index.php' locationParams={this.locationParams} maxPage={10}/>
                 <NewTopic sections={sections.items} onPostSuccess={this.onPostNewTopicSuccess} locationParams={this.locationParams}/>
             </div>
         )

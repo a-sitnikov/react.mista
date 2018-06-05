@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import ErrorElem from '../core/error'
+import ErrorElem from '../common/error'
 import { doLoginIfNeeded } from 'src/actions/login'
 
 import type { DefaultProps } from 'src/components'

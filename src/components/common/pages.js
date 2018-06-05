@@ -2,25 +2,27 @@
 import React, { Component } from 'react'
 
 import { paramsToString } from 'src/api'
-import './footer.css'
+import './pages.css'
 
 type FooterProps = {
-    locationParams: {}
+    locationParams: { page: string },
+    baseUrl: string,
+    maxPage: number
 }
 
 type Props = FooterProps;
 
-class Footer extends Component<Props> {
+class Pages extends Component<Props> {
 
     render() {
 
-        const { locationParams } = this.props;
+        const { locationParams, baseUrl, maxPage } = this.props;
         let currentPage = parseInt(locationParams.page, 10) || 1;
         let pages = [];
 
-        for (let i = 1; i <= 10; i++) {
+        for (let i = 1; i <= maxPage; i++) {
             let params = {...locationParams, page: i };
-            let href = `${window.hash}/index.php` + paramsToString('?', params);
+            let href = `${window.hash}/${baseUrl}` + paramsToString('?', params);
 
             if (currentPage === i) {
                 pages.push(<li key={i} className="active">{i}</li>);
@@ -39,4 +41,4 @@ class Footer extends Component<Props> {
     }
 }
 
-export default Footer;
+export default Pages;

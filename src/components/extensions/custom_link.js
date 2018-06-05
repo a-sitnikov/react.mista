@@ -23,7 +23,7 @@ class CustomLink extends Component<Props> {
             .replace(/\[/g, '\\[')
             .replace(/\]/g, '\\]')
             .replace(/\./g, '\\.')
-            .replace(/\./g, '\.')
+            .replace(/\./g, '.')
             .replace(/\*/g, '\\*')
             .replace(/\+/g, '\\+')
             .replace(/\(/g, '\\(')

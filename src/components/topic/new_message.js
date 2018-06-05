@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import TextEditor from '../core/text_editor'
+import TextEditor from 'src/components/common/text_editor'
 import { postNewMessageIfNeeded } from 'src/actions/new_message'
 
 import type { State } from 'src/reducers'
