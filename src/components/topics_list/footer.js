@@ -5,7 +5,6 @@ import { paramsToString } from 'src/api'
 import './footer.css'
 
 type FooterProps = {
-    page: string,
     locationParams: {}
 }
 
@@ -15,8 +14,8 @@ class Footer extends Component<Props> {
 
     render() {
 
-        const { page, locationParams } = this.props;
-        let currentPage = parseInt(page, 10) || 1;
+        const { locationParams } = this.props;
+        let currentPage = parseInt(locationParams.page, 10) || 1;
         let pages = [];
 
         for (let i = 1; i <= 10; i++) {

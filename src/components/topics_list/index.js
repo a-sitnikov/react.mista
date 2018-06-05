@@ -99,7 +99,6 @@ class TopicsList extends Component<Props> {
     render() {
 
         const { topicsList, sections, options } = this.props;
-        const { page } = this.locationParams;
 
         return (
             <div>
@@ -129,7 +128,7 @@ class TopicsList extends Component<Props> {
                         ))}
                     </tbody>
                 </table>
-                <Footer page={page} locationParams={this.locationParams}/>
+                <Footer locationParams={this.locationParams}/>
                 <NewTopic sections={sections.items} onPostSuccess={this.onPostNewTopicSuccess} locationParams={this.locationParams}/>
             </div>
         )
