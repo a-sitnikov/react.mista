@@ -6,16 +6,12 @@ import classNames from 'classnames'
 import type { ResponseTopicsListItem } from 'src/api'
 import type { State } from 'src/reducers'
 
-import { defaultLoginState } from 'src/reducers/login'
 import type { LoginState } from 'src/reducers/login'
-
-import { defaultTopicPreviewState } from 'src/reducers/topic_preview'
-import type { TopicPreviewState } from 'src/reducers/topic_preview'
 import type { DefaultProps } from 'src/components/index'
+import type { TopicPreviewState } from 'src/reducers/topic_preview'
 
 import Pages from './pages';
 import PreviewLink from './preview_link'
-import TopicPreview from 'src/components/extensions/topic_preview'
 
 type TopicNameCellProps = {
     column: any, 
@@ -73,10 +69,7 @@ class TopicNameCell extends Component<Props> {
         else if (data.sect2 === 'v7' && text.substr(0, 2) !== 'v7')
             text = 'v7: ' + text;
 
-        let previewElem;
         const previewItem = topicPreview.items[String(data.id)];
-        if (previewItem)
-            previewElem = <TopicPreview topicId={data.id} data={previewItem}/>
 
         return (
             <td className={column.className}>
@@ -86,7 +79,6 @@ class TopicNameCell extends Component<Props> {
                 <Pages answ={data.answ} topicId={data.id} />
                 {closed}
                 {section}
-                {previewElem}
             </td>
         )
 
@@ -96,8 +88,8 @@ class TopicNameCell extends Component<Props> {
 const mapStateToProps = (state: State): StateProps => {
 
     return {
-        login: state.login || defaultLoginState,
-        topicPreview: state.topicPreview || defaultTopicPreviewState
+        login: state.login,
+        topicPreview: state.topicPreview
     }
 }
 

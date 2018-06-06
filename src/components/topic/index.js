@@ -7,7 +7,6 @@ import { fetchTopicIfNeeded, fetchNewMessagesIfNeeded } from 'src/actions/topic'
 import type { DefaultProps, Location } from 'src/components'
 import type { ResponseInfo, ResponseMessage, ResponseMessages } from 'src/api'
 import type { State } from 'src/reducers'
-import { defaultTopicState } from 'src/reducers/topic'
 import { OptionsItems } from 'src/reducers/options'
 
 import Header from './header'
@@ -27,7 +26,7 @@ type Column = {
     width?: string
 }
 
-type TopicProps = {
+type StateProps = {
     info: ResponseInfo,
     item0?: ResponseMessage,
     items: ResponseMessages,
@@ -38,7 +37,7 @@ type TopicProps = {
 type Props = {
     fetchTopicIfNeeded: any,
     fetchNewMessagesIfNeeded: any
-} & DefaultProps & TopicProps
+} & DefaultProps & StateProps
 
 class Topic extends Component<Props> {
 
@@ -182,7 +181,7 @@ class Topic extends Component<Props> {
     }
 }
 
-const mapStateToProps = (state: State): TopicProps => {
+const mapStateToProps = (state: State): StateProps => {
 
     const {
         isFetching,
@@ -191,7 +190,7 @@ const mapStateToProps = (state: State): TopicProps => {
         item0,
         items,
         error
-    } = state.topic || defaultTopicState;
+    } = state.topic;
 
     return {
         login: state.login,

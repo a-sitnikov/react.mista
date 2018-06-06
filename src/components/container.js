@@ -26,8 +26,10 @@ class Container extends Component {
 
         const { contetnMaxWidth } = this.props;
         let style = {};
-        if (contetnMaxWidth)
+        if (contetnMaxWidth) {
             style.maxWidth = contetnMaxWidth;
+            style.margin = "auto";
+        }    
 
        const routes =
             <Switch>
@@ -40,17 +42,21 @@ class Container extends Component {
         if (window.hash)
 
             return (
-                <div className="container"  style={style} onClick={this.onClick}>
-                    <HashRouter >
-                        {routes}
-                    </HashRouter >
+                <div className="container" onClick={this.onClick}>
+                    <div style={style} >
+                        <HashRouter>
+                            {routes}
+                        </HashRouter >
+                    </div>    
                 </div>
             )
 
         else
             return (
-                <div className="container"  style={style} onClick={this.onClick}>
-                    {routes}
+                <div className="container" onClick={this.onClick}>
+                    <div style={style} >
+                        {routes}
+                    </div>
                 </div >
             )
     }

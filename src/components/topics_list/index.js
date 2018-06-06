@@ -10,6 +10,7 @@ import type { TopicsListState } from 'src/reducers/topics_list'
 import type { SectionsState } from 'src/reducers/sections'
 import type { LoginState } from 'src/reducers/login'
 import type { Column, OptionsState } from 'src/reducers/options'
+import type { TopicPreviewState } from 'src/reducers/topic_preview'
 
 import { fetchTopicsListIfNeeded } from 'src/actions/topics_list'
 
@@ -19,8 +20,11 @@ import Row from './row'
 import Pages from 'src/components/common/pages'
 import NewTopic from './new_topic'
 
+import TopicPreview from 'src/components/extensions/topic_preview'
+
 type StateProps = {
     topicsList: TopicsListState,
+    topicPreview: TopicPreviewState,
     sections: SectionsState,
     login: LoginState,
     options: OptionsState,
@@ -97,7 +101,25 @@ class TopicsList extends Component<Props> {
 
     render() {
 
-        const { topicsList, sections, options } = this.props;
+        const { topicsList, topicPreview, sections, options } = this.props;
+
+        let rows = [];
+        for (let i in topicsList.items) {
+            
+            const item = topicsList.items[i];
+            rows.push(<Row key={i} data={item} columns={options.listColumns}/>);
+
+            const previewItem = topicPreview.items[String(item.id)];
+            if (previewItem)
+                rows.push(<tr>
+                    <td></td>
+                    <td></td>
+                    <td colspan="3">
+                        <TopicPreview topicId={item.id} data={previewItem}/>
+                    </td>
+                    </tr>
+                )
+        }
 
         return (
             <div>
@@ -121,9 +143,7 @@ class TopicsList extends Component<Props> {
                                     return <th key={i}>{item.name}</th>
                             })}
                         </tr>
-                        {topicsList.items.map((item, i) => (
-                            <Row key={i} data={item} columns={options.listColumns}/>
-                        ))}
+                        {rows}
                     </tbody>
                 </table>
                 <Pages baseUrl='index.php' locationParams={this.locationParams} maxPage={10}/>
@@ -138,6 +158,7 @@ const mapStateToProps = (state: State): StateProps => {
 
     return {
         topicsList: state.topicsList,
+        topicPreview: state.topicPreview,
         sections: state.sections,
         login: state.login,
         options: state.options,
