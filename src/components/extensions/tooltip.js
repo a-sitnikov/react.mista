@@ -8,9 +8,7 @@ import MsgText from '../topic/row/msg_text'
 import UserInfo from '../topic/row/user_info';
 import './tooltip.css'
 
-import { closeTooltip } from 'src/actions/tooltips'
-
-import TopicPreview from "./topic_preview";
+import { closeTooltip, changeTooltipData } from 'src/actions/tooltips'
 
 import type { DefaultProps } from 'src/index'
 import type { TooltipItemState } from 'src/reducers/tooltips'
@@ -25,11 +23,13 @@ class Tooltip extends Component<Props> {
 
     onCloseClick;
     onMouseUp;
+    onWheel;
 
     constructor(props) {
         super(props);
         this.onCloseClick = this.onCloseClick.bind(this);
         this.onMouseUp = this.onMouseUp.bind(this);
+        this.onWheel  = this.onWheel.bind(this);
     }
 
     componentDidMount() {
@@ -37,7 +37,7 @@ class Tooltip extends Component<Props> {
     }
 
     componentWillReceiveProps(props: Props) {
-
+        //console.log(props);
     }
 
     onCloseClick() {
@@ -51,13 +51,26 @@ class Tooltip extends Component<Props> {
             dispatch(closeTooltip(tooltip.keys));
     }
 
+    onWheel(e) {
+        const { dispatch } = this.props;
+        const { keys } = this.props.tooltip;
+        if (keys.type !== 'TOPIC_PREVIEW') return;
+        
+        e.preventDefault();
+        if (e.nativeEvent.deltaY > 0) {
+            dispatch(changeTooltipData(keys, keys.number + 1))
+        } else {
+            dispatch(changeTooltipData(keys, keys.number - 1))
+        }
+    }
+
     render() {
 
         const { keys, data, coords, i } = this.props.tooltip;
 
         let userInfo;
         if (!data.text) {
-            data.text = 'Сообщение не найдено';
+            data.text = `Сообщение не найдено: ${keys.number}`;
             userInfo = <b>Заголовок</b>
         } else {
             userInfo = <UserInfo data={data} isAuthor={false}/>
@@ -70,7 +83,7 @@ class Tooltip extends Component<Props> {
                     defaultClassNameDragging="dragging"
                     key={i}>
 
-                    <div className="tooltip-window" style={{ top: coords.y, left: coords.x }} >
+                    <div className="tooltip-window" style={{ top: coords.y, left: coords.x }} onWheel={this.onWheel}>
                         <div className="tooltip-header">
                             {userInfo}
                         </div>
@@ -80,24 +93,6 @@ class Tooltip extends Component<Props> {
                         <span className="tooltip-close" onClick={this.onCloseClick}>
                             <b> x </b>
                         </span>
-                    </div>
-                </Draggable>
-            )
-        else if (keys.type === 'TOPIC_PREVIEW')        
-            return (
-                <Draggable
-                    handle=".tooltip-header"
-                    defaultClassNameDragging="dragging"
-                    key={i}>
-
-                    <div className="tooltip-window" style={{ top: coords.y, left: coords.x, background: "white" }} >
-                        <div className="tooltip-header">
-                           Заголовок
-                        </div>
-                         <span className="tooltip-close" onClick={this.onCloseClick}>
-                            <b> x </b>
-                        </span>
-                        <TopicPreview topicId={keys.topicId} data={data}/>
                     </div>
                 </Draggable>
             )

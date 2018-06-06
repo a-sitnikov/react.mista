@@ -34,6 +34,14 @@ export type CLOSE_TOOLTIP = {
     keys: TooltipKeys
 }
 
+export type CHANGE_TOOLTIP_DATA = {
+    type: 'CHANGE_TOOLTIP_DATA',
+    keys: TooltipKeys,
+    data: any,
+    number: string
+}
+
+
 export type TooltipsAction = CREATE_TOOLTIP | CLOSE_TOOLTIP | CLEAR_TOOLTIPS;
 
 export const showTooltip = (keys: TooltipKeys, coords: Coords, data: any) => async (dispatch: any) => {
@@ -61,6 +69,31 @@ export const showTooltip = (keys: TooltipKeys, coords: Coords, data: any) => asy
 
     }
 }
+
+export const changeTooltipData = (keys: TooltipKeys, number: number) => async (dispatch: any) => {
+    
+    if (number < 0) return;
+
+    const json = await API.getTopicMessages({
+        id: keys.topicId,
+        from: number,
+        to: number + 1
+    });
+    let data;
+    if (json.length > 0)
+        data = json[0];
+    else
+        data = {};
+
+    const action: CHANGE_TOOLTIP_DATA = {
+        type: 'CHANGE_TOOLTIP_DATA',
+        keys,
+        data,
+        number
+    }
+
+    dispatch(action);
+}    
 
 export const closeTooltip = (keys: TooltipKeys) => (dispatch: any) => {
     dispatch({
