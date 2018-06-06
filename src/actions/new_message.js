@@ -18,7 +18,13 @@ export type NEW_MESSAGE_TEXT = {
     text: string
 }
 
-export type NewMessageAction = POST_NEW_MESSAGE_START | POST_NEW_MESSAGE_COMPLETE | NEW_MESSAGE_TEXT;
+export type ADD_MESSAGE_TEXT = {
+    type: 'ADD_MESSAGE_TEXT',
+    text: string
+}
+
+
+export type NewMessageAction = POST_NEW_MESSAGE_START | POST_NEW_MESSAGE_COMPLETE | NEW_MESSAGE_TEXT | ADD_MESSAGE_TEXT;
 
 export const shouldPostNewMessage = (state: State): boolean => {
     const newMessage = state.newMessage;
@@ -75,4 +81,11 @@ const postNewMessage = (params: PostNewmessageParams) => async (dispatch: any) =
     } catch (err) {
         console.error("Failed to post new message: " + err);
     }
+}
+
+export const addMessageText = (text: string) => (dispatch: any) => {
+    dispatch({
+            type: 'ADD_MESSAGE_TEXT',
+            text
+        })
 }

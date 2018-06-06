@@ -28,7 +28,12 @@ const newMessage = (state: NewMessageState = defaultNewMessageState, action: New
                 ...state,
                 text: action.text
             }
-        default:
+        case 'ADD_MESSAGE_TEXT':
+            return {
+                ...state,
+                text: state.text + action.text
+            }
+       default:
             return state
     }
 }
