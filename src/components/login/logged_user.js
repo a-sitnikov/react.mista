@@ -47,21 +47,9 @@ class LoggedUser extends Component<Props> {
             <div style={{float: "left"}}>
                 Привет, <a className="bold" rel="nofollow" href={`https://www.forum.mista.ru/users.php?id=${userId}`}>{userName}</a>
                 <span style={{margin: "5px"}}>|</span>
-                <a href="" onClick={this.showOptions}>Личные настройки</a>
+                <a rel="nofollow" href={`${window.hash}/index.php?user_id=${userId}`}>Мои темы</a>
                 <span style={{margin: "5px"}}>|</span>
-                <a href="" onClick={this.onLogout}>Выход</a>
-                <br />
-                <span className="agh">
-                    <noindex>
-                        <a rel="nofollow" href={`${window.hash}/index.php?user_id=${userId}`}>Мои темы</a>
-                    </noindex>
-                </span>
-                <span style={{margin: "5px"}}>|</span>
-                <span className="agh">
-                    <noindex>
-                        <a rel="nofollow" href={`${window.hash}/index.php?mytopics=1`}>Темы с моим участием</a>
-                    </noindex>
-                </span>
+                <a rel="nofollow" href={`${window.hash}/index.php?mytopics=1`}>Темы с моим участием</a>
             </div>
         )
     }

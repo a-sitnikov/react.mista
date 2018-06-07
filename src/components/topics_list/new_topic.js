@@ -1,6 +1,7 @@
 //@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { FormControl } from 'react-bootstrap'
 
 import type { ResponseSection } from 'src/api'
 
@@ -59,7 +60,7 @@ class NewTopic extends Component<Props> {
     onSectionChange(e, section) {
         const { dispatch } = this.props;
         this.currentSection = section;
-
+        
         const action: NewTopicAction = {
             type: 'NEW_TOPIC_SECTION',
             section
@@ -192,31 +193,33 @@ class NewTopic extends Component<Props> {
                     <div id="newtopic_form" style={{ flex: "0 1 60%", marginRight: "10px" }}>
                         <p><b>Новая тема:</b></p>
                         <ErrorElem text={newTopic.error} />
-                        <select 
-                            name="target_forum" 
-                            id="target_forum" 
-                            className="field" 
-                            value={newTopic.forum} 
-                            readOnly={true} 
-                            ref="forum"
-                            style={{width: "10%", marginRight: "2px"}}>
-                            {groupsElem}
-                        </select>
-                        <SectionSelect
-                            defaultValue="Секция"
-                            id="target_section"
-                            name="target_section"
-                            className="field"
-                            style={{ width: "calc(90% - 2px)", marginBottom: "1px" }}
-                            onChange={this.onSectionChange}
-                        />
-                        <input placeholder="Тема" id="topic_text" name="topic_text" maxLength="90"
-                            className="field"
-                            style={{ type: "text", width: "100%", boxSizing: "border-box", marginBottom: "2px" }}
-                            onChange={this.onSubjectChange}
+                        <div className="flex-row" style={{ marginBottom: "3px" }}>
+                            <FormControl 
+                                componentClass="select"
+                                readOnly={true} 
+                                value={newTopic.forum}
+                                bsSize="sm"
+                                style={{ flex: "0 1 70px" }}
+                            >
+                                {groupsElem}                       
+                            </FormControl>
+                            <SectionSelect
+                                defaultValue="Секция"
+                                id="target_section"
+                                name="target_section"
+                                style={{ flex: "1 1 auto" }}
+                                onChange={this.onSectionChange}
+                            />
+                        </div>
+                        <FormControl
+                            type="text"
                             value={newTopic.subject}
-                            ref='subject'
-                        />
+                            onChange={this.onSubjectChange}
+                            style={{ type: "text", width: "100%", boxSizing: "border-box", marginBottom: "3px" }}
+                            placeholder="Тема"
+                            maxLength="90"
+                            bsSize="sm"
+                        />                        
                         <TextEditor
                             placeholder="Сообщение"
                             showVoting={true}

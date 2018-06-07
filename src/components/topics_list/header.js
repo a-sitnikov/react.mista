@@ -15,7 +15,6 @@ import type { SectionsState } from 'src/reducers/sections'
 import './header.css'
 
 type StateProps = {
-    sections: SectionsState
 }
 
 type Props = StateProps & DefaultProps;
@@ -43,26 +42,15 @@ class Header extends Component<Props> {
 
     render() {
 
-        const { location, sections } = this.props;
+        const { location } = this.props;
         const params = queryString.parse(location.search);
-
-        let groupsElem = [];
-        for (let forum in sections.tree) {
-            groupsElem.push(<span key={"s" + forum} className="separator">|</span>);
-            groupsElem.push(<a key={forum} rel="nofollow" href={`${window.hash}/index.php?forum=${forum}`}>{forum.toUpperCase()}</a>);
-        }
 
         return (
             <div className="flex-row">
                 <div className="user-td">
                     <Login />
                 </div>
-                <div className="section-td">
-
-                    <span className="ah">
-                        <a rel="nofollow" href="">Все</a>
-                        {groupsElem}
-                    </span>
+                <div className="section-td" style={{marginLeft: "auto"}}>
                     <SectionSelect 
                         defaultValue="--Все секции--" 
                         selected={params.section} 
@@ -75,11 +63,4 @@ class Header extends Component<Props> {
     }
 }
 
-const mapStateToProps = (state: State): StateProps => {
-
-    return {
-        sections: state.sections
-    }
-}
-
-export default connect(mapStateToProps)(withRouter(Header));
+export default connect()(withRouter(Header));

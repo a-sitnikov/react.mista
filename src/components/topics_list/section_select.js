@@ -1,12 +1,14 @@
 //@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchSectionsIfNeeded } from '../../actions/sections'
+import { FormControl } from 'react-bootstrap'
 
-import type { ResponseSection, ResponseSections } from '../../api'
+import { fetchSectionsIfNeeded } from 'src/actions/sections'
 
-import type { DefaultProps } from '../../components'
-import type { State } from '../../reducers'
+import type { ResponseSection, ResponseSections } from 'src/api'
+
+import type { DefaultProps } from 'src/components'
+import type { State } from 'src/reducers'
 
 type SectionSelectProps = {
     defaultValue: string,
@@ -72,11 +74,17 @@ class SectionSelect extends Component<Props> {
             sectionsElem.push(group);
         }
 
-        return (
-            <select className={className} id={id} name={name} style={style} onChange={this.onChange} value={selected}>
+        return  (
+            <FormControl 
+                componentClass="select"
+                onChange={this.onChange}
+                value={selected}
+                bsSize="sm"
+                style={this.props.style}
+            >
                 <option value="">{defaultValue}</option>
                 {sectionsElem}
-            </select>
+            </FormControl>    
         )
     }
 }

@@ -7,12 +7,13 @@ import './nav_bar.css'
 const NavBar = (props) => {
 
     const menu = [
-        { name: 'Форум', link: `${window.hash}/` },
-        { name: '1С:Предприятие', link: `${window.hash}/index.php?forum=1C` },
-        { name: 'Работа', link: `${window.hash}/index.php?forum=JOB` },
+        { name: '1С', link: `${window.hash}/index.php?forum=1C` },
+        { name: 'IT', link: `${window.hash}/index.php?forum=IT` },
+        { name: 'JOB', link: `${window.hash}/index.php?forum=JOB` },
+        { name: 'LIFE', link: `${window.hash}/index.php?forum=LIFE` },
         { name: 'Wiki', link: 'http://wiki.mista.ru' },
         { name: 'Книга знаний', link: 'http://kb.mista.ru' },
-        { name: 'Каталог разработок', link: 'http://catalog.mista.ru' }
+        { name: 'Настройки', link: `${window.hash}/options.php` },
     ];
 
     const menuItems = menu.map((item, i) => {
@@ -23,6 +24,9 @@ const NavBar = (props) => {
 
     return (
         <Navbar fluid inverse>
+            <Navbar.Brand>
+                <a href={`${window.hash}`}>React.Mista</a>
+            </Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse>
                 <Nav>

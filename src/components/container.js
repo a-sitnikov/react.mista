@@ -42,8 +42,8 @@ class Container extends Component {
         if (window.hash)
 
             return (
-                <div className="container" onClick={this.onClick}>
-                    <div style={style} >
+                <div onClick={this.onClick}>
+                    <div className="container" >
                         <HashRouter>
                             {routes}
                         </HashRouter >
