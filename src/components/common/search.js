@@ -1,7 +1,6 @@
 //@flow
 import React, { Component } from 'react'
-
-import './search.css'
+import { Button, FormGroup, FormControl } from 'react-bootstrap'
 
 type Props = {};
 
@@ -30,6 +29,7 @@ class Search extends Component<Props> {
         
         let url;
         let text = this.state.text;
+        console.log(this.state)
 
         if (this.state.searchEngine === 'yandex') {
             url = `https://www.yandex.ru/search/?text=${text}&site=mista.ru`;
@@ -69,21 +69,21 @@ class Search extends Component<Props> {
     render() {
 
         return (
-            <div name="find_form" style={{ width: "100%" }}>
-                <span className="agh mr5">Поиск</span>
-                <select className="field" value={this.state.searchEngine} style={{width: "100px", borderRight: "none"}} onChange={this.onSearchEngineChange}>
-                    <option>google</option>
-                    <option>yandex</option>
-                </select>
-                <input 
-                    className="field search-text" 
+            <FormGroup bsSize="sm" style={{display: "flex"}}>
+                <FormControl componentClass="select" style={{flex: "0 0 90px", marginRight: "4px"}} onChange={this.onSearchEngineChange}>
+                    <option value="yandex">Яндекс</option>
+                    <option value="google">Google</option>
+                </FormControl>
+                <FormControl 
                     type="text" 
-                    value={this.state.text}
+                    placeholder="Поиск по сайту" 
+                    style={{flex: "1", marginRight: "4px"}}
                     onKeyPress={this.onKeyPress}
                     onChange={this.onSearchTextChange}
+                    value={this.state.text}
                 />
-                <button className="search-button" onClick={this.doSearch}>Найти</button>
-            </div>
+                <Button type="submit" bsSize="sm" onClick={this.doSearch}>Найти</Button>
+            </FormGroup>
         )
     }
 }

@@ -1,8 +1,7 @@
 import React from 'react';
-import classNames from 'classnames'
+import { Navbar, Nav, NavItem } from 'react-bootstrap'
 
-import { Navbar, Nav, NavItem, Button, FormGroup, FormControl } from 'react-bootstrap'
-
+import Search from 'src/components/common/search'
 import './nav_bar.css'
 
 const NavBar = (props) => {
@@ -16,12 +15,9 @@ const NavBar = (props) => {
         { name: 'Каталог разработок', link: 'http://catalog.mista.ru' }
     ];
 
-    let currentItem = 0;
-
     const menuItems = menu.map((item, i) => {
-        const classes = classNames('nav-item')
         return (
-            <NavItem eventKey={1} href={item.link}>{item.name}</NavItem>
+            <NavItem key={i} href={item.link}>{item.name}</NavItem>
         )
     });
 
@@ -33,24 +29,10 @@ const NavBar = (props) => {
                 {menuItems}
                 </Nav>
                 <Navbar.Form pullRight>
-                    <FormGroup bsSize="sm">
-                        <FormControl componentClass="select">
-                            <option value="yandex">Яндекс</option>
-                            <option value="google">Google</option>
-                        </FormControl>{' '}
-                        <FormControl type="text" placeholder="Поиск"/>{' '}
-                        <Button type="submit" bsSize="sm">Найти</Button>
-                    </FormGroup>
+                    <Search />
                 </Navbar.Form>
             </Navbar.Collapse>
         </Navbar>
-    )
-    return (
-        <div id='header' className="header">
-            <ul className="nav-bar">
-                {menuItems}
-            </ul>
-        </div>
     )
 }
 

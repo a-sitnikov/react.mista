@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import queryString from 'query-string'
 
 import Login from '../login'
-import Search from './search'
 import SectionSelect from './section_select'
 import { fetchSectionsIfNeeded } from 'src/actions/sections'
 
@@ -57,11 +56,6 @@ class Header extends Component<Props> {
             <div className="flex-row">
                 <div className="user-td">
                     <Login />
-                </div>
-                <div className="search-td-container">
-                    <div className="search-td">
-                        <Search />
-                    </div>
                 </div>
                 <div className="section-td">
 
