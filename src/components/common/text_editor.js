@@ -1,6 +1,7 @@
 //@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { FormControl, Button, Checkbox } from 'react-bootstrap'
 
 import type { DefaultProps } from 'src/index'
 
@@ -36,7 +37,7 @@ class TextEditor extends Component<Props> {
 
     onSendClick(e) {
         if (this.props.onSend) {
-            const text = this.refs.text.value;
+            const text = this.props.text;
             this.props.onSend(e, text);
         }
     }
@@ -67,13 +68,13 @@ class TextEditor extends Component<Props> {
         const { dispatch } = this.props;
         dispatch({
             type: 'SHOW_VOTING',
-            data: this.refs.voting.checked
+            data: e.target.checked
         })
     }
 
     onChange(e) {
         if (this.props.onChange) {
-            const text = this.refs.text.value;
+            const text = e.target.value;
             this.props.onChange(e, text);
         }
     }
@@ -81,8 +82,7 @@ class TextEditor extends Component<Props> {
     onKeyPress(e) {
         if (e.key === 'Enter' && e.ctrlKey) {
             if (this.props.onSend) {
-                const text = this.refs.text.value;
-                this.props.onSend(e, text);
+                this.props.onSend(e, this.props.text);
             }
         }
     }
@@ -94,37 +94,34 @@ class TextEditor extends Component<Props> {
         let voting;
         if (showVoting)
             voting = (
-                <div style={{ float: "right" }}>
-                    <input name="voting" id="voting" checked={isVoting} type="checkbox" onChange={this.onVotingChange} ref="voting" />
-                    <label htmlFor="voting" >Голосование</label>
-                </div>
+                <Checkbox checked={isVoting} onChange={this.onVotingChange} style={{marginLeft: "auto"}} >
+                    Голосование
+                </Checkbox>
             )
+
+            let a = 
+                <label htmlFor="voting" style={{marginLeft: "auto"}}>
+                    <input name="voting" id="voting" checked={isVoting} type="checkbox" onChange={this.onVotingChange} ref="voting" />
+                </label>
 
         return (
             <div>
-                <textarea
-                    placeholder={placeholder}
-                    name="message_text"
-                    id="message_text"
+                <FormControl 
+                    componentClass="textarea" 
+                    placeholder={placeholder} 
                     cols="70" rows="12"
-                    ref="text"
                     value={text}
-                    className="field"
-                    style={{ width: "100%", boxSizing: "border-box" }}
+                    style={{ width: "100%", boxSizing: "border-box", marginBottom: "3px" }}
                     onChange={this.onChange}
                     onKeyPress={this.onKeyPress}
                 />
-                <div>
-                    <button name="code1C" type="button" className="button" onClick={this.onButtonCode1c}>Код 1С</button>
-                    <button
-                        name="Submit"
-                        type="button"
-                        id="Submit"
+                <div className="flex-row">
+                    <Button onClick={this.onButtonCode1c} style={{marginRight: "5px"}}>Код 1С</Button>
+                    <Button
                         disabled={isFetching}
-                        className="button"
                         onClick={this.onSendClick}>
                         {isFetching ? 'Отправляется' : 'Отправить'}
-                    </button>
+                    </Button>
                     {voting}
                 </div>
             </div>

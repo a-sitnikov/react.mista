@@ -1,7 +1,7 @@
 //@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { FormControl } from 'react-bootstrap'
+import { Form, FormControl, FormGroup, Col, InputGroup } from 'react-bootstrap'
 
 import type { ResponseSection } from 'src/api'
 
@@ -180,8 +180,12 @@ class NewTopic extends Component<Props> {
             for (let i = 1; i <= 10; i++) {
                 votingOptions.push(
                     <div key={i}>
-                        <label htmlFor={`select${i}`} style={{ width: "25px", display: "inline-block" }}>{`${i}.`}</label>
-                        <input name={`select${i}`} size="30" maxLength="50" className="fieldbasic" type="text" ref={`vote${i}`} />
+                        {/*<label htmlFor={`select${i}`} style={{ width: "25px", display: "inline-block" }}>{`${i}.`}</label>*/}
+                        <InputGroup style={{marginBottom: "3px"}}>
+                            <InputGroup.Addon style={{width:"45px"}}>{`${i}.`}</InputGroup.Addon>
+                            <FormControl type="text" size="30" maxLength="50" ref={`vote${i}`} bsSize="sm"/>
+                        </InputGroup>    
+                       {/*<input name={`select${i}`} size="30" maxLength="50" className="fieldbasic" type="text" ref={`vote${i}`} />*/}
                     </div>
                 );
             }
@@ -230,9 +234,9 @@ class NewTopic extends Component<Props> {
                             isFetching={newTopic.isFetching}
                         />
                     </div>
-                    <div style={{ flex: 1 }}>
+                    <Form horizontal style={{ flex: 1 }}>
                         {votingOptions}
-                    </div>
+                    </Form>
                     <div style={{ marginLeft: "auto"}}>
                         <button id="refresh_button" type="button" className="button" onClick={this.onRefreshClick} disabled={isFetching}>{isFetching ? 'Обновляется': 'Обновить список'}</button>
                     </div>    
