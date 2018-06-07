@@ -16,13 +16,15 @@ export const defaultTooltipsState = {
 
 const tooltips = (state: TooltipsState = defaultTooltipsState, action: TooltipsAction) => {
     let hash: string;
+    let items;
+    let tooltip;
     switch (action.type) {
         case 'CREATE_TOOLTIP':
 
-            let items = state.items.slice();
+            items = state.items.slice();
 
             hash = JSON.stringify(action.keys);
-            let tooltip = items.find(val => val.hash === hash);
+            tooltip = items.find(val => val.hash === hash);
             if (!tooltip)
                 items.push({
                     i: 0,

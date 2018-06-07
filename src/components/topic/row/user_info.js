@@ -18,7 +18,7 @@ type Props = UserInfoProps & DefaultProps;
 
 class UserInfo extends Component<Props> {
 
-    onclick;
+    onClick;
 
     constructor() {
         super();
@@ -30,7 +30,8 @@ class UserInfo extends Component<Props> {
         dispatch(addMessageText(`(${data.n})`));
         
         let elem = document.getElementById('message_text'); 
-        window.scrollTo(0, elem.offsetTop);        
+        if (elem)
+            window.scrollTo(0, elem.offsetTop);        
     }
 
     render() {

@@ -38,7 +38,7 @@ export type CHANGE_TOOLTIP_DATA = {
     type: 'CHANGE_TOOLTIP_DATA',
     keys: TooltipKeys,
     data: any,
-    number: string
+    number: number
 }
 
 
