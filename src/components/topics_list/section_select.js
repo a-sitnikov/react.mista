@@ -57,7 +57,7 @@ class SectionSelect extends Component<Props> {
 
     render() {
 
-        const { tree, defaultValue, selected, className, id, name, style } = this.props;
+        const { tree, defaultValue, selected, className, style } = this.props;
         
         let sectionsElem = [];
         for (let forum in tree) {
@@ -80,7 +80,7 @@ class SectionSelect extends Component<Props> {
                 onChange={this.onChange}
                 value={selected}
                 bsSize="sm"
-                style={this.props.style}
+                style={style}
             >
                 <option value="">{defaultValue}</option>
                 {sectionsElem}

@@ -39,7 +39,9 @@ class PreviewLink extends Component<Props> {
             text = '+'    
 
         return (
-            <span className="plus-minus" onClick={this.onClick}>{text}</span>
+            <div className="cell-preview-link" onClick={this.onClick}>
+                <span>{text}</span>
+            </div>
         )        
     }
 

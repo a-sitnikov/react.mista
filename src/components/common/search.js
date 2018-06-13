@@ -1,6 +1,6 @@
 //@flow
 import React, { Component } from 'react'
-import { Button, FormGroup, FormControl } from 'react-bootstrap'
+import { Button, FormGroup, FormControl, InputGroup, Glyphicon, DropdownButton, Dropdown, MenuItem} from 'react-bootstrap'
 
 type Props = {};
 
@@ -20,7 +20,7 @@ class Search extends Component<Props> {
         this.onSearchTextChange = this.onSearchTextChange.bind(this);
 
         this.state = {
-            searchEngine: 'yandex',
+            searchEngine: 'Яндекс',
             text: ''
         }
     }
@@ -31,10 +31,10 @@ class Search extends Component<Props> {
         let text = this.state.text;
         console.log(this.state)
 
-        if (this.state.searchEngine === 'yandex') {
+        if (this.state.searchEngine === 'Яндекс') {
             url = `https://www.yandex.ru/search/?text=${text}&site=mista.ru`;
 
-        } else if (this.state.searchEngine === 'google') {
+        } else if (this.state.searchEngine === 'Google') {
             url = `https://www.google.ru/search?q=${text}+site:mista.ru`
         }    
 
@@ -46,10 +46,10 @@ class Search extends Component<Props> {
         });        
     }
 
-    onSearchEngineChange(e: any) {
+    onSearchEngineChange(eventKey: string) {
         this.setState({
             ...this.state,
-            searchEngine: e.target.value
+            searchEngine: eventKey
         })
     }
     
@@ -70,19 +70,21 @@ class Search extends Component<Props> {
 
         return (
             <FormGroup bsSize="sm" style={{display: "flex"}}>
-                <FormControl componentClass="select" style={{flex: "0 0 90px", marginRight: "4px"}} onChange={this.onSearchEngineChange}>
-                    <option value="yandex">Яндекс</option>
-                    <option value="google">Google</option>
-                </FormControl>
+                <DropdownButton title="" bsSize="sm" style={{marginRight: "2px"}}>
+                    <MenuItem eventKey="Яндекс" onSelect={this.onSearchEngineChange}>Яндекс</MenuItem>
+                    <MenuItem eventKey="Google" onSelect={this.onSearchEngineChange}>Google</MenuItem>
+                </DropdownButton>               
                 <FormControl 
                     type="text" 
-                    placeholder="Поиск по сайту" 
-                    style={{flex: "1", marginRight: "4px"}}
+                    placeholder={`${this.state.searchEngine}: поиск`} 
+                    style={{flex: "1", marginRight: "4px", paddingRight: "27px"}}
                     onKeyPress={this.onKeyPress}
                     onChange={this.onSearchTextChange}
                     value={this.state.text}
                 />
-                <Button type="submit" bsSize="sm" onClick={this.doSearch}>Найти</Button>
+                <div style={{marginLeft: "-25px", marginTop: "auto", marginBottom: "auto", cursor: "pointer"}} onClick={this.doSearch}>
+                    <Glyphicon glyph="search"/>
+                </div>
             </FormGroup>
         )
     }

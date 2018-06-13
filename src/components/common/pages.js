@@ -1,8 +1,8 @@
 //@flow
 import React, { Component } from 'react'
+import { Pagination } from 'react-bootstrap'
 
 import { paramsToString } from 'src/api'
-import './pages.css'
 
 type FooterProps = {
     locationParams: { page: string },
@@ -24,19 +24,13 @@ class Pages extends Component<Props> {
             let params = {...locationParams, page: i };
             let href = `${window.hash}/${baseUrl}` + paramsToString('?', params);
 
-            if (currentPage === i) {
-                pages.push(<li key={i} className="active">{i}</li>);
-            } else {
-                pages.push(<li key={i}><a href={href}>{i}</a></li>);
-            }
+            pages.push(<Pagination.Item active={currentPage === i} key={i} href={href} bsSize="sm">{i}</Pagination.Item>);
         }
 
         return (
-            <div id='tf' className="tf">
-                <ul>
-                    {pages}
-                </ul>    
-            </div>
+            <Pagination style={{margin: "0px"}}>
+                {pages}
+            </Pagination>            
         )
     }
 }

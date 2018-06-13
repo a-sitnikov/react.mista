@@ -1,7 +1,7 @@
 //@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Form, FormControl, FormGroup, Col, InputGroup } from 'react-bootstrap'
+import { Form, FormControl, InputGroup } from 'react-bootstrap'
 
 import type { ResponseSection } from 'src/api'
 
@@ -39,7 +39,6 @@ class NewTopic extends Component<Props> {
     onSend: (e: any, text: string) => void;
     onSubjectChange: (e: any) => void;
     onPostSuccess: () => void;
-    onRefreshClick: () => void;
     currentSection: ResponseSection | null;
 
     constructor(props) {
@@ -49,7 +48,6 @@ class NewTopic extends Component<Props> {
         this.onSubjectChange = this.onSubjectChange.bind(this);
         this.onSend = this.onSend.bind(this);
         this.onPostSuccess = this.onPostSuccess.bind(this);
-        this.onRefreshClick = this.onRefreshClick.bind(this);
     }
 
     componentDidMount() {
@@ -159,11 +157,6 @@ class NewTopic extends Component<Props> {
         }
     }
 
-    onRefreshClick() {
-        const { dispatch, locationParams } = this.props;       
-        dispatch(fetchTopicsListIfNeeded(locationParams));
-    }
-    
     render() {
 
         const { sections, newTopic, isFetching } = this.props;
@@ -192,55 +185,50 @@ class NewTopic extends Component<Props> {
         }
 
         return (
-            <div id="F" className="newtopic" style={{ marginLeft: '3%', marginBottom: "10px", position: 'relative' }}>
-                <div style={{ display: "flex" }}>
-                    <div id="newtopic_form" style={{ flex: "0 1 60%", marginRight: "10px" }}>
-                        <p><b>Новая тема:</b></p>
-                        <ErrorElem text={newTopic.error} />
-                        <div className="flex-row" style={{ marginBottom: "3px" }}>
-                            <FormControl 
-                                componentClass="select"
-                                readOnly={true} 
-                                value={newTopic.forum}
-                                bsSize="sm"
-                                style={{ flex: "0 1 70px" }}
-                            >
-                                {groupsElem}                       
-                            </FormControl>
-                            <SectionSelect
-                                defaultValue="Секция"
-                                id="target_section"
-                                name="target_section"
-                                style={{ flex: "1 1 auto" }}
-                                onChange={this.onSectionChange}
-                            />
-                        </div>
-                        <FormControl
-                            type="text"
-                            value={newTopic.subject}
-                            onChange={this.onSubjectChange}
-                            style={{ type: "text", width: "100%", boxSizing: "border-box", marginBottom: "3px" }}
-                            placeholder="Тема"
-                            maxLength="90"
+            <div style={{ display: "flex" }}>
+                <div id="newtopic_form" style={{ flex: "0 1 60%", marginRight: "10px" }}>
+                    <p><b>Новая тема:</b></p>
+                    <ErrorElem text={newTopic.error} />
+                    <div className="flex-row" style={{ marginBottom: "3px" }}>
+                        <FormControl 
+                            componentClass="select"
+                            readOnly={true} 
+                            value={newTopic.forum}
                             bsSize="sm"
-                        />                        
-                        <TextEditor
-                            placeholder="Сообщение"
-                            showVoting={true}
-                            isVoting={newTopic.isVoting}
-                            onSend={this.onSend}
-                            onChange={this.onTextChange} 
-                            text={newTopic.text} 
-                            isFetching={newTopic.isFetching}
+                            style={{ flex: "0 1 70px" }}
+                        >
+                            {groupsElem}                       
+                        </FormControl>
+                        <SectionSelect
+                            defaultValue="Секция"
+                            id="target_section"
+                            name="target_section"
+                            style={{ flex: "1 1 auto" }}
+                            onChange={this.onSectionChange}
                         />
                     </div>
-                    <Form horizontal style={{ flex: 1 }}>
-                        {votingOptions}
-                    </Form>
-                    <div style={{ marginLeft: "auto"}}>
-                        <button id="refresh_button" type="button" className="button" onClick={this.onRefreshClick} disabled={isFetching}>{isFetching ? 'Обновляется': 'Обновить список'}</button>
-                    </div>    
+                    <FormControl
+                        type="text"
+                        value={newTopic.subject}
+                        onChange={this.onSubjectChange}
+                        style={{ type: "text", width: "100%", boxSizing: "border-box", marginBottom: "3px" }}
+                        placeholder="Тема"
+                        maxLength="90"
+                        bsSize="sm"
+                    />                        
+                    <TextEditor
+                        placeholder="Сообщение"
+                        showVoting={true}
+                        isVoting={newTopic.isVoting}
+                        onSend={this.onSend}
+                        onChange={this.onTextChange} 
+                        text={newTopic.text} 
+                        isFetching={newTopic.isFetching}
+                    />
                 </div>
+                <Form horizontal style={{ flex: 1 }}>
+                    {votingOptions}
+                </Form>
             </div>
         )
     }

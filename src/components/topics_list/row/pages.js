@@ -27,7 +27,7 @@ const Pages = (props) => {
     }
 
     return (
-        <span>
+        <span className="topic-pages">
             {pages}
         </span>
     )

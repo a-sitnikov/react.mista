@@ -4,77 +4,72 @@ import { connect } from 'react-redux'
 import dateFormat from 'dateformat'
 
 import TopicNameCell from './topic_name_cell';
-import LinkToPost from '../../extensions/link_to_post'
+import LinkToPost from 'src/components/extensions/link_to_post'
+import PreviewLink from './preview_link'
+
 import { today } from 'src/utils'
 
 import type { ResponseTopicsListItem } from 'srcapi'
 
 import type { State } from 'src/reducers'
 
-import { defaultLoginState } from 'src/reducers/login'
 import type { LoginState } from 'src/reducers/login'
+import type { TopicPreviewState } from 'src/reducers/topic_preview'
 import type { DefaultProps } from 'src/components/index'
+
+import './row.css'
 
 type RowProps = {
     columns: any,
-    data: ResponseTopicsListItem,
-    preview: ?number    
+    data: ResponseTopicsListItem
 }
 
 type StateProps = {
-    login: LoginState
+    login: LoginState,
+    topicPreview: TopicPreviewState
 }
 
 type Props = RowProps & StateProps & DefaultProps;
 
 const Row = (props: Props) => {
 
-    const { columns, data, preview } = props;
-
-    let cells = [];
-    for (let i in columns) {
-
-        let value;
-        let column = columns[i];
-
-        if (column.name === 'Раздел') {
-            value = <td key={i} className={column.className}>{data.forum}</td>
-
-        } else if (column.name === 'Re') {
-            value = (
-                <td key={i} className={column.className}>
-                    <LinkToPost topicId={data.id} number={data.answ} style={{color: "black"}} isPreview={true}/>
-                </td>
-            )    
-
-        } else if (column.name === 'Тема') {
-            value = <TopicNameCell key={i} column={column} data={data} preview={preview}/>
-
-        } else if (column.name === 'Автор') {
-            value = <td key={i} className={column.className}>{data.user0}</td>
-
-        } else if (column.name === 'Обновлено') {
-
-            let text = [];
-
-            let time = new Date(data.utime * 1000);
-            if (today(time)) {
-                text.push(dateFormat(time, 'HH:MM'));
-                text.push(data.user);
-            } else {
-                text.push(dateFormat(time, 'dd.mm.yy'));
-            }
-
-            value = <td key={i} className={column.className}>{text.join(' ')}</td>
-        }
-
-        cells.push(value);
+    const { columns, data, topicPreview } = props;
+    let time = new Date(data.utime * 1000);
+    if (today(time)) {
+        time = dateFormat(time, 'HH:MM')
+    } else {
+        time = dateFormat(time, 'dd.mm.yy');
     }
 
+    const previewItem = topicPreview.items[String(data.id)];
+
     return (
-        <tr>
-            {cells}
-        </tr>
+        <div className="topic-row">
+            {/*{cells}*/}
+            <div className="cell-forum">
+                {data.forum}
+            </div>
+            <div className="cell-section">
+                {data.sect1}
+            </div>
+            <div className="cell-answ">
+                <LinkToPost topicId={data.id} number={data.answ} style={{color: "black"}} isPreview/>
+            </div>
+            <PreviewLink topicId={data.id} expanded={previewItem === undefined ? false: true}/>
+            <TopicNameCell data={data}/>
+            <div className="cell-author">
+                {data.user0}
+            </div>
+            <div className="cell-lastuser">
+                <div style={{display: "inline-flex"}}>
+                    <span className="cell-lastuser-time">{time}</span>
+                    <span className="cell-lastuser-user">{data.user}</span>
+                </div>
+            </div>
+            <div className="cell-last20">
+                <a href={`${window.hash}/topic.php?id=${data.id}&page=last20`} style={{color: "inherit"}}>{'>'}</a>
+            </div>
+        </div>
     )
 
 }
@@ -82,7 +77,8 @@ const Row = (props: Props) => {
 const mapStateToProps = (state: State): StateProps => {
 
     return {
-        login: state.login || defaultLoginState
+        login: state.login,
+        topicPreview: state.topicPreview
     }
 }
 

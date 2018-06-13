@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import queryString from 'query-string'
+import { Table } from 'react-bootstrap'
 
 import type { State } from 'src/reducers'
 import type { DefaultProps, Location } from 'src/components'
@@ -111,13 +112,10 @@ class TopicsList extends Component<Props> {
 
             const previewItem = topicPreview.items[String(item.id)];
             if (previewItem)
-                rows.push(<tr>
-                    <td></td>
-                    <td></td>
-                    <td colspan="3">
+                rows.push(
+                    <div>
                         <TopicPreview topicId={item.id} data={previewItem}/>
-                    </td>
-                    </tr>
+                    </div>
                 )
         }
 
@@ -128,7 +126,13 @@ class TopicsList extends Component<Props> {
                     ) : null
                 }
                 <Header history={this.props.history} />
-                <table id='tm' className="border1">
+                <div class="table">
+                    {rows}
+                    <div className="tf">
+                        <Pages baseUrl='index.php' locationParams={this.locationParams} maxPage={10}/>
+                    </div>    
+                </div>
+                 <table responsive id='tm' className="border1">
                     <colgroup>
                         {options.listColumns.map((item, i) => (
                             <col key={i} className={item.className} style={{ width: item.width }} />
@@ -143,11 +147,11 @@ class TopicsList extends Component<Props> {
                                     return <th key={i}>{item.name}</th>
                             })}
                         </tr>
-                        {rows}
                     </tbody>
                 </table>
-                <Pages baseUrl='index.php' locationParams={this.locationParams} maxPage={10}/>
-                <NewTopic sections={sections.items} onPostSuccess={this.onPostNewTopicSuccess} locationParams={this.locationParams}/>
+                <div id="F" className="newtopic" style={{ marginBottom: "10px", marginTop: "5px", position: 'relative' }}>
+                    <NewTopic sections={sections.items} onPostSuccess={this.onPostNewTopicSuccess} locationParams={this.locationParams}/>
+                </div>    
             </div>
         )
     }

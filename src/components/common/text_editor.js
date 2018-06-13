@@ -116,8 +116,9 @@ class TextEditor extends Component<Props> {
                     onKeyPress={this.onKeyPress}
                 />
                 <div className="flex-row">
-                    <Button onClick={this.onButtonCode1c} style={{marginRight: "5px"}}>Код 1С</Button>
+                    <Button onClick={this.onButtonCode1c} style={{marginRight: "5px"}} bsSize="sm">Код 1С</Button>
                     <Button
+                        bsSize="sm"
                         disabled={isFetching}
                         onClick={this.onSendClick}>
                         {isFetching ? 'Отправляется' : 'Отправить'}

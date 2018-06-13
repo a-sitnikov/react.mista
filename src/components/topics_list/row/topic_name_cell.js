@@ -11,7 +11,6 @@ import type { DefaultProps } from 'src/components/index'
 import type { TopicPreviewState } from 'src/reducers/topic_preview'
 
 import Pages from './pages';
-import PreviewLink from './preview_link'
 
 type TopicNameCellProps = {
     column: any, 
@@ -48,11 +47,15 @@ class TopicNameCell extends Component<Props> {
         }
 
         let sectionHref = `${window.hash}/index.php?section=${data.sect2}`;
-        let section = [];
+        let section;
 
         if (data.sect1) {
-            section.push(<span key="0" className="agh" style={{ margin: "auto 2px auto 5px" }}>/</span>);
-            section.push(<a key="1" rel="nofollow" className="agh" href={sectionHref} target="_blank">{data.sect1}</a>);
+            section = (
+            <span className="agh topic-section">
+                <span style={{margin: "0px 5px"}}>/</span>
+                <a key="1" rel="nofollow" className="agh" href={sectionHref} target="_blank">{data.sect1}</a>
+            </span>    
+            )
         }
 
         let closed;
@@ -72,14 +75,13 @@ class TopicNameCell extends Component<Props> {
         const previewItem = topicPreview.items[String(data.id)];
 
         return (
-            <td className={column.className}>
-                <PreviewLink topicId={data.id} expanded={previewItem === undefined ? false: true}/>
+            <div className="cell-title">
                 <a href={href} className={classes} target="_blank" dangerouslySetInnerHTML={{ __html: text }}></a>
                 {isVoting}
                 <Pages answ={data.answ} topicId={data.id} />
                 {closed}
                 {section}
-            </td>
+            </div>
         )
 
     }

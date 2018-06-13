@@ -184,3 +184,20 @@ a:hover {
     font-weight: bold;
     font-size: 120%;
 }
+
+.tf {
+    box-sizing: border-box;
+    width: 100%;
+    border-top: 1px solid #CCC;
+    background-color: #EEE;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+} 
+
+@media (max-width: 768px) {
+    
+    .tf {
+        border: 1px solid #CCC;
+    }
+}
