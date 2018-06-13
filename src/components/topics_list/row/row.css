@@ -130,7 +130,8 @@
     }
     
     .cell-preview-link {
-        border: 1px dotted #CCC;
+        border-right: 1px dotted #CCC;
+        background: #eee;
         grid-area: pv-link;
         width: 40px;
         font-size: 1.5em;
@@ -171,6 +172,6 @@
         display: flex;
         font-size: 1.5em;
         background: #eee;
-        border: 1px dotted #CCC;
+        border-left: 1px dotted #CCC;
     }
 }
