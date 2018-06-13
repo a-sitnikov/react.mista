@@ -1,0 +1,26 @@
+.new-topic-container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas: "text vowting";
+    grid-column-gap: 10px;
+}
+
+.new-topic-text {
+    grid-area: text;
+}
+
+.new-topic-voting {
+    grid-area: vowting;
+}
+
+@media (max-width: 768px) {
+    
+    .new-topic-container {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "text"
+            "vowting";
+    }
+
+}

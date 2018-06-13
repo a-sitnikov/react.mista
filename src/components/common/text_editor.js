@@ -99,11 +99,6 @@ class TextEditor extends Component<Props> {
                 </Checkbox>
             )
 
-            let a = 
-                <label htmlFor="voting" style={{marginLeft: "auto"}}>
-                    <input name="voting" id="voting" checked={isVoting} type="checkbox" onChange={this.onVotingChange} ref="voting" />
-                </label>
-
         return (
             <div>
                 <FormControl 

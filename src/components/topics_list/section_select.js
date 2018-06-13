@@ -17,6 +17,7 @@ type SectionSelectProps = {
     id: string,
     name: string,
     style?: {},
+    bsSize: ?string,
     onChange: (e: any, section: ResponseSection | null) => void
 }
 
@@ -57,7 +58,7 @@ class SectionSelect extends Component<Props> {
 
     render() {
 
-        const { tree, defaultValue, selected, className, style } = this.props;
+        const { tree, defaultValue, selected, style, bsSize } = this.props;
         
         let sectionsElem = [];
         for (let forum in tree) {
@@ -79,8 +80,8 @@ class SectionSelect extends Component<Props> {
                 componentClass="select"
                 onChange={this.onChange}
                 value={selected}
-                bsSize="sm"
                 style={style}
+                bsSize={bsSize}
             >
                 <option value="">{defaultValue}</option>
                 {sectionsElem}

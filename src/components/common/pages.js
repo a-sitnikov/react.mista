@@ -24,7 +24,7 @@ class Pages extends Component<Props> {
             let params = {...locationParams, page: i };
             let href = `${window.hash}/${baseUrl}` + paramsToString('?', params);
 
-            pages.push(<Pagination.Item active={currentPage === i} key={i} href={href} bsSize="sm">{i}</Pagination.Item>);
+            pages.push(<Pagination.Item active={currentPage === i} key={i} href={href}>{i}</Pagination.Item>);
         }
 
         return (

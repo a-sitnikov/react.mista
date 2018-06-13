@@ -13,7 +13,6 @@ import type { TopicPreviewState } from 'src/reducers/topic_preview'
 import Pages from './pages';
 
 type TopicNameCellProps = {
-    column: any, 
     data: ResponseTopicsListItem,
     preview: ?number
 };
@@ -33,7 +32,7 @@ class TopicNameCell extends Component<Props> {
 
     render() {
 
-        const { column, data, login, topicPreview } = this.props;
+        const { data, login } = this.props;
 
         let href = `${window.hash}/topic.php?id=${data.id}`;
         let classes = classNames('agb', 'mr5', {
@@ -51,8 +50,8 @@ class TopicNameCell extends Component<Props> {
 
         if (data.sect1) {
             section = (
-            <span className="agh topic-section">
-                <span style={{margin: "0px 5px"}}>/</span>
+            <span className="topic-section">
+                <span className="agh" style={{margin: "0px 5px"}}>/</span>
                 <a key="1" rel="nofollow" className="agh" href={sectionHref} target="_blank">{data.sect1}</a>
             </span>    
             )
@@ -71,8 +70,6 @@ class TopicNameCell extends Component<Props> {
 
         else if (data.sect2 === 'v7' && text.substr(0, 2) !== 'v7')
             text = 'v7: ' + text;
-
-        const previewItem = topicPreview.items[String(data.id)];
 
         return (
             <div className="cell-title">

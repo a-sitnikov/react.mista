@@ -23,7 +23,7 @@ const NavBar = (props) => {
     });
 
     return (
-        <Navbar fluid inverse>
+        <Navbar fluid inverse style={{marginBottom: "10px"}}>
             <Navbar.Brand>
                 <a href={`${window.hash}`}>React.Mista</a>
             </Navbar.Brand>

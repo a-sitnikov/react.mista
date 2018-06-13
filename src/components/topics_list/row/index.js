@@ -33,7 +33,7 @@ type Props = RowProps & StateProps & DefaultProps;
 
 const Row = (props: Props) => {
 
-    const { columns, data, topicPreview } = props;
+    const { data, topicPreview } = props;
     let time = new Date(data.utime * 1000);
     if (today(time)) {
         time = dateFormat(time, 'HH:MM')

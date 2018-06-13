@@ -1,0 +1,47 @@
+.th {
+    display: grid;
+    background: #eee;
+    font-weight: bold;
+    grid-template-columns: 50px 30px 30px auto 120px 150px;
+    border-bottom: 1px solid #CCC;
+    text-align: center;
+}
+
+.th > div {
+    padding: 2px;
+}
+
+.tf {
+    box-sizing: border-box;
+    width: 100%;
+    border-top: 1px solid #CCC;
+    background-color: #EEE;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+} 
+
+.preview-container {
+    padding: 10px 20px 10px 30px;
+    background: white;
+}
+
+@media (max-width: 768px) {
+    
+    .th {
+        display: none;
+    }
+
+    .tf {
+        border: 1px solid #CCC;
+    }
+
+    .preview-container {
+        padding: 10px 15px 10px 15px;
+        margin-top: -5px;
+        margin-bottom: 5px;
+        border: 1px solid #CCC;
+        border-top: none;        
+    }
+
+}

@@ -2,7 +2,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import queryString from 'query-string'
-import { Table } from 'react-bootstrap'
 
 import type { State } from 'src/reducers'
 import type { DefaultProps, Location } from 'src/components'
@@ -15,13 +14,14 @@ import type { TopicPreviewState } from 'src/reducers/topic_preview'
 
 import { fetchTopicsListIfNeeded } from 'src/actions/topics_list'
 
-import Title from './title'
 import Header from './header'
 import Row from './row'
 import Pages from 'src/components/common/pages'
 import NewTopic from './new_topic'
 
 import TopicPreview from 'src/components/extensions/topic_preview'
+
+import './topics_list.css'
 
 type StateProps = {
     topicsList: TopicsListState,
@@ -113,7 +113,7 @@ class TopicsList extends Component<Props> {
             const previewItem = topicPreview.items[String(item.id)];
             if (previewItem)
                 rows.push(
-                    <div>
+                    <div key={`preview${i}`} className="preview-container">
                         <TopicPreview topicId={item.id} data={previewItem}/>
                     </div>
                 )
@@ -121,34 +121,21 @@ class TopicsList extends Component<Props> {
 
         return (
             <div>
-                {options.items.showTitle === 'true' ? (
-                    <Title />
-                    ) : null
-                }
                 <Header history={this.props.history} />
-                <div class="table">
+                <div className="table">
+                    <div className="th">
+                        <div>Раздел</div>
+                        <div>Re</div>
+                        <div></div>
+                        <div>Тема</div>
+                        <div>Автор</div>
+                        <div><a style={{cursor: "pointer"}} title="Обновить список" onClick={this.updateTopicsList}>{topicsList.isFetching ? "Обновляется" : "Обновлено"}</a></div>
+                    </div>
                     {rows}
                     <div className="tf">
                         <Pages baseUrl='index.php' locationParams={this.locationParams} maxPage={10}/>
                     </div>    
                 </div>
-                 <table responsive id='tm' className="border1">
-                    <colgroup>
-                        {options.listColumns.map((item, i) => (
-                            <col key={i} className={item.className} style={{ width: item.width }} />
-                        ))}
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            {options.listColumns.map((item, i) => {
-                                if (item.name === 'Обновлено')
-                                    return <th key={i}><a style={{cursor: "pointer"}} title="Обновить список" onClick={this.updateTopicsList}>{item.name}</a></th>
-                                else 
-                                    return <th key={i}>{item.name}</th>
-                            })}
-                        </tr>
-                    </tbody>
-                </table>
                 <div id="F" className="newtopic" style={{ marginBottom: "10px", marginTop: "5px", position: 'relative' }}>
                     <NewTopic sections={sections.items} onPostSuccess={this.onPostNewTopicSuccess} locationParams={this.locationParams}/>
                 </div>    

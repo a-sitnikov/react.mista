@@ -1,6 +1,6 @@
 //@flow
 import React, { Component } from 'react'
-import { Button, FormGroup, FormControl, InputGroup, Glyphicon, DropdownButton, Dropdown, MenuItem} from 'react-bootstrap'
+import { FormGroup, FormControl, Glyphicon, DropdownButton, MenuItem} from 'react-bootstrap'
 
 type Props = {};
 
@@ -29,7 +29,6 @@ class Search extends Component<Props> {
         
         let url;
         let text = this.state.text;
-        console.log(this.state)
 
         if (this.state.searchEngine === 'Яндекс') {
             url = `https://www.yandex.ru/search/?text=${text}&site=mista.ru`;
@@ -70,7 +69,7 @@ class Search extends Component<Props> {
 
         return (
             <FormGroup bsSize="sm" style={{display: "flex"}}>
-                <DropdownButton title="" bsSize="sm" style={{marginRight: "2px"}}>
+                <DropdownButton id="search-engine" title="" bsSize="sm" style={{marginRight: "2px"}}>
                     <MenuItem eventKey="Яндекс" onSelect={this.onSearchEngineChange}>Яндекс</MenuItem>
                     <MenuItem eventKey="Google" onSelect={this.onSearchEngineChange}>Google</MenuItem>
                 </DropdownButton>               

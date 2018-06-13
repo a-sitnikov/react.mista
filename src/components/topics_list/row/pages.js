@@ -17,7 +17,7 @@ const Pages = (props) => {
                 text = '•';
             else
                 text = i;
-            pages.push(<a key={i} className="agh" style={{ margin: "3px" }} href={href}>{text}</a>);
+            pages.push(<a key={i}  className="agh" style={{ margin: "3px" }} href={href}>{text}</a>);
         }
     }
 

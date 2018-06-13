@@ -94,17 +94,17 @@ class TopicPreview extends Component<Props> {
         let date = new Date(+data.utime*1000);
 
         return (
-            <div>
-                <blockquote>
-                <span className="plus-nav" onClick={this.onClickFirst}>[← </span>
-                <span className="plus-nav" onClick={this.onClickPrev}> « </span>
-                <a className="plus-nav" title={`Перейти к сообщению ${n}`} href={`${window.hash}/topic.php?id=${topicId}#${n}`}>{n}</a>
-                <span className="plus-nav" onClick={this.onClickNext}> » </span>
-                <span className="plus-nav"> →]</span>
-                <b style={{margin: "auto 5px"}}>{data.user}</b>
-                <span className="agh">{dateFormat(date, 'dd.mm.yy - HH:MM')}</span>
+            <div className="topic-preview">
+                <div>
+                    <span className="plus-nav" onClick={this.onClickFirst}>[← </span>
+                    <span className="plus-nav" onClick={this.onClickPrev}> « </span>
+                    <a className="plus-nav" title={`Перейти к сообщению ${n}`} href={`${window.hash}/topic.php?id=${topicId}#${n}`}>{n}</a>
+                    <span className="plus-nav" onClick={this.onClickNext}> » </span>
+                    <span className="plus-nav"> →]</span>
+                    <b style={{margin: "auto 5px"}}>{data.user}</b>
+                    <span className="agh">{dateFormat(date, 'dd.mm.yy - HH:MM')}</span>
+                </div>
                 <MsgText data={data} topicId={topicId} style={{maxHeight: "500px", overflowY: "auto", overflowWrap: "break-word"}}/>
-                </blockquote>
             </div>
         )    
     }

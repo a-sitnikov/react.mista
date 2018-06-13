@@ -10,7 +10,6 @@ import type { State } from 'src/reducers'
 import type { SectionsState } from 'src/reducers/sections'
 import type { NewTopicState } from 'src/reducers/new_topic'
 
-import { fetchTopicsListIfNeeded } from 'src/actions/topics_list'
 import { fetchSectionsIfNeeded } from 'src/actions/sections'
 import { postNewTopicIfNeeded } from 'src/actions/new_topic'
 import type { NewTopicAction, postNewTopicParams } from 'src/actions/new_topic'
@@ -19,10 +18,11 @@ import SectionSelect from './section_select'
 import TextEditor from '../common/text_editor'
 import ErrorElem from '../common/error'
 
+import './new_topic.css'
+
 type StateProps = {
     sections: SectionsState, 
     newTopic: NewTopicState,
-    isFetching: boolean,
 }    
 
 type NewTopicProps = {
@@ -159,7 +159,7 @@ class NewTopic extends Component<Props> {
 
     render() {
 
-        const { sections, newTopic, isFetching } = this.props;
+        const { sections, newTopic } = this.props;
 
         let groupsElem = [];
         for (let forum in sections.tree) {
@@ -173,20 +173,18 @@ class NewTopic extends Component<Props> {
             for (let i = 1; i <= 10; i++) {
                 votingOptions.push(
                     <div key={i}>
-                        {/*<label htmlFor={`select${i}`} style={{ width: "25px", display: "inline-block" }}>{`${i}.`}</label>*/}
-                        <InputGroup style={{marginBottom: "3px"}}>
+                        <InputGroup style={{marginBottom: "3px", width: "100%"}}>
                             <InputGroup.Addon style={{width:"45px"}}>{`${i}.`}</InputGroup.Addon>
-                            <FormControl type="text" size="30" maxLength="50" ref={`vote${i}`} bsSize="sm"/>
+                            <FormControl type="text" size="30" maxLength="50" ref={`vote${i}`} />
                         </InputGroup>    
-                       {/*<input name={`select${i}`} size="30" maxLength="50" className="fieldbasic" type="text" ref={`vote${i}`} />*/}
                     </div>
                 );
             }
         }
 
         return (
-            <div style={{ display: "flex" }}>
-                <div id="newtopic_form" style={{ flex: "0 1 60%", marginRight: "10px" }}>
+            <div className="new-topic-container">
+                <div id="newtopic_form"  className="new-topic-text">
                     <p><b>Новая тема:</b></p>
                     <ErrorElem text={newTopic.error} />
                     <div className="flex-row" style={{ marginBottom: "3px" }}>
@@ -194,8 +192,7 @@ class NewTopic extends Component<Props> {
                             componentClass="select"
                             readOnly={true} 
                             value={newTopic.forum}
-                            bsSize="sm"
-                            style={{ flex: "0 1 70px" }}
+                            style={{ flex: "0 1 90px" }}
                         >
                             {groupsElem}                       
                         </FormControl>
@@ -214,7 +211,6 @@ class NewTopic extends Component<Props> {
                         style={{ type: "text", width: "100%", boxSizing: "border-box", marginBottom: "3px" }}
                         placeholder="Тема"
                         maxLength="90"
-                        bsSize="sm"
                     />                        
                     <TextEditor
                         placeholder="Сообщение"
@@ -226,7 +222,7 @@ class NewTopic extends Component<Props> {
                         isFetching={newTopic.isFetching}
                     />
                 </div>
-                <Form horizontal style={{ flex: 1 }}>
+                <Form horizontal className="new-topic-voting">
                     {votingOptions}
                 </Form>
             </div>
@@ -239,8 +235,7 @@ const mapStateToProps = (state: State): StateProps => {
     return {
         sections: state.sections,
         login: state.login,
-        newTopic: state.newTopic,
-        isFetching: state.topicsList.isFetching
+        newTopic: state.newTopic
     }
 }
 

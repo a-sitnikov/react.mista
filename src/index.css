@@ -3,11 +3,7 @@ body {
     padding: 0;
     font-family: sans-serif;
     min-height: 100%;
-}
-
-.container1 {
-    width: 97%;
-    margin: 17px auto 0px auto  
+    font-size: initial !important;
 }
 
 .flex-row{
@@ -89,30 +85,6 @@ body {
     font-weight: bold;
 }
 
-#tm {
-    border: 2px solid #CCC;
-    border-bottom: 0;
-    border-spacing: 0;
-    background-color: white;
-    table-layout: fixed;
-    line-height: 1.4em;
-    font-size: 1em;
-    border-collapse: collapse;
-    width: 100%;
-    margin: 10px auto 0px;
-}
-
-#tm th {
-    background-color: #EEE;
-    border-left: 1px solid #CCC;
-    border-bottom: 1px solid #CCC;
-}
-
-#tm td {
-    padding: 4px;
-    vertical-align: top;
-}
-
 .border1 td {
     border-left: 1px solid #EEEEEE;
     border-bottom: 1px solid #EEEEEE;
@@ -147,6 +119,7 @@ a {
 
 a:hover {
     color: #D00;
+    text-decoration: unset;
 }
 
 .registered-user {
@@ -183,21 +156,4 @@ a:hover {
     color: #309;
     font-weight: bold;
     font-size: 120%;
-}
-
-.tf {
-    box-sizing: border-box;
-    width: 100%;
-    border-top: 1px solid #CCC;
-    background-color: #EEE;
-    display: flex;
-    justify-content: center;
-    padding: 5px;
-} 
-
-@media (max-width: 768px) {
-    
-    .tf {
-        border: 1px solid #CCC;
-    }
 }

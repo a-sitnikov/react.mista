@@ -54,8 +54,8 @@ class Header extends Component<Props> {
                     <SectionSelect 
                         defaultValue="--Все секции--" 
                         selected={params.section} 
-                        className="field" 
-                        onChange={this.onSectionSelect} 
+                        onChange={this.onSectionSelect}
+                        bsSize="sm" 
                     />
                 </div>
             </div>
