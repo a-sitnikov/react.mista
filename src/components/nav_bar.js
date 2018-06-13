@@ -24,10 +24,12 @@ const NavBar = (props) => {
 
     return (
         <Navbar fluid inverse style={{marginBottom: "10px"}}>
-            <Navbar.Brand>
+            <Navbar.Brand className="navbar-brand">
                 <a href={`${window.hash}`}>React.Mista</a>
             </Navbar.Brand>
             <Navbar.Toggle />
+            <Nav>
+            </Nav>
             <Navbar.Collapse>
                 <Nav>
                 {menuItems}

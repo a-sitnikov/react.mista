@@ -1,0 +1,23 @@
+.select-search-down {
+    display: block;
+}
+
+.dropdown-menu {
+    right: auto !important;
+}
+
+.select-search-up {
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+    .select-search-down {
+        display: none;
+    }
+    
+    .select-search-up {
+        display: block;
+    }
+
+}

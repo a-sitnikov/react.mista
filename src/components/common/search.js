@@ -1,6 +1,8 @@
 //@flow
 import React, { Component } from 'react'
-import { FormGroup, FormControl, Glyphicon, DropdownButton, MenuItem} from 'react-bootstrap'
+import { FormGroup, FormControl, Glyphicon, DropdownButton, MenuItem, Dropdown} from 'react-bootstrap'
+
+import './search.css'
 
 type Props = {};
 
@@ -69,10 +71,14 @@ class Search extends Component<Props> {
 
         return (
             <FormGroup bsSize="sm" style={{display: "flex"}}>
-                <DropdownButton id="search-engine" title="" bsSize="sm" style={{marginRight: "2px"}}>
+                <DropdownButton id="search-engine" title="" bsSize="sm" style={{marginRight: "2px"}} dropup className="dropup btn-group btn-group-sm select-search-up">
                     <MenuItem eventKey="Яндекс" onSelect={this.onSearchEngineChange}>Яндекс</MenuItem>
                     <MenuItem eventKey="Google" onSelect={this.onSearchEngineChange}>Google</MenuItem>
                 </DropdownButton>               
+                <DropdownButton id="search-engine" title="" bsSize="sm" style={{marginRight: "2px"}}  className="btn-group btn-group-sm select-search-down">
+                    <MenuItem eventKey="Яндекс" onSelect={this.onSearchEngineChange}>Яндекс</MenuItem>
+                    <MenuItem eventKey="Google" onSelect={this.onSearchEngineChange}>Google</MenuItem>
+                </DropdownButton>    
                 <FormControl 
                     type="text" 
                     placeholder={`${this.state.searchEngine}: поиск`} 
