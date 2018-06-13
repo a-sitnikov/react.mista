@@ -157,3 +157,27 @@ a:hover {
     font-weight: bold;
     font-size: 120%;
 }
+
+#tm {
+    border: 2px solid #CCC;
+    border-bottom: 0;
+    border-spacing: 0;
+    background-color: white;
+    table-layout: fixed;
+    line-height: 1.4em;
+    font-size: 1em;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 10px auto 0px;
+}
+
+#tm th {
+    background-color: #EEE;
+    border-left: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+}
+
+#tm td {
+    padding: 4px;
+    vertical-align: top;
+}
