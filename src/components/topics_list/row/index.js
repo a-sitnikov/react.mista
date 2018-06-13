@@ -67,7 +67,7 @@ const Row = (props: Props) => {
                 </div>
             </div>
             <div className="cell-last20">
-                <a href={`${window.hash}/topic.php?id=${data.id}&page=last20`} style={{color: "inherit"}}>{'>'}</a>
+                <a href={`${window.hash}/topic.php?id=${data.id}&page=last20`} style={{color: "inherit", display: "block", width: "100%", textAlign: "center"}}>{'>'}</a>
             </div>
         </div>
     )

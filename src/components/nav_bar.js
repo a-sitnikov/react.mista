@@ -1,45 +1,64 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import { Navbar, Nav, NavItem } from 'react-bootstrap'
+import queryString from 'query-string'
+import { withRouter } from 'react-router-dom'
 
 import Search from 'src/components/common/search'
+import { fetchTopicsListIfNeeded } from 'src/actions/topics_list'
+
 import './nav_bar.css'
 
-const NavBar = (props) => {
+class NavBar extends Component {
 
-    const menu = [
-        { name: '1С', link: `${window.hash}/index.php?forum=1C` },
-        { name: 'IT', link: `${window.hash}/index.php?forum=IT` },
-        { name: 'JOB', link: `${window.hash}/index.php?forum=JOB` },
-        { name: 'LIFE', link: `${window.hash}/index.php?forum=LIFE` },
-        { name: 'Wiki', link: 'http://wiki.mista.ru' },
-        { name: 'Книга знаний', link: 'http://kb.mista.ru' },
-        { name: 'Настройки', link: `${window.hash}/options.php` },
-    ];
+    constructor() {
+        super();
+        this.onClick = this.onClick.bind(this);
+    }
 
-    const menuItems = menu.map((item, i) => {
+    onClick(e) {
+        const { dispatch, location } = this.props;
+        let locationParams = queryString.parse(location.search);
+        dispatch(fetchTopicsListIfNeeded(locationParams));
+    }
+
+    render() {
+
+        const menu = [
+            { name: '1С', link: `${window.hash}/index.php?forum=1C` },
+            { name: 'IT', link: `${window.hash}/index.php?forum=IT` },
+            { name: 'JOB', link: `${window.hash}/index.php?forum=JOB` },
+            { name: 'LIFE', link: `${window.hash}/index.php?forum=LIFE` },
+            { name: 'Wiki', link: 'http://wiki.mista.ru' },
+            { name: 'Книга знаний', link: 'http://kb.mista.ru' },
+            { name: 'Настройки', link: `${window.hash}/options.php` },
+        ];
+
+        const menuItems = menu.map((item, i) => {
+            return (
+                <NavItem key={i} href={item.link}>{item.name}</NavItem>
+            )
+        });
+        
         return (
-            <NavItem key={i} href={item.link}>{item.name}</NavItem>
-        )
-    });
-
-    return (
-        <Navbar fluid inverse style={{marginBottom: "10px"}}>
-            <Navbar.Brand className="navbar-brand">
-                <a href={`${window.hash}`}>React.Mista</a>
-            </Navbar.Brand>
-            <Navbar.Toggle />
-            <Nav>
-            </Nav>
-            <Navbar.Collapse>
+            <Navbar fluid inverse style={{marginBottom: "10px"}}>
+                <Navbar.Brand className="navbar-brand">
+                    <a href={`${window.hash}`} onClick={this.onClick}>React.Mista</a>
+                </Navbar.Brand>
+                <Navbar.Toggle />
                 <Nav>
-                {menuItems}
                 </Nav>
-                <Navbar.Form pullRight>
-                    <Search />
-                </Navbar.Form>
-            </Navbar.Collapse>
-        </Navbar>
-    )
+                <Navbar.Collapse>
+                    <Nav>
+                    {menuItems}
+                    </Nav>
+                    <Navbar.Form pullRight>
+                        <Search />
+                    </Navbar.Form>
+                </Navbar.Collapse>
+            </Navbar>
+        )
+    }
 }
 
-export default NavBar;
+export default connect()(withRouter(NavBar));

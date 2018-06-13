@@ -131,7 +131,6 @@
     
     .cell-preview-link {
         border-right: 1px dotted #CCC;
-        background: #eee;
         grid-area: pv-link;
         width: 40px;
         font-size: 1.5em;
@@ -171,7 +170,6 @@
     .cell-last20 {
         display: flex;
         font-size: 1.5em;
-        background: #eee;
         border-left: 1px dotted #CCC;
     }
 }
