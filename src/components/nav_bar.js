@@ -41,7 +41,7 @@ class NavBar extends Component {
         });
         
         return (
-            <Navbar fluid inverse style={{marginBottom: "10px"}}>
+            <Navbar fluid inverse fixedTop>
                 <Navbar.Brand className="navbar-brand">
                     <a href={`${window.hash}`} onClick={this.onClick}>React.Mista</a>
                 </Navbar.Brand>

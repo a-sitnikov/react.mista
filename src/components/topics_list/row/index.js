@@ -17,7 +17,7 @@ import type { LoginState } from 'src/reducers/login'
 import type { TopicPreviewState } from 'src/reducers/topic_preview'
 import type { DefaultProps } from 'src/components/index'
 
-import './row.css'
+import './topics_list_row.css'
 
 type RowProps = {
     columns: any,
@@ -44,7 +44,7 @@ const Row = (props: Props) => {
     const previewItem = topicPreview.items[String(data.id)];
 
     return (
-        <div className="topic-row">
+        <div className="topics-list-row">
             {/*{cells}*/}
             <div className="cell-forum">
                 {data.forum}

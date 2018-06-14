@@ -1,6 +1,6 @@
 //@flow
 import React, { Component } from 'react'
-import { FormGroup, FormControl, Glyphicon, DropdownButton, MenuItem, Dropdown} from 'react-bootstrap'
+import { FormGroup, FormControl, Glyphicon, DropdownButton, MenuItem } from 'react-bootstrap'
 
 import './search.css'
 

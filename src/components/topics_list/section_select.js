@@ -80,9 +80,8 @@ class SectionSelect extends Component<Props> {
                 componentClass="select"
                 onChange={this.onChange}
                 value={selected}
-                style={style}
+                style={{color: "black", ...style}}
                 bsSize={bsSize}
-                style={{color: "black"}}
             >
                 <option value="">{defaultValue}</option>
                 {sectionsElem}

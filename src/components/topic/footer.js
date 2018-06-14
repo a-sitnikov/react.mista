@@ -2,8 +2,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
-
-import Pages from './pages'
+import { Button } from 'react-bootstrap'
 
 import { fetchNewMessagesIfNeeded } from 'src/actions/topic'
 import { addBookmark } from 'src/actions/bookmark'
@@ -53,23 +52,16 @@ class Footer extends React.Component<FooterProps> {
         let updateButton;
         let page = params.page || 1;
         if (page === 'last20' || page === maxPage )    
-            updateButton = <button id="refresh_button" type="button" className="button" onClick={this.onRefreshClick}>{isFetching ? 'Обновляется': 'Обновить ветку'}</button>
+            updateButton = 
+            <Button onClick={this.onRefreshClick} disabled={bookmark.isFetching} bsSize="sm">{isFetching ? 'Обновляется': 'Обновить ветку'}</Button>
 
         return (
-            <div id="F" className="center-97">
-                <div className="flex-row">
-                    <div className="ta-left va-top" style={{ width: "50%" }}>
-                        <Pages maxPage={maxPage} currentPage={params.page} id={info.id}/>
-                        <br />
-                        <button id="bookmark" className="button" onClick={this.onBookmarkClick} disabled={bookmark.isFetching ? 'true' : ''}>{bookmark.isFetching ? 'Подождите...' : 'Закладка'}</button>
-                    </div>
-                    <div className="ta-right va-middle" style={{ height: "30px", marginLeft: "auto" }}>
-                        <span className="bold120">
-                            <a rel="nofollow" href={`${window.hash}`}>Список тем форума</a>
-                        </span>
-                        <br />
-                        {updateButton}
-                    </div>
+            <div className="flex-row" >
+                <div className="ta-left va-top" style={{ width: "50%" }}>
+                    <Button onClick={this.onBookmarkClick} disabled={bookmark.isFetching} bsSize="sm">{bookmark.isFetching ? 'Подождите...' : 'Закладка'}</Button>
+                </div>
+                <div className="ta-right va-middle" style={{ marginLeft: "auto" }}>
+                    {updateButton}
                 </div>
             </div>
         )

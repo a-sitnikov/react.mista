@@ -9,6 +9,7 @@ import type { ResponseInfo, ResponseMessage, ResponseMessages } from 'src/api'
 import type { State } from 'src/reducers'
 import { OptionsItems } from 'src/reducers/options'
 
+import Pages from 'src/components/common/pages'
 import Header from './header'
 import TopicInfo from './topic_info'
 import Row from './row'
@@ -95,6 +96,7 @@ class Topic extends Component<Props> {
         if (this.location.search !== props.location.search) {
             this.location = props.location;
             this.updateTopic();
+            window.scrollTo(0, 0);
         }
     }
     
@@ -145,7 +147,7 @@ class Topic extends Component<Props> {
     }
 
     render() {
-        const { items, item0, error } = this.props;
+        const { items, item0, info, error } = this.props;
 
         let errorElem;
         if (error)
@@ -156,24 +158,24 @@ class Topic extends Component<Props> {
                 </div>
             )
 
+        const maxPage = getMaxPage(+info.answers_count);
+
         return (
-            <div  >
+            <div>
                 {errorElem}
                 <Header currentPage={this.locationParams.page} />
-                <table id='tm' className="border2" style={{ width: "100%", margin: "10px auto 0px auto" }}>
-                    <colgroup>
-                        {this.columns.map((item, i) => (
-                            <col key={i} style={{ width: item.width }} />
-                        ))}
-                    </colgroup>
-                    <tbody>
-                        <TopicInfo />
-                        <Row key='0' columns={this.columns} data={item0}/>
-                        {items.map((item, i) => (
-                            <Row key={item.n} columns={this.columns} data={item}/>
-                        ))}
-                    </tbody>
-                </table>
+                <div className="topic-table">
+                    <TopicInfo />
+                    <Row key='0' data={item0}/>
+                    {items.map((item, i) => (
+                        <Row key={item.n} data={item}/>
+                    ))}                
+                    { maxPage > 1 && 
+                        <div className="tf">
+                            <Pages baseUrl='topic.php' locationParams={this.locationParams} maxPage={maxPage} last20/>
+                        </div>                    
+                    }
+                </div>
                 <Footer params={this.locationParams} />
                 <NewMessage onPostSuccess={this.onPostNewMessageSuccess} />
             </div>

@@ -1,0 +1,127 @@
+.topic-table {
+    border-bottom: 1px solid #CCC;
+    border-right: 1px solid #CCC;
+    border-left: 1px solid #CCC;
+    box-sizing: border-box;
+    opacity: 1;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.topic-row {
+    display: grid;
+    width: 100%;
+    background-color: white;
+    border-top: 1px solid #CCC;
+    box-sizing: border-box;
+    grid-template-columns: 165px 1fr;
+    grid-template-areas: "user message";
+}
+
+.topic-tools {
+    display: block;
+    text-align: left;
+}
+
+.cell-userinfo {
+    grid-area: user; 
+    border-right: 1px solid #CCC; 
+    padding: 4px;
+    width: 100%; 
+    text-align: right;
+}
+
+.cell-message {
+    grid-area: message;    
+    padding: 10px;  
+}
+
+.user-info {
+    word-break: break-all;
+}
+
+.is-author {
+    background-color: rgb(255, 215, 132);
+}
+
+.is-you {
+    background-color: rgb(155, 197, 239);
+}
+
+.message {
+    word-break: break-all;
+    min-height: 45px;
+}
+
+.message-time > span {
+    display: none;
+    padding-right: 4px;
+} 
+
+.registered-user {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 6px;
+    padding: 0px;
+}
+
+@media (max-width: 768px) {
+    .topic-table {
+        border: none;
+    }
+
+    .topic-row {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "user"
+            "message";
+        border: 1px solid #CCC;
+        margin-bottom: 5px;
+    }
+
+    .topic-row:last-child {
+        border-bottom: 1px solid #CCC;
+    }    
+    
+    .topic-tools {
+        display: none;
+    }
+
+    .topic-title {
+        margin: 0px;
+    }
+    
+    .cell-userinfo {
+        border-right: none; 
+        background: #eee;
+        padding: 0px;
+    }    
+
+    .user-info {
+        word-break: break-all;
+        display: flex;
+    }
+    
+    .message-time {
+        margin-left: auto;
+        padding: 0px;
+    }   
+    
+    .message-time > button {
+       display: none;
+    }  
+    
+    .message-time > span {
+        display: block;
+    } 
+
+    .message {
+        min-height: 0px;
+    }  
+    
+    .registered-user {
+        padding: 0px 4px;
+        font-size: 80%;
+    }    
+}

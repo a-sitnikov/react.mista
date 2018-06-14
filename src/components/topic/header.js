@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 
 import Login from '../login'
 
+import './header.css'
+
 type Props = {
     info: { forum: string }
 }
@@ -23,7 +25,7 @@ class Header extends React.Component<Props> {
 
         return (
 
-            <div className="flex-row">
+            <div className="topic-header">
                 <div id="user-td" style={{ flex: "0 auto", marginRight: "15px", paddingTop: "5px", verticalAlign: "top" }}>
                     <Login />
                 </div>

@@ -1,6 +1,7 @@
 //@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { FormControl } from 'react-bootstrap'
 
 import TextEditor from 'src/components/common/text_editor'
 import { postNewMessageIfNeeded } from 'src/actions/new_message'
@@ -11,6 +12,8 @@ import type { NewMessageState } from 'src/reducers/new_message'
 
 import type { ResponseInfo } from 'src/api'
 import type { DefaultProps } from 'src/index'
+
+import './new_message.css'
 
 type NewMessageProps = {
     onPostSuccess?: () => void
@@ -154,26 +157,24 @@ class NewMessage extends Component<Props> {
         return (
             <form>
                 <p className="bold">Добавить сообщение в тему:</p>
-                <div className="flex-row">
-                    <div style={{ flex: 0, marginRight: "20px" }}>
-                        <label htmlFor="user_name" style={{ display: "block", marginBottom: "10px" }}>Имя*:</label>
-                        <label htmlFor="message_text">Сообщение*:</label>
-                    </div>
-                    <div style={{ flex: 1, marginRight: "15px" }}>
-                        <input
-                            name="user_name"
-                            component="input"
+                <div className="new-message-container">
+                    <div className="new-message-text">
+                        <FormControl
+                            type="text"
                             value={login.username}
-                            id="user_name"
                             size="30" maxLength="20"
                             readOnly={true}
-                            type="text"
-                            className="field"
-                            style={{ marginBottom: "10px" }}
+                            style={{ marginBottom: "5px" }}
                         />
-                        <TextEditor onSend={this.onSend} isFetching={newMessage.isFetching} onChange={this.onChange} text={newMessage.text} />
+                        <TextEditor 
+                            onSend={this.onSend} 
+                            isFetching={newMessage.isFetching} 
+                            onChange={this.onChange} 
+                            text={newMessage.text} 
+                            placeholder="Сообщение"
+                        />
                     </div>
-                    <div style={{ flex: "0 0 30%" }}>
+                    <div className="new-message-voting">
                         {votingElem}
                     </div>
                 </div>

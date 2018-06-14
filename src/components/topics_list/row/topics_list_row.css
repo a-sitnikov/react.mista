@@ -5,7 +5,7 @@
     margin-top: 5px;
 }
 
-.topic-row {
+.topics-list-row {
     display: grid;
     width: 100%;
     background-color: white;
@@ -85,6 +85,7 @@
 .cell-lastuser-user {
     margin-right: 5px;
     order: 1;
+    word-break: break-all;
 }
 
 .cell-last20 {
@@ -100,7 +101,7 @@
         border: none;
     }
 
-    .topic-row {
+    .topics-list-row {
         margin-bottom: 5px;
         border: 1px solid #CCC;
         grid-template-rows: auto;    

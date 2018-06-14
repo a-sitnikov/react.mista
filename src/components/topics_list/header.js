@@ -9,8 +9,6 @@ import SectionSelect from './section_select'
 import { fetchSectionsIfNeeded } from 'src/actions/sections'
 
 import type { DefaultProps } from 'src/components'
-import type { State } from 'src/reducers'
-import type { SectionsState } from 'src/reducers/sections'
 
 import './header.css'
 

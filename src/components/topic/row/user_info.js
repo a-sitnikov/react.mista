@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import dateFormat from 'dateformat'
+import classNames from 'classnames'
 
 import { addMessageText } from 'src/actions/new_message'
 
@@ -46,16 +47,16 @@ class UserInfo extends Component<Props> {
             dataStr = '' + data.n + ' - ' + dateFormat(new Date(+data.utime * 1000), 'dd.mm.yy - HH:MM');    
         }    
 
-        let style = {};
-        if (isAuthor)
-            style.backgroundColor = 'rgb(255, 215, 132)';
-        else if (isYou)
-            style.backgroundColor = 'rgb(155, 197, 239)';
+        const userClassNames = classNames("registered-user", {
+            "is-author": isAuthor,
+            "is-you": isYou
+        });
 
         return (
-            <div style={{ wordBreak: "break-all" }}>
-                <a data-user_id={data.id} data-user_name={data.user} className="registered-user" style={style} href={href}>{data.user}</a>
-                <div className="message-info">
+            <div className="user-info">
+                <a className={userClassNames} href={href}>{data.user}</a>
+                <div className="message-time">
+                    <span className="ah" >{dataStr}</span>
                     <button className="button ah" onClick={this.onClick}>{dataStr}</button>
                 </div>
             </div>

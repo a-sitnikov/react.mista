@@ -9,7 +9,6 @@ import type { DefaultProps, Location } from 'src/components'
 import type { TopicsListState } from 'src/reducers/topics_list'
 import type { SectionsState } from 'src/reducers/sections'
 import type { LoginState } from 'src/reducers/login'
-import type { Column, OptionsState } from 'src/reducers/options'
 import type { TopicPreviewState } from 'src/reducers/topic_preview'
 
 import { fetchTopicsListIfNeeded } from 'src/actions/topics_list'
@@ -28,7 +27,6 @@ type StateProps = {
     topicPreview: TopicPreviewState,
     sections: SectionsState,
     login: LoginState,
-    options: OptionsState,
     topicsPerPage: string,
     autoRefreshTopicsList: string,
     autoRefreshTopicsListInterval: string
@@ -42,9 +40,8 @@ class TopicsList extends Component<Props> {
     
     updateTopicsList: () => void;
     onPostNewTopicSuccess: () => void;
-    columns: Array<Column>;
     location: Location;
-    locationParams: { page: string };
+    locationParams: { page?: string };
     page: string;
     timer: any;
 
@@ -102,13 +99,13 @@ class TopicsList extends Component<Props> {
 
     render() {
 
-        const { topicsList, topicPreview, sections, options } = this.props;
+        const { topicsList, topicPreview, sections } = this.props;
 
         let rows = [];
         for (let i in topicsList.items) {
             
             const item = topicsList.items[i];
-            rows.push(<Row key={i} data={item} columns={options.listColumns}/>);
+            rows.push(<Row key={i} data={item}/>);
 
             const previewItem = topicPreview.items[String(item.id)];
             if (previewItem)
@@ -152,7 +149,6 @@ const mapStateToProps = (state: State): StateProps => {
         topicPreview: state.topicPreview,
         sections: state.sections,
         login: state.login,
-        options: state.options,
         topicsPerPage: state.options.items.topicsPerPage,
         autoRefreshTopicsList: state.options.items.autoRefreshTopicsList,
         autoRefreshTopicsListInterval: state.options.items.autoRefreshTopicsListInterval,

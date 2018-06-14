@@ -10,8 +10,9 @@ import type { State } from 'src/reducers'
 import type { LoginState } from 'src/reducers/login'
 import type { DefaultProps } from 'src/components'
 
+import './topic_row.css'
+
 type RowProps = {
-    columns: Array<any>,
     data: ResponseMessage
 }
 
@@ -26,43 +27,20 @@ type Props = RowProps & StateProps & DefaultProps;
 class Row extends Component<Props> {
 
     render() {
-        const { columns, data, author, topicId, login } = this.props;
+        const { data, author, topicId, login } = this.props;
 
         if (!data)
             return null;
 
-        let cells = [];
-        let i = 0;
-        for (let column of columns) {
-
-            let value;
-            if (column.name === 'Автор') {
-                value = (
-                    <td key={column.name} id={`tduser${data.n}`} className="bottomwhite ta-right va-top">
-                        <UserInfo key={i} data={data} isAuthor={data.user === author} isYou={data.user === login.username}/>
-                    </td>
-                )
-
-            } else if (column.name === 'Текст') {
-
-                const style = { padding: "10px", backgroundColor: "#FDFDFD" }
-
-                value = (
-                    <td  key={column.name} id={`tdmsg${data.n}`} className="leftbottomgray va-top " style={style}>
-                        <MsgText key={i} data={data} topicId={topicId}/>
-                    </td>
-                )
-            }
-
-            cells.push(value);
-            i++;
-
-        }
-
         return (
-            <tr id={`message_${data.n}`}>
-                {cells}
-            </tr>
+            <div className="topic-row">
+                <div className="cell-userinfo">
+                    <UserInfo data={data} isAuthor={data.user === author} isYou={data.user === login.username}/>
+                </div>
+                <div className="cell-message">
+                    <MsgText data={data} topicId={topicId}/>
+                </div>
+            </div>
         )
     }
 }
