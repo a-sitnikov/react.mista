@@ -170,7 +170,7 @@ class Topic extends Component<Props> {
                     {items.map((item, i) => (
                         <Row key={item.n} data={item}/>
                     ))}                
-                    { maxPage > 1 && 
+                    { (maxPage > 1 || this.locationParams.page === "last20") && 
                         <div className="tf">
                             <Pages baseUrl='topic.php' locationParams={this.locationParams} maxPage={maxPage} last20/>
                         </div>                    

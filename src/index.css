@@ -178,6 +178,11 @@ a:hover {
 
 .form-control {
     transition: none !important;
+    box-shadow: none !important;
+}
+
+.form-control:focus {
+    box-shadow: none !important;
 }
 
 .container {

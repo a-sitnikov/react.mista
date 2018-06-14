@@ -82,6 +82,7 @@ class TopicsList extends Component<Props> {
 
             this.location = location;
             this.updateTopicsList();
+            window.scrollTo(0, 0);
         }
     }
 
