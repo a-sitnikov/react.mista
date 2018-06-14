@@ -106,7 +106,7 @@ class TextEditor extends Component<Props> {
                     placeholder={placeholder} 
                     cols="70" rows="12"
                     value={text}
-                    style={{ width: "100%", boxSizing: "border-box", marginBottom: "3px" }}
+                    style={{ width: "100%", boxSizing: "border-box", marginBottom: "3px", color: "black" }}
                     onChange={this.onChange}
                     onKeyPress={this.onKeyPress}
                 />

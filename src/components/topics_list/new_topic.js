@@ -175,7 +175,7 @@ class NewTopic extends Component<Props> {
                     <div key={i}>
                         <InputGroup style={{marginBottom: "3px", width: "100%"}}>
                             <InputGroup.Addon style={{width:"45px"}}>{`${i}.`}</InputGroup.Addon>
-                            <FormControl type="text" size="30" maxLength="50" ref={`vote${i}`} />
+                            <FormControl type="text" size="30" maxLength="50" ref={`vote${i}`} style={{color: "black"}}/>
                         </InputGroup>    
                     </div>
                 );
@@ -192,7 +192,7 @@ class NewTopic extends Component<Props> {
                             componentClass="select"
                             readOnly={true} 
                             value={newTopic.forum}
-                            style={{ flex: "0 1 90px" }}
+                            style={{ flex: "0 1 90px", color: "black" }}
                         >
                             {groupsElem}                       
                         </FormControl>
@@ -208,7 +208,7 @@ class NewTopic extends Component<Props> {
                         type="text"
                         value={newTopic.subject}
                         onChange={this.onSubjectChange}
-                        style={{ type: "text", width: "100%", boxSizing: "border-box", marginBottom: "3px" }}
+                        style={{ type: "text", width: "100%", boxSizing: "border-box", marginBottom: "3px", color: "black" }}
                         placeholder="Тема"
                         maxLength="90"
                     />                        

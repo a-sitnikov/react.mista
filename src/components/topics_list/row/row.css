@@ -138,6 +138,7 @@
 
     .cell-title {
         padding: 4px; 
+        border-right: none;
     }
 
     .topic-pages {
