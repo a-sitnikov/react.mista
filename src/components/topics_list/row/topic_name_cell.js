@@ -52,7 +52,7 @@ class TopicNameCell extends Component<Props> {
             section = (
             <span className="topic-section">
                 <span className="agh" style={{margin: "0px 5px"}}>/</span>
-                <a key="1" rel="nofollow" className="agh" href={sectionHref} target="_blank">{data.sect1}</a>
+                <a key="1" rel="nofollow" className="agh" href={sectionHref} >{data.sect1}</a>
             </span>    
             )
         }
@@ -73,7 +73,7 @@ class TopicNameCell extends Component<Props> {
 
         return (
             <div className="cell-title">
-                <a href={href} className={classes} target="_blank" dangerouslySetInnerHTML={{ __html: text }}></a>
+                <a href={href} className={classes} dangerouslySetInnerHTML={{ __html: text }}></a>
                 {isVoting}
                 <Pages answ={data.answ} topicId={data.id} />
                 {closed}

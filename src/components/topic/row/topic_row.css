@@ -49,8 +49,11 @@
 }
 
 .message {
-    word-break: break-all;
     min-height: 45px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
 }
 
 .message-time > span {

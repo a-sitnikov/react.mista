@@ -177,7 +177,7 @@ a:hover {
 }
 
 .form-control {
-    transition: none !important;
+    /*transition: none !important;*/
     box-shadow: none !important;
 }
 

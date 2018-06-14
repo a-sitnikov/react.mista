@@ -97,14 +97,14 @@ class LinkToPost extends Component<Props> {
             text = number;
 
         let a;
-        if (topicId === info.id || /\d+/.test(text))
+        if (topicId === info.id || /\d+/.test(String(text)) )
             a = (
-                <a href={`${window.hash}/topic.php?id=${topicId}${pageParam}#${number}`}
+                <span
                     onMouseOver={this.onMouseOver}
                     onMouseOut={this.onMouseOut}
                     onClick={this.onClick}
-                    style={{...style}}
-                >{text}</a>
+                    style={{ cursor: "pointer", color: "#00C", ...style}}
+                >{text}</span>
             )
         else 
             a = (
@@ -112,11 +112,11 @@ class LinkToPost extends Component<Props> {
                     <a href={`${window.hash}/topic.php?id=${topicId}${pageParam}#${number}`}
                         style={{...style}}
                     >{text}</a>{' '} 
-                    (<a onMouseOver={this.onMouseOver}
+                    (<span onMouseOver={this.onMouseOver}
                         onMouseOut={this.onMouseOut}
                         onClick={this.onClick}
-                        style={{cursor:"pointer"}}
-                     >{number}</a>)               
+                        style={{cursor:"pointer", color: "#00C"}}
+                     >{number}</span>)               
                 </span>
             )
 
