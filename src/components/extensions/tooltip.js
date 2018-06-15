@@ -76,23 +76,34 @@ class Tooltip extends Component<Props> {
             userInfo = <UserInfo data={data} isAuthor={false}/>
         }   
 
+        let axis;
+        let position;
+        if (window.innerWidth <= 768 ) {
+            axis = "y";
+            position = {top: coords.y, left: 5};
+        } else {
+            axis = "both";
+            position = {top: coords.y, left: Math.min(coords.x, window.innerWidth - 655)}
+        }
+        console.log(position)
         if (keys.type === 'TOPIC' || keys.type === 'TOPIC_PREVIEW') 
             return (
                 <Draggable
+                    axis={axis}
                     handle=".tooltip-header"
                     defaultClassNameDragging="dragging"
                     key={i}>
 
-                    <div className="tooltip-window" style={{ top: coords.y, left: coords.x }} onWheel={this.onWheel}>
+                    <div className="tooltip-window" style={{ ...position }} onWheel={this.onWheel}>
                         <div className="tooltip-header">
                             {userInfo}
+                            <div className="tooltip-close" onClick={this.onCloseClick}>
+                                <span className="tooltip-close-x">x</span>
+                            </div>
                         </div>
                         <div className="tooltip-text" onMouseUp={this.onMouseUp} >
                             <MsgText data={data} topicId={keys.topicId} style={{maxHeight: "550px", overflowY: "auto"}} />
                         </div>
-                        <span className="tooltip-close" onClick={this.onCloseClick}>
-                            <b> x </b>
-                        </span>
                     </div>
                 </Draggable>
             )

@@ -92,9 +92,9 @@ class MsgText extends Component<Props> {
         let textComponent = activeHtml(text, componentsMap);
 
         return (
-            <div className="message" style={{...style }}>
+            <div style={{...style }}>
                 {voteChart}
-                <div>
+                <div className="message">
                     {textComponent}
                 </div>
                 {voteElement}

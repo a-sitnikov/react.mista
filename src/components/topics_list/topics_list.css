@@ -34,6 +34,7 @@
 
     .tf {
         border: 1px solid #CCC;
+        padding: 5px 0px;
     }
 
     .preview-container {

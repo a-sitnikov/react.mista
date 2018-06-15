@@ -34,10 +34,12 @@
 .cell-message {
     grid-area: message;    
     padding: 10px;  
+    min-width: 0px;
 }
 
 .user-info {
     word-break: break-all;
+    width: 100%;
 }
 
 .is-author {
@@ -53,7 +55,8 @@
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
-    hyphens: auto;
+    white-space: normal;
+
 }
 
 .message-time > span {
@@ -70,6 +73,7 @@
 }
 
 @media (max-width: 768px) {
+    
     .topic-table {
         border: none;
     }

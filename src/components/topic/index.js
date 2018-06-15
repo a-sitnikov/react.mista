@@ -161,7 +161,7 @@ class Topic extends Component<Props> {
         const maxPage = getMaxPage(+info.answers_count);
 
         return (
-            <div>
+            <div style={{marginBottom: "5px"}}>
                 {errorElem}
                 <Header currentPage={this.locationParams.page} />
                 <div className="topic-table">
