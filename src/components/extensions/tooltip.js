@@ -71,7 +71,7 @@ class Tooltip extends Component<Props> {
         let userInfo;
         if (!data.text) {
             data.text = `Сообщение не найдено: ${keys.number}`;
-            userInfo = <b>Заголовок</b>
+            userInfo = <b style={{flex: "1"}}>Заголовок</b>
         } else {
             userInfo = <UserInfo data={data} isAuthor={false}/>
         }   

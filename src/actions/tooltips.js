@@ -55,9 +55,10 @@ export const showTooltip = (keys: TooltipKeys, coords: Coords, data: any) => asy
                 to: +keys.number + 1
             });
             if (json.length > 0)
-                data = json[0];
-            else
-                data = {};
+                data = json.find(val => val.n === String(keys.number));
+
+            if (!data)
+                data = {}
         }
         const action: CREATE_TOOLTIP = {
             type: 'CREATE_TOOLTIP',
@@ -80,9 +81,9 @@ export const changeTooltipData = (keys: TooltipKeys, number: number) => async (d
         to: number + 1
     });
     let data;
-    if (json.length > 0)
-        data = json[0];
-    else
+    if (json.length > 0) {
+        data = json.find(val => val.n === String(number));
+    } else
         data = {};
 
     const action: CHANGE_TOOLTIP_DATA = {
