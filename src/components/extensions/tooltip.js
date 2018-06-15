@@ -83,7 +83,7 @@ class Tooltip extends Component<Props> {
             position = {top: coords.y, left: 5};
         } else {
             axis = "both";
-            position = {top: coords.y, left: Math.min(coords.x, window.innerWidth - 655)}
+            position = {top: coords.y, left: Math.min(coords.x, window.innerWidth - 670)}
         }
         console.log(position)
         if (keys.type === 'TOPIC' || keys.type === 'TOPIC_PREVIEW') 

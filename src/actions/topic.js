@@ -22,12 +22,22 @@ export type RECEIVE_TOPIC_FAILED = {
     receivedAt: Date
 }
 
+export type REQUEST_NEW_MESSAGES = {
+    type: 'REQUEST_NEW_MESSAGES'
+}
+
+export type RECEIVE_NEW_MESSAGES = {
+    type: 'REQUEST_NEW_MESSAGES',
+    items: ResponseMessages,
+    receivedAt: Date
+}
+
 export type CLOSE_TOPIC = {
     type: 'CLOSE_TOPIC'
 }
 
 
-export type TopicAction = REQUEST_TOPIC | RECEIVE_TOPIC | RECEIVE_TOPIC_FAILED | CLOSE_TOPIC;
+export type TopicAction = REQUEST_TOPIC | RECEIVE_TOPIC | RECEIVE_TOPIC_FAILED | CLOSE_TOPIC | REQUEST_NEW_MESSAGES | RECEIVE_NEW_MESSAGES;
 
 export const requestTopic = () => ({
     type: 'REQUEST_TOPIC'

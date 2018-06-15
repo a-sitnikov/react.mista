@@ -48,6 +48,7 @@ const topic = (state: TopicState = defaultTopicState, action: TopicAction) => {
                 ...state,
                 isFetching: true
             }
+            
         case 'RECEIVE_NEW_MESSAGES':
 
             let info = state.info;

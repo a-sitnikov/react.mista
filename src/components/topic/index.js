@@ -22,11 +22,6 @@ type TopicLocationParams = {
     page?: string,
 }
 
-type Column = {
-    name: string,
-    width?: string
-}
-
 type StateProps = {
     info: ResponseInfo,
     item0?: ResponseMessage,
@@ -48,7 +43,6 @@ class Topic extends Component<Props> {
     autoUpdate;
     locationParams: TopicLocationParams;
     location: Location;
-    columns: Array<Column>;
     timer;
 
     constructor(props) {
@@ -58,12 +52,6 @@ class Topic extends Component<Props> {
         this.autoUpdate = this.autoUpdate.bind(this)
         
         this.locationParams = {id: ''};
-        
-        this.columns = [
-            { name: 'Автор', width: '165px' },
-            { name: 'Текст' }
-        ];
-        
     }
 
     componentDidMount() {
