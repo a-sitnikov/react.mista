@@ -27,7 +27,7 @@ export type REQUEST_NEW_MESSAGES = {
 }
 
 export type RECEIVE_NEW_MESSAGES = {
-    type: 'REQUEST_NEW_MESSAGES',
+    type: 'RECEIVE_NEW_MESSAGES',
     items: ResponseMessages,
     receivedAt: Date
 }
