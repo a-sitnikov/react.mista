@@ -73,7 +73,7 @@ class MsgText extends Component<Props> {
             let voteOption = info.voting[data.vote - 1];
             if (voteOption)
                 voteElement =
-                    <div><br />
+                    <div style={{marginTop: "5px"}}>
                         <b><span style={{ color: voteColors[data.vote-1] }}>{`${data.vote}. ${voteOption.select}`}</span></b>
                     </div>
         }
@@ -92,9 +92,9 @@ class MsgText extends Component<Props> {
         let textComponent = activeHtml(text, componentsMap);
 
         return (
-            <div style={{...style }}>
+            <div className="message" style={{...style }}>
                 {voteChart}
-                <div className="message">
+                <div>
                     {textComponent}
                 </div>
                 {voteElement}

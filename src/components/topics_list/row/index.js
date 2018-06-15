@@ -61,7 +61,7 @@ const Row = (props: Props) => {
                 {data.user0}
             </div>
             <div className="cell-lastuser">
-                <div style={{display: "inline-flex"}}>
+                <div style={{display: "flex"}}>
                     <span className="cell-lastuser-time">{time}</span>
                     <span className="cell-lastuser-user">{data.user}</span>
                 </div>
