@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import queryString from 'query-string'
-import { fetchTopicIfNeeded, fetchNewMessagesIfNeeded } from 'src/actions/topic'
+import { fetchTopicIfNeeded, fetchNewMessagesIfNeeded, closeTopic } from 'src/actions/topic'
 
 import type { DefaultProps, Location } from 'src/components'
 import type { ResponseInfo, ResponseMessage, ResponseMessages } from 'src/api'
@@ -37,7 +37,8 @@ type StateProps = {
 
 type Props = {
     fetchTopicIfNeeded: any,
-    fetchNewMessagesIfNeeded: any
+    fetchNewMessagesIfNeeded: any,
+    closeTopic: any
 } & DefaultProps & StateProps
 
 class Topic extends Component<Props> {
@@ -81,7 +82,11 @@ class Topic extends Component<Props> {
     }
 
     componentWillUnmount() {
+
+        const { closeTopic } = this.props;
+
         clearInterval(this.timer);
+        closeTopic();
     }
 
     componentWillReceiveProps(props: Props) {
@@ -208,7 +213,8 @@ const mapStateToProps = (state: State): StateProps => {
 
 const mapDispatchToProps = (dispatch) => ({
     fetchTopicIfNeeded: (...params) => dispatch(fetchTopicIfNeeded(...params)),
-    fetchNewMessagesIfNeeded: (...params) => dispatch(fetchNewMessagesIfNeeded(...params))   
+    fetchNewMessagesIfNeeded: (...params) => dispatch(fetchNewMessagesIfNeeded(...params)),
+    closeTopic: (...params) => dispatch(closeTopic(...params))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Topic);

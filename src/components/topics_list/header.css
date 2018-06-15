@@ -1,7 +1,5 @@
 .user-td {
-    flex: 0 auto;
-    margin-right: 15px;
-    padding-top: 5px;
+    flex: 1 auto;
     vertical-align: top;
 }
 

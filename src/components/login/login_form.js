@@ -1,6 +1,8 @@
 //@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { FormControl, Button, ButtonGroup } from 'react-bootstrap'
+
 
 import ErrorElem from '../common/error'
 import { doLoginIfNeeded } from 'src/actions/login'
@@ -16,7 +18,8 @@ type Props = LoggedUserProps & DefaultProps;
 class LoginForm extends Component<Props> {
 
     onLogin;
-    refs: {username: any, password:any};
+    username: any;
+    password: any;
 
     constructor(props) {
         super(props);
@@ -30,8 +33,8 @@ class LoginForm extends Component<Props> {
         const { dispatch } = this.props;
 
         const params = {
-            username: this.refs.username.value,
-            password: this.refs.password.value
+            username: this.username.value,
+            password: this.password.value
         }
 
         dispatch(doLoginIfNeeded(params));  
@@ -44,13 +47,27 @@ class LoginForm extends Component<Props> {
             errorElem = <ErrorElem text={'ОШИБКА: Вход не выполнен! Возможно указан неверный пароль.'} />;
 
         return (
-            <div style={{width: "350px"}}>
-                <form name="enterform">
-                    <label htmlFor="user_name" style={{ margin: "5px" }} >Имя:</label>
-                    <input className="field" name="user_name" id="user_name" size="10" maxLength="20" autoComplete="off" type="text" ref="username"/>
-                    <label htmlFor="user_password" style={{ margin: "5px" }} >Пароль:</label>
-                    <input className="field" name="user_password" id="user_password" size="10" maxLength="20" autoComplete="off" type="password" ref="password"/>
-                    <input className="button" name="Submit" value="Вход" type="submit" onClick={this.onLogin} style={{marginLeft: "5px"}}/>
+            <div>
+                <form name="enterform" className="flex-row" style={{flexWrap: "wrap"}}>
+                    <FormControl 
+                        type="text" 
+                        placeholder="Имя" 
+                        inputRef={ref => {this.username = ref}} 
+                        bsSize="sm" 
+                        style={{marginRight: "5px", flex: "0 1 300px", marginBottom: "5px"}}
+                    />
+                    <FormControl 
+                        type="password" 
+                        placeholder="Пароль" 
+                        maxLength="20" 
+                        autoComplete="off" 
+                        inputRef={ref => {this.password = ref}}
+                        bsSize="sm" 
+                        style={{marginRight: "5px", flex: "0 1 300px", marginBottom: "5px"}}
+                    />
+                    <ButtonGroup>
+                        <Button bsSize="sm" onClick={this.onLogin}>Войти</Button>
+                    </ButtonGroup>
                 </form>
                 <p style={{margin: "0px"}}>Войти можно на сайте <a href="https://www.forum.mista.ru/">forum.mista.ru</a></p>
                 <noindex>

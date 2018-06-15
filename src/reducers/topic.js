@@ -62,6 +62,17 @@ const topic = (state: TopicState = defaultTopicState, action: TopicAction) => {
                 info,
                 lastUpdated: action.receivedAt
             }
+
+        case 'CLOSE_TOPIC': 
+        
+            return {
+                ...state,
+                items: [],
+                info: defaultInfo,
+                item0: null,
+                lastUpdated: null,
+                error: null            
+            }
         default:
             return state
     }

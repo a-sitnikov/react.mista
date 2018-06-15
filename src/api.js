@@ -7,6 +7,7 @@ export const urlTopicsList    = 'api/topic.php';
 export const urlTopicInfo     = 'ajax_gettopic.php';
 export const urlTopicMessages = 'api/message.php';
 export const urlLogin         = 'ajax_login.php';
+export const urlLogout        = 'users.php'; // users.php?&action=exit
 export const urlCookies       = 'ajax_cookie.php';
 export const urlSections      = 'ajax_getsectionslist.php';
 export const urlNewMessage    = 'ajax_newmessage.php';
@@ -131,6 +132,11 @@ export const getLogin = async (params: RequestLogin): Promise<ResponseLogin> => 
     const json = await fetchJsonpAndGetJson(urlLogin, params);
     return json;
 } 
+
+export const getLogout = async(): Promise<any> => {
+    const params = { action: "exit" };
+    await fetchJsonpAndGetJson(urlLogout, params);
+}
 
 
 // Cookies

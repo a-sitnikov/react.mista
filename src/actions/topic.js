@@ -22,7 +22,12 @@ export type RECEIVE_TOPIC_FAILED = {
     receivedAt: Date
 }
 
-export type TopicAction = REQUEST_TOPIC | RECEIVE_TOPIC | RECEIVE_TOPIC_FAILED;
+export type CLOSE_TOPIC = {
+    type: 'CLOSE_TOPIC'
+}
+
+
+export type TopicAction = REQUEST_TOPIC | RECEIVE_TOPIC | RECEIVE_TOPIC_FAILED | CLOSE_TOPIC;
 
 export const requestTopic = () => ({
     type: 'REQUEST_TOPIC'
@@ -39,6 +44,12 @@ export const receiveTopic = (info: ResponseInfo, item0: ?ResponseMessage, items:
     }
 }
 
+export const closeTopic = () => {
+
+    return {
+        type: 'CLOSE_TOPIC',
+    }
+}
 
 export const fetchTopic = (params: any, item0: ?ResponseMessage) => async (dispatch: Dispatch<*>) => {
 

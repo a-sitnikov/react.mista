@@ -49,7 +49,7 @@ class LoggedUser extends Component<Props> {
                 <span style={{margin: "5px"}}>|</span>
                 <a rel="nofollow" href={`${window.hash}/index.php?user_id=${userId}`}>Мои темы</a>
                 <span style={{margin: "5px"}}>|</span>
-                <a rel="nofollow" href={`${window.hash}/index.php?mytopics=1`}>Темы с моим участием</a>
+                <a href="#exit" onClick={this.onLogout}>Выход</a>
             </div>
         )
     }

@@ -91,9 +91,13 @@ export const doLogout = (params: any) => async (dispatch: any) => {
         type: 'LOGOUT_START'
     });
 
+    API.getLogout();
+
     dispatch({
         type: 'LOGOUT_COMPLETE'
     });
+
+    checkLogin();
 
 }
 
