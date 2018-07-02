@@ -27,7 +27,7 @@ class Header extends React.Component<Props> {
                 <div className="user-td">
                     <Login />
                 </div>
-                <div className="section-td ta-right">
+                <div className="section-td">
                     <span id="forum_string" className="bold120">
                         <a rel="nofollow" href={`${window.hash}/index.php?forum=${info.forum}`} style={{ textDecoration: "none" }}>{forums[info.forum]}</a>
                     </span>

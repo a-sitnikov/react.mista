@@ -41,7 +41,7 @@ class App extends Component<Props> {
 
   render() {
     return (
-      <div>
+      <div id="app">
         <NavBar />
         <Container />
         <NavBarFooter />

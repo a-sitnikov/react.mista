@@ -152,7 +152,7 @@ class NewMessage extends Component<Props> {
         }
 
         return (
-            <form>
+            <form style={{marginTop: "5px"}}> 
                 <p className="bold">Добавить сообщение в тему:</p>
                 <div className="new-message-container">
                     <div className="new-message-text">
