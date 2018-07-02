@@ -76,7 +76,7 @@
     background-color: white;
     border-top: 1px solid #eee;
     box-sizing: border-box;
-    grid-template-columns: 50px 30px 30px auto 120px 150px;
+    grid-template-columns: 50px 30px 30px auto 120px 155px;
     grid-template-areas: "forum answ pv-link title author lastuser";
 }
 
@@ -159,6 +159,17 @@
     grid-area: last20;
     justify-content: center;
     align-items: center;
+}
+
+@media (min-width: 769px) and (max-width: 991px) {
+
+    .th {
+        grid-template-columns: 50px 30px 30px auto 80px 110px;
+    }
+
+    .topics-list-row {
+        grid-template-columns: 50px 30px 30px auto 80px 110px;
+    }
 }
 
 @media (max-width: 768px) {
