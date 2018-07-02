@@ -10,8 +10,6 @@ import { fetchSectionsIfNeeded } from 'src/actions/sections'
 
 import type { DefaultProps } from 'src/components'
 
-import './header.css'
-
 type StateProps = {
 }
 

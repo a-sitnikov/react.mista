@@ -10,8 +10,6 @@ import type { State } from 'src/reducers'
 import type { LoginState } from 'src/reducers/login'
 import type { DefaultProps } from 'src/components'
 
-import './topic_row.css'
-
 type RowProps = {
     data: ResponseMessage
 }

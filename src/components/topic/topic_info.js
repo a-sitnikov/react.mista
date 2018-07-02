@@ -8,8 +8,6 @@ import type { State } from 'src/reducers'
 import type { ResponseInfo } from 'src/api'
 import { domain, urlTopicInfo, urlTopicMessages} from 'src/api'
 
-import './topic_info.css'
-
 type StateProps = {
     info: ResponseInfo
 }

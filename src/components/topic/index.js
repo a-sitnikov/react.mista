@@ -17,6 +17,8 @@ import Footer from './footer'
 import NewMessage from './new_message';
 import { getMaxPage } from 'src/utils';
 
+import  './topic.css'
+
 type TopicLocationParams = {
     id: string,
     page?: string,

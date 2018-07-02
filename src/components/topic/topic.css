@@ -132,3 +132,67 @@
         font-size: 80%;
     }    
 }
+
+/* header */
+.topic-header {
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    
+    .topic-header {
+        display: none;
+    }
+
+}
+
+/* new-message*/
+.new-message-container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas: "text vowting";
+    grid-column-gap: 10px;
+}
+
+.new-message-text {
+    grid-area: text;
+}
+
+.new-message-voting {
+    grid-area: vowting;
+}
+
+@media (max-width: 768px) {
+    
+    .new-message-container {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "text"
+            "vowting";
+    }
+
+}
+
+/*topic-info*/
+.topic-title {
+    color: #00c;
+    font-size: 150%;
+    font-weight: bold;
+}
+
+.yandex {
+    color: red;
+    font-size: 120%;
+    text-decoration: none;
+}
+
+/*pages*/
+.curpage {
+    margin: 5px;
+    font-weight: bold
+}
+
+.page {
+    margin: 5px
+}

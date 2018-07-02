@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 
 import Login from '../login'
 
-import './header.css'
-
 type Props = {
     info: { forum: string }
 }

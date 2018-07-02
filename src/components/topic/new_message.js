@@ -1,7 +1,6 @@
 //@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { FormControl } from 'react-bootstrap'
 
 import TextEditor from 'src/components/common/text_editor'
 import { postNewMessageIfNeeded } from 'src/actions/new_message'
@@ -12,8 +11,6 @@ import type { NewMessageState } from 'src/reducers/new_message'
 
 import type { ResponseInfo } from 'src/api'
 import type { DefaultProps } from 'src/index'
-
-import './new_message.css'
 
 type NewMessageProps = {
     onPostSuccess?: () => void
@@ -159,13 +156,6 @@ class NewMessage extends Component<Props> {
                 <p className="bold">Добавить сообщение в тему:</p>
                 <div className="new-message-container">
                     <div className="new-message-text">
-                        <FormControl
-                            type="text"
-                            value={login.username}
-                            size="30" maxLength="20"
-                            readOnly={true}
-                            style={{ marginBottom: "5px" }}
-                        />
                         <TextEditor 
                             onSend={this.onSend} 
                             isFetching={newMessage.isFetching} 

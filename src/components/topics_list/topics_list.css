@@ -46,3 +46,19 @@
     }
 
 }
+
+.user-td {
+    flex: 1 auto;
+    vertical-align: top;
+}
+
+.section-td {
+    flex: 0 1 auto;
+}
+
+@media (max-width: 768px) {
+    
+    .section-td {
+        display: none;
+    }
+}
