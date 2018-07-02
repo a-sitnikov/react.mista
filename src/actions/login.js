@@ -75,8 +75,9 @@ export const checkLogin = (params: any) => async (dispatch: any) => {
             username: session.user_name,
             hashkey: cookie.entr_hash
         });
-        console.log(action2)
         dispatch(action2);
+   } else {
+       dispatch({type: "LOGIN_FAILED"})
    }
 }
 

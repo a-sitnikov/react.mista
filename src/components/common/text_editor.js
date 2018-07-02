@@ -5,6 +5,8 @@ import { FormControl, Button, ButtonGroup, Checkbox } from 'react-bootstrap'
 
 import type { DefaultProps } from 'src/index'
 
+import './text_editor.css'
+
 type TextEditorProps = {
     placeholder: string,
     showVoting: boolean,
@@ -109,20 +111,20 @@ class TextEditor extends Component<Props> {
                     placeholder={placeholder} 
                     cols="70" rows="12"
                     value={text}
-                    style={{ width: "100%", boxSizing: "border-box", marginBottom: "3px", color: "black" }}
                     onChange={this.onChange}
                     onKeyPress={this.onKeyPress}
                     inputRef={ref => { this.textArea = ref; }}
+                    className="text-editor"
                 />
                 <div className="flex-row">
                     <ButtonGroup>
-                    <Button onClick={this.onButtonCode1c} style={{marginRight: "5px"}} bsSize="sm">Код 1С</Button>
-                    <Button
-                        bsSize="sm"
-                        disabled={isFetching}
-                        onClick={this.onSendClick}>
-                        {isFetching ? 'Отправляется' : 'Отправить'}
-                    </Button>
+                        <Button onClick={this.onButtonCode1c} style={{marginRight: "5px"}} bsSize="sm">Код 1С</Button>
+                        <Button
+                            bsSize="sm"
+                            disabled={isFetching}
+                            onClick={this.onSendClick}>
+                            {isFetching ? 'Отправляется' : 'Отправить'}
+                        </Button>
                     </ButtonGroup>
                     {voting}
                 </div>
