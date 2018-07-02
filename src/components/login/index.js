@@ -5,7 +5,6 @@ import LoggedUser from './logged_user'
 import LoginForm from './login_form'
 
 import { checkLoginIfNeeded } from 'src/actions/login'
-import { defaultLoginState } from 'src/reducers/login'
 
 import type { State } from 'src/reducers'
 import type { DefaultProps } from 'src/components'
@@ -22,14 +21,15 @@ class Login extends Component<Props> {
 
     render() {
 
-        const { userid, username, error, dispatch } = this.props;
-        const logged = userid ? true : false;
+        const { logged, userid, username, error, dispatch } = this.props;
 
         let elem;
-        if (logged) 
+        if (logged === true) 
             elem = <LoggedUser dispatch={dispatch} userId={userid} userName={username} />
-        else
-            elem = <LoginForm dispatch={dispatch} error={error}/>    
+        else if (logged === false)
+            elem = <LoginForm dispatch={dispatch} error={error}/> 
+        else 
+            elem = null;   
 
         return elem
     }
@@ -37,7 +37,7 @@ class Login extends Component<Props> {
 
 const mapStateToProps = (state: State): LoginState => {
     
-    return state.login || defaultLoginState;
+    return state.login;
 }
 
 export default connect(mapStateToProps)(Login);

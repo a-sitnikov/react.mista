@@ -17,8 +17,6 @@ import type { LoginState } from 'src/reducers/login'
 import type { TopicPreviewState } from 'src/reducers/topic_preview'
 import type { DefaultProps } from 'src/components/index'
 
-import './topics_list_row.css'
-
 type RowProps = {
     columns: any,
     data: ResponseTopicsListItem

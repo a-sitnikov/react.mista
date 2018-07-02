@@ -3,6 +3,7 @@ import type { LoginAction } from 'src/actions/login'
 
 export type LoginState = {
   isFetching: boolean;
+  logged: ?boolean,
   userid?: string,
   username?: string,
   hashkey?: string,
@@ -10,7 +11,8 @@ export type LoginState = {
 };
 
 export const defaultLoginState = {
-    isFetching: false
+    isFetching: false,
+    logged: undefined
 }
 
 const login = (state: LoginState = defaultLoginState, action: LoginAction) => {
@@ -24,6 +26,7 @@ const login = (state: LoginState = defaultLoginState, action: LoginAction) => {
             return {
                 ...state,
                 isFetching: false,
+                logged: true,
                 ...action.data
             }
         case 'LOGOUT_COMPLETE':
@@ -31,7 +34,8 @@ const login = (state: LoginState = defaultLoginState, action: LoginAction) => {
                 ...state,
                 userid: undefined,
                 username: undefined,
-                hashkey: undefined
+                hashkey: undefined,
+                logged: false
             }
         default:
             return state

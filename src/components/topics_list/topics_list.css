@@ -62,3 +62,182 @@
         display: none;
     }
 }
+
+.table {
+    border: 1px solid #CCC;
+    box-sizing: border-box;
+    opacity: 1;
+    margin-top: 5px;
+}
+
+.topics-list-row {
+    display: grid;
+    width: 100%;
+    background-color: white;
+    border-top: 1px solid #eee;
+    box-sizing: border-box;
+    grid-template-columns: 50px 30px 30px auto 120px 150px;
+    grid-template-areas: "forum answ pv-link title author lastuser";
+}
+
+.cell-forum{
+    padding: 6px;
+    border-right: 1px solid #eee;
+    font-size: 80%;
+    text-align: center;
+    grid-area: forum;
+    display: block;
+}
+
+.cell-section {
+    padding: 6px;
+    border-right: 1px solid #eee;
+    font-size: 80%;
+    text-align: center;
+    grid-area: section;
+    display: none;
+}
+
+.cell-answ {
+    padding: 6px;
+    border-right: 1px solid #eee;
+    font-size: 80%;
+    text-align: center;
+    grid-area: answ;
+}
+
+.cell-preview-link {
+    grid-area: pv-link;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cell-title {
+    padding: 6px;
+    border-right: 1px solid #eee;
+    grid-area: title;
+}
+
+.topic-pages {
+    display: inline;
+}
+    
+.topic-section {
+    display: inline;
+}
+
+.cell-author {
+    padding: 6px;
+    border-right: 1px solid #eee;
+    font-size: 80%;
+    word-break: break-all;
+    grid-area: author;
+}
+
+.cell-lastuser {
+    padding: 6px;
+    border-right: 1px solid #eee;
+    font-size: 80%;
+    grid-area: lastuser;
+}
+
+.cell-lastuser-time {
+    margin-right: 5px;
+    order: 0;
+}
+
+.cell-lastuser-user {
+    margin-right: 5px;
+    order: 1;
+    word-break: break-all;
+}
+
+.cell-last20 {
+    display: none;
+    grid-area: last20;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+
+    .table {
+        border: none;
+    }
+
+    .topics-list-row {
+        margin-bottom: 5px;
+        border: 1px solid #CCC;
+        grid-template-rows: auto;    
+        grid-template-columns: [col] 40px [col] 1fr [col] 1fr [col] 40px;
+
+        grid-template-areas: 
+            "author author section section"
+            "pv-link title title last20"
+            "lastuser lastuser lastuser answ";
+    }
+
+    .cell-author {
+        background: #eee;
+        padding: 0px 2px; 
+        font-weight: bold;
+    }
+    
+    .cell-forum {
+        display: none;
+    }
+    
+    .cell-section {
+        background: #eee; 
+        padding: 0px 2px; 
+        text-align: right;
+        display: block;
+    }
+    
+    .cell-preview-link {
+        border-right: 1px dotted #CCC;
+        grid-area: pv-link;
+        width: 40px;
+        font-size: 1.5em;
+    }
+
+    .cell-title {
+        padding: 2px 5px; 
+        border-right: none;
+    }
+
+    .topic-pages {
+        display: none;
+    }
+    
+    .topic-section {
+        display: none;
+    }
+
+    .cell-lastuser {
+        background: #eee;
+        padding: 0px 2px; 
+    }
+    
+    .cell-lastuser-user {
+        order: 0;
+    }
+
+    .cell-lastuser-time {
+        order: 1;
+    }
+
+    .cell-answ {
+        background: #eee; 
+        padding: 0px 2px; 
+        text-align: right;
+    }
+
+    .cell-last20 {
+        display: flex;
+        font-size: 1.5em;
+        border-left: 1px dotted #CCC;
+    }
+}
