@@ -220,6 +220,7 @@ class NewTopic extends Component<Props> {
                         onChange={this.onTextChange} 
                         text={newTopic.text} 
                         isFetching={newTopic.isFetching}
+                        editorType="NEW_TOPIC"
                     />
                 </div>
                 <Form horizontal className="new-topic-voting">

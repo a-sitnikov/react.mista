@@ -162,6 +162,7 @@ class NewMessage extends Component<Props> {
                             onChange={this.onChange} 
                             text={newMessage.text} 
                             placeholder="Сообщение"
+                            editorType="NEW_MESSAGE"
                         />
                     </div>
                     <div className="new-message-voting">

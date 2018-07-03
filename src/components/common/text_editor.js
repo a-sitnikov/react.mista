@@ -13,6 +13,7 @@ type TextEditorProps = {
     isVoting: boolean,
     text: string,
     isFetching: boolean,
+    editorType: string,
     onChange?: (e: any, text: string) => void,   
     onSend: (e: any, text: string) => void   
 }
@@ -62,7 +63,11 @@ class TextEditor extends Component<Props> {
         var replacement = openTag + selectedText + closeTag;
         var newText = oldText.substring(0, start) + replacement + oldText.substring(end, len);
 
-        textArea.value = newText;
+        const { dispatch, editorType } = this.props;
+        dispatch({
+            type: editorType + '_TEXT',
+            text: newText
+        })
 
     }
 
