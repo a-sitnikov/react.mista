@@ -61,7 +61,7 @@ class LinkToPost extends Component<Props> {
 
         const coords = {
             x: e.pageX,
-            y: e.pageY
+            y: e.pageY - 50 // remove navbar margin-top
         }
         let data;
         if (topicId === info.id) {

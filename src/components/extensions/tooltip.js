@@ -85,7 +85,7 @@ class Tooltip extends Component<Props> {
             axis = "both";
             position = {top: coords.y, left: Math.min(coords.x, window.innerWidth - 670)}
         }
-        console.log(position)
+        
         if (keys.type === 'TOPIC' || keys.type === 'TOPIC_PREVIEW') 
             return (
                 <Draggable

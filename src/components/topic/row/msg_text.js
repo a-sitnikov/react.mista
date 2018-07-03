@@ -35,7 +35,7 @@ class MsgText extends Component<Props> {
 
         const { topicId } = this.props;
 
-        const regexp = /(\()(\d+)(\))/g; // (12)
+        const regexp = /(\()(\d+)(\))/gi; // (12)
         return text.replace(regexp, (res, ...segments) => {
             const number = segments[1];
             return `(<link data-topicid='${topicId}' data-number='${number}' ></link>)`
@@ -44,7 +44,7 @@ class MsgText extends Component<Props> {
 
     processCode1C(text: string): string {
 
-        const regexp = /(\[1[CС]\])((.|\n|\r)*?)(\[\/1[CС]\])/g; // [1C] text [/1C]
+        const regexp = /(\[1[CС]\])((.|\n|\r)*?)(\[\/1[CС]\])/gi; // [1C] text [/1C]
         return text.replace(regexp, (res, ...segments) => {
             let txt = segments[1];
 

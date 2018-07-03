@@ -63,7 +63,7 @@ class Code extends Component {
             preStyle.overflow = "hidden";
             preStyle.height   = "135px";
         } else {
-            preStyle.overflow = "visible";
+            preStyle.overflow = "auto";
             preStyle.height   = "auto";
         }    
 
