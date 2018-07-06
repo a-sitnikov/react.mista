@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import TopicsList from './topics_list'
 import Topic from './topic'
-import FindPage from './find_page'
+import Options from './options'
 import { clearTooltipsIfNeeded } from '../actions/tooltips'
 
 class Container extends Component {
@@ -24,19 +24,12 @@ class Container extends Component {
 
     render() {
 
-        const { contetnMaxWidth } = this.props;
-        let style = {};
-        if (contetnMaxWidth) {
-            style.maxWidth = contetnMaxWidth;
-            style.margin = "auto";
-        }    
-
        const routes =
             <Switch>
                 <Route exact path='/' component={TopicsList} />
                 <Route path='/index.php' component={TopicsList} />
                 <Route path='/topic.php' component={Topic} />
-                <Route path='/find.php' component={FindPage} />
+                <Route path='/options.php' component={Options} />
             </Switch>
 
         if (window.hash)
@@ -53,20 +46,14 @@ class Container extends Component {
 
         else
             return (
-                <div className="container" onClick={this.onClick}>
-                    <div style={style} >
+                <div onClick={this.onClick}>
+                    <div className="container">
                         {routes}
                     </div>
-                </div >
+                </div>
             )
     }
 
 }
-const mapStateToProps = (state: State): StateProps => {
 
-    return {
-        contetnMaxWidth: state.options.items.contetnMaxWidth,
-    }
-}
-
-export default connect(mapStateToProps)(Container);
+export default connect()(Container);

@@ -1,14 +1,13 @@
 //@flow
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import classNames from 'classnames'
+import { Checkbox, FormControl, Button } from 'react-bootstrap'
 
 import RadioOption from './radio_option'
-import NumberOption from './number_option'
 import StringOption from './string_option'
-import CheckboxOption from './checkbox_option'
 
-import { saveOptions, closeOptions } from 'src/actions/options'
+import { saveOptions } from 'src/actions/options'
 
 import type { State } from 'src/reducers'
 import type { OptionsState } from 'src/reducers/options'
@@ -18,6 +17,7 @@ import './options.css'
 
 class Options extends Component<OptionsState> {
 
+    optionsParams: any;
     state: any;
     setState;
     closeForm;
@@ -25,7 +25,7 @@ class Options extends Component<OptionsState> {
     resetOptions;
     onChange;
     onTabClick;
-    form: Array<any>;
+    form: any;
 
     constructor(props) {
         super(props);
@@ -36,101 +36,83 @@ class Options extends Component<OptionsState> {
         this.onTabClick   = this.onTabClick.bind(this);
 
         this.state = {
-            activeTab: 'Общие',
             items: props.options.items
         };
+        
+        this.optionsParams = {
+            'theme': {
+                type: 'radio', 
+                label: 'Цветовая палитра:', 
+                oneLine: true,
+                values: [
+                    {name: 'theme-yellow', descr: 'Золотая'}, 
+                    {name: 'theme-lightgray', descr: 'Серая'}
+                    ]
+            },
+            'topicsPerPage': {
+                type: 'number',
+                label: 'Тем на странице (max 99):',
+                min: 1,
+                max: 99
+            },
+            'autoRefreshTopicsList': {
+                type: 'checkbox',
+                label: 'Автообновление списка тем'
+            },
+            'autoRefreshTopicsListInterval': {
+                type: 'number',
+                label: '',
+                min: 60,
+                max: 1000000,
+                postfix: 'сек'
+            },                                   
+            'autoRefreshTopic': {
+                type: 'checkbox',
+                label: 'Автообновление темы'
+            },
+            'autoRefreshTopicInterval': {
+                type: 'number',
+                label: '',
+                min: 60,
+                max: 1000000,
+                postfix: 'сек'
+            },               
+            'showTooltips': {
+                type: 'checkbox',
+                label: 'Показывать тултипы, задержка'
+            },
+            'tooltipsDelay': {
+                type: 'number',
+                max: 1000000,
+                label: '',
+                postfix: 'мс'
+            }                                    
+        }
+        
         this.form = [
             {
                 tabName: 'Общие', 
-                rows: [
-                    [{
-                        name: 'theme', 
-                        type: 'radio', 
-                        label: 'Цветовая палитра:', 
-                        oneLine: true,
-                        values: [
-                            {name: 'theme-yellow', descr: 'Золотая'}, 
-                            {name: 'theme-lightgray', descr: 'Серая'}
-                            ]
-                    }],
-                    [{
-                        name: 'showTitle', 
-                        type: 'checkbox', 
-                        label: 'Показывать заголовок форума', 
-                    }],
-                    [{
-                        name: 'topicsPerPage',
-                        type: 'number',
-                        label: 'Тем на странице (max 99):',
-                        min: 1,
-                        max: 99
-                    }],
-                    [{
-                        name: 'autoRefreshTopicsList',
-                        type: 'checkbox',
-                        label: 'Автообновление списка тем'
-                    }, {
-                        name: 'autoRefreshTopicsListInterval',
-                        type: 'number',
-                        label: '',
-                        min: 60,
-                        max: 1000000,
-                        postfix: 'сек'
-                    }],
-                    [{
-                        name: 'autoRefreshTopic',
-                        type: 'checkbox',
-                        label: 'Автообновление темы'
-                    }, {
-                        name: 'autoRefreshTopicInterval',
-                        type: 'number',
-                        label: '',
-                        min: 60,
-                        max: 1000000,
-                        postfix: 'сек'
-                    }],
-                    [{
-                        name: 'contetnMaxWidth',
-                        type: 'string',
-                        label: 'Максимальная ширина таблиц:',
-                        postfix: 'css свойство max-width'
-                    }],                   
-                ]
+                rows: [ 
+                    ['theme'],
+                    ['autoRefreshTopicsList', 'autoRefreshTopicsListInterval'],
+                    ['autoRefreshTopic', 'autoRefreshTopicInterval'],
+                ]  
             },
             {
                 tabName: 'Тултипы',
                 rows: [
-                    [{
-                        name: 'showTooltips',
-                        type: 'checkbox',
-                        label: 'Показывать тултипы, задержка'
-                    }, {
-                        name: 'tooltipsDelay',
-                        type: 'number',
-                        max: 1000000,
-                        label: '',
-                        postfix: 'мс'
-                    }],
-                    [{
-                        name: 'showTooltipsOnTopicsList',
-                        type: 'checkbox',
-                        label: 'Показывать тултипы на главной странице, при наведении на кол-во ответов'                    
-                    }],
-                    [{
-                        name: 'showTooltipsOnPostLink',
-                        type: 'checkbox',
-                        label: 'Отображать тултип нулевого поста ссыки на другую ветку'                    
-                    }]
-                    
-                ]
+                    ['showTooltips', 'tooltipsDelay'],
+                    ['showTooltipsOnTopicsList'],
+                    ['showTooltipsOnPostLink']
+                ]    
             }
         ]
 
     }
 
     closeForm(){
-        const { dispatch } = this.props;
-        dispatch(closeOptions());
+        const { history } = this.props;
+        history.push('/' + window.hash);
     }
     
     resetOptiopns(){
@@ -164,76 +146,76 @@ class Options extends Component<OptionsState> {
 
     render() {
 
-        const { options } = this.props;
-        if (!options.show)
-            return null;
-
         let tabs = [];
-        let tab_cont = [];
         for (let tab of this.form) {
             
-            let classes = classNames("tab", {
-                active: tab.tabName === this.state.activeTab
-            });
-            tabs.push(<div key={tab.tabName} className={classes} onClick={this.onTabClick}>{tab.tabName}</div>);
-
-            let classesTabCont = classNames("tab-cont", {
-                active: tab.tabName === this.state.activeTab
-            });
-
             let rows = [];
             for (let i in tab.rows) {
                 
                 const row = tab.rows[i];
                 let rowElem = [];
-                for (let j in row) {
+                for (let name of row) {
 
-                    const item = row[j];
+                    const item = this.optionsParams[name];
+                    if (!item) continue;
+
+                    const value = this.state.items[name];
+
                     if (item.type === 'radio') {
                         rowElem.push(
                             <RadioOption 
-                                key={j} 
-                                name={item.name} 
+                                key={name} 
+                                name={name} 
                                 label={item.label} 
                                 values={item.values} 
-                                value={this.state.items[item.name]}
+                                value={value}
                                 oneLine={item.oneLine}
                                 onChange={this.onChange}
                             />
                         );
                     } else if (item.type === 'number') {
                         rowElem.push(
-                            <NumberOption 
-                                key={j} 
-                                name={item.name} 
-                                label={item.label} 
-                                value={this.state.items[item.name]} 
+                            <FormControl
+                                key={name}
+                                type="number"
                                 min={item.min}
                                 max={item.max}
-                                postfix={item.postfix}
+                                value={value}
                                 onChange={this.onChange}
-                            />
+                                style={{flex: "0 0 100px", marginLeft: "5px"}}
+                                bsSize="sm"
+                            >
+                            </FormControl>
                         );
+                        
+                        if (item.postfix) {
+                            rowElem.push(
+                                <span key={name + '_postfix'} style={{marginLeft: "5px", flex: "0 0 auto",}}>{item.postfix}</span>
+                            )    
+                        };
+
                     } else if (item.type === 'string') {
                         rowElem.push(
                             <StringOption 
-                                key={j} 
-                                name={item.name} 
+                                key={name} 
+                                name={name} 
                                 label={item.label} 
                                 postfix={item.postfix}
-                                value={this.state.items[item.name]} 
+                                value={value}
                                 onChange={this.onChange}
                             />
                         );
                     } else if (item.type === 'checkbox') {
                         rowElem.push(
-                            <CheckboxOption 
-                                key={j} 
-                                name={item.name} 
-                                label={item.label} 
-                                value={this.state.items[item.name]} 
-                                onChange={this.onChange}
-                            />
+                            <Checkbox 
+                                key={name}
+                                name={name} 
+                                checked={Boolean(value)}
+                                onChange={(e) => this.onChange(e, name, e.target.checked)}
+                                style={{flex: "0 0 auto", margin: "0px"}}
+                            >
+                                {item.label}
+                            </Checkbox>
                         );
                     }
                 }
@@ -246,34 +228,31 @@ class Options extends Component<OptionsState> {
 
             }
 
-            tab_cont.push(<div key={tab.tabName} className={classesTabCont}>{rows}</div>);
+            tabs.push(
+                <div key={tab.tabName}>
+                    <div className="tab-header">
+                        {tab.tabName}
+                    </div>
+                    <div className="tab-content">                    
+                        {rows}
+                    </div>
+                </div>
+            );
         }
 
 
         return (
-            <div>
-                <div id="mista-script-overlay" className="options-form-overlay">
-                </div>    
-                <div id="mista-script" className="options-form">
-                    <span id="closeOptions" className="close-button" onClick={this.closeForm}>
-                        <b> x </b>
-                    </span>                
+                <div className="options-form">
                     <div className="options-header" style={{cursor: "default"}}>
-                        <b>Настройки React.Mista</b>
+                        <b>Настройки</b>
                     </div>
-                    <div className="tabs">
                     {tabs}
-                    </div>
-                    <div id="tab_content">
-                    {tab_cont}
-                    </div>
                     <div className="button-row">
-                        <button id="applyOptions" className="button" style={{margin: "5px", height: "30px"}} onClick={this.applyOptions}>OK</button>
-                        <button id="cancelOptions" className="button" style={{margin: "5px", float: "left", height: "30px"}} onClick={this.closeForm}>Отмена</button>
-                        <button id="defaultOptions" className="button" style={{margin: "5px", float: "right",  height: "30px"}} onClick={this.resetOptions}>Сбросить настройки</button>
+                        <Button id="applyOptions" bsSize="sm" style={{margin: "5px", height: "30px"}} onClick={this.applyOptions}>OK</Button>
+                        <Button id="cancelOptions" bsSize="sm" style={{margin: "5px", float: "left", height: "30px"}} onClick={this.closeForm}>Отмена</Button>
+                        <Button id="defaultOptions" bsSize="sm" style={{margin: "5px", float: "right",  height: "30px"}} onClick={this.resetOptions}>Сбросить настройки</Button>
                     </div>                    
                 </div>
-            </div>
         )
     }
 
@@ -287,4 +266,4 @@ const mapStateToProps = (state: State): OptionsState => {
 
 }
 
-export default connect(mapStateToProps)(Options);
+export default connect(mapStateToProps)(withRouter(Options));

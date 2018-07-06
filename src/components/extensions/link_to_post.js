@@ -97,7 +97,7 @@ class LinkToPost extends Component<Props> {
             text = number;
 
         let a;
-        if (topicId === info.id || /\d+/.test(String(text)) )
+        if (topicId === info.id || !isNaN(text) )
             a = (
                 <span
                     onMouseOver={this.onMouseOver}

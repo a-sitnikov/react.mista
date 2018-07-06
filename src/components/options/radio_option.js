@@ -41,7 +41,7 @@ class RadioOption extends Component<RadioOptionProps> {
 
         return (
             <span>
-                <span>{label}</span>
+                <span style={{marginRight: "5px"}}>{label}</span>
                 {oneLine ? null : <br/>}   
                 {valuesElem}
             </span>

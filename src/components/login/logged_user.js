@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import { Dropdown, MenuItem } from 'react-bootstrap'
 
 import { doLogout } from 'src/actions/login'
-import { showOptions } from 'src/actions/options'
 
 import type { DefaultProps } from 'src/components'
 
@@ -16,7 +15,10 @@ type LoggedUserProps = {
 
 type Props = LoggedUserProps & DefaultProps;
 
-class CustomToggle extends React.Component {
+class CustomToggle extends React.Component<any> {
+    
+  handleClick; 
+
   constructor(props, context) {
     super(props, context);
 
@@ -41,12 +43,10 @@ class CustomToggle extends React.Component {
 class LoggedUser extends Component<Props> {
 
     onLogout;
-    showOptions;
 
     constructor(props: Props) {
         super(props);
         this.onLogout = this.onLogout.bind(this);
-        this.showOptions = this.showOptions.bind(this);
     }
     
     onLogout(event: any) {
@@ -55,14 +55,6 @@ class LoggedUser extends Component<Props> {
 
         const { dispatch } = this.props;
         dispatch(doLogout());  
-    }
-
-    showOptions(event: any) {
-
-        event.preventDefault();
-
-        const { dispatch } = this.props;
-        dispatch(showOptions());  
     }
 
     onMenuSelect = (eventKey: any, event: Object): any => {

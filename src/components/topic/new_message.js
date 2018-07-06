@@ -1,6 +1,7 @@
 //@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { FormGroup, Radio } from 'react-bootstrap'
 
 import TextEditor from 'src/components/common/text_editor'
 import { postNewMessageIfNeeded } from 'src/actions/new_message'
@@ -105,10 +106,10 @@ class NewMessage extends Component<Props> {
 
     }
 
-    setVotingOption(e) {
+    setVotingOption(i) {
         this.setState({
             ...this.state,
-            voting: e.target.value
+            voting: i
         })
     }
 
@@ -130,23 +131,21 @@ class NewMessage extends Component<Props> {
                     continue;
 
                 votingOptions.push(
-                    <div key={i}>
-                        <input id={`voting_select${i}`} name="voting_select" value={i} type="radio" onChange={this.setVotingOption} checked={this.state.voting === String(i) ? true : false} />
-                        <label htmlFor={`voting_select${i}`}>{`${i}. ${item.select}`}</label>
-                    </div>
+                    <Radio key={i} name="voting" checked={this.state.voting === i} onChange={() => this.setVotingOption(i)}>{`${i}. ${item.select}`}</Radio>
                 );
             }
 
 
             votingElem = (
-                <fieldset id="voting" value="1">
-                    <legend>Ваш выбор:
-                    <small><a href="" id="voting_clear" style={{ marginLeft: "5px" }} onClick={this.clearVoting}>очистить</a></small>
-                    </legend>
+                <FormGroup>
+                    <legend>
+                        <small>Ваш выбор:
+                        <a href="" id="voting_clear" style={{ marginLeft: "5px" }} onClick={this.clearVoting}>очистить</a>
+                        </small>
+                    </legend>                
                     {votingOptions}
-                    <br />
                     Обоснуйте свой выбор!
-                </fieldset>
+                </FormGroup>
             );
 
         }

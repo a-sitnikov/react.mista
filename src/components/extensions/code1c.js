@@ -15,9 +15,8 @@ class Code extends Component {
         if (children) {
 
             const textArr = childrenToText(children);
-
             this.text = textArr.join('');
-            
+
             // replace double new-lines
             this.text = this.text
                 .replace(/\n<br>/g, '\n')
@@ -26,6 +25,15 @@ class Code extends Component {
                 .replace(/<br>\r/g, '\n')
                 .replace(/<br>/g, '\n');
 
+            // remove all leading|ending new-lines
+            while (this.text[0] === '\n') {
+                this.text = this.text.substr(1);
+            }
+
+            while (this.text.substr(-1)=== '\n') {
+                this.text = this.text.substr(0, this.text.length - 1);
+            }            
+            
             this.text = highlight(this.text);
         }
     }

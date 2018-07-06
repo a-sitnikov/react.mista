@@ -29,7 +29,12 @@ export type LOGOUT_COMPLETE = {
     type: 'LOGOUT_COMPLETE'
 }
 
-export type LoginAction = LOGIN_START | LOGIN_COMPLETE | CHECK_LOGIN_START | LOGOUT_START | LOGOUT_COMPLETE;
+export type LOGIN_FAILED = {
+    type: 'LOGIN_FAILED'
+}
+
+
+export type LoginAction = LOGIN_START | LOGIN_COMPLETE | LOGIN_FAILED | CHECK_LOGIN_START | LOGOUT_START | LOGOUT_COMPLETE;
 
 export const loginStart = (): LOGIN_START => {
 

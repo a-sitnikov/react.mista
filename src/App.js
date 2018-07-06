@@ -5,7 +5,6 @@ import NavBar from './components/nav_bar';
 import Container from './components/container';
 import NavBarFooter from './components/nav_bar_footer';
 import TooltipsList from './components/extensions/tooltips_list';
-import Options from './components/options';
 
 import { readOptions } from 'src/actions/options'
 
@@ -46,7 +45,6 @@ class App extends Component<Props> {
         <Container />
         <NavBarFooter />
         <TooltipsList />
-        <Options />
       </div>
     )
   }

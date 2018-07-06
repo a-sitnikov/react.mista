@@ -28,7 +28,6 @@ function readOption(name, defaultValue) {
 }
 
 export const defaultOptionsState = {
-    show: false,
     voteColors: [
         "#FF1616", //1
         "#1A861A", //2
@@ -41,15 +40,7 @@ export const defaultOptionsState = {
         "#00CCCC", //9
         "#0000CC", //10
     ],
-    listColumns: [
-        { name: 'Раздел', className: 'cc', width: '50px' },
-        { name: 'Re', className: 'cc', width: '30px' },
-        { name: 'Тема', className: 'ct' },
-        { name: 'Автор', className: 'cl', width: '120px' },
-        { name: 'Обновлено', className: 'cl', width: '150px' }
-    ],    
     items: {
-        showTitle: 'false',
         theme: 'theme-lightgray',
         topicsPerPage: '20',
         autoRefreshTopicsList: 'false',
@@ -60,23 +51,12 @@ export const defaultOptionsState = {
         tooltipsDelay: '500',
         showTooltipsOnTopicsList: 'true',
         showTooltipsOnPostLink: 'true',
-        contetnMaxWidth: ''
     }    
 }
 
 const options = (state: OptionsState = defaultOptionsState, action: any) => {
 
     switch (action.type) {
-        case 'SHOW_OPTIONS': 
-            return {
-                ...state,
-                show: true
-            }
-        case 'CLOSE_OPTIONS': 
-            return {
-                ...state,
-                show: false
-            }
 
         case 'READ_OPTIONS': 
             
