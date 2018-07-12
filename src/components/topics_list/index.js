@@ -137,7 +137,7 @@ class TopicsList extends Component<Props> {
                     </div>    
                 </div>
                 <div id="F" className="newtopic" style={{ marginBottom: "10px", marginTop: "5px", position: 'relative' }}>
-                    <NewTopic sections={sections.items} onPostSuccess={this.onPostNewTopicSuccess} locationParams={this.locationParams}/>
+                    <NewTopic sections={sections.items} onSubmitSuccess={this.onPostNewTopicSuccess} locationParams={this.locationParams}/>
                 </div>    
             </div>
         )

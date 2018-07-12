@@ -185,7 +185,6 @@ export type RequestNewMessage = {
     message_text: string,
     action:       "new", 
     topic_id:     string,
-    user_name:    string,
     rnd:          number,
     voting_select?: number,
     as_admin?: boolean    

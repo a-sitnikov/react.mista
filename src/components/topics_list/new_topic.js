@@ -1,7 +1,7 @@
 //@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Form, FormControl, InputGroup } from 'react-bootstrap'
+import { Form, FormGroup, FormControl, InputGroup } from 'react-bootstrap'
 
 import type { ResponseSection } from 'src/api'
 
@@ -10,7 +10,6 @@ import type { State } from 'src/reducers'
 import type { SectionsState } from 'src/reducers/sections'
 import type { NewTopicState } from 'src/reducers/new_topic'
 
-import { fetchSectionsIfNeeded } from 'src/actions/sections'
 import { postNewTopicIfNeeded } from 'src/actions/new_topic'
 import type { NewTopicAction, postNewTopicParams } from 'src/actions/new_topic'
 
@@ -26,8 +25,7 @@ type StateProps = {
 }    
 
 type NewTopicProps = {
-    locationParams: {},
-    onPostSuccess?: () => void
+    onSubmitSuccess?: () => void
 };
 
 type Props = NewTopicProps & StateProps & DefaultProps;
@@ -38,21 +36,24 @@ class NewTopic extends Component<Props> {
     onTextChange: (e: any, text: string) => void;
     onSend: (e: any, text: string) => void;
     onSubjectChange: (e: any) => void;
-    onPostSuccess: () => void;
-    currentSection: ResponseSection | null;
+    onSubmit: () => void;
+    onSubmitSuccess: () => void;
+    currentSection: ?ResponseSection;
+    formRef: any;
 
     constructor(props) {
         super(props);
         this.onSectionChange = this.onSectionChange.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
         this.onSubjectChange = this.onSubjectChange.bind(this);
-        this.onSend = this.onSend.bind(this);
-        this.onPostSuccess = this.onPostSuccess.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onSubmitSuccess = this.onSubmitSuccess.bind(this);
+
+        // $FlowFixMe
+        this.formRef = React.createRef();
     }
 
     componentDidMount() {
-        const { dispatch } = this.props;
-        dispatch(fetchSectionsIfNeeded());
     }
 
     onSectionChange(e, section) {
@@ -67,7 +68,10 @@ class NewTopic extends Component<Props> {
         dispatch(action);
     }
 
-    onSend(e, text) {
+    onSubmit(e) {
+        
+        e.preventDefault();
+
         const { dispatch, newTopic } = this.props;
 
         let action: NewTopicAction;
@@ -90,7 +94,7 @@ class NewTopic extends Component<Props> {
             return;            
         }
 
-        if (!text) {
+        if (!newTopic.text) {
             action = {
                 type: 'POST_NEW_TOPIC_ERROR',
                 error: 'Не указано сообщение'
@@ -102,12 +106,12 @@ class NewTopic extends Component<Props> {
         
         let params: postNewTopicParams = {
             subject,
-            text,
+            text: newTopic.text,
             section: this.currentSection.id,
             forum: this.currentSection.forum,
             isVoting: newTopic.isVoting,
             votingItems: [],
-            onSuccess: this.onPostSuccess
+            onSuccess: this.onSubmitSuccess
         };
 
         if (newTopic.isVoting) {
@@ -144,7 +148,7 @@ class NewTopic extends Component<Props> {
     }
 
 
-    onPostSuccess() {
+    onSubmitSuccess() {
 
         const { dispatch } = this.props;
         dispatch({
@@ -152,8 +156,8 @@ class NewTopic extends Component<Props> {
             text: ''
         });
 
-        if (this.props.onPostSuccess) {
-            this.props.onPostSuccess();
+        if (this.props.onSubmitSuccess) {
+            this.props.onSubmitSuccess();
         }
     }
 
@@ -183,10 +187,10 @@ class NewTopic extends Component<Props> {
         }
 
         return (
-            <div className="new-topic-container">
+            <form className="new-topic-container" ref={this.formRef} onSubmit={this.onSubmit}>
                 <div id="newtopic_form"  className="new-topic-text">
                     <p><b>Новая тема:</b></p>
-                    <ErrorElem text={newTopic.error} />
+                    {newTopic.error && <ErrorElem text={newTopic.error} />}
                     <div className="flex-row" style={{ marginBottom: "3px" }}>
                         <FormControl 
                             componentClass="select"
@@ -199,7 +203,6 @@ class NewTopic extends Component<Props> {
                         <SectionSelect
                             defaultValue="Секция"
                             id="target_section"
-                            name="target_section"
                             style={{ flex: "1 1 auto" }}
                             onChange={this.onSectionChange}
                         />
@@ -220,13 +223,14 @@ class NewTopic extends Component<Props> {
                         onChange={this.onTextChange} 
                         text={newTopic.text} 
                         isFetching={newTopic.isFetching}
-                        editorType="NEW_TOPIC"
+                        formName="NEW_TOPIC"
+                        formRef={this.formRef}
                     />
                 </div>
-                <Form horizontal className="new-topic-voting">
+                <FormGroup className="new-topic-voting">
                     {votingOptions}
-                </Form>
-            </div>
+                </FormGroup>
+            </form>
         )
     }
 }
@@ -235,7 +239,6 @@ const mapStateToProps = (state: State): StateProps => {
 
     return {
         sections: state.sections,
-        login: state.login,
         newTopic: state.newTopic
     }
 }

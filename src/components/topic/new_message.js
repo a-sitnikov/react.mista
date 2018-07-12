@@ -7,18 +7,16 @@ import TextEditor from 'src/components/common/text_editor'
 import { postNewMessageIfNeeded } from 'src/actions/new_message'
 
 import type { State } from 'src/reducers'
-import type { LoginState } from 'src/reducers/login'
 import type { NewMessageState } from 'src/reducers/new_message'
 
 import type { ResponseInfo } from 'src/api'
 import type { DefaultProps } from 'src/index'
 
 type NewMessageProps = {
-    onPostSuccess?: () => void
+    onSubmitSuccess?: () => void
 }
 
 type StateProps = {
-    login: LoginState,
     info: ResponseInfo,
     newMessage: NewMessageState
 }
@@ -31,30 +29,34 @@ class NewMessage extends Component<Props> {
     onChange;
     clearVoting;
     setVotingOption;
-    onPostSuccess;
+    onSubmit;
+    onSubmitSuccess;
     state: any;
+    formRef: any;
 
     constructor(props) {
         super(props);
-        this.onSend = this.onSend.bind(this);
         this.onChange = this.onChange.bind(this);
         this.clearVoting = this.clearVoting.bind(this);
         this.setVotingOption = this.setVotingOption.bind(this);
-        this.onPostSuccess = this.onPostSuccess.bind(this);
+        this.onSubmitSuccess = this.onSubmitSuccess.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
 
         this.state = { voting: undefined };
+
+        // $FlowFixMe
+        this.formRef = React.createRef();
     }
 
-    onSend(e, text) {
+    onSubmit(e) {
+        e.preventDefault();
 
-        const { dispatch } = this.props;
-
+        const { dispatch, info, newMessage } = this.props;
+        
         let params = {
-            text,
-            userid: this.props.login.userid,
-            userName: this.props.login.username || '',
-            topicId: this.props.info.id,
-            onSuccess: this.onPostSuccess,
+            text: newMessage.text,
+            topicId: info.id,
+            onSuccess: this.onSubmitSuccess,
             voting_select: undefined
         };
 
@@ -63,10 +65,9 @@ class NewMessage extends Component<Props> {
         }
 
         dispatch(postNewMessageIfNeeded(params));
-
     }
 
-    onPostSuccess() {
+    onSubmitSuccess() {
 
         const { dispatch } = this.props;
 
@@ -80,8 +81,8 @@ class NewMessage extends Component<Props> {
             voting: undefined
         });
         
-        if (this.props.onPostSuccess) {
-            this.props.onPostSuccess();
+        if (this.props.onSubmitSuccess) {
+            this.props.onSubmitSuccess();
         }
     }
 
@@ -115,10 +116,7 @@ class NewMessage extends Component<Props> {
 
     render() {
 
-        const { info, login, newMessage } = this.props;
-
-        if (!login.userid)
-            return null;
+        const { info, newMessage } = this.props;
 
         let votingElem;
         if (info.is_voting && info.voting) {
@@ -151,7 +149,7 @@ class NewMessage extends Component<Props> {
         }
 
         return (
-            <form style={{marginTop: "5px"}}> 
+            <form style={{marginTop: "5px"}} onSubmit={this.onSubmit} ref={this.formRef}> 
                 <p className="bold">Добавить сообщение в тему:</p>
                 <div className="new-message-container">
                     <div className="new-message-text">
@@ -161,7 +159,8 @@ class NewMessage extends Component<Props> {
                             onChange={this.onChange} 
                             text={newMessage.text} 
                             placeholder="Сообщение"
-                            editorType="NEW_MESSAGE"
+                            formName="NEW_MESSAGE"
+                            formRef={this.formRef}
                         />
                     </div>
                     <div className="new-message-voting">
@@ -176,7 +175,6 @@ class NewMessage extends Component<Props> {
 const mapStateToProps = (state: State): StateProps => {
 
     return {
-        login: state.login,
         info: state.topic.info,
         newMessage: state.newMessage
     };

@@ -40,7 +40,6 @@ export const shouldPostNewMessage = (state: State): boolean => {
 export type PostNewmessageParams = {
     text: string,
     topicId: string, 
-    userName: string,
     voting_select?: number,
     onSuccess?: () => void    
 }
@@ -61,7 +60,6 @@ const postNewMessage = (params: PostNewmessageParams) => async (dispatch: any) =
         message_text: encodeText(params.text),
         action: "new",
         topic_id: params.topicId,
-        user_name: encodeURIComponent(params.userName),
         rnd: Math.round(Math.random() * 10000000000)    
     };
 

@@ -13,9 +13,9 @@ type TextEditorProps = {
     isVoting: boolean,
     text: string,
     isFetching: boolean,
-    editorType: string,
+    formRef: any,
+    formName: string,
     onChange?: (e: any, text: string) => void,   
-    onSend: (e: any, text: string) => void   
 }
 
 type Props = TextEditorProps & DefaultProps;
@@ -23,7 +23,6 @@ type Props = TextEditorProps & DefaultProps;
 class TextEditor extends Component<Props> {
 
     onButtonCode1c;
-    onSendClick;
     onVotingChange;
     onChange;
     onKeyPress;
@@ -32,17 +31,9 @@ class TextEditor extends Component<Props> {
     constructor(props) {
         super(props);
         this.onButtonCode1c = this.onButtonCode1c.bind(this);
-        this.onSendClick = this.onSendClick.bind(this);
         this.onVotingChange = this.onVotingChange.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onKeyPress = this.onKeyPress.bind(this);
-    }
-
-    onSendClick(e) {
-        if (this.props.onSend) {
-            const text = this.props.text;
-            this.props.onSend(e, text);
-        }
     }
 
     onButtonCode1c(e) {
@@ -63,9 +54,9 @@ class TextEditor extends Component<Props> {
         var replacement = openTag + selectedText + closeTag;
         var newText = oldText.substring(0, start) + replacement + oldText.substring(end, len);
 
-        const { dispatch, editorType } = this.props;
+        const { dispatch, formName } = this.props;
         dispatch({
-            type: editorType + '_TEXT',
+            type: formName + '_TEXT',
             text: newText
         })
 
@@ -87,9 +78,11 @@ class TextEditor extends Component<Props> {
     }
 
     onKeyPress(e) {
+        const { formRef } = this.props;
+
         if (e.key === 'Enter' && e.ctrlKey) {
-            if (this.props.onSend) {
-                this.props.onSend(e, this.props.text);
+            if (formRef) {
+                formRef.current.dispatchEvent(new Event("submit"));
             }
         }
     }
@@ -97,17 +90,6 @@ class TextEditor extends Component<Props> {
     render() {
 
         const { placeholder, showVoting, isVoting, isFetching, text } = this.props;
-
-        let voting;
-        if (showVoting)
-            voting = (
-                <Checkbox 
-                    checked={isVoting} 
-                    onChange={this.onVotingChange} 
-                    style={{margin: "auto 0px auto auto"}} >
-                    Голосование
-                </Checkbox>
-            )
 
         return (
             <div>
@@ -127,11 +109,19 @@ class TextEditor extends Component<Props> {
                         <Button
                             bsSize="sm"
                             disabled={isFetching}
-                            onClick={this.onSendClick}>
+                            type="submit"
+                            >
                             {isFetching ? 'Отправляется' : 'Отправить'}
                         </Button>
                     </ButtonGroup>
-                    {voting}
+                    {showVoting &&
+                        <Checkbox 
+                            checked={isVoting} 
+                            onChange={this.onVotingChange} 
+                            style={{margin: "auto 0px auto auto"}} >
+                            Голосование
+                        </Checkbox>
+                    }
                 </div>
             </div>
         )

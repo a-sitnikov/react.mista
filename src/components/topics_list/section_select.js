@@ -15,7 +15,6 @@ type SectionSelectProps = {
     selected: string,
     className: string,
     id: string,
-    name: string,
     style?: {},
     bsSize: ?string,
     onChange: (e: any, section: ResponseSection | null) => void
@@ -28,11 +27,11 @@ type StateProps = {
 
 type Props = SectionSelectProps & StateProps & DefaultProps;
 
-class SectionSelect extends Component<Props> {
+export class SectionSelect extends Component<Props> {
 
-    onChange;
+    onChange: any;
 
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
         this.onChange = this.onChange.bind(this);
     }
@@ -42,7 +41,7 @@ class SectionSelect extends Component<Props> {
         dispatch(fetchSectionsIfNeeded());
     }
 
-    onChange(event) {
+    onChange(event: any) {
 
         const { items, onChange } = this.props;
 
@@ -58,7 +57,7 @@ class SectionSelect extends Component<Props> {
 
     render() {
 
-        const { tree, defaultValue, selected, style, bsSize } = this.props;
+        const { id, tree, defaultValue, selected, style, bsSize } = this.props;
         
         let sectionsElem = [];
         for (let forum in tree) {
@@ -82,6 +81,7 @@ class SectionSelect extends Component<Props> {
                 value={selected}
                 style={{color: "black", ...style}}
                 bsSize={bsSize}
+                id={id}
             >
                 <option value="">{defaultValue}</option>
                 {sectionsElem}

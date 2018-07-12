@@ -1,6 +1,6 @@
 //@flow
 import React, { Component } from 'react'
-import queryString from 'query-string'
+import URL from 'url-parse'
 
 import LinkToPost from './link_to_post'
 import YoutubeLink from './youtube_link'
@@ -51,30 +51,19 @@ class CustomLink extends Component<Props> {
 
         const { href, children, parentText } = this.props;
 
-        if (href.search(/forum\.mista.ru/) !== -1 && 
-            href.search(/users\.php/) === -1) {
-            
-            let arr = href.split('?');
-            if (arr.length > 1) {
-                
-                let arr2 = arr[1].split('#');
-                let hash;
-                if (arr2.length > 1) 
-                    hash = arr2[1];
+        const url = new URL(href, true);
+        if (url.hostname.search(/forum\.mista.ru/) !== -1 && 
+            url.pathname === '/topic.php') {
 
-                let params = queryString.parse(arr2[0]);
-                return (
-                    <LinkToPost topicId={params.id} number={hash || "0"}>
-                        {childrenToText(children)}
-                    </LinkToPost>
-                )    
-            } else {
-                return <a href={href}>{children}</a>
-            }
+            return (                
+                <LinkToPost topicId={url.query.id} number={url.hash || "0"}>
+                    {childrenToText(children)}
+                </LinkToPost>           
+            )
         }    
 
-        if (href.search(/youtube/) !== -1
-            || href.search(/youtu\.be/) !== -1) {
+        if (url.hostname.search(/youtube/) !== -1
+            || url.hostname.search(/youtu\.be/) !== -1) {
             return <YoutubeLink href={href} />
         }
 

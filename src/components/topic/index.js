@@ -7,6 +7,7 @@ import { fetchTopicIfNeeded, fetchNewMessagesIfNeeded, closeTopic } from 'src/ac
 import type { DefaultProps, Location } from 'src/components'
 import type { ResponseInfo, ResponseMessage, ResponseMessages } from 'src/api'
 import type { State } from 'src/reducers'
+import type { LoginState } from 'src/reducers/login'
 import { OptionsItems } from 'src/reducers/options'
 
 import Pages from 'src/components/common/pages'
@@ -25,6 +26,7 @@ type TopicLocationParams = {
 }
 
 type StateProps = {
+    login: LoginState,
     info: ResponseInfo,
     item0?: ResponseMessage,
     items: ResponseMessages,
@@ -142,7 +144,7 @@ class Topic extends Component<Props> {
     }
 
     render() {
-        const { items, item0, info, error } = this.props;
+        const { login, items, item0, info, error } = this.props;
 
         let errorElem;
         if (error)
@@ -172,7 +174,9 @@ class Topic extends Component<Props> {
                     }
                 </div>
                 <Footer params={this.locationParams} />
-                <NewMessage onPostSuccess={this.onPostNewMessageSuccess} />
+                {login.logged &&
+                <NewMessage onSubmitSuccess={this.onPostNewMessageSuccess} />
+                }
             </div>
         )
     }
