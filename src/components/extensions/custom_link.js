@@ -65,9 +65,8 @@ class CustomLink extends Component<Props> {
         if (showTooltipOnPostLink === 'true') {
             if (url.hostname.search(/forum\.mista.ru/) !== -1 && 
                 url.pathname === '/topic.php') {
-
                 return (                
-                    <LinkToPost topicId={url.query.id} number={url.hash || "0"}>
+                    <LinkToPost topicId={url.query.id} number={url.hash.replace('#', '') || "0"}>
                         {childrenToText(children)}
                     </LinkToPost>           
                 )
@@ -81,7 +80,7 @@ class CustomLink extends Component<Props> {
                     url = new URL(href.replace(/#\//, ''), true);
                     if (url.pathname === '/react.mista/topic.php')
                         return (                
-                            <LinkToPost topicId={url.query.id} number={url.hash || "0"}>
+                            <LinkToPost topicId={url.query.id} number={url.hash.replace('#', '') || "0"}>
                                 {childrenToText(children)}
                             </LinkToPost>           
                         )           
@@ -102,7 +101,7 @@ class CustomLink extends Component<Props> {
                 newHref = url.href;
             }
 
-        if (fixBrokenLinks === 'true') {
+        if (fixBrokenLinks === 'true' && parentText) {
             newHref = this.fixBrokenLink(href, parentText);
         }
 
