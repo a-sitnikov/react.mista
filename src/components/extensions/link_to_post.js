@@ -9,7 +9,6 @@ import { getMaxPage } from 'src/utils';
 import type { State } from 'src/reducers'
 import type { DefaultProps } from 'src/components'
 import type { ResponseInfo, ResponseMessages } from 'src/api'
-import { defaultTopicState } from 'src/reducers/topic'
 
 type LinkToPostProps = {
     topicId: string,
@@ -20,7 +19,8 @@ type LinkToPostProps = {
 
 type StateProps = {
     info: ResponseInfo,
-    items: ResponseMessages
+    items: ResponseMessages,
+    tooltipDelay: string
 }
 
 type Props = LinkToPostProps & StateProps & DefaultProps;
@@ -43,7 +43,8 @@ class LinkToPost extends Component<Props> {
 
     onMouseOver = (event) => {
         event.persist();
-        this.timer = setTimeout(() => this.showToolTip(event), 500);
+        const { tooltipDelay } = this.props;
+        this.timer = setTimeout(() => this.showToolTip(event), +tooltipDelay);
     }
     
     onClick = (event) => {
@@ -128,11 +129,12 @@ const mapStateToProps = (state: State): StateProps => {
 
     const {
         items, info
-    } = state.topic || defaultTopicState;
+    } = state.topic;
 
     return {
         items,
-        info
+        info,
+        tooltipDelay: state.options.items['tooltipDelay']
     }
 }
 

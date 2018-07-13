@@ -9,9 +9,6 @@ import CustomLink from 'src/components/extensions/custom_link'
 
 import VoteChart from './vote_chart'
 
-import { defaultTopicState } from 'src/reducers/topic'
-import { defaultOptionsState } from 'src/reducers/options'
-
 import type { ResponseInfo, ResponseMessage } from 'src/api'
 import type { DefaultProps } from 'src/components/index'
 import type { State } from 'src/reducers'
@@ -24,6 +21,7 @@ type MsgTextProps = {
 
 type StateProps = {
     info: ResponseInfo,
+    showTooltips: string,
     voteColors: Array<string>
 }
 
@@ -60,8 +58,13 @@ class MsgText extends Component<Props> {
         if (!text)
             return text;
 
+        const { showTooltips } = this.props;
+
         text = this.processCode1C(text);
-        text = this.processLinksToPosts(text);
+
+        if (showTooltips === 'true')
+            text = this.processLinksToPosts(text);
+            
         return text;
     }
 
@@ -105,12 +108,12 @@ class MsgText extends Component<Props> {
 
 const mapStateToProps = (state: State): StateProps => {
 
-    const { info } = state.topic || defaultTopicState;
-    const { voteColors } = state.options || defaultOptionsState;
+    const { info } = state.topic;
     
     return {
         info,
-        voteColors
+        voteColors: state.options.voteColors,
+        showTooltips: state.options.items['showTooltips']
     }
 }
 

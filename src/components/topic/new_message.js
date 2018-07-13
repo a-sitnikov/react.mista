@@ -25,8 +25,6 @@ type Props = NewMessageProps & StateProps & DefaultProps;
 
 class NewMessage extends Component<Props> {
 
-    onSend;
-    onChange;
     clearVoting;
     setVotingOption;
     onSubmit;
@@ -36,7 +34,6 @@ class NewMessage extends Component<Props> {
 
     constructor(props) {
         super(props);
-        this.onChange = this.onChange.bind(this);
         this.clearVoting = this.clearVoting.bind(this);
         this.setVotingOption = this.setVotingOption.bind(this);
         this.onSubmitSuccess = this.onSubmitSuccess.bind(this);
@@ -84,16 +81,6 @@ class NewMessage extends Component<Props> {
         if (this.props.onSubmitSuccess) {
             this.props.onSubmitSuccess();
         }
-    }
-
-    onChange(e, text) {
-
-        const { dispatch } = this.props;
-        dispatch({
-            type: 'NEW_MESSAGE_TEXT',
-            text
-        });
-
     }
 
     clearVoting(e) {
@@ -156,7 +143,6 @@ class NewMessage extends Component<Props> {
                         <TextEditor 
                             onSend={this.onSend} 
                             isFetching={newMessage.isFetching} 
-                            onChange={this.onChange} 
                             text={newMessage.text} 
                             placeholder="Сообщение"
                             formName="NEW_MESSAGE"

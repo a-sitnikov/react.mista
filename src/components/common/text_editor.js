@@ -71,10 +71,11 @@ class TextEditor extends Component<Props> {
     }
 
     onChange(e) {
-        if (this.props.onChange) {
-            const text = e.target.value;
-            this.props.onChange(e, text);
-        }
+        const { dispatch, formName } = this.props;
+        dispatch({
+            type: formName + '_TEXT',
+            text: e.target.value
+        })
     }
 
     onKeyPress(e) {

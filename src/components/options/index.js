@@ -77,16 +77,38 @@ class Options extends Component<OptionsState> {
                 max: 1000000,
                 postfix: 'сек'
             },               
+            //Tooltips   
             'showTooltips': {
                 type: 'checkbox',
                 label: 'Показывать тултипы, задержка'
             },
-            'tooltipsDelay': {
+            'tooltipDelay': {
                 type: 'number',
                 max: 1000000,
                 label: '',
                 postfix: 'мс'
-            }                                    
+            },                                    
+            'showTooltipOnTopicsList': {
+                type: 'checkbox',
+                label: 'Показывать тултипы на главной странице, при наведении на кол-во ответов'
+            },    
+            'showTooltipOnPostLink': {
+                type: 'checkbox',
+                label: 'Показывать тултип ссыки на другую ветку'
+            },
+            //links   
+            'showYoutubeVideoTitle': {
+                type: 'checkbox',
+                label: 'Показывать наименования роликов youtube'
+            },    
+            'replaceCatalogMista': {
+                type: 'checkbox',
+                label: 'Обратно заменять catalog.mista.ru на infostart.ru'
+            },   
+            'fixBrokenLinks': {
+                type: 'checkbox',
+                label: 'Чинить поломанные ссылки (с русскими символами)'
+            },   
         }
         
         this.form = [
@@ -94,6 +116,7 @@ class Options extends Component<OptionsState> {
                 tabName: 'Общие', 
                 rows: [ 
                     ['theme'],
+                    ['topicsPerPage'],
                     ['autoRefreshTopicsList', 'autoRefreshTopicsListInterval'],
                     ['autoRefreshTopic', 'autoRefreshTopicInterval'],
                 ]  
@@ -101,11 +124,19 @@ class Options extends Component<OptionsState> {
             {
                 tabName: 'Тултипы',
                 rows: [
-                    ['showTooltips', 'tooltipsDelay'],
-                    ['showTooltipsOnTopicsList'],
-                    ['showTooltipsOnPostLink']
+                    ['showTooltips', 'tooltipDelay'],
+                    ['showTooltipOnTopicsList'],
+                    ['showTooltipOnPostLink']
                 ]    
-            }
+            },
+            {
+                tabName: 'Ссылки',
+                rows: [
+                    ['showYoutubeVideoTitle'],
+                    ['replaceCatalogMista'],
+                    ['fixBrokenLinks'],
+                ]    
+            }            
         ]
 
     }
@@ -174,6 +205,17 @@ class Options extends Component<OptionsState> {
                             />
                         );
                     } else if (item.type === 'number') {
+
+                        if (item.label)
+                            rowElem.push(
+                                <label 
+                                    htmlFor={name} 
+                                    key={name + '_label'} 
+                                    style={{fontWeight: "inherit"}}>
+                                    {item.label}
+                                </label>
+                            );
+
                         rowElem.push(
                             <FormControl
                                 key={name}
@@ -181,7 +223,7 @@ class Options extends Component<OptionsState> {
                                 min={item.min}
                                 max={item.max}
                                 value={value}
-                                onChange={this.onChange}
+                                onChange={(e) => this.onChange(e, name, e.target.value)}
                                 style={{flex: "0 0 100px", marginLeft: "5px"}}
                                 bsSize="sm"
                             >

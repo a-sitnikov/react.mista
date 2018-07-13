@@ -1,7 +1,7 @@
 //@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Form, FormGroup, FormControl, InputGroup } from 'react-bootstrap'
+import { FormGroup, FormControl, InputGroup } from 'react-bootstrap'
 
 import type { ResponseSection } from 'src/api'
 
@@ -33,7 +33,6 @@ type Props = NewTopicProps & StateProps & DefaultProps;
 class NewTopic extends Component<Props> {
 
     onSectionChange: (e: any, section: ResponseSection) => void;
-    onTextChange: (e: any, text: string) => void;
     onSend: (e: any, text: string) => void;
     onSubjectChange: (e: any) => void;
     onSubmit: () => void;
@@ -44,7 +43,6 @@ class NewTopic extends Component<Props> {
     constructor(props) {
         super(props);
         this.onSectionChange = this.onSectionChange.bind(this);
-        this.onTextChange = this.onTextChange.bind(this);
         this.onSubjectChange = this.onSubjectChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onSubmitSuccess = this.onSubmitSuccess.bind(this);
@@ -125,16 +123,6 @@ class NewTopic extends Component<Props> {
         }
 
         dispatch(postNewTopicIfNeeded(params));
-    }
-
-    onTextChange(e, text) {
-
-        const { dispatch } = this.props;
-        dispatch({
-            type: 'NEW_TOPIC_TEXT',
-            text
-        });
-
     }
     
     onSubjectChange(e) {
@@ -220,7 +208,6 @@ class NewTopic extends Component<Props> {
                         showVoting={true}
                         isVoting={newTopic.isVoting}
                         onSend={this.onSend}
-                        onChange={this.onTextChange} 
                         text={newTopic.text} 
                         isFetching={newTopic.isFetching}
                         formName="NEW_TOPIC"

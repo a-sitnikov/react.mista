@@ -24,14 +24,15 @@ type RowProps = {
 
 type StateProps = {
     login: LoginState,
-    topicPreview: TopicPreviewState
+    topicPreview: TopicPreviewState,
+    showTooltipOnTopicsList: string
 }
 
 type Props = RowProps & StateProps & DefaultProps;
 
 const Row = (props: Props) => {
 
-    const { data, topicPreview } = props;
+    const { data, topicPreview, showTooltipOnTopicsList } = props;
     let time = new Date(data.utime * 1000);
     if (today(time)) {
         time = dateFormat(time, 'HH:MM')
@@ -51,7 +52,11 @@ const Row = (props: Props) => {
                 {data.sect1}
             </div>
             <div className="cell-answ">
-                <LinkToPost topicId={data.id} number={data.answ} style={{color: "black"}} isPreview/>
+                { showTooltipOnTopicsList === 'true' ?
+                    <LinkToPost topicId={data.id} number={data.answ} style={{color: "black"}} isPreview/>
+                    :
+                    data.answ
+                }
             </div>
             <PreviewLink topicId={data.id} expanded={previewItem === undefined ? false: true}/>
             <TopicNameCell data={data}/>
@@ -76,7 +81,8 @@ const mapStateToProps = (state: State): StateProps => {
 
     return {
         login: state.login,
-        topicPreview: state.topicPreview
+        topicPreview: state.topicPreview,
+        showTooltipOnTopicsList: state.options.items.showTooltipOnTopicsList
     }
 }
 

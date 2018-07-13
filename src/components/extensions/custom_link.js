@@ -1,5 +1,6 @@
 //@flow
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import URL from 'url-parse'
 
 import LinkToPost from './link_to_post'
@@ -11,7 +12,14 @@ import { childrenToText } from 'src/utils'
 
 type CustomLinkProps = {
     href: string,
-    parentText: string
+    parentText: string,
+    target: string,
+    class: string,
+    rel: string,
+    showTooltipOnPostLink: string,
+    showYoutubeVideoTitle: string,
+    replaceCatalogMista: string,
+    fixBrokenLinks: string,
 }
 
 type Props = CustomLinkProps & DefaultProps;
@@ -49,32 +57,79 @@ class CustomLink extends Component<Props> {
 
     render() {
 
-        const { href, children, parentText } = this.props;
+        const { href, children, parentText, 
+            showTooltipOnPostLink, showYoutubeVideoTitle, replaceCatalogMista, fixBrokenLinks } = this.props;
 
-        const url = new URL(href, true);
-        if (url.hostname.search(/forum\.mista.ru/) !== -1 && 
-            url.pathname === '/topic.php') {
+        let url = new URL(href, true);
 
-            return (                
-                <LinkToPost topicId={url.query.id} number={url.hash || "0"}>
-                    {childrenToText(children)}
-                </LinkToPost>           
-            )
+        if (showTooltipOnPostLink === 'true') {
+            if (url.hostname.search(/forum\.mista.ru/) !== -1 && 
+                url.pathname === '/topic.php') {
+
+                return (                
+                    <LinkToPost topicId={url.query.id} number={url.hash || "0"}>
+                        {childrenToText(children)}
+                    </LinkToPost>           
+                )
+            }    
+            
+            if (url.hostname === 'a-sitnikov.github.io' && 
+                url.pathname === '/react.mista/') {
+
+                if (Object.keys(url.query).length === 0) {
+                    
+                    url = new URL(href.replace(/#\//, ''), true);
+                    if (url.pathname === '/react.mista/topic.php')
+                        return (                
+                            <LinkToPost topicId={url.query.id} number={url.hash || "0"}>
+                                {childrenToText(children)}
+                            </LinkToPost>           
+                        )           
+                }        
+            }
         }    
 
-        if (url.hostname.search(/youtube/) !== -1
-            || url.hostname.search(/youtu\.be/) !== -1) {
-            return <YoutubeLink href={href} />
+        if (showYoutubeVideoTitle === 'true')
+            if (url.hostname.search(/youtube/) !== -1
+                || url.hostname.search(/youtu\.be/) !== -1) {
+                return <YoutubeLink href={href} />
+            }
+
+        let newHref = href;
+        if (replaceCatalogMista === 'true') 
+            if (url.hostname.search(/catalog\.mista/) !== -1) {
+                url.set('hostname', 'infostart.ru')
+                newHref = url.href;
+            }
+
+        if (fixBrokenLinks === 'true') {
+            newHref = this.fixBrokenLink(href, parentText);
         }
 
-        let newProps = Object.assign({}, this.props);
-        delete newProps.parentText;
-        let newHref = this.fixBrokenLink(href, parentText);
-        
         return (
-            <a {...newProps} href={newHref} >{children}</a>
+            <a target={this.props.target} 
+               className={this.props.class} 
+               rel={this.props.rel} 
+               href={newHref} >{children}</a>
         )
     }
 }
 
-export default CustomLink;
+const mapStateToProps = (state) => {
+
+    const {
+        showTooltipOnPostLink,
+        showYoutubeVideoTitle,
+        replaceCatalogMista,
+        fixBrokenLinks
+    } = state.options.items;
+
+    return {
+        showTooltipOnPostLink,
+        showYoutubeVideoTitle,
+        replaceCatalogMista,
+        fixBrokenLinks
+    }
+}
+
+export default connect(mapStateToProps)(CustomLink);
