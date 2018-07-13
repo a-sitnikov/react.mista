@@ -1,7 +1,7 @@
-# React.Mista
+# React.Mista [![Build Status](https://api.travis-ci.org/a-sitnikov/react.mista.svg?branch=master)](https://travis-ci.org/a-sitnikov/react.mista)
 
 Клиент для форума [Миста](https://www.forum.mista.ru)<br>
-используется офф. [API](https://wiki.mista.ru/doku.php?id=life:forum:ajax-api)<br>
+Для получения данных используется [API](https://wiki.mista.ru/doku.php?id=life:forum:ajax-api)<br>
 
 Проект создан на основе [Create React App](https://github.com/facebookincubator/create-react-app)<br>
 Для статической типизации используется [Flow](https://flowtype.org/)<br>
