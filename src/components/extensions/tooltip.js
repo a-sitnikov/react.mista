@@ -21,37 +21,18 @@ type Props = TooltipProps & DefaultProps;
 
 class Tooltip extends Component<Props> {
 
-    onCloseClick;
-    onMouseUp;
-    onWheel;
-
-    constructor(props) {
-        super(props);
-        this.onCloseClick = this.onCloseClick.bind(this);
-        this.onMouseUp = this.onMouseUp.bind(this);
-        this.onWheel  = this.onWheel.bind(this);
-    }
-
-    componentDidMount() {
-
-    }
-
-    componentWillReceiveProps(props: Props) {
-        //console.log(props);
-    }
-
-    onCloseClick() {
+    onCloseClick = () => {
         const { dispatch, tooltip } = this.props;
         dispatch(closeTooltip(tooltip.keys));
     }
     
-    onMouseUp() {
+    onMouseUp = () => {
         const { dispatch, tooltip } = this.props;
         if (window.getSelection().type === 'Caret')
             dispatch(closeTooltip(tooltip.keys));
     }
 
-    onWheel(e) {
+    onWheel = (e) => {
         const { dispatch } = this.props;
         const { keys } = this.props.tooltip;
         if (keys.type !== 'TOPIC_PREVIEW') return;

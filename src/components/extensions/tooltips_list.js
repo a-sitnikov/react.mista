@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
 import Tooltip from './tooltip'
-import { defaultTooltipsState } from  'src/reducers/tooltips'
 
 import type { State } from 'src/reducers'
 import type { TooltipItemState } from 'src/reducers/tooltips'
@@ -35,7 +34,7 @@ const mapStateToProps = (state: State): StateProps => {
 
     const {
         items
-    } = state.tooltips || defaultTooltipsState
+    } = state.tooltips
 
     return {
         items,

@@ -25,27 +25,17 @@ type Props = NewMessageProps & StateProps & DefaultProps;
 
 class NewMessage extends Component<Props> {
 
-    clearVoting;
-    setVotingOption;
-    onSubmit;
-    onSubmitSuccess;
     state: any;
     formRef: any;
 
     constructor(props) {
         super(props);
-        this.clearVoting = this.clearVoting.bind(this);
-        this.setVotingOption = this.setVotingOption.bind(this);
-        this.onSubmitSuccess = this.onSubmitSuccess.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-
         this.state = { voting: undefined };
-
         // $FlowFixMe
         this.formRef = React.createRef();
     }
 
-    onSubmit(e) {
+    onSubmit = (e) => {
         e.preventDefault();
 
         const { dispatch, info, newMessage } = this.props;
@@ -64,7 +54,7 @@ class NewMessage extends Component<Props> {
         dispatch(postNewMessageIfNeeded(params));
     }
 
-    onSubmitSuccess() {
+    onSubmitSuccess = () => {
 
         const { dispatch } = this.props;
 
@@ -83,7 +73,7 @@ class NewMessage extends Component<Props> {
         }
     }
 
-    clearVoting(e) {
+    clearVoting = (e) => {
 
         e.preventDefault();
 
@@ -94,7 +84,7 @@ class NewMessage extends Component<Props> {
 
     }
 
-    setVotingOption(i) {
+    setVotingOption = (i) => {
         this.setState({
             ...this.state,
             voting: i
@@ -141,7 +131,6 @@ class NewMessage extends Component<Props> {
                 <div className="new-message-container">
                     <div className="new-message-text">
                         <TextEditor 
-                            onSend={this.onSend} 
                             isFetching={newMessage.isFetching} 
                             text={newMessage.text} 
                             placeholder="Сообщение"

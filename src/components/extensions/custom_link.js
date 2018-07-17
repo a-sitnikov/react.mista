@@ -102,7 +102,12 @@ class CustomLink extends Component<Props> {
             }
 
         if (fixBrokenLinks === 'true' && parentText) {
-            newHref = this.fixBrokenLink(href, parentText);
+            newHref = this.fixBrokenLink(newHref, parentText);
+        }
+
+        if (url.hostname === '') {
+            url.set('hostname', 'www.forum.mista.ru')
+            newHref = url.href;
         }
 
         return (
