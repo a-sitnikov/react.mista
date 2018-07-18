@@ -98,14 +98,21 @@ class CustomLink extends Component<Props> {
         if (replaceCatalogMista === 'true') 
             if (url.hostname.search(/catalog\.mista/) !== -1) {
                 url.set('hostname', 'infostart.ru')
-                newHref = url.href;
+
+                return (
+                    <a target={this.props.target} 
+                        className={this.props.class} 
+                        rel={this.props.rel} 
+                        href={url.href} >{url.href} </a>
+                )
             }
 
         if (fixBrokenLinks === 'true' && parentText) {
             newHref = this.fixBrokenLink(newHref, parentText);
         }
 
-        if (url.hostname === '') {
+        if (newHref.startsWith('/') ) {
+            url.set('protocol', 'https')
             url.set('hostname', 'www.forum.mista.ru')
             newHref = url.href;
         }

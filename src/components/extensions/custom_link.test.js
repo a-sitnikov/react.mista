@@ -108,5 +108,19 @@ describe('CustomLink', ()=>{
         const component = wrapper.dive();
         expect(component.prop('href')).toBe('https://wikipadia.ru/имя_(значение)');
 
-    });  
+    }); 
+    
+    it('+++ link without host', () => {
+
+        const href = '/users.php?id=111';
+
+        wrapper = shallow(
+            <CustomLink store={store} href={href}/>
+        )
+        
+        const component = wrapper.dive();
+        expect(component.prop('href')).toBe('https://www.forum.mista.ru/users.php?id=111');
+
+    }); 
+
 })    
