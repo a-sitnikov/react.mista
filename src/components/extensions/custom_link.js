@@ -62,6 +62,13 @@ class CustomLink extends Component<Props> {
 
         let url = new URL(href, true);
 
+        let newHref = href;
+        if (newHref.startsWith('/') ) {
+            url.set('protocol', 'https')
+            url.set('hostname', 'www.forum.mista.ru')
+            newHref = url.href;
+        }
+        
         if (showTooltipOnPostLink === 'true') {
             if (url.hostname.search(/forum\.mista.ru/) !== -1 && 
                 url.pathname === '/topic.php') {
@@ -94,7 +101,6 @@ class CustomLink extends Component<Props> {
                 return <YoutubeLink href={href} />
             }
 
-        let newHref = href;
         if (replaceCatalogMista === 'true') 
             if (url.hostname.search(/catalog\.mista/) !== -1) {
                 url.set('hostname', 'infostart.ru')
@@ -109,12 +115,6 @@ class CustomLink extends Component<Props> {
 
         if (fixBrokenLinks === 'true' && parentText) {
             newHref = this.fixBrokenLink(newHref, parentText);
-        }
-
-        if (newHref.startsWith('/') ) {
-            url.set('protocol', 'https')
-            url.set('hostname', 'www.forum.mista.ru')
-            newHref = url.href;
         }
 
         return (

@@ -44,7 +44,7 @@ export const requestTopic = () => ({
 })
 
 export const receiveTopic = (info: ResponseInfo, item0: ?ResponseMessage, items: ResponseMessages) => {
-
+    
     return {
         type: 'RECEIVE_TOPIC',
         info,
@@ -161,7 +161,7 @@ export const fetchTopic = (params: any, item0: ?ResponseMessage) => async (dispa
         if (info.answers_count === "0" && _items.length > 0)
             info.answers_count = _items[_items.length - 1].n;
 
-        dispatch(receiveTopic(info, _item0, _items));
+       dispatch(receiveTopic(info, _item0, _items));
 
     } catch (error) {
 

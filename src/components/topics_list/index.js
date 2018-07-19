@@ -38,8 +38,6 @@ type Props = {
 
 class TopicsList extends Component<Props> {
     
-    updateTopicsList: () => void;
-    onPostNewTopicSuccess: () => void;
     location: Location;
     locationParams: { page?: string };
     page: string;
@@ -47,8 +45,6 @@ class TopicsList extends Component<Props> {
 
     constructor(props: Props) {
         super(props);
-        this.updateTopicsList = this.updateTopicsList.bind(this);
-        this.onPostNewTopicSuccess = this.onPostNewTopicSuccess.bind(this);
         this.locationParams = { page: '1' };
     }
 
@@ -88,7 +84,7 @@ class TopicsList extends Component<Props> {
         document.title = 'React.Mista';
     }
 
-    updateTopicsList() {
+    updateTopicsList = () => {
         
         const { fetchTopicsListIfNeeded } = this.props;       
 
@@ -96,7 +92,7 @@ class TopicsList extends Component<Props> {
         fetchTopicsListIfNeeded(this.locationParams);
     }
 
-    onPostNewTopicSuccess() {
+    onPostNewTopicSuccess = () => {
         this.updateTopicsList();
     }
 
@@ -108,12 +104,12 @@ class TopicsList extends Component<Props> {
         for (let i in topicsList.items) {
             
             const item = topicsList.items[i];
-            rows.push(<Row key={i} data={item}/>);
+            rows.push(<Row key={item.id} data={item}/>);
 
             const previewItem = topicPreview.items[String(item.id)];
             if (previewItem)
                 rows.push(
-                    <div key={`preview${i}`} className="preview-container">
+                    <div key={`preview${item.id}`} className="preview-container">
                         <TopicPreview topicId={item.id} data={previewItem}/>
                     </div>
                 )

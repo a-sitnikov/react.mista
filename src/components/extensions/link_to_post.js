@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 
 import { showTooltip } from '../../actions/tooltips'
 
-import { getMaxPage } from 'src/utils';
+import { getMaxPage, childrenToText } from 'src/utils';
+import { getTopicInfo } from 'src/api'
 
 import type { State } from 'src/reducers'
 import type { DefaultProps } from 'src/components'
@@ -25,20 +26,39 @@ type StateProps = {
 
 type Props = LinkToPostProps & StateProps & DefaultProps;
 
-class LinkToPost extends Component<Props> {
+class LinkToPost extends Component<Props, {text: string}> {
 
-    onMouseOver;
-    onMouseOut;
-    onClick;
-    showToolTip;
     timer;
 
     constructor(props) {
         super(props);
-        this.onMouseOver = this.onMouseOver.bind(this);
-        this.onMouseOut = this.onMouseOut.bind(this);
-        this.onClick = this.onClick.bind(this);
-        this.showToolTip = this.showToolTip.bind(this);
+
+        const { children, number } = this.props;
+        if (children)
+            this.state = {text: childrenToText(children).join('')};
+        else    
+            this.state = {text: String(number)};
+    }
+
+    componentWillReceiveProps(props) {
+        if (!props.children) {
+            this.setState({text: String(props.number)});
+        }
+    }
+
+    componentDidMount() {
+
+        if (this.state.text.startsWith("http")) {
+
+          const { topicId } = this.props;
+          getTopicInfo({id: topicId})
+            .then(response => {
+                this.setState({
+                    text: response.text
+                })
+            });
+
+        }
     }
 
     onMouseOver = (event) => {
@@ -57,7 +77,7 @@ class LinkToPost extends Component<Props> {
         clearTimeout(this.timer);
     }
 
-    showToolTip(e) {
+    showToolTip = (e) => {
         const { topicId, number, dispatch, items, info, isPreview } = this.props;
 
         const coords = {
@@ -84,35 +104,29 @@ class LinkToPost extends Component<Props> {
 
     render() {
 
-        const { topicId, number, style, children, info } = this.props;
+        const { topicId, number, style, info } = this.props;
         const page = getMaxPage(number);
 
         let pageParam = '';
         if (page > 1)
             pageParam = `&page=${page}`;
 
-	    let text;
-        if (children)
-    	    text = children;
-        else
-            text = number;
-
         let a;
-        if (topicId === info.id || !isNaN(text) )
+        if (topicId === info.id || !isNaN(this.state.text) )
             a = (
                 <span
                     onMouseOver={this.onMouseOver}
                     onMouseOut={this.onMouseOut}
                     onClick={this.onClick}
                     style={{ cursor: "pointer", color: "#00C", ...style}}
-                >{text}</span>
+                >{this.state.text}</span>
             )
         else 
             a = (
                 <span>
                     <a href={`${window.hash}/topic.php?id=${topicId}${pageParam}#${number}`}
                         style={{...style}}
-                    >{text}</a>{' '} 
+                    >{this.state.text}</a>{' '} 
                     (<span onMouseOver={this.onMouseOver}
                         onMouseOut={this.onMouseOut}
                         onClick={this.onClick}

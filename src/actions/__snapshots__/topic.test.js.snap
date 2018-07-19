@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Topic.Actions +++ page 1, has item 0 1`] = `
+Object {
+  "info": Object {
+    "answers_count": "50",
+    "id": "1",
+    "text": "Тестовая ветка",
+  },
+  "item0": Object {
+    "id": "0",
+    "n": "0",
+    "text": "Пост 0",
+  },
+  "items": Array [
+    Object {
+      "id": "1",
+      "n": 1,
+      "text": "Пост 1",
+    },
+    Object {
+      "id": "1",
+      "n": 2,
+      "text": "Пост 2",
+    },
+  ],
+  "receivedAt": 1,
+  "type": "RECEIVE_TOPIC",
+}
+`;
+
+exports[`Topic.Actions +++ page 1, no item 0 1`] = `
+Object {
+  "info": Object {
+    "answers_count": "50",
+    "id": "1",
+    "text": "Тестовая ветка",
+  },
+  "item0": Object {
+    "id": "1",
+    "n": 0,
+    "text": "Пост 0",
+  },
+  "items": Array [
+    Object {
+      "id": "1",
+      "n": 1,
+      "text": "Пост 1",
+    },
+  ],
+  "receivedAt": 1,
+  "type": "RECEIVE_TOPIC",
+}
+`;
+
+exports[`Topic.Actions +++ page 2, has item 0 1`] = `
+Object {
+  "info": Object {
+    "answers_count": "50",
+    "id": "1",
+    "text": "Тестовая ветка",
+  },
+  "item0": Object {
+    "id": "0",
+    "n": "0",
+    "text": "Пост 0",
+  },
+  "items": Array [
+    Object {
+      "id": "1",
+      "n": 101,
+      "text": "Пост 101",
+    },
+    Object {
+      "id": "1",
+      "n": 102,
+      "text": "Пост 102",
+    },
+  ],
+  "receivedAt": 1,
+  "type": "RECEIVE_TOPIC",
+}
+`;
+
+exports[`Topic.Actions +++ page 2, no item 0 1`] = `
+Object {
+  "info": Object {
+    "answers_count": "50",
+    "id": "1",
+    "text": "Тестовая ветка",
+  },
+  "item0": Object {
+    "id": "1",
+    "n": 0,
+    "text": "Пост 0",
+  },
+  "items": Array [
+    Object {
+      "id": "1",
+      "n": 101,
+      "text": "Пост 101",
+    },
+    Object {
+      "id": "1",
+      "n": 102,
+      "text": "Пост 102",
+    },
+  ],
+  "receivedAt": 1,
+  "type": "RECEIVE_TOPIC",
+}
+`;
+
+exports[`Topic.Actions +++ page last20, less than 20 answers, no item 0 1`] = `
+Object {
+  "info": Object {
+    "answers_count": "18",
+    "id": "1",
+    "text": "Тестовая ветка",
+  },
+  "item0": Object {
+    "id": "1",
+    "n": 0,
+    "text": "Пост 0",
+  },
+  "items": Array [
+    Object {
+      "id": "1",
+      "n": 1,
+      "text": "Пост 1",
+    },
+  ],
+  "receivedAt": 1,
+  "type": "RECEIVE_TOPIC",
+}
+`;
+
+exports[`Topic.Actions +++ page last20, no item 0 1`] = `
+Object {
+  "info": Object {
+    "answers_count": "50",
+    "id": "1",
+    "text": "Тестовая ветка",
+  },
+  "item0": Object {
+    "id": "1",
+    "n": 0,
+    "text": "Пост 0",
+  },
+  "items": Array [
+    Object {
+      "id": "1",
+      "n": 30,
+      "text": "Пост 30",
+    },
+    Object {
+      "id": "1",
+      "n": 31,
+      "text": "Пост 31",
+    },
+  ],
+  "receivedAt": 1,
+  "type": "RECEIVE_TOPIC",
+}
+`;
