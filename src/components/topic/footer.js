@@ -13,27 +13,18 @@ type FooterProps = {
     dispatch: Dispatch<*>,
     bookmark: any,
     isFetching: boolean,
-    params: any    
+    params: any,
+    nodeRef: any    
 }
 
 class Footer extends React.Component<FooterProps> {
 
-    onRefreshClick;
-    onBookmarkClick;
-
-    constructor(props) {
-        super(props);
-
-        this.onRefreshClick = this.onRefreshClick.bind(this);
-        this.onBookmarkClick = this.onBookmarkClick.bind(this);
-    }
-
-     onBookmarkClick() {
+     onBookmarkClick = () => {
         const { info, dispatch } = this.props;
         dispatch(addBookmark(info));
     }
 
-    onRefreshClick() {
+    onRefreshClick = () => {
         
         const { info, dispatch } = this.props;
         
@@ -46,7 +37,7 @@ class Footer extends React.Component<FooterProps> {
 
     render() {
 
-        const { info, bookmark, isFetching, params } = this.props;
+        const { info, bookmark, isFetching, params, nodeRef } = this.props;
         const maxPage = getMaxPage(info.answers_count);
 
         let updateButton;
@@ -56,7 +47,7 @@ class Footer extends React.Component<FooterProps> {
             <Button onClick={this.onRefreshClick} disabled={bookmark.isFetching} bsSize="sm">{isFetching ? 'Обновляется': 'Обновить ветку'}</Button>
 
         return (
-            <div className="flex-row" >
+            <div className="flex-row" ref={nodeRef}>
                 <div className="ta-left va-top" style={{ width: "50%" }}>
                     <Button onClick={this.onBookmarkClick} disabled={bookmark.isFetching} bsSize="sm">{bookmark.isFetching ? 'Подождите...' : 'Закладка'}</Button>
                 </div>

@@ -23,6 +23,7 @@ import  './topic.css'
 type TopicLocationParams = {
     id: string,
     page?: string,
+    hash?: string
 }
 
 type StateProps = {
@@ -42,20 +43,16 @@ type Props = {
 
 class Topic extends Component<Props> {
 
-    onPostNewMessageSuccess;
-    updateTopic;
-    autoUpdate;
     locationParams: TopicLocationParams;
     location: Location;
     timer;
+    scrolledToHash: boolean;
+    nodeF: any;
 
-    constructor(props) {
-        super(props);
-        this.onPostNewMessageSuccess = this.onPostNewMessageSuccess.bind(this);
-        this.updateTopic = this.updateTopic.bind(this)
-        this.autoUpdate = this.autoUpdate.bind(this)
-        
+    constructor() {
+        super();
         this.locationParams = {id: ''};
+        this.scrolledToHash = false;
     }
 
     componentDidMount() {
@@ -71,6 +68,18 @@ class Topic extends Component<Props> {
             this.timer = setInterval(this.autoUpdate, autoRefreshTopicInterval * 1000);
         }
         
+    }
+
+    componentDidUpdate() {
+        const { location, items } = this.props;
+        if (!this.scrolledToHash && 
+            location.hash &&
+            items.length > 0){
+
+            this.scrolledToHash = true;
+            //window.scrollTo(0, this.nodeF.offsetTop);
+            setTimeout(() => window.scrollTo(0, this.nodeF.offsetTop), 1);
+        }
     }
 
     componentWillUnmount() {
@@ -97,7 +106,7 @@ class Topic extends Component<Props> {
         }
     }
     
-    autoUpdate() {
+    autoUpdate = () => {
         const { info, fetchNewMessagesIfNeeded } = this.props;
         const isLastPage = (this.locationParams.page === 'last20' || this.locationParams.page === getMaxPage(+info.answers_count));
 
@@ -108,7 +117,7 @@ class Topic extends Component<Props> {
             })
     }
 
-    updateTopic() {
+    updateTopic = () => {
        
         let { fetchTopicIfNeeded, item0 } = this.props;
         let locationParams = queryString.parse(this.location.search);
@@ -129,7 +138,7 @@ class Topic extends Component<Props> {
         fetchTopicIfNeeded(this.locationParams, item0);
     }
 
-    onPostNewMessageSuccess() {
+    onPostNewMessageSuccess = () => {
 
         const { fetchNewMessagesIfNeeded, info } = this.props;
 
@@ -173,9 +182,9 @@ class Topic extends Component<Props> {
                         </div>                    
                     }
                 </div>
-                <Footer params={this.locationParams} />
+                <Footer params={this.locationParams} nodeRef={node => this.nodeF = node}/>
                 {login.logged &&
-                <NewMessage onSubmitSuccess={this.onPostNewMessageSuccess} />
+                <NewMessage onSubmitSuccess={this.onPostNewMessageSuccess}/>
                 }
             </div>
         )
