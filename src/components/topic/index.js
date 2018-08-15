@@ -71,9 +71,9 @@ class Topic extends Component<Props> {
     }
 
     componentDidUpdate() {
-        const { location, items } = this.props;
+        const { location: {hash}, items } = this.props;
         if (!this.scrolledToHash && 
-            location.hash &&
+            hash &&
             items.length > 0){
 
             this.scrolledToHash = true;

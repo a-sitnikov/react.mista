@@ -26,7 +26,10 @@ class Tooltip extends Component<Props> {
         dispatch(closeTooltip(tooltip.keys));
     }
     
-    onMouseUp = () => {
+    onMouseUp = (e) => {
+        if (e.nativeEvent.which === 3) //right click
+            return;
+            
         const { dispatch, tooltip } = this.props;
         if (window.getSelection().type === 'Caret')
             dispatch(closeTooltip(tooltip.keys));
