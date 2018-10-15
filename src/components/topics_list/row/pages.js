@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import { getMaxPage } from 'src/utils'
 
@@ -11,19 +12,19 @@ const Pages = (props) => {
     if (answ > 100) {
         let maxPage = getMaxPage(answ);
         for (let i = 1; i <= maxPage; i++) {
-            let href = `${window.hash}/topic.php?id=${topicId}&page=${i}`;
+            let href = `/topic.php?id=${topicId}&page=${i}`;
             let text;
             if (i > 3 && i < maxPage)
                 text = '•';
             else
                 text = i;
-            pages.push(<a key={i}  className="agh" style={{ margin: "3px" }} href={href}>{text}</a>);
+            pages.push(<Link key={i}  className="agh" style={{ margin: "3px" }} to={href}>{text}</Link>);
         }
     }
 
     if (answ > 20) {
-        let href = `${window.hash}/topic.php?id=${topicId}&page=last20#F`;
-        pages.push(<a key="last20" className="agh" style={{ margin: "3px" }} href={href}>»</a>);
+        let href = `/topic.php?id=${topicId}&page=last20#F`;
+        pages.push(<Link key="last20" className="agh" style={{ margin: "3px" }} to={href}>»</Link>);
     }
 
     return (

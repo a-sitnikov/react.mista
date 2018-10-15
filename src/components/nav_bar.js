@@ -29,13 +29,18 @@ class NavBar extends Component {
             { name: 'IT', link: `${window.hash}/index.php?forum=IT` },
             { name: 'JOB', link: `${window.hash}/index.php?forum=JOB` },
             { name: 'LIFE', link: `${window.hash}/index.php?forum=LIFE` },
-            { name: 'Wiki', link: 'http://wiki.mista.ru' },
-            { name: 'Книга знаний', link: 'http://kb.mista.ru' },
+            { name: 'Wiki', link: 'https://wiki.mista.ru' },
+            { name: 'Книга знаний', link: 'https://kb.mista.ru' },
         ];
 
         const menuItems = menu.map((item, i) => {
             return (
-                <NavItem key={i} href={item.link}>{item.name}</NavItem>
+                <NavItem 
+                    key={i} 
+                    href={item.link}
+                >
+                {item.name}
+                </NavItem>
             )
         });
         

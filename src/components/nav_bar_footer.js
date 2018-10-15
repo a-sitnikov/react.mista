@@ -15,7 +15,7 @@ const NavBarFooter = (props) => {
             <noindex>
                 <a rel="nofollow" href="https://www.forum.mista.ru/sections_list.php" >Секции</a>
                 <span className="separator">|</span>
-                <a rel="nofollow" href="https://www.forum.mista.ru/sections_list.php">Рейтинг</a>
+                <a rel="nofollow" href="https://www.forum.mista.ru/rating.php">Рейтинг</a>
                 <span className="separator">|</span>
                 <a href="http://kb.mista.ru">Книга знаний</a>
                 <span className="separator">|</span>

@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
+import { Link } from 'react-router-dom'
 
 import type { ResponseTopicsListItem } from 'src/api'
 import type { State } from 'src/reducers'
@@ -34,7 +35,7 @@ class TopicNameCell extends Component<Props> {
 
         const { data, login } = this.props;
 
-        let href = `${window.hash}/topic.php?id=${data.id}`;
+        let href = `/topic.php?id=${data.id}`;
         let classes = classNames('agb', 'mr5', {
             'bold': data.answ >= 100,
             'mytopics': data.user0 === login.username
@@ -45,14 +46,14 @@ class TopicNameCell extends Component<Props> {
             isVoting = <span className="agh separator">[±]</span>
         }
 
-        let sectionHref = `${window.hash}/index.php?section=${data.sect2}`;
+        let sectionHref = `/index.php?section=${data.sect2}`;
         let section;
 
         if (data.sect1) {
             section = (
             <span className="topic-section">
                 <span className="agh" style={{margin: "0px 5px"}}>/</span>
-                <a key="1" rel="nofollow" className="agh" href={sectionHref} >{data.sect1}</a>
+                <Link key="1" rel="nofollow" className="agh" to={sectionHref} >{data.sect1}</Link>
             </span>    
             )
         }
@@ -73,7 +74,7 @@ class TopicNameCell extends Component<Props> {
 
         return (
             <div className="cell-title">
-                <a href={href} className={classes} dangerouslySetInnerHTML={{ __html: text }}></a>
+                <Link to={href} className={classes} dangerouslySetInnerHTML={{ __html: text }}></Link>
                 {isVoting}
                 <Pages answ={data.answ} topicId={data.id} />
                 {closed}
