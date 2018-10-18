@@ -82,7 +82,7 @@ class NewTopic extends Component<Props> {
             return;
         }
 
-        let subject = this.refs.subject.value; 
+        let subject = newTopic.subject; 
         if (!subject) {
             action = {
                 type: 'POST_NEW_TOPIC_ERROR',

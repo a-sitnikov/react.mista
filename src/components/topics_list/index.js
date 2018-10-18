@@ -17,6 +17,7 @@ import Header from './header'
 import Row from './row'
 import Pages from 'src/components/common/pages'
 import NewTopic from './new_topic'
+import Error from 'src/components/common/error'
 
 import TopicPreview from 'src/components/extensions/topic_preview'
 
@@ -118,6 +119,7 @@ class TopicsList extends Component<Props> {
         return (
             <div>
                 <Header history={this.props.history} />
+                {topicsList.error && (<Error text={topicsList.error} />)}
                 <div className="table">
                     <div className="th">
                         <div>Раздел</div>

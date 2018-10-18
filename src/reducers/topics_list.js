@@ -33,7 +33,7 @@ const topicsList = (state: TopicsListState = defaultTopicsListState, action: Top
             return {
                 ...state,
                 isFetching: false,
-                eror: action.error,
+                error: action.error,
                 lastUpdated: action.receivedAt
             }
         default:

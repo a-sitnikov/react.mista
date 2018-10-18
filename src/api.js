@@ -1,7 +1,7 @@
 //@flow
 import fetchJsonp from 'fetch-jsonp'
 
-export const domain = 'https://www.forum.mista.ru';
+export const domain = localStorage.getItem('domain') || 'https://www.forum.mista.ru';
 //export const domain = 'https://dev.mista.ru';
 export const urlTopicsList    = 'api/topic.php';
 export const urlTopicInfo     = 'ajax_gettopic.php';
