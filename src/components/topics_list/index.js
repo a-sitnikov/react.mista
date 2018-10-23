@@ -51,23 +51,15 @@ class TopicsList extends Component<Props> {
 
     componentDidMount() {
 
-        let { location, autoRefreshTopicsList, autoRefreshTopicsListInterval } = this.props;
+        let { location } = this.props;
 
         this.location = location;
         this.updateTopicsList();
         
-        if (autoRefreshTopicsList === 'true') {
-            
-            autoRefreshTopicsListInterval = +autoRefreshTopicsListInterval;
-            if (autoRefreshTopicsListInterval < 60) autoRefreshTopicsListInterval = 60;
-
-            this.timer = setInterval(this.updateTopicsList, autoRefreshTopicsListInterval * 1000);
-        }
-        
     }
     
     componentWillUnmount() {
-        clearInterval(this.timer);
+        clearTimeout(this.timer);
     }
 
     componentWillReceiveProps(props: Props) {
@@ -88,9 +80,19 @@ class TopicsList extends Component<Props> {
     updateTopicsList = () => {
         
         const { fetchTopicsListIfNeeded } = this.props;       
+        let { autoRefreshTopicsList, autoRefreshTopicsListInterval } = this.props;
 
         this.locationParams = queryString.parse(this.location.search);
         fetchTopicsListIfNeeded(this.locationParams);
+
+        if (autoRefreshTopicsList === 'true') {
+            
+            autoRefreshTopicsListInterval = +autoRefreshTopicsListInterval;
+            if (autoRefreshTopicsListInterval < 60) autoRefreshTopicsListInterval = 60;
+
+            clearTimeout(this.timer);
+            this.timer = setTimeout(this.updateTopicsList, autoRefreshTopicsListInterval * 1000);
+        }        
     }
 
     onPostNewTopicSuccess = () => {

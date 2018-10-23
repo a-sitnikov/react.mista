@@ -252,7 +252,7 @@ class Options extends Component<OptionsState> {
                             <Checkbox 
                                 key={name}
                                 name={name} 
-                                checked={Boolean(value)}
+                                checked={String(value) === 'true'}
                                 onChange={(e) => this.onChange(e, name, e.target.checked)}
                                 style={{flex: "0 0 auto", margin: "0px"}}
                             >
