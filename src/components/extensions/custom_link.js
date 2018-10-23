@@ -60,7 +60,13 @@ class CustomLink extends Component<Props> {
         const { href, children, parentText, 
             showTooltipOnPostLink, showYoutubeVideoTitle, replaceCatalogMista, fixBrokenLinks } = this.props;
 
-        let url = new URL(href, true);
+        try {
+            var url = new URL(href, true);
+        } catch(error) {
+            console.error(error.message, href);
+            return <a href={href}>{href}</a>;
+        }
+
 
         let newHref = href;
         if (newHref.startsWith('/') ) {
