@@ -31,6 +31,7 @@
     border: 1px solid #CCC;
     text-align: center;
     position: relative;
+    margin-left: auto;
 }
 
 .tooltip-close-x {

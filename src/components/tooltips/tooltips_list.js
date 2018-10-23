@@ -22,9 +22,12 @@ class TooltipsList extends Component<Props> {
 
         return (
             <div>
-                {items.map((item, i) => (
-                    <Tooltip key={item.hash} tooltip={item} />
-                ))}
+                {items.map((item, i) => {
+                    return (
+                        <Tooltip key={item.hash} tooltip={item}>
+                        </Tooltip>
+                    )}
+                )}
             </div>
         )
     }

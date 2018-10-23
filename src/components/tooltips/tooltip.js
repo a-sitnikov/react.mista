@@ -6,6 +6,9 @@ import Draggable from 'react-draggable';
 
 import MsgText from '../topic/row/msg_text'
 import UserInfo from '../topic/row/user_info';
+
+import TooltipHeader from './tooltip_header'
+import TooltipBody from './tooltip_body'
 import './tooltip.css'
 
 import { closeTooltip, changeTooltipData } from 'src/actions/tooltips'
@@ -22,6 +25,7 @@ type Props = TooltipProps & DefaultProps;
 class Tooltip extends Component<Props> {
 
     onCloseClick = () => {
+        console.log(111);
         const { dispatch, tooltip } = this.props;
         dispatch(closeTooltip(tooltip.keys));
     }
@@ -55,7 +59,7 @@ class Tooltip extends Component<Props> {
         let userInfo;
         if (!data.text) {
             data.text = `Сообщение не найдено: ${keys.number}`;
-            userInfo = <b style={{flex: "1"}}>Заголовок</b>
+            userInfo = <b>Заголовок</b>
         } else {
             userInfo = <UserInfo data={data} isAuthor={false}/>
         }   
@@ -79,15 +83,12 @@ class Tooltip extends Component<Props> {
                     key={i}>
 
                     <div className="tooltip-window" style={{ ...position }} onWheel={this.onWheel}>
-                        <div className="tooltip-header">
+                        <TooltipHeader onCloseClick={this.onCloseClick}>
                             {userInfo}
-                            <div className="tooltip-close" onClick={this.onCloseClick}>
-                                <span className="tooltip-close-x">x</span>
-                            </div>
-                        </div>
-                        <div className="tooltip-text" onMouseUp={this.onMouseUp} >
+                        </TooltipHeader>
+                        <TooltipBody>
                             <MsgText data={data} topicId={keys.topicId} style={{maxHeight: "550px", overflowY: "auto"}} />
-                        </div>
+                        </TooltipBody>
                     </div>
                 </Draggable>
             )
