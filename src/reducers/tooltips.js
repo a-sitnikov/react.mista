@@ -31,7 +31,8 @@ const tooltips = (state: TooltipsState = defaultTooltipsState, action: TooltipsA
                     keys: action.keys,
                     hash,
                     coords: action.coords,
-                    data: action.data
+                    data: action.data,
+                    error: null
                 });
             else {   
                 tooltip.coords = action.coords;

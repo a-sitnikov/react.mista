@@ -48,7 +48,7 @@ class Tooltip extends Component<Props> {
 
         if (!this.data) {
             dispatch(loadTooltipData(tooltip.keys, tooltip.keys.number));
-            this.text = "Сообщение загружается";
+            //this.text = "Сообщение загружается";
         }
     }    
 
@@ -87,7 +87,7 @@ class Tooltip extends Component<Props> {
 
         let header;
         if (!this.data) {
-            header = <b>Заголовок</b>
+            //header = <b>Заголовок</b>
         } else {
             header = <UserInfo data={data} isAuthor={false}/>
         }   
