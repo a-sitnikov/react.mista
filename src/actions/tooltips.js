@@ -18,7 +18,8 @@ export type Coords = {
 export type TooltipItem = {
     keys: TooltipKeys,
     coords: Coords,
-    data: any
+    data: any,
+    error: ?string
 }
 
 export type CREATE_TOOLTIP = {
@@ -34,8 +35,8 @@ export type CLOSE_TOOLTIP = {
     keys: TooltipKeys
 }
 
-export type CHANGE_TOOLTIP_DATA = {
-    type: 'CHANGE_TOOLTIP_DATA',
+export type LOAD_TOOLTIP_DATA = {
+    type: 'LOAD_TOOLTIP_DATA',
     keys: TooltipKeys,
     data: any,
     number: number
@@ -48,49 +49,48 @@ export const showTooltip = (keys: TooltipKeys, coords: Coords, data: any) => asy
 
     if (keys.type === 'TOPIC' || keys.type === 'TOPIC_PREVIEW' ) {
 
-        if (!data) {
-            const json = await API.getTopicMessages({
-                id: keys.topicId,
-                from: +keys.number,
-                to: +keys.number + 1
-            });
-            if (json.length > 0)
-                data = json.find(val => val.n === String(keys.number));
-
-            if (!data)
-                data = {}
-        }
         const action: CREATE_TOOLTIP = {
             type: 'CREATE_TOOLTIP',
             keys,
             coords,
-            data
+            data: null,
+            error: null
         }
         dispatch(action);
 
     }
 }
 
-export const changeTooltipData = (keys: TooltipKeys, number: number) => async (dispatch: any) => {
+export const loadTooltipData = (keys: TooltipKeys, number: number) => async (dispatch: any) => {
     
     if (number < 0) return;
 
-    const json = await API.getTopicMessages({
-        id: keys.topicId,
-        from: number,
-        to: number + 1
-    });
-    let data;
-    if (json.length > 0) {
-        data = json.find(val => val.n === String(number));
-    } else
-        data = {};
 
-    const action: CHANGE_TOOLTIP_DATA = {
-        type: 'CHANGE_TOOLTIP_DATA',
+    let data;
+    let error;
+
+    try {
+        const json = await API.getTopicMessages({
+            id: keys.topicId,
+            from: number,
+            to: number + 1
+        });
+        if (json.length > 0) {
+            data = json.find(val => val.n === String(number));
+        } else {
+            data = null;
+            error = `Сообщение не найдено: ${keys.number}`;
+        }    
+    } catch(e) {
+        error = e.message;
+    }
+
+    const action: LOAD_TOOLTIP_DATA = {
+        type: 'LOAD_TOOLTIP_DATA',
         keys,
         data,
-        number
+        number,
+        error
     }
 
     dispatch(action);

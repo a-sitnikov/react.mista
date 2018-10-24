@@ -11,7 +11,7 @@ import TooltipHeader from './tooltip_header'
 import TooltipBody from './tooltip_body'
 import './tooltip.css'
 
-import { closeTooltip, changeTooltipData } from 'src/actions/tooltips'
+import { closeTooltip, loadTooltipData } from 'src/actions/tooltips'
 
 import type { DefaultProps } from 'src/index'
 import type { TooltipItemState } from 'src/reducers/tooltips'
@@ -23,20 +23,50 @@ type TooltipProps = {
 type Props = TooltipProps & DefaultProps;
 
 class Tooltip extends Component<Props> {
+    
+    data: any;
+    text: string;
 
-    onCloseClick = () => {
-        console.log(111);
-        const { dispatch, tooltip } = this.props;
-        dispatch(closeTooltip(tooltip.keys));
+    componentWillMount() {
+        const { tooltip, info, items, item0 } = this.props;
+
+        this.text = '';
+        if (tooltip.keys.topicId === info.id) {
+            if (String(tooltip.keys.number) === "0")
+                this.data = item0;
+            else
+                this.data = items.find(item => item.n === String(tooltip.keys.number));
+
+            if (this.data)
+                this.text = this.data.text;
+        }
+    }
+
+    componentDidMount() {
+
+        const { tooltip, dispatch } = this.props;
+
+        if (!this.data) {
+            dispatch(loadTooltipData(tooltip.keys, tooltip.keys.number));
+            this.text = "Сообщение загружается";
+        }
+    }    
+
+    componentWillReceiveProps(props) {
+
+        if (props.tooltip.error) {
+            this.data = props.tooltip.data;
+            this.text = props.tooltip.error;      
+
+        } else if (props.tooltip.data) {
+            this.data = props.tooltip.data;
+            this.text = this.data.text;      
+        }    
     }
     
-    onMouseUp = (e) => {
-        if (e.nativeEvent.which === 3) //right click
-            return;
-            
+    onCloseClick = () => {
         const { dispatch, tooltip } = this.props;
-        if (window.getSelection().type === 'Caret')
-            dispatch(closeTooltip(tooltip.keys));
+        dispatch(closeTooltip(tooltip.keys));
     }
 
     onWheel = (e) => {
@@ -46,22 +76,20 @@ class Tooltip extends Component<Props> {
         
         e.preventDefault();
         if (e.nativeEvent.deltaY > 0) {
-            dispatch(changeTooltipData(keys, keys.number + 1))
+            dispatch(loadTooltipData(keys, keys.number + 1))
         } else {
-            dispatch(changeTooltipData(keys, keys.number - 1))
+            dispatch(loadTooltipData(keys, keys.number - 1))
         }
     }
 
     render() {
+       const { keys, data, coords, i } = this.props.tooltip;
 
-        const { keys, data, coords, i } = this.props.tooltip;
-
-        let userInfo;
-        if (!data.text) {
-            data.text = `Сообщение не найдено: ${keys.number}`;
-            userInfo = <b>Заголовок</b>
+        let header;
+        if (!this.data) {
+            header = <b>Заголовок</b>
         } else {
-            userInfo = <UserInfo data={data} isAuthor={false}/>
+            header = <UserInfo data={data} isAuthor={false}/>
         }   
 
         let axis;
@@ -84,15 +112,34 @@ class Tooltip extends Component<Props> {
 
                     <div className="tooltip-window" style={{ ...position }} onWheel={this.onWheel}>
                         <TooltipHeader onCloseClick={this.onCloseClick}>
-                            {userInfo}
+                            {header}
                         </TooltipHeader>
                         <TooltipBody>
-                            <MsgText data={data} topicId={keys.topicId} style={{maxHeight: "550px", overflowY: "auto"}} />
+                            <MsgText 
+                                data={this.data} 
+                                html={this.text} 
+                                topicId={keys.topicId} 
+                                style={{maxHeight: "550px", overflowY: "auto"}} 
+                            />
                         </TooltipBody>
                     </div>
                 </Draggable>
             )
     }
 }
+const mapStateToProps = (state) => {
 
-export default connect()(Tooltip);
+    const {
+        info,
+        items,
+        item0
+    } = state.topic;
+
+    return {
+        info,
+        items,
+        item0
+    }
+}
+
+export default connect(mapStateToProps)(Tooltip);

@@ -8,6 +8,7 @@ import LinkToPost from 'src/components/extensions/link_to_post'
 import CustomLink from 'src/components/extensions/custom_link'
 
 import VoteChart from './vote_chart'
+import Vote from './vote'
 
 import type { ResponseInfo, ResponseMessage } from 'src/api'
 import type { DefaultProps } from 'src/components/index'
@@ -15,6 +16,9 @@ import type { State } from 'src/reducers'
 
 type MsgTextProps = {
     topicId: string,
+    n: string,
+    html: string,
+    vote: number,
     data: ResponseMessage,
     style: {}
 }
@@ -69,30 +73,27 @@ class MsgText extends Component<Props> {
     }
 
     render() {
-        const { topicId, data, info, style, voteColors } = this.props;
+        const { topicId, n, html, vote, info, style, voteColors } = this.props;
 
         let voteElement;
-        if (data.vote && info.voting && topicId === info.id) {
-            let voteOption = info.voting[data.vote - 1];
+        if (vote && info.voting && topicId === info.id) {
+            let voteOption = info.voting[vote - 1];
             if (voteOption)
-                voteElement =
-                    <div style={{marginTop: "5px"}}>
-                        <b><span style={{ color: voteColors[data.vote-1] }}>{`${data.vote}. ${voteOption.select}`}</span></b>
-                    </div>
+                voteElement = <Vote info={info.voting} vote={vote} colors={voteColors}/>
         }
 
         let voteChart;
-        if (data.n === "0" && info.is_voting === 1 && info.voting) {
-            voteChart = <VoteChart items={info.voting} topicId={data.id} colors={voteColors} />
+        if (n === "0" && info.is_voting === 1 && info.voting) {
+            voteChart = <VoteChart items={info.voting} topicId={topicId} colors={voteColors} />
         }
 
-        let text = this.processText(data.text);
+        let processedHtml = this.processText(html);
         const componentsMap = {
             link: props => <LinkToPost topicId={props['data-topicid']} number={props['data-number']}  key={props.key}/>,
             code: props => <Code {...props} />,
-            a: props => <CustomLink {...props} parentText={text}/>
+            a: props => <CustomLink {...props} parentText={processedHtml}/>
         };
-        let textComponent = activeHtml(text, componentsMap);
+        let textComponent = activeHtml(processedHtml, componentsMap);
 
         return (
             <div className="message" style={{...style }}>

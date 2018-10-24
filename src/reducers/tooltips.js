@@ -57,7 +57,7 @@ const tooltips = (state: TooltipsState = defaultTooltipsState, action: TooltipsA
                     ...state,
                     items: []
                 }
-        case 'CHANGE_TOOLTIP_DATA':
+        case 'LOAD_TOOLTIP_DATA':
             
             items = state.items.slice();
             hash = JSON.stringify(action.keys);
@@ -67,6 +67,7 @@ const tooltips = (state: TooltipsState = defaultTooltipsState, action: TooltipsA
                 tooltip.keys.number = action.number;
                 tooltip.hash = JSON.stringify(tooltip.keys);
                 tooltip.data = action.data;
+                tooltip.error = action.error
                 items[i] = tooltip;
             }
             

@@ -36,7 +36,7 @@ class Row extends Component<Props> {
                     <UserInfo data={data} isAuthor={data.user === author} isYou={data.user === login.username}/>
                 </div>
                 <div className="cell-message">
-                    <MsgText data={data} topicId={topicId}/>
+                    <MsgText data={data} html={data.text} topicId={topicId} n={data.n}/>
                 </div>
             </div>
         )
