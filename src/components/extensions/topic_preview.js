@@ -104,7 +104,7 @@ class TopicPreview extends Component<Props> {
                     <b style={{margin: "auto 5px"}}>{data.user}</b>
                     <span className="agh">{dateFormat(date, 'dd.mm.yy - HH:MM')}</span>
                 </div>
-                <MsgText data={data} topicId={topicId} style={{maxHeight: "500px", overflowY: "auto", overflowWrap: "break-word"}}/>
+                <MsgText data={data} html={data.text} topicId={topicId} style={{maxHeight: "500px", overflowY: "auto", overflowWrap: "break-word"}}/>
             </div>
         )    
     }
