@@ -98,13 +98,17 @@ export const doLogout = (params: any) => async (dispatch: any) => {
         type: 'LOGOUT_START'
     });
 
-    API.getLogout();
+    try {
+        API.getLogout();
+    } catch(e) {
+        
+        dispatch({
+            type: 'LOGOUT_COMPLETE'
+        });
 
-    dispatch({
-        type: 'LOGOUT_COMPLETE'
-    });
+        checkLogin();
 
-    checkLogin();
+    }    
 
 }
 
@@ -120,11 +124,19 @@ export const doLogin = (params: RequestLogin) => async (dispatch: any) => {
         })
         if (!json.error) {
             dispatch(loginComplete(json));
+        } else {
+            dispatch({
+                type: "LOGIN_FAILED",
+                error: 'ОШИБКА: Вход не выполнен! Возможно указан неверный пароль.'
+                });            
         }
-        dispatch(loginComplete(json));
 
     } catch (err) {
         console.error('Login error :', err);
+            dispatch({
+                type: "LOGIN_FAILED",
+                error: err.message
+                });           
     }
 
 }

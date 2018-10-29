@@ -27,12 +27,14 @@ const login = (state: LoginState = defaultLoginState, action: LoginAction) => {
                 ...state,
                 isFetching: false,
                 logged: true,
+                error: null,
                 ...action.data
             }
          case 'LOGIN_FAILED':
             return {
                 isFetching: false,
                 logged: false,
+                error: action.error
             }
         case 'LOGOUT_COMPLETE':
             return {

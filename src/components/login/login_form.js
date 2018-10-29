@@ -17,16 +17,10 @@ type Props = LoggedUserProps & DefaultProps;
 
 class LoginForm extends Component<Props> {
 
-    onLogin;
     username: any;
     password: any;
 
-    constructor(props) {
-        super(props);
-        this.onLogin = this.onLogin.bind(this);
-    }
-
-    onLogin(event) {
+    onLogin = (event) => {
 
         event.preventDefault();
 
@@ -41,6 +35,8 @@ class LoginForm extends Component<Props> {
     }
 
     render() {
+
+        const { error } = this.props;;
 
         return (
             <div>
@@ -69,10 +65,14 @@ class LoginForm extends Component<Props> {
                 <a rel="nofollow" href="https://www.forum.mista.ru/user_registration.php">Регистрация</a>
                 <span style={{ margin: "5px" }}>|</span>
                 <a rel="nofollow" href="https://www.forum.mista.ru/remember_password.php">Забыли пароль?</a>
-                {this.props.error && <ErrorElem text={'ОШИБКА: Вход не выполнен! Возможно указан неверный пароль.'} />}
+                {error && <ErrorElem text={error} />}
             </div>
         )
     }
 }
 
-export default connect()(LoginForm);
+const mapStateToProps = (state: State): LoginState => {
+    return state.login;
+}
+
+export default connect(mapStateToProps)(LoginForm);

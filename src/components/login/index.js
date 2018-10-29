@@ -21,13 +21,13 @@ class Login extends Component<Props> {
 
     render() {
 
-        const { logged, userid, username, error, dispatch } = this.props;
+        const { logged, userid, username, dispatch } = this.props;
 
         let elem;
         if (logged === true) 
             elem = <LoggedUser dispatch={dispatch} userId={userid} userName={username} />
         else if (logged === false)
-            elem = <LoginForm dispatch={dispatch} error={error}/> 
+            elem = <LoginForm /> 
         else 
             elem = null;   
 
