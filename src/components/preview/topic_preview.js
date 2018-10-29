@@ -1,7 +1,6 @@
 //@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import dateFormat from 'dateformat'
 
 import { fetchTopicPreviewText } from 'src/actions/topic_preview'
 
@@ -9,6 +8,7 @@ import MsgText from 'src/components/topic/row/msg_text'
 import type { DefaultProps } from 'src/components'
 import type { ResponseMessage } from 'src/api'
 
+import PreviewHeader from './preview_header'
 import './topic_preview.css'
 
 type TopicPreviewProps = {
@@ -19,17 +19,6 @@ type TopicPreviewProps = {
 type Props = TopicPreviewProps & DefaultProps;
 
 class TopicPreview extends Component<Props> {
-
-    onClickNext;
-    onClickPrev;
-    onClickFirst;
-
-    constructor(props) {
-        super(props);
-        this.onClickNext = this.onClickNext.bind(this);
-        this.onClickPrev = this.onClickPrev.bind(this);
-        this.onClickFirst = this.onClickFirst.bind(this);
-    }
 
     componentDidMount() {
         const { dispatch, topicId, data } = this.props;
@@ -58,7 +47,7 @@ class TopicPreview extends Component<Props> {
             }));
     }
 
-    onClickFirst() {
+    onClickFirst = () => {
         const { dispatch, topicId, data } = this.props;
         if (data) 
             dispatch(fetchTopicPreviewText({
@@ -67,7 +56,7 @@ class TopicPreview extends Component<Props> {
             }));
     }
     
-    onClickNext() {
+    onClickNext = () => {
         const { dispatch, topicId, data } = this.props;
         if (data) 
             dispatch(fetchTopicPreviewText({
@@ -76,7 +65,7 @@ class TopicPreview extends Component<Props> {
             }));
     }
     
-    onClickPrev() {
+    onClickPrev = () => {
         const { dispatch, topicId, data } = this.props;
         if (data && +data.n > 0) 
             dispatch(fetchTopicPreviewText({
@@ -90,21 +79,24 @@ class TopicPreview extends Component<Props> {
         if (data === undefined)
             return null;
 
-        let n = data.n;
-        let date = new Date(+data.utime*1000);
-
         return (
             <div className="topic-preview">
-                <div>
-                    <span className="plus-nav" onClick={this.onClickFirst}>[← </span>
-                    <span className="plus-nav" onClick={this.onClickPrev}> « </span>
-                    <a className="plus-nav" title={`Перейти к сообщению ${n}`} href={`${window.hash}/topic.php?id=${topicId}#${n}`}>{n}</a>
-                    <span className="plus-nav" onClick={this.onClickNext}> » </span>
-                    <span className="plus-nav"> →]</span>
-                    <b style={{margin: "auto 5px"}}>{data.user}</b>
-                    <span className="agh">{dateFormat(date, 'dd.mm.yy - HH:MM')}</span>
-                </div>
-                <MsgText data={data} html={data.text} topicId={topicId} style={{maxHeight: "500px", overflowY: "auto", overflowWrap: "break-word"}}/>
+                <PreviewHeader 
+                    user={data.user}
+                    utime={+data.utime}
+                    topicId={topicId}
+                    n={data.n}
+                    onFirst={this.onClickFirst}
+                    onLast={this.onClickFirst}
+                    onNext={this.onClickNext}
+                    onPrev={this.onClickPrev}
+                />
+                <MsgText 
+                    data={data} 
+                    html={data.text} 
+                    topicId={topicId} 
+                    style={{maxHeight: "500px", overflowY: "auto", overflowWrap: "break-word"}}
+                />
             </div>
         )    
     }

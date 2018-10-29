@@ -29,6 +29,8 @@ const tooltips = (state: TooltipsState = defaultTooltipsState, action: TooltipsA
                 items.push({
                     i: 0,
                     keys: action.keys,
+                    topicId: action.keys.topicId,
+                    number: action.keys.number,
                     hash,
                     coords: action.coords,
                     data: action.data,
@@ -58,24 +60,6 @@ const tooltips = (state: TooltipsState = defaultTooltipsState, action: TooltipsA
                     ...state,
                     items: []
                 }
-        case 'LOAD_TOOLTIP_DATA':
-            
-            items = state.items.slice();
-            hash = JSON.stringify(action.keys);
-            let i = items.findIndex(val => val.hash === hash);
-            if (i !== -1) {
-                tooltip = Object.assign({}, items[i]);
-                tooltip.keys.number = action.number;
-                tooltip.hash = JSON.stringify(tooltip.keys);
-                tooltip.data = action.data;
-                tooltip.error = action.error
-                items[i] = tooltip;
-            }
-            
-            return {
-                ...state,
-                items
-            }
 
         default:
             return state

@@ -19,7 +19,7 @@ import Pages from 'src/components/common/pages'
 import NewTopic from './new_topic'
 import Error from 'src/components/common/error'
 
-import TopicPreview from 'src/components/extensions/topic_preview'
+import TopicPreview from 'src/components/preview/topic_preview'
 
 import './topics_list.css'
 

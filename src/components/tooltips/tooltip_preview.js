@@ -7,10 +7,12 @@ import * as API from 'src/api'
 import MsgText from '../topic/row/msg_text'
 import UserInfo from '../topic/row/user_info';
 
-import TooltipWindow from './tooltip_window'
+import Tooltipwindow from './tooltip_window'
 import TooltipHeader from './tooltip_header'
 import TooltipBody from './tooltip_body'
 import './tooltip.css'
+
+import { closeTooltip } from 'src/actions/tooltips'
 
 import type { DefaultProps } from 'src/index'
 import type { TooltipItemState } from 'src/reducers/tooltips'
@@ -23,7 +25,7 @@ type TooltipProps = {
 
 type Props = TooltipProps & DefaultProps;
 
-class Tooltip extends Component<Props> {
+class TooltipPreview extends Component<Props> {
     
     data: any;
     text: string;
@@ -89,6 +91,11 @@ class Tooltip extends Component<Props> {
             this.fetchData(this.state.number);
 
     }    
+    
+    onCloseClick = () => {
+        const { dispatch, tooltip } = this.props;
+        dispatch(closeTooltip(tooltip.keys));
+    }
 
     onWheel = (e) => {
         const { keys } = this.props.tooltip;
@@ -117,8 +124,8 @@ class Tooltip extends Component<Props> {
 
         if (keys.type === 'TOPIC' || keys.type === 'TOPIC_PREVIEW') 
             return (
-                <TooltipWindow tooltip={this.props.tooltip} onWheel={this.onWheel}>
-                    <TooltipHeader>
+                <Tooltipwindow tooltip={this.props.tooltip} onWheel={this.onWheel}>
+                    <TooltipHeader onCloseClick={this.onCloseClick}>
                         {header}
                     </TooltipHeader>
                     <TooltipBody>
@@ -129,7 +136,7 @@ class Tooltip extends Component<Props> {
                             style={{maxHeight: "550px", overflowY: "auto"}} 
                         />
                     </TooltipBody>
-                </TooltipWindow>
+                </Tooltipwindow>
                 /*}
                 <Draggable
                     axis={axis}
@@ -170,4 +177,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Tooltip);
+export default connect(mapStateToProps)(TooltipPreview);

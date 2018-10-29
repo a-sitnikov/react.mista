@@ -42,10 +42,6 @@ class LoginForm extends Component<Props> {
 
     render() {
 
-        let errorElem;
-        if (this.props.error)
-            errorElem = <ErrorElem text={'ОШИБКА: Вход не выполнен! Возможно указан неверный пароль.'} />;
-
         return (
             <div>
                 <form name="enterform" className="flex-row" style={{flexWrap: "wrap"}}>
@@ -70,12 +66,10 @@ class LoginForm extends Component<Props> {
                     </ButtonGroup>
                 </form>
                 <p style={{margin: "0px"}}>Войти можно на сайте <a href="https://www.forum.mista.ru/">forum.mista.ru</a></p>
-                <noindex>
-                    <a rel="nofollow" href="https://www.forum.mista.ru/user_registration.php">Регистрация</a>
-                    <span style={{ margin: "5px" }}>|</span>
-                    <a rel="nofollow" href="https://www.forum.mista.ru/remember_password.php">Забыли пароль?</a>
-                </noindex>
-                {errorElem}
+                <a rel="nofollow" href="https://www.forum.mista.ru/user_registration.php">Регистрация</a>
+                <span style={{ margin: "5px" }}>|</span>
+                <a rel="nofollow" href="https://www.forum.mista.ru/remember_password.php">Забыли пароль?</a>
+                {this.props.error && <ErrorElem text={'ОШИБКА: Вход не выполнен! Возможно указан неверный пароль.'} />}
             </div>
         )
     }

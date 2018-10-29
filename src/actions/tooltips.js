@@ -1,10 +1,9 @@
 //@flow
-import * as API from '../api'
 import type { State } from '../reducers'
 
 export type TooltipKeysTopic = {
     type: 'TOPIC' | 'TOPIC_PREVIEW',
-    topicId: number | string,
+    topicId: string,
     number: number      
 }
 
@@ -17,6 +16,8 @@ export type Coords = {
 
 export type TooltipItem = {
     keys: TooltipKeys,
+    topicId: string,
+    number: number,        
     coords: Coords,
     data: any,
     error: ?string
@@ -35,14 +36,6 @@ export type CLOSE_TOOLTIP = {
     keys: TooltipKeys
 }
 
-export type LOAD_TOOLTIP_DATA = {
-    type: 'LOAD_TOOLTIP_DATA',
-    keys: TooltipKeys,
-    data: any,
-    number: number
-}
-
-
 export type TooltipsAction = CREATE_TOOLTIP | CLOSE_TOOLTIP | CLEAR_TOOLTIPS;
 
 export const showTooltip = (keys: TooltipKeys, coords: Coords, data: any) => async (dispatch: any) => {
@@ -52,6 +45,8 @@ export const showTooltip = (keys: TooltipKeys, coords: Coords, data: any) => asy
         const action: CREATE_TOOLTIP = {
             type: 'CREATE_TOOLTIP',
             keys,
+            topicId: keys.topicId,
+            number: keys.number,
             coords,
             data: null,
             error: null
@@ -60,41 +55,6 @@ export const showTooltip = (keys: TooltipKeys, coords: Coords, data: any) => asy
 
     }
 }
-
-export const loadTooltipData = (keys: TooltipKeys, number: number) => async (dispatch: any) => {
-    
-    if (number < 0) return;
-
-
-    let data;
-    let error;
-
-    try {
-        const json = await API.getTopicMessages({
-            id: keys.topicId,
-            from: number,
-            to: number + 1
-        });
-        if (json.length > 0) {
-            data = json.find(val => val.n === String(number));
-        } else {
-            data = null;
-            error = `Сообщение не найдено: ${keys.number}`;
-        }    
-    } catch(e) {
-        error = e.message;
-    }
-
-    const action: LOAD_TOOLTIP_DATA = {
-        type: 'LOAD_TOOLTIP_DATA',
-        keys,
-        data,
-        number,
-        error
-    }
-
-    dispatch(action);
-}    
 
 export const closeTooltip = (keys: TooltipKeys) => (dispatch: any) => {
     dispatch({
