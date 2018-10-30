@@ -30,7 +30,8 @@ export type LOGOUT_COMPLETE = {
 }
 
 export type LOGIN_FAILED = {
-    type: 'LOGIN_FAILED'
+    type: 'LOGIN_FAILED',
+    error: string
 }
 
 
@@ -51,6 +52,35 @@ export const loginComplete = (json: ResponseLogin): LOGIN_COMPLETE => {
     }
 }
 
+export const loginFailed = (error: string): LOGIN_FAILED => {
+
+    return {
+        type: 'LOGIN_FAILED',
+        error
+    }
+}
+
+export const checkLoginStart = (): CHECK_LOGIN_START => {
+
+    return {
+        type: 'CHECK_LOGIN_START'
+    }
+}
+
+export const logoutStart = (): LOGOUT_START => {
+
+    return {
+        type: 'LOGOUT_START'
+    }
+}
+
+export const logoutComplete = (): LOGOUT_COMPLETE => {
+
+    return {
+        type: 'LOGOUT_COMPLETE'
+    }
+}
+
 const shouldLogin = (state: State): boolean => {
     const { login } = state;
     if (!login) {
@@ -64,25 +94,19 @@ const shouldLogin = (state: State): boolean => {
 
 export const checkLogin = (params: any) => async (dispatch: any) => {
 
-    let action1: CHECK_LOGIN_START = {
-        type: 'CHECK_LOGIN_START'
-    };
-    dispatch(action1);
+    dispatch(checkLoginStart());
 
     const json = await API.getCookies();
     const { cookie, session } = json;
 
     if (session && session.user_id) {
         
-        let action2: LOGIN_COMPLETE = loginComplete({
+        dispatch(loginComplete({
             error: "",
             userid: session.user_id,
             username: session.user_name,
             hashkey: cookie.entr_hash
-        });
-        dispatch(action2);
-   } else {
-       dispatch({type: "LOGIN_FAILED"})
+        }));
    }
 }
 
@@ -94,18 +118,13 @@ export const checkLoginIfNeeded = (params: any) => (dispatch: any, getState: any
 
 export const doLogout = (params: any) => async (dispatch: any) => {
 
-    dispatch({
-        type: 'LOGOUT_START'
-    });
+    dispatch(logoutStart());
 
     try {
         API.getLogout();
     } catch(e) {
         
-        dispatch({
-            type: 'LOGOUT_COMPLETE'
-        });
-
+        dispatch(logoutComplete());
         checkLogin();
 
     }    
@@ -125,18 +144,14 @@ export const doLogin = (params: RequestLogin) => async (dispatch: any) => {
         if (!json.error) {
             dispatch(loginComplete(json));
         } else {
-            dispatch({
-                type: "LOGIN_FAILED",
-                error: 'ОШИБКА: Вход не выполнен! Возможно указан неверный пароль.'
-                });            
+            dispatch(loginFailed(
+                'ОШИБКА: Вход не выполнен! Возможно указан неверный пароль.'
+                ));            
         }
 
     } catch (err) {
         console.error('Login error :', err);
-            dispatch({
-                type: "LOGIN_FAILED",
-                error: err.message
-                });           
+        dispatch(loginFailed(err.message));           
     }
 
 }

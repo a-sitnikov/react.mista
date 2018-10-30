@@ -1,6 +1,7 @@
 //@flow
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import dateFormat from 'dateformat'
 
 import TopicNameCell from './topic_name_cell';
@@ -70,7 +71,7 @@ const Row = (props: Props) => {
                 </div>
             </div>
             <div className="cell-last20">
-                <a href={`${window.hash}/topic.php?id=${data.id}&page=last20`} style={{color: "inherit", display: "block", width: "100%", textAlign: "center"}}>{'>'}</a>
+                <Link to={`/topic.php?id=${data.id}&page=last20`} style={{color: "inherit", display: "block", width: "100%", textAlign: "center"}}>{'>'}</Link>
             </div>
         </div>
     )

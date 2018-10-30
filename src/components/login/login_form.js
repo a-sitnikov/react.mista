@@ -3,17 +3,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { FormControl, Button, ButtonGroup } from 'react-bootstrap'
 
-
 import ErrorElem from '../common/error'
 import { doLoginIfNeeded } from 'src/actions/login'
 
 import type { DefaultProps } from 'src/components'
+import type { LoginState } from 'src/reducers/login'
+import type { State } from 'src/reducers'
 
-type LoggedUserProps = {
-    error: string
-}
-
-type Props = LoggedUserProps & DefaultProps;
+type Props = LoginState & DefaultProps;
 
 class LoginForm extends Component<Props> {
 
