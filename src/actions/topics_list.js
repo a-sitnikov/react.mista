@@ -19,7 +19,12 @@ export type RECEIVE_TOPICS_LIST_FAILED = {
     receivedAt: Date
 }
 
-export type TopicsListAction = REQUEST_TOPICS_LIST | RECEIVE_TOPICS_LIST | RECEIVE_TOPICS_LIST_FAILED;
+export type TOGGLE_PREVIEW = {
+    type: 'TOGGLE_PREVIEW',
+    topicId: string
+}
+
+export type TopicsListAction = REQUEST_TOPICS_LIST | RECEIVE_TOPICS_LIST | RECEIVE_TOPICS_LIST_FAILED | TOGGLE_PREVIEW;
 
 export const requestTopicsList = (): REQUEST_TOPICS_LIST => ({
     type: 'REQUEST_TOPICS_LIST'

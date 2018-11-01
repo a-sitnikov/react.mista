@@ -9,7 +9,6 @@ import type { DefaultProps, Location } from 'src/components'
 import type { TopicsListState } from 'src/reducers/topics_list'
 import type { SectionsState } from 'src/reducers/sections'
 import type { LoginState } from 'src/reducers/login'
-import type { TopicPreviewState } from 'src/reducers/topic_preview'
 
 import { fetchTopicsListIfNeeded } from 'src/actions/topics_list'
 
@@ -25,7 +24,6 @@ import './topics_list.css'
 
 type StateProps = {
     topicsList: TopicsListState,
-    topicPreview: TopicPreviewState,
     sections: SectionsState,
     login: LoginState,
     topicsPerPage: string,
@@ -101,19 +99,16 @@ class TopicsList extends Component<Props> {
 
     render() {
 
-        const { topicsList, topicPreview, sections } = this.props;
+        const { topicsList, sections } = this.props;
 
         let rows = [];
-        for (let i in topicsList.items) {
+        for (let item of topicsList.items) {
             
-            const item = topicsList.items[i];
             rows.push(<Row key={item.id} data={item}/>);
-
-            const previewItem = topicPreview.items[String(item.id)];
-            if (previewItem)
+            if (item.showPreview)
                 rows.push(
-                    <div key={`preview${item.id}`} className="preview-container">
-                        <TopicPreview topicId={item.id} data={previewItem}/>
+                    <div key={`preview${String(item.id)}`} className="preview-container">
+                        <TopicPreview topicId={String(item.id)} n={0}/>
                     </div>
                 )
         }
@@ -149,7 +144,6 @@ const mapStateToProps = (state: State): StateProps => {
 
     return {
         topicsList: state.topicsList,
-        topicPreview: state.topicPreview,
         sections: state.sections,
         login: state.login,
         topicsPerPage: state.options.items.topicsPerPage,

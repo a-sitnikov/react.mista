@@ -24,8 +24,8 @@ const tooltips = (state: TooltipsState = defaultTooltipsState, action: TooltipsA
             items = state.items.slice();
 
             hash = JSON.stringify(action.keys);
-            tooltip = items.find(val => val.hash === hash);
-            if (!tooltip)
+            var ind = items.findIndex(val => val.hash === hash);
+            if (ind === - 1)
                 items.push({
                     i: 0,
                     keys: action.keys,
@@ -37,9 +37,11 @@ const tooltips = (state: TooltipsState = defaultTooltipsState, action: TooltipsA
                     error: null
                 });
             else {   
+                tooltip = Object.assign({}, items[ind]);
                 tooltip.coords = action.coords;
                 //to reset draggable position
                 tooltip.i += 1;
+                items[ind] = tooltip;
             }
 
             return {

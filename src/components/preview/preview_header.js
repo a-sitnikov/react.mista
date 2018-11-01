@@ -6,10 +6,10 @@ import dateFormat from 'dateformat'
 import './topic_preview.css'
 
 type TopicPreviewProps = {
-    user: string,
-    utime: number,
+    user: ?string,
+    utime: ?number,
     topicId: string,
-    n: string,
+    n: number,
     onFirst: any,   
     onLast: any,   
     onPrev: any,   
@@ -21,7 +21,8 @@ class PreviewHeader extends Component<TopicPreviewProps> {
     render() {
         const { user, utime, topicId, n } = this.props;
 
-        let date = new Date(utime*1000);
+        if (utime)
+            var date = new Date(utime*1000);
 
         return (
             <div>

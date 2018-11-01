@@ -113,6 +113,19 @@ export const getTopicMessages = async (params: RequestMessages): Promise<Respons
     return json;
 } 
 
+export const getMessage = async (id: number | string, n: number): Promise<?ResponseMessage> =>  {
+    const json = await getTopicMessages({
+        id, 
+        from: n, 
+        to: n+1}
+        );
+
+    let data;
+    if (json && json.length > 0)
+        data = json.find(val => val.n === String(n));
+
+    return data;
+} 
 
 // Login
 export type RequestLogin = {

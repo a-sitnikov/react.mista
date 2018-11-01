@@ -13,18 +13,11 @@ type Props = PreviewLinkProps & DefaultProps;
 
 class PreviewLink extends Component<Props> {
 
-    onClick;
-
-    constructor(props) {
-        super(props);
-        this.onClick = this.onClick.bind(this);
-    }
-
-    onClick() {
-        const { topicId, dispatch, expanded } = this.props;
+    onClick = () => {
+        const { topicId, dispatch } = this.props;
 
         dispatch({
-            type: expanded ? 'CLOSE_PREVIEW' : 'SHOW_PREVIEW',
+            type: 'TOGGLE_PREVIEW',
             topicId 
         });
     }

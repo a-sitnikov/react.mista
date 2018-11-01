@@ -62,14 +62,7 @@ class Tooltip extends Component<Props> {
         let text = '';
 
         try {
-            const json = await API.getTopicMessages({
-                id: this.props.topicId,
-                from: number,
-                to: number + 1
-            });
-            if (json && json.length > 0)
-                data = json.find(val => val.n === String(number));
-
+            data = await API.getMessage(this.props.topicId, number);
             if (data)                
                 text = data.text;
             else 

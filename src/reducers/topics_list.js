@@ -1,9 +1,15 @@
 //@flow
 import type { TopicsListAction } from 'src/actions/topics_list'
+import type { ResponseTopicsListItem } from 'src/api'
+
+export type TopicsListItem = {
+    ...ResponseTopicsListItem,
+    showPreview: boolean
+}
 
 export type TopicsListState = {
   isFetching: boolean;
-  items: any,
+  items: Array<TopicsListItem>,
   error?: string,
   lastUpdated?: Date
 };
@@ -35,6 +41,18 @@ const topicsList = (state: TopicsListState = defaultTopicsListState, action: Top
                 isFetching: false,
                 error: action.error,
                 lastUpdated: action.receivedAt
+            }
+        case 'TOGGLE_PREVIEW':
+            let items = state.items.slice();
+            const ind = items.findIndex(item => item.id === action.topicId);
+            
+            let item = Object.assign({}, items[ind]);
+            item.showPreview = !item.showPreview;
+            items[ind] = item;
+
+            return {
+                ...state,
+                items
             }
         default:
             return state

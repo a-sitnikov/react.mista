@@ -107,7 +107,8 @@ export const checkLogin = (params: any) => async (dispatch: any) => {
             username: session.user_name,
             hashkey: cookie.entr_hash
         }));
-   }
+   } else 
+        dispatch(loginFailed(''));
 }
 
 export const checkLoginIfNeeded = (params: any) => (dispatch: any, getState: any) => {

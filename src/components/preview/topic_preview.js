@@ -1,106 +1,105 @@
 //@flow
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 
-import { fetchTopicPreviewText } from 'src/actions/topic_preview'
+import * as API from 'src/api'
 
 import MsgText from 'src/components/topic/row/msg_text'
-import type { DefaultProps } from 'src/components'
-import type { ResponseMessage } from 'src/api'
 
 import PreviewHeader from './preview_header'
 import './topic_preview.css'
 
 type TopicPreviewProps = {
     topicId: string,
-    data?: ResponseMessage   
+    n: number   
 }
 
-type Props = TopicPreviewProps & DefaultProps;
+type Props = TopicPreviewProps;
+type State = {
+    n: number,
+    data: ?any,
+    error: ?string    
+}
 
-class TopicPreview extends Component<Props> {
+class TopicPreview extends Component<Props, State> {
 
-    componentDidMount() {
-        const { dispatch, topicId, data } = this.props;
-        if (data) 
-            dispatch(fetchTopicPreviewText({
-                topicId,
-                n: +data.n
-            }));
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            n: props.n,
+            data: null,
+            error: null
+        }
     }
 
-    componentWillReceiveProps(props: Props) {
-        const { dispatch, topicId, data } = props;
-        if (!data)
-            return;
+    async componentDidMount() {
+        await this.fetchData(this.state.n);
+    }
 
-        let shouldFetch = false;
-        if (!this.props.data)
-            shouldFetch = true;
-        else if (this.props.data.n !== data.n)    
-            shouldFetch = true;
+    fetchData = async (n: number) => {
+        let data, error;
+        try {
+            data = await API.getMessage(this.props.topicId, n);
+            if (!data)
+                error = `Сообщение не найдено ${n}`;
 
-        if (shouldFetch) 
-            dispatch(fetchTopicPreviewText({
-                topicId,
-                n: +data.n
-            }));
+        } catch(e) {
+            error = e.message
+        };
+        this.setState({
+            n,
+            data,
+            error
+        })
     }
 
     onClickFirst = () => {
-        const { dispatch, topicId, data } = this.props;
-        if (data) 
-            dispatch(fetchTopicPreviewText({
-                topicId,
-                n: 0
-            }));
+        this.fetchData(0);
     }
     
     onClickNext = () => {
-        const { dispatch, topicId, data } = this.props;
-        if (data) 
-            dispatch(fetchTopicPreviewText({
-                topicId,
-                n: +data.n+1
-            }));
+        this.fetchData(this.state.n + 1);
     }
-    
+
     onClickPrev = () => {
-        const { dispatch, topicId, data } = this.props;
-        if (data && +data.n > 0) 
-            dispatch(fetchTopicPreviewText({
-                topicId,
-                n: +data.n-1
-            }));
+        if (this.state.n > 0)
+            this.fetchData(this.state.n - 1);
+    }
+
+    onClickLast = () => {
     }
 
     render() {
-        const { topicId, data } = this.props;
-        if (data === undefined)
+        const { topicId } = this.props;
+        const { data, error, n } = this.state;
+        if (!data && !error)
             return null;
+
+        if (data)
+            var { user, utime } = data;
 
         return (
             <div className="topic-preview">
                 <PreviewHeader 
-                    user={data.user}
-                    utime={+data.utime}
+                    user={user}
+                    utime={+utime}
                     topicId={topicId}
-                    n={data.n}
+                    n={n}
                     onFirst={this.onClickFirst}
-                    onLast={this.onClickFirst}
+                    onLast={this.onClickLast}
                     onNext={this.onClickNext}
                     onPrev={this.onClickPrev}
-                />
-                <MsgText 
+                />}
+                {data && <MsgText 
                     data={data} 
                     html={data.text} 
                     topicId={topicId} 
                     style={{maxHeight: "500px", overflowY: "auto", overflowWrap: "break-word"}}
-                />
+                />}
+                {error && <p>{error}</p>}
             </div>
         )    
     }
 
 }
 
-export default connect()(TopicPreview);
+export default TopicPreview;

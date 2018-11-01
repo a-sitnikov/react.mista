@@ -10,22 +10,18 @@ import PreviewLink from './preview_link'
 
 import { today } from 'src/utils'
 
-import type { ResponseTopicsListItem } from 'srcapi'
-
 import type { State } from 'src/reducers'
-
+import type { TopicsListItem } from 'src/reducers/topics_list'
 import type { LoginState } from 'src/reducers/login'
-import type { TopicPreviewState } from 'src/reducers/topic_preview'
 import type { DefaultProps } from 'src/components/index'
 
 type RowProps = {
     columns: any,
-    data: ResponseTopicsListItem
+    data: TopicsListItem
 }
 
 type StateProps = {
     login: LoginState,
-    topicPreview: TopicPreviewState,
     showTooltipOnTopicsList: string
 }
 
@@ -33,16 +29,13 @@ type Props = RowProps & StateProps & DefaultProps;
 
 const Row = (props: Props) => {
 
-    const { data, topicPreview, showTooltipOnTopicsList } = props;
-    let time = new Date(data.utime * 1000);
+    const { data, showTooltipOnTopicsList } = props;
+    let time = new Date(+data.utime * 1000);
     if (today(time)) {
         time = dateFormat(time, 'HH:MM')
     } else {
         time = dateFormat(time, 'dd.mm.yy');
     }
-
-    const previewItem = topicPreview.items[String(data.id)];
-
     return (
         <div className="topics-list-row">
             {/*{cells}*/}
@@ -59,7 +52,7 @@ const Row = (props: Props) => {
                     data.answ
                 }
             </div>
-            <PreviewLink topicId={data.id} expanded={previewItem === undefined ? false: true}/>
+            <PreviewLink topicId={data.id} expanded={data.showPreview}/>
             <TopicNameCell data={data}/>
             <div className="cell-author">
                 {data.user0}
@@ -71,7 +64,7 @@ const Row = (props: Props) => {
                 </div>
             </div>
             <div className="cell-last20">
-                <Link to={`/topic.php?id=${data.id}&page=last20`} style={{color: "inherit", display: "block", width: "100%", textAlign: "center"}}>{'>'}</Link>
+                <Link to={`/topic.php?id=${String(data.id)}&page=last20`} style={{color: "inherit", display: "block", width: "100%", textAlign: "center"}}>{'>'}</Link>
             </div>
         </div>
     )
@@ -82,7 +75,6 @@ const mapStateToProps = (state: State): StateProps => {
 
     return {
         login: state.login,
-        topicPreview: state.topicPreview,
         showTooltipOnTopicsList: state.options.items.showTooltipOnTopicsList
     }
 }
