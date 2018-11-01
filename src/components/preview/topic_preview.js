@@ -88,7 +88,7 @@ class TopicPreview extends Component<Props, State> {
                     onLast={this.onClickLast}
                     onNext={this.onClickNext}
                     onPrev={this.onClickPrev}
-                />}
+                />
                 {data && <MsgText 
                     data={data} 
                     html={data.text} 
