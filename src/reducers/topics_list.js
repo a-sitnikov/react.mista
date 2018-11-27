@@ -2,6 +2,8 @@
 import type { TopicsListAction } from 'src/actions/topics_list'
 import type { ResponseTopicsListItem } from 'src/api'
 
+import { REQUEST_TOPICS_LIST, RECEIVE_TOPICS_LIST, RECEIVE_TOPICS_LIST_FAILED, TOGGLE_PREVIEW } from 'src/actions/topics_list'
+
 export type TopicsListItem = {
     ...ResponseTopicsListItem,
     showPreview: boolean
@@ -22,27 +24,27 @@ export const defaultTopicsListState = {
 const topicsList = (state: TopicsListState = defaultTopicsListState, action: TopicsListAction) => {
 
     switch (action.type) {
-        case 'REQUEST_TOPICS_LIST':
+        case REQUEST_TOPICS_LIST:
             return {
                 ...state,
                 error: null,
                 isFetching: true
             }
-        case 'RECEIVE_TOPICS_LIST':
+        case RECEIVE_TOPICS_LIST:
             return {
                 ...state,
                 isFetching: false,
                 items: action.items,
                 lastUpdated: action.receivedAt
             }
-        case 'RECEIVE_TOPICS_LIST_FAILED':
+        case RECEIVE_TOPICS_LIST_FAILED:
             return {
                 ...state,
                 isFetching: false,
                 error: action.error,
                 lastUpdated: action.receivedAt
             }
-        case 'TOGGLE_PREVIEW':
+        case TOGGLE_PREVIEW:
             let items = state.items.slice();
             const ind = items.findIndex(item => item.id === action.topicId);
             

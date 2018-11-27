@@ -3,35 +3,40 @@ import * as API from '../api'
 import type { RequestTopicsList, ResponseTopicsList } from 'src/api'
 import type { State } from 'src/reducers'
 
-export type REQUEST_TOPICS_LIST = {
-    type: 'REQUEST_TOPICS_LIST'
+export const REQUEST_TOPICS_LIST = 'REQUEST_TOPICS_LIST';
+export const RECEIVE_TOPICS_LIST = 'RECEIVE_TOPICS_LIST';
+export const RECEIVE_TOPICS_LIST_FAILED = 'RECEIVE_TOPICS_LIST_FAILED';
+export const TOGGLE_PREVIEW = 'TOGGLE_PREVIEW';
+
+export type typeREQUEST_TOPICS_LIST = {
+    type: typeof REQUEST_TOPICS_LIST
 }
 
-export type RECEIVE_TOPICS_LIST = {
-    type: 'RECEIVE_TOPICS_LIST',
+export type typeRECEIVE_TOPICS_LIST = {
+    type: typeof RECEIVE_TOPICS_LIST,
     items: ResponseTopicsList,
     receivedAt: Date
 }
 
-export type RECEIVE_TOPICS_LIST_FAILED = {
-    type: 'RECEIVE_TOPICS_LIST_FAILED',
+export type typeRECEIVE_TOPICS_LIST_FAILED = {
+    type: typeof RECEIVE_TOPICS_LIST_FAILED,
     error: string,
     receivedAt: Date
 }
 
-export type TOGGLE_PREVIEW = {
-    type: 'TOGGLE_PREVIEW',
+export type typeTOGGLE_PREVIEW = {
+    type: typeof TOGGLE_PREVIEW,
     topicId: string
 }
 
-export type TopicsListAction = REQUEST_TOPICS_LIST | RECEIVE_TOPICS_LIST | RECEIVE_TOPICS_LIST_FAILED | TOGGLE_PREVIEW;
+export type TopicsListAction = typeREQUEST_TOPICS_LIST | typeRECEIVE_TOPICS_LIST | typeRECEIVE_TOPICS_LIST_FAILED | typeTOGGLE_PREVIEW;
 
-export const requestTopicsList = (): REQUEST_TOPICS_LIST => ({
-    type: 'REQUEST_TOPICS_LIST'
+export const requestTopicsList = (): typeREQUEST_TOPICS_LIST => ({
+    type: REQUEST_TOPICS_LIST
 })
 
-export const receiveTopicsList = (data: ResponseTopicsList): RECEIVE_TOPICS_LIST => ({
-    type: 'RECEIVE_TOPICS_LIST',
+export const receiveTopicsList = (data: ResponseTopicsList): typeRECEIVE_TOPICS_LIST => ({
+    type: RECEIVE_TOPICS_LIST,
     items: data,
     receivedAt: new Date()
 })
@@ -68,8 +73,8 @@ const fetchTopicsList = (params: any) => async (dispatch: any, getState: any) =>
         dispatch(receiveTopicsList(data));
     } catch(e) {
         
-        let action: RECEIVE_TOPICS_LIST_FAILED = {
-            type: 'RECEIVE_TOPICS_LIST_FAILED',
+        let action: TopicsListAction = {
+            type: RECEIVE_TOPICS_LIST_FAILED,
             error: e.message,
             receivedAt: new Date()            
         }
