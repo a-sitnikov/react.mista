@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import URL from 'url-parse'
 
 import LinkToPost from './link_to_post'
+import LinkToUser from './link_to_user'
 import YoutubeLink from './youtube_link'
 
 import type { DefaultProps } from 'src/components'
@@ -76,13 +77,21 @@ class CustomLink extends Component<Props> {
         }
         
         if (showTooltipOnPostLink === 'true') {
-            if (url.hostname.search(/forum\.mista.ru/) !== -1 && 
-                url.pathname === '/topic.php') {
-                return (                
-                    <LinkToPost topicId={url.query.id} number={url.hash.replace('#', '') || "0"}>
-                        {childrenToText(children)}
-                    </LinkToPost>           
-                )
+            if (url.hostname.search(/forum\.mista.ru/) !== -1) {
+                
+                if (url.pathname === '/topic.php') {
+                    return (                
+                        <LinkToPost topicId={url.query.id} number={url.hash.replace('#', '') || "0"}>
+                            {childrenToText(children)}
+                        </LinkToPost>           
+                    )
+                } else if (url.pathname === '/users.php') {
+                    return (                
+                        <LinkToUser href={url.href} >
+                            {children}
+                        </LinkToUser>    
+                    )
+                }  
             }    
             
             if (url.hostname === 'a-sitnikov.github.io' && 
