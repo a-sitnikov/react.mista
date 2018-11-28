@@ -12,7 +12,7 @@ const ErrorElem = (props: Props) => {
         return null;
 
     return (
-        <div className="error">{props.text}</div>
+        <div className="error" dangerouslySetInnerHTML={{__html: props.text}}></div>
     )    
 }
 
