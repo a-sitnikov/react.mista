@@ -29,12 +29,8 @@ const tooltips = (state: TooltipsState = defaultTooltipsState, action: TooltipsA
                 items.push({
                     i: 0,
                     keys: action.keys,
-                    topicId: action.keys.topicId,
-                    number: action.keys.number,
                     hash,
-                    coords: action.coords,
-                    data: action.data,
-                    error: null
+                    coords: action.coords
                 });
             else {   
                 tooltip = Object.assign({}, items[ind]);

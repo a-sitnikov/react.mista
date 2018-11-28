@@ -128,6 +128,11 @@ export const getMessage = async (id: number | string, n: number): Promise<?Respo
     return data;
 } 
 
+export const getTopicMessagesCount = async (id: number | string): number => {
+    const info = await getTopicInfo({id});
+    return info.answers_count;
+}
+
 // Login
 export type RequestLogin = {
     username:  string, // логин (ник) пользователя

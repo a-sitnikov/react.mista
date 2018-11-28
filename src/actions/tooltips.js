@@ -16,11 +16,7 @@ export type Coords = {
 
 export type TooltipItem = {
     keys: TooltipKeys,
-    topicId: string,
-    number: number,        
-    coords: Coords,
-    data: any,
-    error: ?string
+    coords: Coords
 }
 
 export type CREATE_TOOLTIP = {
@@ -38,18 +34,14 @@ export type CLOSE_TOOLTIP = {
 
 export type TooltipsAction = CREATE_TOOLTIP | CLOSE_TOOLTIP | CLEAR_TOOLTIPS;
 
-export const showTooltip = (keys: TooltipKeys, coords: Coords, data: any) => async (dispatch: any) => {
+export const showTooltip = (keys: TooltipKeys, coords: Coords) => async (dispatch: any) => {
 
     if (keys.type === 'TOPIC' || keys.type === 'TOPIC_PREVIEW' ) {
 
         const action: CREATE_TOOLTIP = {
             type: 'CREATE_TOOLTIP',
             keys,
-            topicId: keys.topicId,
-            number: keys.number,
-            coords,
-            data: null,
-            error: null
+            coords
         }
         dispatch(action);
 

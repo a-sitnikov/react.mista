@@ -65,7 +65,9 @@ class TopicPreview extends Component<Props, State> {
             this.fetchData(this.state.n - 1);
     }
 
-    onClickLast = () => {
+    onClickLast = async () => {
+        const n = await API.getTopicMessagesCount(this.props.topicId);
+        this.fetchData(n);
     }
 
     render() {

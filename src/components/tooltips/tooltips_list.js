@@ -24,7 +24,7 @@ class TooltipsList extends Component<Props> {
             <div>
                 {items.map((item, i) => {
                     return (
-                        <Tooltip key={item.hash} tooltip={item} topicId={item.topicId} number={+item.number}>
+                        <Tooltip key={item.hash} tooltip={item} keys={item.keys}>
                         </Tooltip>
                     )}
                 )}

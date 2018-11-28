@@ -33,15 +33,15 @@ class Tooltip extends Component<Props> {
     constructor(props) {
         super();
         
-        const { topicId, number, info, items, item0 } = props;
+        const { keys, info, items, item0 } = props;
 
         let text = '';
         let data;
-        if (topicId === info.id) {
-            if (number === 0)
+        if (keys.topicId === info.id) {
+            if (keys.number === 0)
                 data = item0;
             else
-                data = items.find(item => item.n === String(number));
+                data = items.find(item => item.n === String(keys.number));
 
             if (data)
                 text = data.text;
@@ -50,7 +50,7 @@ class Tooltip extends Component<Props> {
         this.state ={
             data,
             text,
-            number
+            number: keys.number
         }
     }
 
@@ -60,9 +60,10 @@ class Tooltip extends Component<Props> {
 
         let data;
         let text = '';
+        const topicId = this.props.keys.topicId;
 
         try {
-            data = await API.getMessage(this.props.topicId, number);
+            data = await API.getMessage(topicId, number);
             if (data)                
                 text = data.text;
             else 
@@ -96,7 +97,7 @@ class Tooltip extends Component<Props> {
     }
 
     render() {
-       const { keys, topicId } = this.props.tooltip;
+       const { keys } = this.props.tooltip;
 
         if (!this.state.text)
             return null;
@@ -118,7 +119,7 @@ class Tooltip extends Component<Props> {
                         <MsgText 
                             data={this.state.data} 
                             html={this.state.text} 
-                            topicId={topicId} 
+                            topicId={keys.topicId} 
                             style={{maxHeight: "550px", overflowY: "auto"}} 
                         />
                     </TooltipBody>
