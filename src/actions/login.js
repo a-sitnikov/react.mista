@@ -96,7 +96,13 @@ export const checkLogin = (params: any) => async (dispatch: any) => {
 
     dispatch(checkLoginStart());
 
-    const json = await API.getCookies();
+    let json;
+    try {
+        json = await API.getCookies();
+    } catch(e) {
+        dispatch(loginFailed(e.message));
+        return;   
+    }  
     const { cookie, session } = json;
 
     if (session && session.user_id) {

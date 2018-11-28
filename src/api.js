@@ -1,5 +1,6 @@
 //@flow
 import fetchJsonp from 'fetch-jsonp'
+import * as utils from './utils'
 
 export const domain = localStorage.getItem('domain') || 'https://www.forum.mista.ru';
 //export const domain = 'https://dev.mista.ru';
@@ -312,14 +313,7 @@ export const fetchJsonpAndGetJson = async (url: string, params: any): Promise<an
         try {
              json = JSON.parse(responseJson)    
         } catch(e) {
-            // getting rid of double quotes in the string
-
-            responseJson = responseJson
-                .replace(/" /g, "' ")  // d" a => d' a
-                .replace(/"\(/g, "'(")  // d"(a => d'(a
-                .replace(/ "([^,"])/g, " '$1")  // a "d => a 'd
-                .replace(/([^:])("")/, "$1'\""); // a"", => a'", but not "a":""
-            json = JSON.parse(responseJson);
+            json = utils.parseJSON(responseJson);
         }
     } else {
         json = responseJson;
