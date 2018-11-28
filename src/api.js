@@ -166,8 +166,9 @@ export type ResponseCookies = {
         is_moderator: number,
         light_moderator: number,
         section: string,
-        show_moderator_tools: number
-    }    
+        show_moderator_tools: number,
+        last_error?: string   
+    }
 }
 
 export const getCookies = async (): Promise<ResponseCookies> =>  {

@@ -99,15 +99,15 @@ export const checkLogin = (params: any) => async (dispatch: any) => {
     const json = await API.getCookies();
     const { cookie, session } = json;
 
+    console.log(json)
     if (session && session.user_id) {
-        
         dispatch(loginComplete({
-            error: "",
+            error: session.last_error,
             userid: session.user_id,
             username: session.user_name,
             hashkey: cookie.entr_hash
         }));
-   } else 
+   } else  
         dispatch(loginFailed(''));
 }
 

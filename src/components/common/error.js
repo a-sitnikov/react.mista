@@ -12,7 +12,7 @@ const ErrorElem = (props: Props) => {
         return null;
 
     return (
-        <p className="error">{props.text}</p>
+        <div className="error">{props.text}</div>
     )    
 }
 

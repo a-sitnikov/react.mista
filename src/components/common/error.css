@@ -1,4 +1,5 @@
 .error {
     color: red;
     font-weight: bold;
+    clear: both;
 }

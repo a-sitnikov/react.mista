@@ -17,15 +17,7 @@ type Props = LoggedUserProps & DefaultProps;
 
 class CustomToggle extends React.Component<any> {
     
-  handleClick; 
-
-  constructor(props, context) {
-    super(props, context);
-
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick(e) {
+  handleClick = e => {
     e.preventDefault();
 
     this.props.onClick(e);

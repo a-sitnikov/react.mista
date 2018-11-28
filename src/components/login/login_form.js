@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { FormControl, Button, ButtonGroup } from 'react-bootstrap'
 
-import ErrorElem from '../common/error'
 import { doLoginIfNeeded } from 'src/actions/login'
 
 import type { DefaultProps } from 'src/components'
@@ -33,8 +32,6 @@ class LoginForm extends Component<Props> {
 
     render() {
 
-        const { error } = this.props;;
-
         return (
             <div>
                 <form name="enterform" className="flex-row" style={{flexWrap: "wrap"}}>
@@ -62,7 +59,6 @@ class LoginForm extends Component<Props> {
                 <a rel="nofollow" href="https://www.forum.mista.ru/user_registration.php">Регистрация</a>
                 <span style={{ margin: "5px" }}>|</span>
                 <a rel="nofollow" href="https://www.forum.mista.ru/remember_password.php">Забыли пароль?</a>
-                {error && <ErrorElem text={error} />}
             </div>
         )
     }

@@ -1,8 +1,9 @@
 //@flow
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
 import { connect } from 'react-redux'
 import LoggedUser from './logged_user'
 import LoginForm from './login_form'
+import ErrorElem from '../common/error'
 
 import { checkLoginIfNeeded } from 'src/actions/login'
 
@@ -21,7 +22,7 @@ class Login extends Component<Props> {
 
     render() {
 
-        const { logged, userid, username, dispatch } = this.props;
+        const { logged, userid, username, error, dispatch } = this.props;
 
         let elem;
         if (logged === true) 
@@ -31,7 +32,12 @@ class Login extends Component<Props> {
         else 
             elem = null;   
 
-        return elem
+        return (
+            <Fragment>
+                {elem}
+                {error && <ErrorElem text={error} />}
+            </Fragment>
+        )
     }
 }
 
