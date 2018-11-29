@@ -77,8 +77,9 @@ class Topic extends Component<Props> {
             items.length > 0){
 
             this.scrolledToHash = true;
-            //window.scrollTo(0, this.nodeF.offsetTop);
-            setTimeout(() => window.scrollTo(0, this.nodeF.offsetTop), 1);
+            let nodeHash = document.getElementById(hash.slice(1));
+            if (nodeHash)
+                setTimeout(() => window.scrollTo(0, nodeHash.offsetTop), 1);
         }
     }
 
@@ -182,7 +183,7 @@ class Topic extends Component<Props> {
                         </div>                    
                     }
                 </div>
-                <Footer params={this.locationParams} nodeRef={node => this.nodeF = node}/>
+                <Footer params={this.locationParams}/>
                 {login.logged &&
                 <NewMessage onSubmitSuccess={this.onPostNewMessageSuccess}/>
                 }

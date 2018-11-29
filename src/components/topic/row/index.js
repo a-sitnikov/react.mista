@@ -31,7 +31,7 @@ class Row extends Component<Props> {
             return null;
 
         return (
-            <div className="topic-row">
+            <div className="topic-row" id={data.n}>
                 <div className="cell-userinfo">
                     <UserInfo data={data} isAuthor={data.user === author} isYou={data.user === login.username}/>
                 </div>
