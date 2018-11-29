@@ -163,6 +163,10 @@
     grid-area: vowting;
 }
 
+.message-number {
+    font-weight: normal
+}
+
 @media (max-width: 768px) {
     
     .new-message-container {
@@ -170,6 +174,10 @@
         grid-template-areas: 
             "text"
             "vowting";
+    }
+
+    .message-number {
+        font-weight: bold
     }
 
 }

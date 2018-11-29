@@ -1,5 +1,5 @@
 //@flow
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import dateFormat from 'dateformat'
 import classNames from 'classnames'
@@ -44,7 +44,11 @@ class UserInfo extends Component<Props> {
         } else if (data.n === "0") {
             dataStr = dateFormat(new Date(+data.utime * 1000), 'dd.mm.yy - HH:MM');
         } else {
-            dataStr = '' + data.n + ' - ' + dateFormat(new Date(+data.utime * 1000), 'dd.mm.yy - HH:MM');    
+            dataStr = (
+            <Fragment>
+                <span className="message-number">{data.n}</span>{' - ' + dateFormat(new Date(+data.utime * 1000), 'dd.mm.yy - HH:MM')}
+            </Fragment>
+            )
         }    
 
         const userClassNames = classNames("registered-user", {
