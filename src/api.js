@@ -129,8 +129,8 @@ export const getMessage = async (id: number | string, n: number): Promise<?Respo
 } 
 
 export const getTopicMessagesCount = async (id: number | string): number => {
-    const info = await getTopicInfo({id});
-    return info.answers_count;
+    const info = await getTopicInfo({id: String(id)});
+    return +info.answers_count;
 }
 
 // Login

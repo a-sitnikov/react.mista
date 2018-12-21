@@ -97,8 +97,7 @@ class LinkToPost extends Component<Props, {text: string}> {
         
         dispatch(showTooltip(
             keys,
-            coords,
-            data
+            coords
         ));
     }
 
