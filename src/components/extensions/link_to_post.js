@@ -78,15 +78,11 @@ class LinkToPost extends Component<Props, {text: string}> {
     }
 
     showToolTip = (e) => {
-        const { topicId, number, dispatch, items, info, isPreview } = this.props;
+        const { topicId, number, dispatch, isPreview } = this.props;
 
         const coords = {
             x: e.pageX,
             y: e.pageY - 50 // remove navbar margin-top
-        }
-        let data;
-        if (topicId === info.id) {
-            data = items.find(value => String(number) === value.n);
         }
 
         const keys = {

@@ -16,7 +16,7 @@ export const defaultTooltipsState = {
 
 const tooltips = (state: TooltipsState = defaultTooltipsState, action: TooltipsAction) => {
     let hash: string;
-    let items;
+    let items: Array<TooltipItemState>;
     let tooltip;
     switch (action.type) {
         case 'CREATE_TOOLTIP':
