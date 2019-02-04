@@ -19,6 +19,8 @@ export const parseJSON = (text) => {
             .replace(/\\&/g, '&')
             .replace(/\\'/g, "'")
             .replace(/\\"/g, "")
+            .replace(/ "/g, ' \\"')
+            .replace(/""/g, '\\""')
 
         //           console.log(text);
         return JSON.parse(text);

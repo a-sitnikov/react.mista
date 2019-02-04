@@ -161,6 +161,10 @@ export const fetchTopic = (params: any, item0: ?ResponseMessage) => async (dispa
         if (info.answers_count === "0" && _items.length > 0)
             info.answers_count = _items[_items.length - 1].n;
 
+        if (page === 'last20' && _items.length > 20) {
+            _items = _items.slice(-20);
+        }
+
        dispatch(receiveTopic(info, _item0, _items));
 
     } catch (error) {
