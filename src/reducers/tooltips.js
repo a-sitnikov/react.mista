@@ -10,7 +10,7 @@ export type TooltipsState = {
     items: Array<TooltipItemState>
 };
 
-export const defaultTooltipsState = {
+export const defaultTooltipsState: TooltipsState = {
     items: []
 }
 

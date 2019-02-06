@@ -106,8 +106,11 @@ export const checkLogin = (params: any) => async (dispatch: any) => {
     const { cookie, session } = json;
 
     if (session && session.user_id) {
+
+        let error = (session.last_error || '').trim();
+        if (error === 'Не указано сообщение.') error = '';
         dispatch(loginComplete({
-            error: session.last_error,
+            error,
             userid: session.user_id,
             username: session.user_name,
             hashkey: cookie.entr_hash
