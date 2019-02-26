@@ -21,7 +21,7 @@ export const parseJSON = (text) => {
             .replace(/\\"/g, "")
             .replace(/ "/g, ' \\"')
             .replace(/""/g, '\\""')
-            .replace(/"(\.| )/g, '\\"$1')
+            .replace(/"(\.| |\?)/g, '\\"$1')
 
         //           console.log(text);
         return JSON.parse(text);
