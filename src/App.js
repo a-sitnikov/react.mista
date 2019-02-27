@@ -1,5 +1,5 @@
 //@flow
-import React, { Component } from 'react';
+import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux'
 import NavBar from './components/nav_bar';
 import Container from './components/container';
@@ -40,12 +40,12 @@ class App extends Component<Props> {
 
   render() {
     return (
-      <div id="app">
+      <Fragment>
         <NavBar />
         <Container />
         <NavBarFooter />
         <TooltipsList />
-      </div>
+      </Fragment>
     )
   }
 }
