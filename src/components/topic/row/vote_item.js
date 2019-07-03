@@ -1,5 +1,6 @@
 //@flow
 import React from 'react'
+import { domain } from 'src/api'
 
 import type { ResponseVoteItem } from 'src/api'
 
@@ -15,7 +16,7 @@ const VoteItem = (props: Props) => {
 
     const { topicId, data, total, n, colors } = props;
 
-    const img = `https://www.forum.mista.ru/css/voting${n}.png`;
+    const img = `${domain}/css/voting${n}.png`;
 
     let percent = 0;
     let width = 0;

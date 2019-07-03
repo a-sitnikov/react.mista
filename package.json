@@ -14,7 +14,7 @@
     "react-active-html": "^1.2.2",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.8.3",
-    "react-draggable": "^3.2.0",
+    "react-draggable": "^3.3.0",
     "react-redux": "^5.1.1",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",

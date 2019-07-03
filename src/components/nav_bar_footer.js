@@ -1,20 +1,21 @@
 import React from 'react'
+import { domain } from 'src/api'
 
 const NavBarFooter = (props) => {
 
     return (
         <footer className="flex-row navbar-footer">
-            <a href="https://www.forum.mista.ru/rules.php">Правила</a>
+            <a href={`${domain}/rules.php`}>Правила</a>
             <span className="separator">|</span>
-            <a href="https://www.forum.mista.ru/about.php">Описание</a>
+            <a href={`${domain}/about.php`}>Описание</a>
             <span className="separator">|</span>
-            <b><a href="https://www.forum.mista.ru/ad.php">Реклама на сайте</a>  </b>
+            <b><a href={`${domain}/ad.php`}>Реклама на сайте</a>  </b>
             <span className="separator">|</span>
-            <a href="https://www.forum.mista.ru/find.php">Поиск</a>
+            <a href={`${domain}/find.php`}>Поиск</a>
             <span className="separator">|</span>
-            <a rel="nofollow" href="https://www.forum.mista.ru/sections_list.php" >Секции</a>
+            <a rel="nofollow" href={`${domain}/sections_list.php`}>Секции</a>
             <span className="separator">|</span>
-            <a rel="nofollow" href="https://www.forum.mista.ru/rating.php">Рейтинг</a>
+            <a rel="nofollow" href={`${domain}/rating.php`}>Рейтинг</a>
             <span className="separator">|</span>
             <a href="http://kb.mista.ru">Книга знаний</a>
             <span className="separator">|</span>
@@ -22,11 +23,11 @@ const NavBarFooter = (props) => {
             <span className="separator">|</span>
             <a rel="nofollow" href="http://m.mista.ru/">Мобильная</a>
             <span className="separator">|</span>
-            <a href="https://www.forum.mista.ru/archive.php">Архив</a>
+            <a href={`${domain}/archive.php`}>Архив</a>
             <span className="separator">|</span>
-            <a href="https://www.forum.mista.ru/moders.php">Модераторы</a>
+            <a href={`${domain}/moders.php`}>Модераторы</a>
             <span className="separator">|</span>
-            <a href="https://www.forum.mista.ru/users_gallery.php">Галерея</a>
+            <a href={`${domain}/users_gallery.php`}>Галерея</a>
             <span className="separator">|</span>
             <span>18+</span>
         </footer>

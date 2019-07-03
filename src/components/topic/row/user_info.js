@@ -3,6 +3,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import dateFormat from 'dateformat'
 import classNames from 'classnames'
+import { domain } from 'src/api'
 
 import { addMessageText } from 'src/actions/new_message'
 
@@ -37,7 +38,7 @@ class UserInfo extends Component<Props> {
 
     render() {
         const { data, isAuthor, isYou } = this.props;
-        const href = `https://www.forum.mista.ru/users.php?id=${data.userId}`;
+        const href = `${domain}/users.php?id=${data.userId}`;
         let dataStr;
         if (!data) {
             dataStr = '';

@@ -2,7 +2,7 @@
 import fetchJsonp from 'fetch-jsonp'
 import * as utils from './utils'
 
-export const domain = localStorage.getItem('domain') || 'https://www.forum.mista.ru';
+export const domain = localStorage.getItem('domain') || 'https://forum.mista.ru';
 //export const domain = 'https://dev.mista.ru';
 export const urlTopicsList    = 'api/topic.php';
 export const urlTopicInfo     = 'ajax_gettopic.php';
