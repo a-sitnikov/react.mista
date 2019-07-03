@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { Dropdown, MenuItem } from 'react-bootstrap'
 
 import { doLogout } from 'src/actions/login'
+import { domain } from 'src/api'
 
 import type { DefaultProps } from 'src/components'
 
@@ -18,16 +19,14 @@ type Props = LoggedUserProps & DefaultProps;
 class CustomToggle extends React.Component<any> {
     
   handleClick = e => {
-    e.preventDefault();
-
     this.props.onClick(e);
   }
 
   render() {
     return (
-      <a href="" onClick={this.handleClick}>
+      <span style={{ cursor: "pointer", color: "#00C" }} onClick={this.handleClick}>
         {this.props.children}
-      </a>
+      </span>
     );
   }
 }
@@ -66,7 +65,7 @@ class LoggedUser extends Component<Props> {
                     <span>Привет, </span>
                     <CustomToggle bsRole="toggle">{userName} ▼</CustomToggle>
                     <Dropdown.Menu>
-                        <MenuItem eventKey="profile" href={`https://www.forum.mista.ru/users.php?id=${userId}`}>Профиль</MenuItem>
+                        <MenuItem eventKey="profile" href={`${domain}/users.php?id=${userId}`}>Профиль</MenuItem>
                         <MenuItem eventKey="myTopics" href={`${window.hash}/index.php?user_id=${userId}`}>Мои темы</MenuItem>
                         <MenuItem divider />
                         <MenuItem eventKey="options" href={`${window.hash}/options.php`}>Настройки</MenuItem>
