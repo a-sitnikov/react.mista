@@ -45,7 +45,7 @@ class TopicNameCell extends Component<Props> {
         if (data.is_voting === 1) {
             isVoting = <span className="agh separator">[±]</span>
         }
-
+        
         let sectionHref = `/index.php?section=${data.sect2}`;
         let section;
 
@@ -59,9 +59,13 @@ class TopicNameCell extends Component<Props> {
         }
 
         let closed;
+        let down;
         let text = data.text;
         if (data.closed)
             closed = <span className="agh">Ø</span>
+
+        if (data.down === 1)
+            down = <span className="agh">↓</span>
 
         if (data.sect2 === 'job' && text.substr(0, 3) !== 'JOB')
             text = 'JOB: ' + text;
@@ -78,6 +82,7 @@ class TopicNameCell extends Component<Props> {
                 {isVoting}
                 <Pages answ={data.answ} topicId={data.id} />
                 {closed}
+                {down}
                 {section}
             </div>
         )
