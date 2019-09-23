@@ -120,7 +120,7 @@ export const fetchTopic = (params: any, item0: ?ResponseMessage) => async (dispa
 
             if (page > 1) {
 
-                first = (page - 1) * 100 + 1;
+                first = (page - 1) * 100;
                 if (!_item0) {
                     let items = await API.getTopicMessages({
                         id: params.id,
