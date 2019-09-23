@@ -68,13 +68,13 @@ Object {
   "items": Array [
     Object {
       "id": "1",
-      "n": 101,
-      "text": "Пост 101",
+      "n": 100,
+      "text": "Пост 100",
     },
     Object {
       "id": "1",
-      "n": 102,
-      "text": "Пост 102",
+      "n": 101,
+      "text": "Пост 101",
     },
   ],
   "receivedAt": 1,
@@ -97,13 +97,13 @@ Object {
   "items": Array [
     Object {
       "id": "1",
-      "n": 101,
-      "text": "Пост 101",
+      "n": 100,
+      "text": "Пост 100",
     },
     Object {
       "id": "1",
-      "n": 102,
-      "text": "Пост 102",
+      "n": 101,
+      "text": "Пост 101",
     },
   ],
   "receivedAt": 1,
