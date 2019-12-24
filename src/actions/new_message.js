@@ -67,16 +67,12 @@ const postNewMessage = (params: PostNewmessageParams) => async (dispatch: any) =
         fetchParams.voting_select = params.voting_select;
 
     try {
-        let result = await API.postNewMessage(fetchParams);
-        dispatch({
-            type: 'POST_NEW_MESSAGE_COMPLETE'
-        });
-        if (result.ok) {
+            let result = await API.postNewMessage(fetchParams);
+            dispatch({
+                type: 'POST_NEW_MESSAGE_COMPLETE'
+            });
             if (params.onSuccess)
                 params.onSuccess();
-        } else {
-            console.error(result);
-        }
 
     } catch (err) {
         console.error("Failed to post new message: " + err);
