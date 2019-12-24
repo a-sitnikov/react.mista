@@ -214,7 +214,7 @@ export const postNewMessage = async (params: RequestNewMessage): Promise<any> =>
 
     let url = urlNewMessage.replace(':id', params.topic_id);
 
-    await fetch(`${domain}/${url}`, {
+    let result = await fetch(`${domain}/${url}`, {
         method: 'POST',
         body: paramsToString('', params),
         mode: 'no-cors',
@@ -225,6 +225,8 @@ export const postNewMessage = async (params: RequestNewMessage): Promise<any> =>
         },
         redirect: 'follow'
     });
+    
+    return result;
 } 
 
 
