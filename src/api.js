@@ -219,6 +219,11 @@ export const postNewMessage = async (params: RequestNewMessage): Promise<any> =>
         body: paramsToString('', params),
         mode: 'no-cors',
         credentials: 'include',
+        headers: {
+            'Accept': 'text/html,application/xhtml+xml,application/xml',
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow'
     });
 } 
 

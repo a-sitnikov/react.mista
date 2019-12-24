@@ -57,7 +57,7 @@ const postNewMessage = (params: PostNewmessageParams) => async (dispatch: any) =
     });
 
     let fetchParams: RequestNewMessage = {
-        message_text: encodeText(params.text),
+        message_text: encodeURIComponent(params.text),
         action: "new",
         topic_id: params.topicId,
         rnd: Math.round(Math.random() * 10000000000)    
