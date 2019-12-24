@@ -4,17 +4,17 @@ import * as utils from './utils'
 
 export const domain = localStorage.getItem('domain') || 'https://forum.mista.ru';
 //export const domain = 'https://dev.mista.ru';
-export const urlTopicsList    = 'api/topic.php';
-export const urlTopicInfo     = 'ajax_gettopic.php';
-export const urlTopicMessages = 'api/message.php';
-export const urlLogin         = 'ajax_login.php';
-export const urlLogout        = 'users.php'; // users.php?&action=exit
-export const urlCookies       = 'ajax_cookie.php';
-export const urlSections      = 'ajax_getsectionslist.php';
-export const urlNewMessage    = 'ajax_newmessage.php';
-export const urlNewTopic      = 'index.php';
-export const urlAddBookmark   = 'ajax_addbookmark.php';
-export const urlSearch        = 'ajax_find.php';
+export const urlTopicsList    = localStorage.getItem('urlTopicsList') || 'api/topic.php';
+export const urlTopicInfo     = localStorage.getItem('urlTopicInfo') || 'ajax_gettopic.php';
+export const urlTopicMessages = localStorage.getItem('urlTopicMessages') || 'api/message.php';
+export const urlLogin         = localStorage.getItem('urlLogin') || 'ajax_login.php';
+export const urlLogout        = localStorage.getItem('urlLogout') || 'users.php'; // users.php?&action=exit
+export const urlCookies       = localStorage.getItem('urlCookies') || 'ajax_cookie.php';
+export const urlSections      = localStorage.getItem('urlSections') || 'ajax_getsectionslist.php';
+export const urlNewMessage    = localStorage.getItem('urlNewMessage') || 'topic.php?id=:id';
+export const urlNewTopic      = localStorage.getItem('urlNewTopic') || 'index.php';
+export const urlAddBookmark   = localStorage.getItem('urlAddBookmark') || 'ajax_addbookmark.php';
+export const urlSearch        = localStorage.getItem('urlSearch') || 'ajax_find.php';
 
 // Topics list
 export type RequestTopicsList = {
@@ -211,7 +211,10 @@ export type RequestNewMessage = {
 }
 
 export const postNewMessage = async (params: RequestNewMessage): Promise<any> =>  {
-    await fetch(`${domain}/${urlNewMessage}`, {
+
+    let url = urlNewMessage.replace(':id', params.topic_id);
+
+    await fetch(`${domain}/${url}`, {
         method: 'POST',
         body: paramsToString('', params),
         mode: 'no-cors',
