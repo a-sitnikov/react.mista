@@ -11,7 +11,7 @@ export const urlLogin         = localStorage.getItem('urlLogin') || 'ajax_login.
 export const urlLogout        = localStorage.getItem('urlLogout') || 'users.php'; // users.php?&action=exit
 export const urlCookies       = localStorage.getItem('urlCookies') || 'ajax_cookie.php';
 export const urlSections      = localStorage.getItem('urlSections') || 'ajax_getsectionslist.php';
-export const urlNewMessage    = localStorage.getItem('urlNewMessage') || 'topic.php?id=:id';
+export const urlNewMessage    = localStorage.getItem('urlNewMessage') || 'topic.php?id=:id&page=1';
 export const urlNewTopic      = localStorage.getItem('urlNewTopic') || 'index.php';
 export const urlAddBookmark   = localStorage.getItem('urlAddBookmark') || 'ajax_addbookmark.php';
 export const urlSearch        = localStorage.getItem('urlSearch') || 'ajax_find.php';
