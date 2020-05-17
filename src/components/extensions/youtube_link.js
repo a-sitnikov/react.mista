@@ -33,7 +33,7 @@ class YoutubeLink extends Component<YoutubeLinkProps> {
 
     async getVideoParams(videoId: string): any {
         
-        const apiKey = 'AIzaSyBPtVWaQ7iGkObgyavKoNVQdfPwczAdQUE';
+        const apiKey = localStorage.getItem('youtubeApiKey') || 'AIzaSyBPtVWaQ7iGkObgyavKoNVQdfPwczAdQUE';
         let apiUrl = `https://www.googleapis.com/youtube/v3/videos?key=${apiKey}&fields=items(snippet(title))&part=snippet&id=${videoId}`;
         const response = await fetch(apiUrl);
         const json = await response.json();
