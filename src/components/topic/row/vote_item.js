@@ -19,11 +19,9 @@ const VoteItem = (props: Props) => {
     const img = `${domain}/css/voting${n}.png`;
 
     let percent = 0;
-    let width = 0;
 
     if (total) {
         percent = Math.round(100 * data.result / total);
-        width = 400 * percent / 100;
     }
 
     const imgStyle = { maxWwidth: "500px", width: "100%", height: "15px" };
