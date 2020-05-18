@@ -26,22 +26,22 @@ const VoteItem = (props: Props) => {
         width = 400 * percent / 100;
     }
 
-    const imgStyle = { maxWwidth: "500px", width: `${width}px`, height: "15px" };
+    const imgStyle = { maxWwidth: "500px", width: "100%", height: "15px" };
 
     return (
-        <div className="flex-row" style={{ marginBottom: "3px" }}>
-            <div style={{ flex: "1 1 200px", maxWidth: "400px", marginRight: "5px" }}>
+        <div className="voting-item">
+            <div className="voting-title">
                 <a rel="nofollow" style={{ textDecoration: "none" }} href={`${window.hash}/topic.php?id=${topicId}&sel=${n}`}>
                     <b><span style={{ color: colors[n-1] }}>{`${n}. ${data.select}`}</span></b>
                 </a>
             </div>
-            <div style={{ flex: "0 0 100px", position: "relative" }} className="ta-left va-middle">
-                <div className="div-va-middle">
+            <div className="voting-percentage">
+                {/*<div className="div-va-middle">*/}
                     <b><span style={{ color: colors[n-1] }}>{`${percent}% (${data.result})`}</span></b>
-                </div>
+                {/*</div>*/}
             </div>
-            <div style={{ flex: "1 1 400px", position: "relative" }}>
-                <div className="div-va-middle">
+            <div className="voting-bar">
+                <div style={{width:`${percent}%`}}>
                     <a href={img}>
                         <img src={img} style={imgStyle} alt={`п${n}`} />
                     </a>

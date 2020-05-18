@@ -71,6 +71,30 @@
     padding: 0px;
 }
 
+.voting-item {
+    display: grid;
+    grid-template-columns: 3fr 75px 3fr;
+    grid-template-rows: auto;
+    grid-template-areas: "title percentage bar";
+}
+
+.voting-title {
+    grid-area: title;
+}
+
+.voting-percentage {
+    grid-area: percentage;
+    justify-self: center;
+}
+
+.voting-bar {
+    grid-area: bar;
+}
+
+.voting-bar > div {
+    overflow: hidden;
+}
+
 @media (max-width: 768px) {
     
     .topic-table {
@@ -130,6 +154,13 @@
         padding: 0px 4px;
         font-size: 80%;
     }    
+    
+    .voting-item {
+        grid-template-columns: 3fr 75px;
+        grid-template-areas: 
+            "title percentage"
+            "bar bar";
+    }
 }
 
 /* header */
