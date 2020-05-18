@@ -97,7 +97,7 @@ class TextEditor extends Component<Props> {
                 <FormControl 
                     componentClass="textarea" 
                     placeholder={placeholder} 
-                    cols="70" rows="12"
+                    cols="70" rows="3"
                     value={text}
                     onChange={this.onChange}
                     onKeyPress={this.onKeyPress}
