@@ -1,7 +1,7 @@
 //@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { FormControl } from 'react-bootstrap'
+import Form from 'react-bootstrap/Form'
 
 import { fetchSectionsIfNeeded } from 'src/actions/sections'
 
@@ -16,7 +16,7 @@ type SectionSelectProps = {
     className: string,
     id: string,
     style?: {},
-    bsSize: ?string,
+    size: ?string,
     onChange: (e: any, section: ResponseSection | null) => void
 }
 
@@ -57,7 +57,7 @@ export class SectionSelect extends Component<Props> {
 
     render() {
 
-        const { id, tree, defaultValue, selected, style, bsSize } = this.props;
+        const { id, tree, defaultValue, selected, style, size } = this.props;
         
         let sectionsElem = [];
         for (let forum in tree) {
@@ -75,17 +75,16 @@ export class SectionSelect extends Component<Props> {
         }
 
         return  (
-            <FormControl 
-                componentClass="select"
+            <Form.Control as="select" 
                 onChange={this.onChange}
                 value={selected}
                 style={{color: "black", ...style}}
-                bsSize={bsSize}
+                size={size}
                 id={id}
             >
                 <option value="">{defaultValue}</option>
                 {sectionsElem}
-            </FormControl>    
+            </Form.Control>    
         )
     }
 }

@@ -1,6 +1,6 @@
 {
   "name": "react.mista",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "private": true,
   "homepage": "https://a-sitnikov.github.io/react.mista",
   "dependencies": {
@@ -12,14 +12,14 @@
     "query-string": "^5.1.1",
     "react": "^16.13.1",
     "react-active-html": "^1.2.2",
-    "react-bootstrap": "^0.32.4",
+    "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
-    "react-draggable": "^3.3.2",
-    "react-redux": "^5.1.2",
-    "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1",
+    "react-draggable": "^4.4.2",
+    "react-redux": "^7.2.0",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "1.1.1",
-    "redux": "^3.7.2",
+    "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "url-parse": "^1.4.7"
   },

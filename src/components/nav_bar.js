@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Navbar, Nav, NavItem } from 'react-bootstrap'
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+import Form from 'react-bootstrap/Form'
 import queryString from 'query-string'
 import { withRouter } from 'react-router-dom'
 
@@ -35,31 +37,28 @@ class NavBar extends Component {
 
         const menuItems = menu.map((item, i) => {
             return (
-                <NavItem 
-                    key={i} 
-                    href={item.link}
-                >
-                {item.name}
-                </NavItem>
+                <Nav.Item key={i}>
+                    <Nav.Link href={item.link}>
+                        {item.name}
+                    </Nav.Link>
+                </Nav.Item>
             )
         });
         
         return (
-            <Navbar fluid inverse fixedTop>
-                <Navbar.Brand className="navbar-brand">
-                    <a href={`${window.hash}`} onClick={this.onClick}>React.Mista</a>
+            <Navbar bg="dark" variant="dark">
+                <Navbar.Brand
+                    href={`${window.hash}`} onClick={this.onClick}>React.Mista
                 </Navbar.Brand>
-                <Navbar.Toggle />
-                <Nav>
-                </Nav>
+                <Navbar.Toggle  aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse>
                     <Nav>
                     {menuItems}
                     </Nav>
-                    <Navbar.Form pullRight>
+                    <Form inline className="justify-content-end">
                         <Search />
-                    </Navbar.Form>
-                </Navbar.Collapse>
+                    </Form>
+               </Navbar.Collapse>
             </Navbar>
         )
     }

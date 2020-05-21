@@ -1,7 +1,7 @@
 //@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { FormControl, Button, ButtonGroup, Checkbox } from 'react-bootstrap'
+import { FormControl, Button, ButtonGroup, Form } from 'react-bootstrap'
 
 import type { DefaultProps } from 'src/index'
 
@@ -116,12 +116,12 @@ class TextEditor extends Component<Props> {
                         </Button>
                     </ButtonGroup>
                     {showVoting &&
-                        <Checkbox 
+                        <Form.Check 
                             checked={isVoting} 
                             onChange={this.onVotingChange} 
                             style={{margin: "auto 0px auto auto"}} >
                             Голосование
-                        </Checkbox>
+                        </Form.Check>
                     }
                 </div>
             </div>

@@ -1,7 +1,7 @@
 //@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { FormGroup, Radio } from 'react-bootstrap'
+import { FormGroup, Form } from 'react-bootstrap'
 
 import TextEditor from 'src/components/common/text_editor'
 import { postNewMessageIfNeeded } from 'src/actions/new_message'
@@ -106,7 +106,14 @@ class NewMessage extends Component<Props> {
                     continue;
 
                 votingOptions.push(
-                    <Radio key={i} name="voting" checked={this.state.voting === i} onChange={() => this.setVotingOption(i)}>{`${i}. ${item.select}`}</Radio>
+                    <Form.Check 
+                        type="radio"
+                        key={i} 
+                        name="voting" 
+                        checked={this.state.voting === i} 
+                        onChange={() => this.setVotingOption(i)}
+                        label={`${i}. ${item.select}`}
+                    />
                 );
             }
 

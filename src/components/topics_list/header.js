@@ -51,7 +51,7 @@ class Header extends Component<Props> {
                         defaultValue="--Все секции--" 
                         selected={params.section} 
                         onChange={this.onSectionSelect}
-                        bsSize="sm" 
+                        size="sm" 
                     />
                 </div>
             </div>

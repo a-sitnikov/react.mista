@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Dropdown, MenuItem } from 'react-bootstrap'
+import { Dropdown } from 'react-bootstrap'
 
 import { doLogout } from 'src/actions/login'
 import { domain } from 'src/api'
@@ -65,12 +65,12 @@ class LoggedUser extends Component<Props> {
                     <span>Привет, </span>
                     <CustomToggle bsRole="toggle">{userName} ▼</CustomToggle>
                     <Dropdown.Menu>
-                        <MenuItem eventKey="profile" href={`${domain}/users.php?id=${userId}`}>Профиль</MenuItem>
-                        <MenuItem eventKey="myTopics" href={`${window.hash}/index.php?user_id=${userId}`}>Мои темы</MenuItem>
-                        <MenuItem divider />
-                        <MenuItem eventKey="options" href={`${window.hash}/options.php`}>Настройки</MenuItem>
-                        <MenuItem divider />
-                        <MenuItem eventKey="exit">Выход</MenuItem>
+                        <Dropdown.Item eventKey="profile" href={`${domain}/users.php?id=${userId}`}>Профиль</Dropdown.Item>
+                        <Dropdown.Item eventKey="myTopics" href={`${window.hash}/index.php?user_id=${userId}`}>Мои темы</Dropdown.Item>
+                        <Dropdown.Divider />
+                        <Dropdown.Item eventKey="options" href={`${window.hash}/options.php`}>Настройки</Dropdown.Item>
+                        <Dropdown.Divider />
+                        <Dropdown.Item eventKey="exit">Выход</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
             </div>

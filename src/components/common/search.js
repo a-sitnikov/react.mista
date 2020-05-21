@@ -1,6 +1,9 @@
 //@flow
 import React, { Component } from 'react'
-import { FormGroup, FormControl, Glyphicon, DropdownButton, MenuItem } from 'react-bootstrap'
+import InputGroup from 'react-bootstrap/InputGroup'
+import FormControl from 'react-bootstrap/FormControl'
+import Dropdown from 'react-bootstrap/Dropdown'
+import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import './search.css'
 
@@ -70,15 +73,19 @@ class Search extends Component<Props> {
     render() {
 
         return (
-            <FormGroup bsSize="sm" style={{display: "flex"}}>
-                <DropdownButton id="search-engine" title="" bsSize="sm" style={{marginRight: "2px"}} dropup className="dropup btn-group btn-group-sm select-search-up">
-                    <MenuItem eventKey="Яндекс" onSelect={this.onSearchEngineChange}>Яндекс</MenuItem>
-                    <MenuItem eventKey="Google" onSelect={this.onSearchEngineChange}>Google</MenuItem>
-                </DropdownButton>               
-                <DropdownButton id="search-engine" title="" bsSize="sm" style={{marginRight: "2px"}}  className="btn-group btn-group-sm select-search-down">
-                    <MenuItem eventKey="Яндекс" onSelect={this.onSearchEngineChange}>Яндекс</MenuItem>
-                    <MenuItem eventKey="Google" onSelect={this.onSearchEngineChange}>Google</MenuItem>
-                </DropdownButton>    
+            <InputGroup size="sm">
+                <InputGroup.Prepend>
+                {/*}
+                    <DropdownButton id="search-engine" title="" style={{marginRight: "2px"}} dropup className="dropup btn-group btn-group-sm select-search-up">
+                        <Dropdown.Item eventKey="Яндекс" onSelect={this.onSearchEngineChange}>Яндекс</Dropdown.Item>
+                        <Dropdown.Item eventKey="Google" onSelect={this.onSearchEngineChange}>Google</Dropdown.Item>
+                    </DropdownButton>    
+        */}           
+                    <DropdownButton id="search-engine" title="" size="sm" style={{marginRight: "2px"}}>
+                        <Dropdown.Item eventKey="Яндекс" onSelect={this.onSearchEngineChange}>Яндекс</Dropdown.Item>
+                        <Dropdown.Item eventKey="Google" onSelect={this.onSearchEngineChange}>Google</Dropdown.Item>
+                    </DropdownButton> 
+                </InputGroup.Prepend>   
                 <FormControl 
                     type="text" 
                     placeholder={`${this.state.searchEngine}: поиск`} 
@@ -87,10 +94,10 @@ class Search extends Component<Props> {
                     onChange={this.onSearchTextChange}
                     value={this.state.text}
                 />
-                <div style={{marginLeft: "-25px", marginTop: "auto", marginBottom: "auto", cursor: "pointer"}} onClick={this.doSearch}>
-                    <Glyphicon glyph="search"/>
-                </div>
-            </FormGroup>
+                <InputGroup.Append style={{marginLeft: "-25px", marginTop: "auto", marginBottom: "auto", cursor: "pointer"}} onClick={this.doSearch}>
+                    <span className="glyphicon glyphicon-search"/>
+                </InputGroup.Append>
+            </InputGroup>
         )
     }
 }

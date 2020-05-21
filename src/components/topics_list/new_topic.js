@@ -1,6 +1,7 @@
 //@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Form from 'react-bootstrap/Form'
 import { FormGroup, FormControl, InputGroup } from 'react-bootstrap'
 
 import type { ResponseSection } from 'src/api'
@@ -180,14 +181,13 @@ class NewTopic extends Component<Props> {
                     <p><b>Новая тема:</b></p>
                     {newTopic.error && <ErrorElem text={newTopic.error} />}
                     <div className="flex-row" style={{ marginBottom: "3px" }}>
-                        <FormControl 
-                            componentClass="select"
+                        <Form.Control as="select"
                             readOnly={true} 
                             value={newTopic.forum}
                             style={{ flex: "0 1 90px", color: "black" }}
                         >
                             {groupsElem}                       
-                        </FormControl>
+                        </Form.Control>
                         <SectionSelect
                             defaultValue="Секция"
                             id="target_section"
@@ -195,8 +195,7 @@ class NewTopic extends Component<Props> {
                             onChange={this.onSectionChange}
                         />
                     </div>
-                    <FormControl
-                        type="text"
+                    <Form.Control as="text"
                         value={newTopic.subject}
                         onChange={this.onSubjectChange}
                         style={{ type: "text", width: "100%", boxSizing: "border-box", marginBottom: "3px", color: "black" }}

@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Checkbox, FormControl, Button } from 'react-bootstrap'
+import { Form, FormControl, Button } from 'react-bootstrap'
 
 import RadioOption from './radio_option'
 import StringOption from './string_option'
@@ -249,7 +249,7 @@ class Options extends Component<OptionsState> {
                         );
                     } else if (item.type === 'checkbox') {
                         rowElem.push(
-                            <Checkbox 
+                            <Form.Check 
                                 key={name}
                                 name={name} 
                                 checked={String(value) === 'true'}
@@ -257,7 +257,7 @@ class Options extends Component<OptionsState> {
                                 style={{flex: "0 0 auto", margin: "0px"}}
                             >
                                 {item.label}
-                            </Checkbox>
+                            </Form.Check>
                         );
                     }
                 }

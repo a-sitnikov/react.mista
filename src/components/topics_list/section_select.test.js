@@ -44,7 +44,7 @@ describe('SectionSelect', ()=>{
             defaultValue: 'Секция',
             selected: '',
             id: 's1',
-            bsSize: 'sm'
+            size: 'sm'
         }
 
         const component = renderer.create(
