@@ -39,7 +39,7 @@ class LoginForm extends Component<Props> {
                         type="text" 
                         placeholder="Имя" 
                         inputRef={ref => {this.username = ref}} 
-                        bsSize="sm" 
+                        size="sm" 
                         style={{marginRight: "5px", flex: "0 1 300px", marginBottom: "5px"}}
                     />
                     <FormControl 
@@ -48,12 +48,12 @@ class LoginForm extends Component<Props> {
                         maxLength="20" 
                         autoComplete="off" 
                         inputRef={ref => {this.password = ref}}
-                        bsSize="sm" 
+                        size="sm" 
                         style={{marginRight: "5px", flex: "0 1 300px", marginBottom: "5px"}}
                     />
-                    <ButtonGroup>
-                        <Button bsSize="sm" onClick={this.onLogin}>Войти</Button>
-                    </ButtonGroup>
+                    {/*<ButtonGroup>*/}
+                        <Button size="sm" onClick={this.onLogin}>Войти</Button>
+                    {/*</ButtonGroup>*/}
                 </form>
                 <p style={{margin: "0px"}}>Войти можно на сайте <a href="https://www.forum.mista.ru/">forum.mista.ru</a></p>
                 <a rel="nofollow" href="https://www.forum.mista.ru/user_registration.php">Регистрация</a>

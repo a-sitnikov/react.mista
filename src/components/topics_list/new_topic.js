@@ -2,7 +2,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Form from 'react-bootstrap/Form'
-import { FormGroup, FormControl, InputGroup } from 'react-bootstrap'
+import InputGroup from 'react-bootstrap/InputGroup'
+import { FormGroup } from 'react-bootstrap'
 
 import type { ResponseSection } from 'src/api'
 
@@ -168,7 +169,7 @@ class NewTopic extends Component<Props> {
                     <div key={i}>
                         <InputGroup style={{marginBottom: "3px", width: "100%"}}>
                             <InputGroup.Addon style={{width:"45px"}}>{`${i}.`}</InputGroup.Addon>
-                            <FormControl type="text" size="30" maxLength="50" ref={`vote${i}`} style={{color: "black"}}/>
+                            <Form.Control as="text" size="30" maxLength="50" ref={`vote${i}`} style={{color: "black"}}/>
                         </InputGroup>    
                     </div>
                 );

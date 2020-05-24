@@ -37,25 +37,25 @@ class NavBar extends Component {
 
         const menuItems = menu.map((item, i) => {
             return (
-                <Nav.Item key={i}>
-                    <Nav.Link href={item.link}>
-                        {item.name}
-                    </Nav.Link>
-                </Nav.Item>
+                <Nav.Link key={i} href={item.link}>
+                    {item.name}
+                </Nav.Link>
             )
         });
         
         return (
-            <Navbar bg="dark" variant="dark">
+            <Navbar bg="dark" variant="dark" expand="md">
                 <Navbar.Brand
-                    href={`${window.hash}`} onClick={this.onClick}>React.Mista
+                    href={`${window.hash}`} 
+                    onClick={this.onClick}>
+                    React.Mista
                 </Navbar.Brand>
-                <Navbar.Toggle  aria-controls="basic-navbar-nav" />
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse>
-                    <Nav>
-                    {menuItems}
+                    <Nav className="mr-auto">
+                        {menuItems}
                     </Nav>
-                    <Form inline className="justify-content-end">
+                    <Form inline>
                         <Search />
                     </Form>
                </Navbar.Collapse>

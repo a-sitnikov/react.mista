@@ -197,27 +197,6 @@ a:hover {
     margin-top: 48px;
 }
 
-.navbar {
-    min-height: 40px;
-}
-
-.navbar-brand {
-    height: 40px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.navbar-form {
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-@media (min-width: 768px) {
-    .navbar-nav>li>a {
-        padding: 10px 10px;
-    }
-}
-
 @media (max-width: 768px) {
     
     .navbar-nav {
