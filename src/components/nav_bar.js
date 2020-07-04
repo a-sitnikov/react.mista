@@ -46,7 +46,7 @@ class NavBar extends Component {
         });
         
         return (
-            <Navbar bg="dark" variant="dark" expand="md">
+            <Navbar bg="dark" variant="dark" expand="md" sticky="top">
                 <Navbar.Brand
                     href={`${window.hash}`} 
                     onClick={this.onClick}>
