@@ -73,7 +73,6 @@ class TextEditor extends Component<Props> {
     onKeyPress = (e) => {
 
         if (e.key === 'Enter' && e.ctrlKey) {
-            console.log(this.textArea.current);
             let parent =  this.textArea.current.parentNode;
             while (parent.tagName.toUpperCase() !== "FORM") {
                 parent = parent.parentNode;
