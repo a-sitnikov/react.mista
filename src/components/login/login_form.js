@@ -16,6 +16,12 @@ class LoginForm extends Component<Props> {
     username: any;
     password: any;
 
+    constructor(props) {
+        super(props);
+        this.username = React.createRef();  
+        this.password = React.createRef();  
+    }
+        
     onLogin = (event) => {
 
         event.preventDefault();
@@ -23,10 +29,9 @@ class LoginForm extends Component<Props> {
         const { dispatch } = this.props;
 
         const params = {
-            username: this.username.value,
-            password: this.password.value
+            username: this.username.current.value,
+            password: this.password.current.value
         }
-
         dispatch(doLoginIfNeeded(params));  
     }
 
@@ -38,7 +43,7 @@ class LoginForm extends Component<Props> {
                     <FormControl 
                         type="text" 
                         placeholder="Имя" 
-                        inputRef={ref => {this.username = ref}} 
+                        ref={this.username} 
                         size="sm" 
                         style={{marginRight: "5px", flex: "0 1 300px"}}
                     />
@@ -47,7 +52,7 @@ class LoginForm extends Component<Props> {
                         placeholder="Пароль" 
                         maxLength="20" 
                         autoComplete="off" 
-                        inputRef={ref => {this.password = ref}}
+                        ref={this.password}
                         size="sm" 
                         style={{marginRight: "5px", flex: "0 1 300px"}}
                     />
