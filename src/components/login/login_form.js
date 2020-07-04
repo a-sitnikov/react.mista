@@ -1,7 +1,7 @@
 //@flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { FormControl, Button, ButtonGroup } from 'react-bootstrap'
+import { FormControl, Button } from 'react-bootstrap'
 
 import { doLoginIfNeeded } from 'src/actions/login'
 
@@ -40,7 +40,7 @@ class LoginForm extends Component<Props> {
                         placeholder="Имя" 
                         inputRef={ref => {this.username = ref}} 
                         size="sm" 
-                        style={{marginRight: "5px", flex: "0 1 300px", marginBottom: "5px"}}
+                        style={{marginRight: "5px", flex: "0 1 300px"}}
                     />
                     <FormControl 
                         type="password" 
@@ -49,11 +49,13 @@ class LoginForm extends Component<Props> {
                         autoComplete="off" 
                         inputRef={ref => {this.password = ref}}
                         size="sm" 
-                        style={{marginRight: "5px", flex: "0 1 300px", marginBottom: "5px"}}
+                        style={{marginRight: "5px", flex: "0 1 300px"}}
                     />
-                    {/*<ButtonGroup>*/}
-                        <Button size="sm" onClick={this.onLogin}>Войти</Button>
-                    {/*</ButtonGroup>*/}
+                    <Button 
+                        size="sm"
+                        variant="light" 
+                        onClick={this.onLogin}
+                    >Войти</Button>
                 </form>
                 <p style={{margin: "0px"}}>Войти можно на сайте <a href="https://www.forum.mista.ru/">forum.mista.ru</a></p>
                 <a rel="nofollow" href="https://www.forum.mista.ru/user_registration.php">Регистрация</a>

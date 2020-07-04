@@ -16,20 +16,18 @@ type LoggedUserProps = {
 
 type Props = LoggedUserProps & DefaultProps;
 
-class CustomToggle extends React.Component<any> {
-    
-  handleClick = e => {
-    this.props.onClick(e);
-  }
-
-  render() {
-    return (
-      <span style={{ cursor: "pointer", color: "#00C" }} onClick={this.handleClick}>
-        {this.props.children}
-      </span>
-    );
-  }
-}
+const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
+  <span
+    ref={ref} 
+    style={{ cursor: "pointer", color: "#00C" }} 
+    onClick={(e) => {
+      e.preventDefault();
+      onClick(e);
+    }}
+  >
+    {children}
+  </span>
+));
 
 class LoggedUser extends Component<Props> {
 
@@ -63,7 +61,7 @@ class LoggedUser extends Component<Props> {
             <div style={{float: "left"}}>
                 <Dropdown id="dropdown-custom-menu" onSelect={this.onMenuSelect}>
                     <span>Привет, </span>
-                    <CustomToggle bsRole="toggle">{userName} ▼</CustomToggle>
+                    <Dropdown.Toggle as={CustomToggle} bsRole="toggle">{userName} ▼</Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Item eventKey="profile" href={`${domain}/users.php?id=${userId}`}>Профиль</Dropdown.Item>
                         <Dropdown.Item eventKey="myTopics" href={`${window.hash}/index.php?user_id=${userId}`}>Мои темы</Dropdown.Item>

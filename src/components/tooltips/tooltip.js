@@ -120,32 +120,10 @@ class Tooltip extends Component<Props> {
                             data={this.state.data} 
                             html={this.state.text} 
                             topicId={keys.topicId} 
-                            style={{maxHeight: "550px", overflowY: "auto"}} 
+                            style={{maxHeight: "min(550px, 80hv)", overflowY: "auto"}} 
                         />
                     </TooltipBody>
                 </TooltipWindow>
-                /*}
-                <Draggable
-                    axis={axis}
-                    handle=".tooltip-header"
-                    defaultClassNameDragging="dragging"
-                    key={i}>
-
-                    <div className="tooltip-window" style={{ ...position }} onWheel={this.onWheel}>
-                        <TooltipHeader onCloseClick={this.onCloseClick}>
-                            {header}
-                        </TooltipHeader>
-                        <TooltipBody>
-                            <MsgText 
-                                data={this.state.data} 
-                                html={this.state.text} 
-                                topicId={topicId} 
-                                style={{maxHeight: "550px", overflowY: "auto"}} 
-                            />
-                        </TooltipBody>
-                    </div>
-                </Draggable>
-                */
             )
     }
 }

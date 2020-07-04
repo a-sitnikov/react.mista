@@ -43,12 +43,24 @@ class Footer extends React.Component<FooterProps> {
         let page = params.page || 1;
         if (page === 'last20' || page === maxPage )    
             updateButton = 
-            <Button onClick={this.onRefreshClick} disabled={bookmark.isFetching} bsSize="sm">{isFetching ? 'Обновляется': 'Обновить ветку'}</Button>
+            <Button 
+                onClick={this.onRefreshClick} 
+                disabled={bookmark.isFetching} 
+                size="sm"
+                variant="light">
+                {isFetching ? 'Обновляется': 'Обновить ветку'}
+            </Button>
 
         return (
             <div className="flex-row" id="F">
                 <div className="ta-left va-top" style={{ width: "50%" }}>
-                    <Button onClick={this.onBookmarkClick} disabled={bookmark.isFetching} bsSize="sm">{bookmark.isFetching ? 'Подождите...' : 'Закладка'}</Button>
+                    <Button 
+                        onClick={this.onBookmarkClick} 
+                        disabled={bookmark.isFetching} 
+                        size="sm"
+                        variant="light">
+                        {bookmark.isFetching ? 'Подождите...' : 'Закладка'}
+                    </Button>
                 </div>
                 <div className="ta-right va-middle" style={{ marginLeft: "auto" }}>
                     {updateButton}

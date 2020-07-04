@@ -74,14 +74,8 @@ class Search extends Component<Props> {
 
         return (
             <InputGroup size="sm">
-                <InputGroup.Prepend>
-                {/*}
-                    <DropdownButton id="search-engine" title="" style={{marginRight: "2px"}} dropup className="dropup btn-group btn-group-sm select-search-up">
-                        <Dropdown.Item eventKey="Яндекс" onSelect={this.onSearchEngineChange}>Яндекс</Dropdown.Item>
-                        <Dropdown.Item eventKey="Google" onSelect={this.onSearchEngineChange}>Google</Dropdown.Item>
-                    </DropdownButton>    
-        */}           
-                    <DropdownButton id="search-engine" title="" size="sm" style={{marginRight: "2px"}}>
+                <InputGroup.Prepend>   
+                    <DropdownButton id="search-engine" title="" size="sm" style={{marginRight: "2px"}} variant="light">
                         <Dropdown.Item eventKey="Яндекс" onSelect={this.onSearchEngineChange}>Яндекс</Dropdown.Item>
                         <Dropdown.Item eventKey="Google" onSelect={this.onSearchEngineChange}>Google</Dropdown.Item>
                     </DropdownButton> 
@@ -89,7 +83,7 @@ class Search extends Component<Props> {
                 <FormControl 
                     type="text" 
                     placeholder={`${this.state.searchEngine}: поиск`} 
-                    style={{flex: "1", marginRight: "4px", paddingRight: "27px"}}
+                    style={{marginRight: "4px", paddingRight: "27px"}}
                     onKeyPress={this.onKeyPress}
                     onChange={this.onSearchTextChange}
                     value={this.state.text}

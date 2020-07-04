@@ -95,7 +95,7 @@ class TextEditor extends Component<Props> {
         return (
             <div>
                 <FormControl 
-                    componentClass="textarea" 
+                    as="textarea" 
                     placeholder={placeholder} 
                     cols="70" rows="3"
                     value={text}
@@ -106,9 +106,15 @@ class TextEditor extends Component<Props> {
                 />
                 <div className="flex-row">
                     <ButtonGroup>
-                        <Button onClick={this.onButtonCode1c} style={{marginRight: "5px"}} bsSize="sm">Код 1С</Button>
+                        <Button 
+                            size="sm"
+                            variant="light" 
+                            onClick={this.onButtonCode1c} 
+                            style={{marginRight: "5px"}}
+                            >Код 1С</Button>
                         <Button
-                            bsSize="sm"
+                            size="sm"
+                            variant="light"
                             disabled={isFetching}
                             type="submit"
                             >
@@ -117,11 +123,11 @@ class TextEditor extends Component<Props> {
                     </ButtonGroup>
                     {showVoting &&
                         <Form.Check 
+                            type="checkbox"
                             checked={isVoting} 
-                            onChange={this.onVotingChange} 
-                            style={{margin: "auto 0px auto auto"}} >
-                            Голосование
-                        </Form.Check>
+                            onChange={this.onVotingChange}
+                            label="Голосование" 
+                            style={{margin: "auto 0px auto auto"}} />
                     }
                 </div>
             </div>

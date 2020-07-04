@@ -167,9 +167,19 @@ class NewTopic extends Component<Props> {
             for (let i = 1; i <= 10; i++) {
                 votingOptions.push(
                     <div key={i}>
-                        <InputGroup style={{marginBottom: "3px", width: "100%"}}>
-                            <InputGroup.Addon style={{width:"45px"}}>{`${i}.`}</InputGroup.Addon>
-                            <Form.Control as="text" size="30" maxLength="50" ref={`vote${i}`} style={{color: "black"}}/>
+                        <InputGroup size="sm" style={{marginBottom: "3px", width: "100%"}}>
+                            <InputGroup.Prepend>
+                                <InputGroup.Text
+                                    style={{width:"40px"}}>
+                                    {`${i}.`}
+                                </InputGroup.Text>
+                            </InputGroup.Prepend>
+                            <Form.Control 
+                                type="text" 
+                                maxLength="50" 
+                                ref={`vote${i}`} 
+                                style={{color: "black"}}
+                            />
                         </InputGroup>    
                     </div>
                 );
@@ -183,6 +193,7 @@ class NewTopic extends Component<Props> {
                     {newTopic.error && <ErrorElem text={newTopic.error} />}
                     <div className="flex-row" style={{ marginBottom: "3px" }}>
                         <Form.Control as="select"
+                            size="sm"
                             readOnly={true} 
                             value={newTopic.forum}
                             style={{ flex: "0 1 90px", color: "black" }}
@@ -192,14 +203,17 @@ class NewTopic extends Component<Props> {
                         <SectionSelect
                             defaultValue="Секция"
                             id="target_section"
+                            size="sm"
                             style={{ flex: "1 1 auto" }}
                             onChange={this.onSectionChange}
                         />
                     </div>
-                    <Form.Control as="text"
+                    <Form.Control 
+                        type="text"
+                        size="sm"
                         value={newTopic.subject}
                         onChange={this.onSubjectChange}
-                        style={{ type: "text", width: "100%", boxSizing: "border-box", marginBottom: "3px", color: "black" }}
+                        style={{ marginBottom: "3px", color: "black" }}
                         placeholder="Тема"
                         maxLength="90"
                     />                        

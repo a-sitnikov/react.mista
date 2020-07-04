@@ -194,20 +194,10 @@ a:hover {
 }
 
 .container {
-    margin-top: 48px;
+    margin-top: 15px;
 }
 
 @media (max-width: 768px) {
-    
-    .navbar-nav {
-        margin-top: 0px;
-        margin-bottom: 0px;
-    }
-
-    .navbar-toggle {
-        margin-top: 3px;
-        margin-bottom: 3px;
-    }
 
     .container-fluid {
         padding-right: 0px;

@@ -3,8 +3,6 @@ import * as API from '../api'
 import type { RequestNewMessage } from 'src/api'
 import type { State } from 'src/reducers'
 
-import { encodeText } from '../utils';
-
 export type POST_NEW_MESSAGE_START = {
     type: 'POST_NEW_MESSAGE_START'
 }
@@ -67,8 +65,8 @@ const postNewMessage = (params: PostNewmessageParams) => async (dispatch: any) =
         fetchParams.voting_select = params.voting_select;
 
     try {
-            let result = await API.postNewMessage(fetchParams);
-            dispatch({
+            await API.postNewMessage(fetchParams);
+            await dispatch({
                 type: 'POST_NEW_MESSAGE_COMPLETE'
             });
             if (params.onSuccess)
