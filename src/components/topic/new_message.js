@@ -36,6 +36,7 @@ class NewMessage extends Component<Props> {
     }
 
     onSubmit = (e) => {
+
         e.preventDefault();
 
         const { dispatch, info, newMessage } = this.props;

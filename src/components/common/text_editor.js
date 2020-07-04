@@ -22,28 +22,21 @@ type Props = TextEditorProps & DefaultProps;
 
 class TextEditor extends Component<Props> {
 
-    onButtonCode1c;
-    onVotingChange;
-    onChange;
-    onKeyPress;
     textArea;
 
     constructor(props) {
         super(props);
-        this.onButtonCode1c = this.onButtonCode1c.bind(this);
-        this.onVotingChange = this.onVotingChange.bind(this);
-        this.onChange = this.onChange.bind(this);
-        this.onKeyPress = this.onKeyPress.bind(this);
+        this.textArea = React.createRef();
     }
 
-    onButtonCode1c(e) {
+    onButtonCode1c = (e) => {
 
         e.preventDefault();
 
         var openTag = '[1C]\n';
         var closeTag = '\n[/1C]';
 
-        var textArea = this.textArea;
+        var textArea = this.textArea.current;
 
         var start = textArea.selectionStart;
         var end = textArea.selectionEnd;
@@ -62,7 +55,7 @@ class TextEditor extends Component<Props> {
 
     }
 
-    onVotingChange(e) {
+    onVotingChange = (e) => {
         const { dispatch } = this.props;
         dispatch({
             type: 'SHOW_VOTING',
@@ -70,7 +63,7 @@ class TextEditor extends Component<Props> {
         })
     }
 
-    onChange(e) {
+    onChange = (e) => {
         const { dispatch, formName } = this.props;
         dispatch({
             type: formName + '_TEXT',
@@ -78,7 +71,7 @@ class TextEditor extends Component<Props> {
         })
     }
 
-    onKeyPress(e) {
+    onKeyPress = (e) => {
         const { formRef } = this.props;
 
         if (e.key === 'Enter' && e.ctrlKey) {
@@ -101,7 +94,7 @@ class TextEditor extends Component<Props> {
                     value={text}
                     onChange={this.onChange}
                     onKeyPress={this.onKeyPress}
-                    inputRef={ref => { this.textArea = ref; }}
+                    inputRef={this.textArea}
                     className="text-editor"
                 />
                 <div className="flex-row">
