@@ -13,7 +13,6 @@ type TextEditorProps = {
     isVoting: boolean,
     text: string,
     isFetching: boolean,
-    formRef: any,
     formName: string,
     onChange?: (e: any, text: string) => void,   
 }
@@ -72,12 +71,14 @@ class TextEditor extends Component<Props> {
     }
 
     onKeyPress = (e) => {
-        const { formRef } = this.props;
 
         if (e.key === 'Enter' && e.ctrlKey) {
-            if (formRef) {
-                formRef.current.dispatchEvent(new Event("submit"));
+            console.log(this.textArea.current);
+            let parent =  this.textArea.current.parentNode;
+            while (parent.tagName.toUpperCase() !== "FORM") {
+                parent = parent.parentNode;
             }
+            parent.dispatchEvent(new Event("submit"));
         }
     }
 
@@ -94,7 +95,7 @@ class TextEditor extends Component<Props> {
                     value={text}
                     onChange={this.onChange}
                     onKeyPress={this.onKeyPress}
-                    inputRef={this.textArea}
+                    ref={this.textArea}
                     className="text-editor"
                 />
                 <div className="flex-row">

@@ -31,8 +31,6 @@ class NewMessage extends Component<Props> {
     constructor(props) {
         super(props);
         this.state = { voting: undefined };
-        // $FlowFixMe
-        this.formRef = React.createRef();
     }
 
     onSubmit = (e) => {
@@ -134,7 +132,7 @@ class NewMessage extends Component<Props> {
         }
 
         return (
-            <form style={{marginTop: "5px"}} onSubmit={this.onSubmit} ref={this.formRef}> 
+            <form style={{marginTop: "5px"}} onSubmit={this.onSubmit}> 
                 <p className="bold">Добавить сообщение в тему:</p>
                 <div className="new-message-container">
                     <div className="new-message-text">
@@ -143,7 +141,6 @@ class NewMessage extends Component<Props> {
                             text={newMessage.text} 
                             placeholder="Сообщение"
                             formName="NEW_MESSAGE"
-                            formRef={this.formRef}
                         />
                     </div>
                     <div className="new-message-voting">
