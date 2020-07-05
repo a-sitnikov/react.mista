@@ -13,12 +13,7 @@ import './nav_bar.css'
 
 class NavBar extends Component {
 
-    constructor() {
-        super();
-        this.onClick = this.onClick.bind(this);
-    }
-
-    onClick(e) {
+    onClick = (e) => {
         const { dispatch, location } = this.props;
         let locationParams = queryString.parse(location.search);
         dispatch(fetchTopicsListIfNeeded(locationParams));
@@ -46,7 +41,7 @@ class NavBar extends Component {
         });
         
         return (
-            <Navbar bg="dark" variant="dark" expand="md" sticky="top">
+            <Navbar bg="dark" variant="dark" expand="md" fixed="top">
                 <Navbar.Brand
                     href={`${window.hash}`} 
                     onClick={this.onClick}>
