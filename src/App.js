@@ -26,13 +26,13 @@ class App extends Component<Props> {
     props.dispatch(readOptions());
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
       const { theme } = this.props;
       if (document.body)
         document.body.className = theme;
   }
   
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
       const { theme } = props;
       if (document.body)
         document.body.className = theme;

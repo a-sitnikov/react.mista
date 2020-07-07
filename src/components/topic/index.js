@@ -91,7 +91,7 @@ class Topic extends Component<Props> {
         closeTopic();
     }
 
-    componentWillReceiveProps(props: Props) {
+    UNSAFE_componentWillReceiveProps(props: Props) {
         
         if (props.info.text && document.title !== props.info.text) {
             let title = props.info.text;

@@ -76,14 +76,7 @@ class Tooltip extends Component<Props> {
         // $FlowFixMe
         this.setState({ data, text, number });
     }
-
-    componentDidMount() {
-
-        if (!this.state.data)
-            this.fetchData(this.state.number);
-
-    }    
-
+ 
     onWheel = (e) => {
         const { keys } = this.props.tooltip;
         if (keys.type !== 'TOPIC_PREVIEW') return;
@@ -96,6 +89,18 @@ class Tooltip extends Component<Props> {
         }
     }
 
+    onClose = (e) => {
+        console.log("close", e);
+    }
+
+
+    componentDidMount() {
+
+        if (!this.state.data)
+            this.fetchData(this.state.number);
+
+    }
+    
     render() {
        const { keys } = this.props.tooltip;
 
@@ -112,7 +117,7 @@ class Tooltip extends Component<Props> {
         if (keys.type === 'TOPIC' || keys.type === 'TOPIC_PREVIEW') 
             return (
                 <TooltipWindow tooltip={this.props.tooltip} onWheel={this.onWheel}>
-                    <TooltipHeader>
+                    <TooltipHeader onClose={this.onClose}>
                         {header}
                     </TooltipHeader>
                     <TooltipBody>
@@ -120,7 +125,7 @@ class Tooltip extends Component<Props> {
                             data={this.state.data} 
                             html={this.state.text} 
                             topicId={keys.topicId} 
-                            style={{maxHeight: "min(550px, 80hv)", overflowY: "auto"}} 
+                            style={{maxHeight: "min(550px, 80vh)", overflowY: "auto"}} 
                         />
                     </TooltipBody>
                 </TooltipWindow>

@@ -32,7 +32,7 @@ class NavBar extends Component {
 
         const menuItems = menu.map((item, i) => {
             return (
-                <Nav.Item kek={i}>
+                <Nav.Item key={i}>
                     <Nav.Link href={item.link}>
                         {item.name}
                     </Nav.Link>

@@ -40,7 +40,7 @@ class LinkToPost extends Component<Props, {text: string}> {
             this.state = {text: String(number)};
     }
 
-    componentWillReceiveProps(props) {
+    UNSAFE_componentWillReceiveProps(props) {
         if (!props.children) {
             this.setState({text: String(props.number)});
         }

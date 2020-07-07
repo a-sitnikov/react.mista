@@ -60,7 +60,7 @@ class TopicsList extends Component<Props> {
         clearTimeout(this.timer);
     }
 
-    componentWillReceiveProps(props: Props) {
+    UNSAFE_componentWillReceiveProps(props: Props) {
         
         const { location, topicsPerPage } = props;
 

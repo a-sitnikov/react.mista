@@ -33,7 +33,7 @@
 @media (max-width: 768px) {
     
     .navbar {
-        min-height: initial;
+        height: initial;
     }
     
     .navbar-nav {
