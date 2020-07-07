@@ -89,11 +89,6 @@ class Tooltip extends Component<Props> {
         }
     }
 
-    onClose = (e) => {
-        console.log("close", e);
-    }
-
-
     componentDidMount() {
 
         if (!this.state.data)
@@ -117,7 +112,7 @@ class Tooltip extends Component<Props> {
         if (keys.type === 'TOPIC' || keys.type === 'TOPIC_PREVIEW') 
             return (
                 <TooltipWindow tooltip={this.props.tooltip} onWheel={this.onWheel}>
-                    <TooltipHeader onClose={this.onClose}>
+                    <TooltipHeader>
                         {header}
                     </TooltipHeader>
                     <TooltipBody>
