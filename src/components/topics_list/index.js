@@ -118,7 +118,7 @@ class TopicsList extends Component<Props> {
                 <Header history={this.props.history} />
                 {topicsList.error && (<Error text={topicsList.error} />)}
                 <div className="table">
-                    <div className="th">
+                    <div className="th" style={{position:"sticky", top:"39px"}}>
                         <div>Раздел</div>
                         <div>Re</div>
                         <div></div>
