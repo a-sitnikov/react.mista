@@ -250,14 +250,14 @@ class Options extends Component<OptionsState> {
                     } else if (item.type === 'checkbox') {
                         rowElem.push(
                             <Form.Check 
+                                type="checkbox"
+                                label={item.label}
                                 key={name}
                                 name={name} 
                                 checked={String(value) === 'true'}
                                 onChange={(e) => this.onChange(e, name, e.target.checked)}
                                 style={{flex: "0 0 auto", margin: "0px"}}
-                            >
-                                {item.label}
-                            </Form.Check>
+                            />
                         );
                     }
                 }
@@ -290,9 +290,9 @@ class Options extends Component<OptionsState> {
                     </div>
                     {tabs}
                     <div className="button-row">
-                        <Button id="applyOptions" bsSize="sm" style={{margin: "5px", height: "30px"}} onClick={this.applyOptions}>OK</Button>
-                        <Button id="cancelOptions" bsSize="sm" style={{margin: "5px", float: "left", height: "30px"}} onClick={this.closeForm}>Отмена</Button>
-                        <Button id="defaultOptions" bsSize="sm" style={{margin: "5px", float: "right",  height: "30px"}} onClick={this.resetOptions}>Сбросить настройки</Button>
+                        <Button id="applyOptions" size="sm" variant="light" style={{margin: "5px"}} onClick={this.applyOptions}>OK</Button>
+                        <Button id="cancelOptions" size="sm" variant="light" style={{margin: "5px", float: "left"}} onClick={this.closeForm}>Отмена</Button>
+                        <Button id="defaultOptions" size="sm" variant="light" style={{margin: "5px", float: "right"}} onClick={this.resetOptions}>Сбросить настройки</Button>
                     </div>                    
                 </div>
         )
