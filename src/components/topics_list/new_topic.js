@@ -189,7 +189,7 @@ class NewTopic extends Component<Props> {
         return (
             <form className="new-topic-container" ref={this.formRef} onSubmit={this.onSubmit}>
                 <div id="newtopic_form"  className="new-topic-text">
-                    <p><b>Новая тема:</b></p>
+                    <div><b>Новая тема:</b></div>
                     {newTopic.error && <ErrorElem text={newTopic.error} />}
                     <div className="flex-row" style={{ marginBottom: "3px" }}>
                         <Form.Control as="select"
