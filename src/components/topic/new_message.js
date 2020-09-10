@@ -133,7 +133,7 @@ class NewMessage extends Component<Props> {
 
         return (
             <form style={{marginTop: "5px"}} onSubmit={this.onSubmit}> 
-                <p className="bold">Добавить сообщение в тему:</p>
+                <div className="bold">Добавить сообщение в тему:</div>
                 <div className="new-message-container">
                     <div className="new-message-text">
                         <TextEditor 
