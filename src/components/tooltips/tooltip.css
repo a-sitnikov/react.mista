@@ -3,7 +3,7 @@
     width: 650px;
     max-width: 97%;
     border: 1px solid darkgray;
-    z-index: 100;
+    z-index: 2000;
 }
 
 .tooltip-header {
