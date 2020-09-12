@@ -78,7 +78,7 @@ class TopicNameCell extends Component<Props> {
 
         return (
             <div className="cell-title">
-                <Link to={href} className={classes} dangerouslySetInnerHTML={{ __html: text }}></Link>
+                <Link to={href} className={classes} dangerouslySetInnerHTML={{ __html: text }} style={{overflowWrap: "anywhere"}}></Link>
                 {isVoting}
                 <Pages answ={data.answ} topicId={data.id} />
                 {closed}
