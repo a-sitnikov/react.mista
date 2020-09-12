@@ -121,7 +121,7 @@ class NewMessage extends Component<Props> {
                 <FormGroup>
                     <legend>
                         <small>Ваш выбор:
-                        <a href="" id="voting_clear" style={{ marginLeft: "5px" }} onClick={this.clearVoting}>очистить</a>
+                        <span href="" id="voting_clear" style={{ marginLeft: "5px", cursor: "pointer" }} onClick={this.clearVoting}>очистить</span>
                         </small>
                     </legend>                
                     {votingOptions}

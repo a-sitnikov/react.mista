@@ -124,7 +124,7 @@ class TopicsList extends Component<Props> {
                         <div></div>
                         <div>Тема</div>
                         <div>Автор</div>
-                        <div><a style={{cursor: "pointer"}} title="Обновить список" onClick={this.updateTopicsList}>{topicsList.isFetching ? "Обновляется" : "Обновлено"}</a></div>
+                        <div><span style={{cursor: "pointer"}} title="Обновить список" onClick={this.updateTopicsList}>{topicsList.isFetching ? "Обновляется" : "Обновлено"}</span></div>
                     </div>
                     {rows}
                     <div className="tf">

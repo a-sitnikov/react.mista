@@ -39,7 +39,7 @@ class TopicInfo extends Component<StateProps> {
                         </div>
                         <div style={{ flex: "0 0 20px", position: "relative" }}>
                             <div className="div-va-middle">
-                                <a rel="nofollow" href={yandexUrl} title="Искать в Яндексе" target="_blank" className="yandex">Я</a>
+                                <a rel="noopener noreferrer" href={yandexUrl} title="Искать в Яндексе" target="_blank" className="yandex">Я</a>
                             </div>
                         </div>
                     </div>
