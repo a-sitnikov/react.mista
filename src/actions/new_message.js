@@ -1,7 +1,6 @@
 //@flow
 import * as API from '../api'
 import type { RequestNewMessage } from 'src/api'
-import type { State } from 'src/reducers'
 
 export type POST_NEW_MESSAGE_START = {
     type: 'POST_NEW_MESSAGE_START'
@@ -24,17 +23,6 @@ export type ADD_MESSAGE_TEXT = {
 
 export type NewMessageAction = POST_NEW_MESSAGE_START | POST_NEW_MESSAGE_COMPLETE | NEW_MESSAGE_TEXT | ADD_MESSAGE_TEXT;
 
-export const shouldPostNewMessage = (state: State): boolean => {
-    const newMessage = state.newMessage;
-    if (!newMessage) {
-        return false
-    }
-    if (newMessage.isFetching) {
-        return false
-    }
-    return true
-}
-
 export type PostNewmessageParams = {
     text: string,
     topicId: string, 
@@ -42,13 +30,7 @@ export type PostNewmessageParams = {
     onSuccess?: () => void    
 }
 
-export const postNewMessageIfNeeded = (params: PostNewmessageParams) => (dispatch: any, getState: any) => {
-    if (shouldPostNewMessage(getState())) {
-        return dispatch(postNewMessage(params));
-    }
-}
-
-const postNewMessage = (params: PostNewmessageParams) => async (dispatch: any) => {
+export const postNewMessage = (params: PostNewmessageParams) => async (dispatch: any) => {
 
     dispatch({
         type: 'POST_NEW_MESSAGE_START'

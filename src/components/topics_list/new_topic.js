@@ -34,29 +34,9 @@ type Props = NewTopicProps & StateProps & DefaultProps;
 
 class NewTopic extends Component<Props> {
 
-    onSectionChange: (e: any, section: ResponseSection) => void;
-    onSend: (e: any, text: string) => void;
-    onSubjectChange: (e: any) => void;
-    onSubmit: () => void;
-    onSubmitSuccess: () => void;
     currentSection: ?ResponseSection;
-    formRef: any;
 
-    constructor(props) {
-        super(props);
-        this.onSectionChange = this.onSectionChange.bind(this);
-        this.onSubjectChange = this.onSubjectChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-        this.onSubmitSuccess = this.onSubmitSuccess.bind(this);
-
-        // $FlowFixMe
-        this.formRef = React.createRef();
-    }
-
-    componentDidMount() {
-    }
-
-    onSectionChange(e, section) {
+    onSectionChange = (e: any, section: ResponseSection) => {
         const { dispatch } = this.props;
         this.currentSection = section;
         
@@ -68,10 +48,9 @@ class NewTopic extends Component<Props> {
         dispatch(action);
     }
 
-    onSubmit(e) {
+    onSubmit = (e) => {
         
         e.preventDefault();
-
         const { dispatch, newTopic } = this.props;
 
         let action: NewTopicAction;
@@ -127,7 +106,7 @@ class NewTopic extends Component<Props> {
         dispatch(postNewTopicIfNeeded(params));
     }
     
-    onSubjectChange(e) {
+    onSubjectChange = (e) => {
  
         const { dispatch } = this.props;
         dispatch({
@@ -138,7 +117,7 @@ class NewTopic extends Component<Props> {
     }
 
 
-    onSubmitSuccess() {
+    onSubmitSuccess = () => {
 
         const { dispatch } = this.props;
         dispatch({
@@ -187,7 +166,7 @@ class NewTopic extends Component<Props> {
         }
 
         return (
-            <form className="new-topic-container" ref={this.formRef} onSubmit={this.onSubmit}>
+            <form className="new-topic-container" onSubmit={this.onSubmit}>
                 <div id="newtopic_form"  className="new-topic-text">
                     <div><b>Новая тема:</b></div>
                     {newTopic.error && <ErrorElem text={newTopic.error} />}
@@ -225,7 +204,6 @@ class NewTopic extends Component<Props> {
                         text={newTopic.text} 
                         isFetching={newTopic.isFetching}
                         formName="NEW_TOPIC"
-                        formRef={this.formRef}
                     />
                 </div>
                 <FormGroup className="new-topic-voting">

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { FormGroup, Form } from 'react-bootstrap'
 
 import TextEditor from 'src/components/common/text_editor'
-import { postNewMessageIfNeeded } from 'src/actions/new_message'
+import { postNewMessage } from 'src/actions/new_message'
 
 import type { State } from 'src/reducers'
 import type { NewMessageState } from 'src/reducers/new_message'
@@ -25,9 +25,6 @@ type Props = NewMessageProps & StateProps & DefaultProps;
 
 class NewMessage extends Component<Props> {
 
-    state: any;
-    formRef: any;
-
     constructor(props) {
         super(props);
         this.state = { voting: undefined };
@@ -36,6 +33,7 @@ class NewMessage extends Component<Props> {
     onSubmit = (e) => {
 
         e.preventDefault();
+        console.log('submitted');
 
         const { dispatch, info, newMessage } = this.props;
         
@@ -50,7 +48,7 @@ class NewMessage extends Component<Props> {
             params.voting_select = this.state.voting;
         }
 
-        dispatch(postNewMessageIfNeeded(params));
+        dispatch(postNewMessage(params));
     }
 
     onSubmitSuccess = () => {
