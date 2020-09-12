@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "911f0d5243845223539324bb97f8ca39",
+    "revision": "0186f2260b812cae06939be4bcee0920",
     "url": "/react.mista/index.html"
   },
   {
-    "revision": "4bd1fe0162dad7eeee6c",
+    "revision": "f7490dddb3644a043431",
     "url": "/react.mista/static/css/main.6e8eb38c.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react.mista/static/js/2.254999e8.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "4bd1fe0162dad7eeee6c",
-    "url": "/react.mista/static/js/main.dc0c0b53.chunk.js"
+    "revision": "f7490dddb3644a043431",
+    "url": "/react.mista/static/js/main.b4406004.chunk.js"
   },
   {
     "revision": "62d14fac076720ffeeca",
