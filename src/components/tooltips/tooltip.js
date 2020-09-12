@@ -93,7 +93,7 @@ class Tooltip extends Component<Props> {
 
         const { keys } = this.props.tooltip;
         if (keys.type !== 'TOPIC_PREVIEW') return;
-         if (deltaX > 0) {
+         if (deltaX < 0) {
             this.fetchData(this.state.number + 1)
         } else {
             this.fetchData(this.state.number - 1)
