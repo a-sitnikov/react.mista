@@ -62,10 +62,10 @@ class LoginForm extends Component<Props> {
                         onClick={this.onLogin}
                     >Войти</Button>
                 </form>
-                <p style={{margin: "0px"}}>Войти можно на сайте <a href="https://www.forum.mista.ru/">forum.mista.ru</a></p>
-                <a rel="nofollow" href="https://www.forum.mista.ru/user_registration.php">Регистрация</a>
+                <p style={{margin: "0px"}}>Войти можно на сайте <a href="https://forum.mista.ru/">forum.mista.ru</a></p>
+                <a rel="nofollow" href="https://forum.mista.ru/user_registration.php">Регистрация</a>
                 <span style={{ margin: "5px" }}>|</span>
-                <a rel="nofollow" href="https://www.forum.mista.ru/remember_password.php">Забыли пароль?</a>
+                <a rel="nofollow" href="https://forum.mista.ru/remember_password.php">Забыли пароль?</a>
             </div>
         )
     }

@@ -50,7 +50,7 @@ class TooltipWindow extends Component<Props> {
                 key={i}>
 
                 <div className="tooltip-window" style={{ ...position }} onWheel={this.props.onWheel}>
-                    <TooltipHeader onClose={this.onCloseClick}>
+                    <TooltipHeader closeWindow={this.onCloseClick}>
                         {header.props.children}
                     </TooltipHeader>
                     <TooltipBody>
