@@ -1,7 +1,7 @@
 {
   "name": "react.mista",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "homepage": "https://a-sitnikov.github.io/react.mista",
   "dependencies": {
     "classnames": "^2.2.6",
