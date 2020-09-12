@@ -53,7 +53,7 @@ class TooltipWindow extends Component<Props> {
                     <TooltipHeader closeWindow={this.onCloseClick}>
                         {header.props.children}
                     </TooltipHeader>
-                    <TooltipBody>
+                    <TooltipBody onTouchMove={this.props.onTouchMove}>
                         {body.props.children}
                     </TooltipBody>
                 </div>

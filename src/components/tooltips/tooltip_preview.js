@@ -108,6 +108,20 @@ class TooltipPreview extends Component<Props> {
             this.fetchData(this.state.number - 1)
         }
     }
+    
+    onTouchMove = (e) => {
+
+        console.log(e);
+        const { keys } = this.props.tooltip;
+        if (keys.type !== 'TOPIC_PREVIEW') return;
+        
+        e.preventDefault();
+        if (e.nativeEvent.deltaY > 0) {
+            this.fetchData(this.state.number + 1)
+        } else {
+            this.fetchData(this.state.number - 1)
+        }
+    }
 
     render() {
        const { keys, topicId } = this.props.tooltip;
@@ -121,14 +135,14 @@ class TooltipPreview extends Component<Props> {
         } else {
             header = <UserInfo data={this.state.data} isAuthor={false}/>
         }   
-
+        console.log('p', this.onTouchMove);
         if (keys.type === 'TOPIC' || keys.type === 'TOPIC_PREVIEW') 
             return (
                 <Tooltipwindow tooltip={this.props.tooltip} onWheel={this.onWheel}>
                     <TooltipHeader onCloseClick={this.onCloseClick}>
                         {header}
                     </TooltipHeader>
-                    <TooltipBody>
+                    <TooltipBody onTouchMove={this.onTouchMove}>
                         <MsgText 
                             data={this.state.data} 
                             html={this.state.text} 
@@ -137,28 +151,6 @@ class TooltipPreview extends Component<Props> {
                         />
                     </TooltipBody>
                 </Tooltipwindow>
-                /*}
-                <Draggable
-                    axis={axis}
-                    handle=".tooltip-header"
-                    defaultClassNameDragging="dragging"
-                    key={i}>
-
-                    <div className="tooltip-window" style={{ ...position }} onWheel={this.onWheel}>
-                        <TooltipHeader onCloseClick={this.onCloseClick}>
-                            {header}
-                        </TooltipHeader>
-                        <TooltipBody>
-                            <MsgText 
-                                data={this.state.data} 
-                                html={this.state.text} 
-                                topicId={topicId} 
-                                style={{maxHeight: "550px", overflowY: "auto"}} 
-                            />
-                        </TooltipBody>
-                    </div>
-                </Draggable>
-                */
             )
     }
 }

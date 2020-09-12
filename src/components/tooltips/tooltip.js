@@ -88,6 +88,17 @@ class Tooltip extends Component<Props> {
             this.fetchData(this.state.number - 1)
         }
     }
+    
+    onTouchMove = (deltaX) => {
+
+        const { keys } = this.props.tooltip;
+        if (keys.type !== 'TOPIC_PREVIEW') return;
+         if (deltaX > 0) {
+            this.fetchData(this.state.number + 1)
+        } else {
+            this.fetchData(this.state.number - 1)
+        }
+    }
 
     componentDidMount() {
 
@@ -111,7 +122,7 @@ class Tooltip extends Component<Props> {
 
         if (keys.type === 'TOPIC' || keys.type === 'TOPIC_PREVIEW') 
             return (
-                <TooltipWindow tooltip={this.props.tooltip} onWheel={this.onWheel}>
+                <TooltipWindow tooltip={this.props.tooltip} onWheel={this.onWheel} onTouchMove={this.onTouchMove}>
                     <TooltipHeader>
                         {header}
                     </TooltipHeader>
