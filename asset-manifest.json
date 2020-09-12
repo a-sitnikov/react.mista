@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/react.mista/static/css/main.6e8eb38c.chunk.css",
-    "main.js": "/react.mista/static/js/main.83026d32.chunk.js",
-    "main.js.map": "/react.mista/static/js/main.83026d32.chunk.js.map",
+    "main.js": "/react.mista/static/js/main.dc0c0b53.chunk.js",
+    "main.js.map": "/react.mista/static/js/main.dc0c0b53.chunk.js.map",
     "runtime-main.js": "/react.mista/static/js/runtime-main.f77ae511.js",
     "runtime-main.js.map": "/react.mista/static/js/runtime-main.f77ae511.js.map",
     "static/js/2.254999e8.chunk.js": "/react.mista/static/js/2.254999e8.chunk.js",
     "static/js/2.254999e8.chunk.js.map": "/react.mista/static/js/2.254999e8.chunk.js.map",
     "index.html": "/react.mista/index.html",
-    "precache-manifest.5a6a157bda5fe53dda85ea99f6eea934.js": "/react.mista/precache-manifest.5a6a157bda5fe53dda85ea99f6eea934.js",
+    "precache-manifest.3c15ebeedd0a6186e0e53fd07aebea33.js": "/react.mista/precache-manifest.3c15ebeedd0a6186e0e53fd07aebea33.js",
     "service-worker.js": "/react.mista/service-worker.js",
     "static/css/main.6e8eb38c.chunk.css.map": "/react.mista/static/css/main.6e8eb38c.chunk.css.map",
     "static/js/2.254999e8.chunk.js.LICENSE.txt": "/react.mista/static/js/2.254999e8.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.f77ae511.js",
     "static/js/2.254999e8.chunk.js",
     "static/css/main.6e8eb38c.chunk.css",
-    "static/js/main.83026d32.chunk.js"
+    "static/js/main.dc0c0b53.chunk.js"
   ]
 }
