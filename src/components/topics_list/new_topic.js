@@ -142,7 +142,7 @@ class NewTopic extends Component<Props> {
         let votingOptions = [];
 
         if (newTopic.isVoting) {
-            votingOptions.push(<p key="p">Варианты:</p>);
+            votingOptions.push(<div key="p">Варианты:</div>);
             for (let i = 1; i <= 10; i++) {
                 votingOptions.push(
                     <div key={i}>
