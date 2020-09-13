@@ -145,22 +145,20 @@ class NewTopic extends Component<Props> {
             votingOptions.push(<div key="p">Варианты:</div>);
             for (let i = 1; i <= 10; i++) {
                 votingOptions.push(
-                    <div key={i}>
-                        <InputGroup size="sm" style={{marginBottom: "3px", width: "100%"}}>
-                            <InputGroup.Prepend>
-                                <InputGroup.Text
-                                    style={{width:"40px"}}>
-                                    {`${i}.`}
-                                </InputGroup.Text>
-                            </InputGroup.Prepend>
-                            <Form.Control 
-                                type="text" 
-                                maxLength="50" 
-                                ref={`vote${i}`} 
-                                style={{color: "black"}}
-                            />
-                        </InputGroup>    
-                    </div>
+                    <InputGroup key={i} size="sm" style={{marginBottom: "3px", width: "100%"}}>
+                        <InputGroup.Prepend>
+                            <InputGroup.Text
+                                style={{width:"40px"}}>
+                                {`${i}.`}
+                            </InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <Form.Control 
+                            type="text" 
+                            maxLength="50" 
+                            ref={`vote${i}`} 
+                            style={{color: "black"}}
+                        />
+                    </InputGroup>    
                 );
             }
         }
