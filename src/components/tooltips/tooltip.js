@@ -77,18 +77,6 @@ class Tooltip extends Component<Props> {
         this.setState({ data, text, number });
     }
  
-    onWheel = (e) => {
-        const { keys } = this.props.tooltip;
-        if (keys.type !== 'TOPIC_PREVIEW') return;
-        
-        e.preventDefault();
-        if (e.nativeEvent.deltaY > 0) {
-            this.fetchData(this.state.number + 1)
-        } else {
-            this.fetchData(this.state.number - 1)
-        }
-    }
-    
     onScroll = (delta) => {
 
         const { keys } = this.props.tooltip;
@@ -122,7 +110,7 @@ class Tooltip extends Component<Props> {
 
         if (keys.type === 'TOPIC' || keys.type === 'TOPIC_PREVIEW') 
             return (
-                <TooltipWindow tooltip={this.props.tooltip} onWheel={this.onWheel} onScroll={this.onScroll}>
+                <TooltipWindow tooltip={this.props.tooltip} onScroll={this.onScroll}>
                     <TooltipHeader>
                         {header}
                     </TooltipHeader>

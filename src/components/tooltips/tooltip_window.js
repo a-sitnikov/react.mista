@@ -26,6 +26,11 @@ class TooltipWindow extends Component<Props> {
         const { dispatch, tooltip } = this.props;
         dispatch(closeTooltip(tooltip.keys));
     }
+    
+    onWheel = (e) => {
+        e.preventDefault();
+        this.props.onScroll(e.nativeEvent.deltaY);
+    }
 
     render() {
         const { coords, i } = this.props.tooltip;
@@ -49,7 +54,7 @@ class TooltipWindow extends Component<Props> {
                 defaultClassNameDragging="dragging"
                 key={i}>
 
-                <div className="tooltip-window" style={{ ...position }} onWheel={this.props.onWheel}>
+                <div className="tooltip-window" style={{ ...position }} onWheel={this.onWheel}>
                     <TooltipHeader closeWindow={this.onCloseClick}>
                         {header.props.children}
                     </TooltipHeader>
