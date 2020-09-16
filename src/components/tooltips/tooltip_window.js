@@ -29,7 +29,7 @@ class TooltipWindow extends Component<Props> {
     
     onWheel = (e) => {
         e.preventDefault();
-        this.props.onScroll(e.nativeEvent.deltaY);
+        this.props.onScroll(-e.nativeEvent.deltaY);
     }
 
     render() {
