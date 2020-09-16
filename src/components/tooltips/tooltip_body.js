@@ -10,8 +10,8 @@ const TooltipBody = ({children, onScroll}) => {
     
     function onTouchEnd(e) {
         let endX = e.nativeEvent.changedTouches[0].clientX;
-        if (Math.abs(endX - startX) > 150)
-            onScroll(endX - startX);
+        if (Math.abs(endX - startX) > 100)
+            onScroll(-endX + startX);
     }
 
     return (
