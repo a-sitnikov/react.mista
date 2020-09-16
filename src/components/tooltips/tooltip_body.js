@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TooltipBody = ({children, onTouchMove}) => {
+const TooltipBody = ({children, onScroll}) => {
     
     var startX = 0;
 
@@ -10,7 +10,8 @@ const TooltipBody = ({children, onTouchMove}) => {
     
     function onTouchEnd(e) {
         let endX = e.nativeEvent.changedTouches[0].clientX;
-        onTouchMove(endX - startX);
+        if (Math.abs(endX - startX) > 150)
+            onScroll(-endX + startX);
     }
 
     return (
