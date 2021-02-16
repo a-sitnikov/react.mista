@@ -54,7 +54,7 @@ class TooltipWindow extends Component<Props> {
                 defaultClassNameDragging="dragging"
                 key={i}>
 
-                <div className="tooltip-window" style={{ ...position }} onWheel={this.onWheel}>
+                <div className="tooltip-window" style={{ ...position }} onWheelCapture={this.onWheel}>
                     <TooltipHeader closeWindow={this.onCloseClick}>
                         {header.props.children}
                     </TooltipHeader>

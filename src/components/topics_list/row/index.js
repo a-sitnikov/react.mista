@@ -47,7 +47,7 @@ const Row = (props: Props) => {
             </div>
             <div className="cell-answ">
                 { showTooltipOnTopicsList === 'true' ?
-                    <LinkToPost topicId={data.id} number={data.answ} style={{color: "black"}} isPreview/>
+                    <LinkToPost topicId={data.id} number={data.answ} style={{color: "inherit"}} isPreview/>
                     :
                     data.answ
                 }
