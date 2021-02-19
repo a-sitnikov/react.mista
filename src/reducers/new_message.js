@@ -33,7 +33,7 @@ const newMessage = (state: NewMessageState = defaultNewMessageState, action: New
                 ...state,
                 text: state.text + action.text
             }
-       default:
+        default:
             return state
     }
 }

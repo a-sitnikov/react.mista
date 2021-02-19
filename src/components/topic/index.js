@@ -85,10 +85,11 @@ class Topic extends Component<Props> {
 
     componentWillUnmount() {
 
-        const { closeTopic } = this.props;
+        const { closeTopic, clearText } = this.props;
 
         clearInterval(this.timer);
         closeTopic();
+        clearText();
     }
 
     UNSAFE_componentWillReceiveProps(props: Props) {
@@ -218,7 +219,8 @@ const mapStateToProps = (state: State): StateProps => {
 const mapDispatchToProps = (dispatch) => ({
     fetchTopicIfNeeded: (...params) => dispatch(fetchTopicIfNeeded(...params)),
     fetchNewMessagesIfNeeded: (...params) => dispatch(fetchNewMessagesIfNeeded(...params)),
-    closeTopic: (...params) => dispatch(closeTopic(...params))
+    closeTopic: (...params) => dispatch(closeTopic(...params)),
+    clearText: () => dispatch({type: 'NEW_MESSAGE_TEXT', text: ''})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Topic);
