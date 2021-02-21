@@ -152,6 +152,15 @@ body[theme='dark'] .your-name {
     color: #007bff;
 }
 
+.link-to-post {
+    cursor: pointer;
+    color: #00C;
+}
+
+body[theme='dark'] .link-to-post {
+    color: #007bff;
+}
+
 .mytopics {
     color: #052;
 }

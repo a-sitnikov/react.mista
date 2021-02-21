@@ -17,6 +17,7 @@
     grid-template-columns: 165px 1fr;
     grid-template-areas: "user message";
 }
+
 [theme='dark'] .topic-row {
     background-color: inherit;
 }
@@ -55,6 +56,10 @@
 
 .is-you {
     background-color: rgb(155, 197, 239);
+}
+
+[theme='dark'] .is-you {
+    background-color: rgb(38, 78, 117); 
 }
 
 .message {
@@ -138,6 +143,11 @@ body[theme='dark'] .registered-user {
         background: #eee;
         padding: 0px;
     }    
+    
+    [theme='dark'] .cell-userinfo {
+        background: inherit;
+        border-bottom: 1px dotted;
+    }   
 
     .user-info {
         word-break: break-all;
@@ -230,8 +240,12 @@ body[theme='dark'] .registered-user {
     font-weight: bold;
 }
 
+[theme='dark'] .topic-title {
+    color: #007bff;
+}
+
 .yandex {
-    color: red;
+    color: red !important;
     font-size: 120%;
     text-decoration: none;
 }

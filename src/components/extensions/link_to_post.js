@@ -113,7 +113,7 @@ class LinkToPost extends Component<Props, {text: string}> {
                     onMouseOver={this.onMouseOver}
                     onMouseOut={this.onMouseOut}
                     onClick={this.onClick}
-                    style={{ cursor: "pointer", color: "#00C", ...style}}
+                    className='link-to-post'
                 >{this.state.text}</span>
             )
         else 
@@ -125,7 +125,7 @@ class LinkToPost extends Component<Props, {text: string}> {
                     (<span onMouseOver={this.onMouseOver}
                         onMouseOut={this.onMouseOut}
                         onClick={this.onClick}
-                        style={{cursor:"pointer", color: "#00C"}}
+                        className='link-to-post'
                      >{number}</span>)               
                 </span>
             )
