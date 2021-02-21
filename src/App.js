@@ -29,13 +29,14 @@ class App extends Component<Props> {
   UNSAFE_componentWillMount() {
       const { theme } = this.props;
       if (document.body)
-        document.body.className = theme;
+        document.body.setAttribute('theme', theme);
   }
   
   UNSAFE_componentWillReceiveProps(props) {
       const { theme } = props;
       if (document.body)
-        document.body.className = theme;
+        document.body.setAttribute('theme', theme);
+              //document.body.className = theme;
   }
 
   render() {

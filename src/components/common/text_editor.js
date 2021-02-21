@@ -95,7 +95,7 @@ class TextEditor extends Component<Props> {
                     onChange={this.onChange}
                     onKeyPress={this.onKeyPress}
                     ref={this.textArea}
-                    className="text-editor"
+                    className="text-editor input"
                 />
                 <div className="flex-row">
                     <ButtonGroup>
@@ -104,12 +104,14 @@ class TextEditor extends Component<Props> {
                             variant="light" 
                             onClick={this.onButtonCode1c} 
                             style={{marginRight: "5px"}}
+                            className='button'
                             >Код 1С</Button>
                         <Button
                             size="sm"
                             variant="light"
                             disabled={isFetching}
                             type="submit"
+                            className='button'
                             >
                             {isFetching ? 'Отправляется' : 'Отправить'}
                         </Button>

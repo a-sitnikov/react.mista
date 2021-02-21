@@ -47,6 +47,7 @@ class Footer extends React.Component<FooterProps> {
                 onClick={this.onRefreshClick} 
                 disabled={bookmark.isFetching} 
                 size="sm"
+                className='button'
                 variant="light">
                 {isFetching ? 'Обновляется': 'Обновить ветку'}
             </Button>
@@ -58,6 +59,7 @@ class Footer extends React.Component<FooterProps> {
                         onClick={this.onBookmarkClick} 
                         disabled={bookmark.isFetching} 
                         size="sm"
+                        className='button'
                         variant="light">
                         {bookmark.isFetching ? 'Подождите...' : 'Закладка'}
                     </Button>

@@ -45,9 +45,10 @@ class Options extends Component<OptionsState> {
                 label: 'Цветовая палитра:', 
                 oneLine: true,
                 values: [
-                    {name: 'theme-yellow', descr: 'Золотая'}, 
-                    {name: 'theme-lightgray', descr: 'Серая'}
-                    ]
+                    {name: 'yellow', descr: 'Золотая'}, 
+                    {name: 'lightgray', descr: 'Серая'},
+                    {name: 'dark', descr: 'Темная'} 
+                ]
             },
             'topicsPerPage': {
                 type: 'number',
@@ -225,7 +226,7 @@ class Options extends Component<OptionsState> {
                                 value={value}
                                 onChange={(e) => this.onChange(e, name, e.target.value)}
                                 style={{flex: "0 0 100px", marginLeft: "5px"}}
-                                bsSize="sm"
+                                size="sm"
                             >
                             </FormControl>
                         );

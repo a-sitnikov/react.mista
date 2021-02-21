@@ -17,6 +17,9 @@
     grid-template-columns: 165px 1fr;
     grid-template-areas: "user message";
 }
+[theme='dark'] .topic-row {
+    background-color: inherit;
+}
 
 .topic-tools {
     display: block;
@@ -46,6 +49,10 @@
     background-color: rgb(255, 215, 132);
 }
 
+[theme='dark'] .is-author {
+    background-color:rgb(99, 74, 23); 
+}
+
 .is-you {
     background-color: rgb(155, 197, 239);
 }
@@ -69,6 +76,10 @@
     text-decoration: none;
     font-weight: bold;
     padding: 0px;
+}
+
+body[theme='dark'] .registered-user {
+    color: inherit;
 }
 
 .voting-item {

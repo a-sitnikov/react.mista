@@ -89,7 +89,7 @@ class Search extends Component<Props> {
                     value={this.state.text}
                 />
                 <InputGroup.Append style={{marginLeft: "-25px", marginTop: "auto", marginBottom: "auto", cursor: "pointer"}} onClick={this.doSearch}>
-                    <i className="fa fa-search" style={{zIndex: 1000}}/>
+                    <i className="fa fa-search" style={{zIndex: 1000, color: 'black'}}/>
                 </InputGroup.Append>
             </InputGroup>
         )

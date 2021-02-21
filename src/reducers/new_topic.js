@@ -44,7 +44,7 @@ const newTopic = (state: NewTopicState = defaultNewTopicState, action: NewTopicA
             return {
                 ...state,
                 section: action.section,
-                forum: action.section.forum.toLowerCase()
+                forum: action.section == null ? '' : action.section.forum.toLowerCase()
             }
         case 'NEW_TOPIC_TEXT':
             return {

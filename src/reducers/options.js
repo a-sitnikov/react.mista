@@ -6,7 +6,7 @@ export type Column = {
 }
 
 export type OptionsItems = {
-    theme: 'theme-yellow' | 'theme-lightgray',
+    theme: 'yellow' | 'lightgray' | 'dark',
     topicsPerPage: string,
     autoRefreshTopicsList: string,
     autoRefreshTopicsListInterval: string,
@@ -41,7 +41,7 @@ export const defaultOptionsState = {
         "#0000CC", //10
     ],
     items: {
-        theme: 'theme-lightgray',
+        theme: 'lightgray',
         topicsPerPage: '20',
         autoRefreshTopicsList: 'false',
         autoRefreshTopicsListInterval: '60',

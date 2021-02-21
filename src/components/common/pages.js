@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { Pagination } from 'react-bootstrap'
 
 import { paramsToString } from 'src/api'
+import './pages.css'
 
 type FooterProps = {
     locationParams: { page?: string },

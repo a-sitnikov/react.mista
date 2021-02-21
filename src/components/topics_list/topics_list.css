@@ -1,3 +1,4 @@
+
 .th {
     display: grid;
     background: #eee;
@@ -5,6 +6,11 @@
     grid-template-columns: 50px 30px 30px auto 120px 150px;
     border-bottom: 1px solid #CCC;
     text-align: center;
+}
+
+body[theme="dark"] .th {
+    background: black;
+    color: inherit;
 }
 
 .th > div {
@@ -20,6 +26,12 @@
     justify-content: center;
     padding: 5px;
 } 
+
+body[theme="dark"] .tf {
+    color: inherit;
+    background-color: inherit;  
+    border: none;  
+}
 
 .preview-container {
     padding: 10px 20px 10px 115px;
@@ -42,6 +54,10 @@
     margin-top: 5px;
 }
 
+body[theme="dark"] .table {
+    color: inherit;
+}
+
 .topics-list-row {
     display: grid;
     width: 100%;
@@ -50,6 +66,10 @@
     box-sizing: border-box;
     grid-template-columns: 50px 30px 30px auto 120px 155px;
     grid-template-areas: "forum answ pv-link title author lastuser";
+}
+
+body[theme="dark"] .topics-list-row {
+    background-color: inherit;
 }
 
 .cell-forum{
@@ -189,6 +209,12 @@
         font-weight: bold;
     }
     
+    body[theme='dark'] .cell-author {
+        background: inherit;
+        border-bottom: 1px dotted;
+        border-right: none;
+    }  
+
     .cell-forum {
         display: none;
     }
@@ -200,6 +226,11 @@
         display: block;
     }
     
+    body[theme='dark'] .cell-section {
+        background: inherit;
+        border-bottom: 1px dotted;
+    } 
+
     .cell-preview-link {
         border-right: 1px dotted #CCC;
         grid-area: pv-link;
@@ -225,6 +256,12 @@
         padding: 0px 2px; 
     }
     
+    body[theme='dark'] .cell-lastuser {
+        background: inherit;
+        border-top: 1px dotted;
+        border-right: none;
+    }  
+   
     .cell-lastuser-user {
         order: 0;
     }
@@ -238,6 +275,11 @@
         padding: 0px 2px; 
         text-align: right;
     }
+
+    body[theme='dark'] .cell-answ {
+        background: inherit;
+        border-top: 1px dotted;
+    }  
 
     .cell-last20 {
         display: flex;

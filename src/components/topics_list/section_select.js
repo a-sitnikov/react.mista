@@ -65,7 +65,7 @@ export class SectionSelect extends Component<Props> {
             let group =
                 <optgroup key={forum} label={forum}>
                     {tree[forum].map((item, i) => (
-                        <option key={item.id} value={item.shortn} >
+                        <option key={item.id} value={item.shortn}>
                             {item.fulln}
                         </option>
                     ))}
@@ -78,7 +78,8 @@ export class SectionSelect extends Component<Props> {
             <Form.Control as="select" 
                 onChange={this.onChange}
                 value={selected}
-                style={{color: "black", ...style}}
+                style={style}
+                className='input'
                 size={size}
                 id={id}
             >

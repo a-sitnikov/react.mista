@@ -7,9 +7,21 @@ body {
     padding: 0;
     font-family: sans-serif;
     font-size: initial !important;
-    color: black !important;
+    /*color: black !important*/;
 }
 
+body[theme='yellow'] {
+    background-image: url("https://a-sitnikov.github.io/react.mista/img/fon_forum.gif");
+}
+
+body[theme='lightgray'] {
+    background-image: url("https://a-sitnikov.github.io/react.mista/img/white_carbon.png");
+}
+
+body[theme="dark"] {
+    background-color: black;
+    color: white;
+}
 #root {
     height: 100vh;
     display: flex;
@@ -38,13 +50,8 @@ body {
     transform: translateY(-50%)
 }
 
-.button {
-    background: #f7f7f6;
-    color: #000;
-    box-shadow: 0 1px 3px #bbb;
-    border: 1px solid #bbb;
-    border-radius: 3px;
-    height: 19px;
+.button { 
+    color: black;
 }
 
 .button:hover:not([disabled=""]) {
@@ -55,12 +62,14 @@ body {
     color: #888;    
 }
 
-.theme-yellow {
-    background-image: url("https://a-sitnikov.github.io/react.mista/img/fon_forum.gif");
+body[theme="dark"] .button {
+    background: black;
+    color: inherit;
 }
 
-.theme-lightgray {
-    background-image: url("https://a-sitnikov.github.io/react.mista/img/white_carbon.png");
+body[theme="dark"] .dropdown-menu {
+    background-color: black;
+    border: 1px solid white;
 }
 
 .ah {
@@ -126,9 +135,21 @@ a {
     color: #00C;
 }
 
+body[theme='dark'] a {
+    color: #007bff;
+}
+
 a:hover {
     color: #D00;
     text-decoration: unset;
+}
+
+.your-name {
+    color: #00C;
+}
+
+body[theme='dark'] .your-name {
+    color: #007bff;
 }
 
 .mytopics {
@@ -195,6 +216,15 @@ a:hover {
 
 .container {
     margin-top: 45px;
+}
+
+.input {
+    color: black;
+}
+
+body[theme="dark"] .input {
+    background: black;
+    color: inherit;
 }
 
 @media (max-width: 768px) {
