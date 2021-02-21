@@ -30,7 +30,7 @@ class StringOption extends Component<StringOptionProps> {
         return (
             <label htmlFor={name} style={{marginRight: "5px"}}>
                 <span style={{marginRight: "5px"}}>{label}</span>
-                <input type="string" name={name} value={value} onChange={this.onChange}/>
+                <input type="string" name={name} value={value} onChange={this.onChange} className='input'/>
                 {postfix !== undefined ? 
                     <span style={{marginLeft: "5px"}}>{postfix}</span>
                 : null}

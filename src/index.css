@@ -152,12 +152,12 @@ body[theme='dark'] .your-name {
     color: #007bff;
 }
 
-.link-to-post {
+.link {
     cursor: pointer;
     color: #00C;
 }
 
-body[theme='dark'] .link-to-post {
+body[theme='dark'] .link {
     color: #007bff;
 }
 

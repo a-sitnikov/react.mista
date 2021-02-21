@@ -75,7 +75,7 @@ class Search extends Component<Props> {
         return (
             <InputGroup size="sm">
                 <InputGroup.Prepend>   
-                    <DropdownButton id="search-engine" title="" size="sm" style={{marginRight: "2px"}} variant="light">
+                    <DropdownButton id="search-engine" title="" size="sm" style={{marginRight: "2px"}} className='button' variant="light">
                         <Dropdown.Item eventKey="Яндекс" onSelect={this.onSearchEngineChange}>Яндекс</Dropdown.Item>
                         <Dropdown.Item eventKey="Google" onSelect={this.onSearchEngineChange}>Google</Dropdown.Item>
                     </DropdownButton> 
@@ -84,12 +84,13 @@ class Search extends Component<Props> {
                     type="text" 
                     placeholder={`${this.state.searchEngine}: поиск`} 
                     style={{marginRight: "4px", paddingRight: "27px"}}
+                    className='input'
                     onKeyPress={this.onKeyPress}
                     onChange={this.onSearchTextChange}
                     value={this.state.text}
                 />
                 <InputGroup.Append style={{marginLeft: "-25px", marginTop: "auto", marginBottom: "auto", cursor: "pointer"}} onClick={this.doSearch}>
-                    <i className="fa fa-search" style={{zIndex: 1000, color: 'black'}}/>
+                    <i className="fa fa-search input" style={{zIndex: 1000}}/>
                 </InputGroup.Append>
             </InputGroup>
         )

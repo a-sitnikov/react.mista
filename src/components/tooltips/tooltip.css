@@ -16,9 +16,17 @@
     background-color: white; 
 }
 
+[theme='dark'] .tooltip-header {
+    background-color: black;
+}
+
 .tooltip-text {
     padding: 4px;
     background-color: white;
+}
+
+[theme='dark'] .tooltip-text {
+    background-color: black;
 }
 
 .tooltip-close {

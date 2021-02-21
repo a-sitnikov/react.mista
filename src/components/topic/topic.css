@@ -235,13 +235,8 @@ body[theme='dark'] .registered-user {
 
 /*topic-info*/
 .topic-title {
-    color: #00c;
     font-size: 150%;
     font-weight: bold;
-}
-
-[theme='dark'] .topic-title {
-    color: #007bff;
 }
 
 .yandex {

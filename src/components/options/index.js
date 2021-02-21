@@ -226,6 +226,7 @@ class Options extends Component<OptionsState> {
                                 value={value}
                                 onChange={(e) => this.onChange(e, name, e.target.value)}
                                 style={{flex: "0 0 100px", marginLeft: "5px"}}
+                                className='input'
                                 size="sm"
                             >
                             </FormControl>
@@ -291,9 +292,33 @@ class Options extends Component<OptionsState> {
                     </div>
                     {tabs}
                     <div className="button-row">
-                        <Button id="applyOptions" size="sm" variant="light" style={{margin: "5px"}} onClick={this.applyOptions}>OK</Button>
-                        <Button id="cancelOptions" size="sm" variant="light" style={{margin: "5px", float: "left"}} onClick={this.closeForm}>Отмена</Button>
-                        <Button id="defaultOptions" size="sm" variant="light" style={{margin: "5px", float: "right"}} onClick={this.resetOptions}>Сбросить настройки</Button>
+                        <Button 
+                            id="applyOptions" 
+                            size="sm" 
+                            variant="light" 
+                            style={{margin: "5px"}} 
+                            className='button'                            
+                            onClick={this.applyOptions}>
+                            OK
+                        </Button>
+                        <Button 
+                            id="cancelOptions" 
+                            size="sm" 
+                            variant="light"
+                            style={{margin: "5px", float: "left"}} 
+                            className='button'
+                            onClick={this.closeForm}>
+                            Отмена
+                        </Button>
+                        <Button 
+                            id="defaultOptions" 
+                            size="sm" 
+                            variant="light" 
+                            style={{margin: "5px", float: "right"}} 
+                            className='button'
+                            onClick={this.resetOptions}>
+                        Сбросить настройки
+                        </Button>
                     </div>                    
                 </div>
         )

@@ -30,7 +30,6 @@ body[theme="dark"] .th {
 body[theme="dark"] .tf {
     color: inherit;
     background-color: inherit;  
-    border: none;  
 }
 
 .preview-container {
@@ -175,6 +174,10 @@ body[theme="dark"] .topics-list-row {
         padding: 5px 0px;
     }
 
+    body[theme="dark"] .tf {
+        border: none;  
+    }
+    
     .preview-container {
         padding: 10px 15px 10px 15px;
         margin-top: -5px;
