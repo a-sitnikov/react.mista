@@ -292,4 +292,8 @@ body[theme="dark"] .topics-list-row {
         font-size: 1.5em;
         border-left: 1px dotted #CCC;
     }
+
+    body[theme='dark'] .cell-last20 {
+        border-left: 1px dotted rgb(100, 100, 100);
+    }
 }
