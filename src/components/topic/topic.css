@@ -83,7 +83,7 @@
     padding: 0px;
 }
 
-body[theme='dark'] .registered-user {
+[theme='dark'] .registered-user {
     color: inherit;
 }
 
@@ -130,7 +130,7 @@ body[theme='dark'] .registered-user {
         border-bottom: 1px solid #CCC;
     }    
     
-    body[theme='dark'] .topic-row {
+    [theme='dark'] .topic-row {
         border: 1px solid rgb(100, 100, 100);
     }
 
