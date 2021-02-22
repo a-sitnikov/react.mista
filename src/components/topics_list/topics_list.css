@@ -69,6 +69,7 @@ body[theme="dark"] .table {
 
 body[theme="dark"] .topics-list-row {
     background-color: inherit;
+    border-color: rgb(100, 100, 100);
 }
 
 .cell-forum{
@@ -214,7 +215,7 @@ body[theme="dark"] .topics-list-row {
     
     body[theme='dark'] .cell-author {
         background: inherit;
-        border-bottom: 1px dotted #CCC;
+        border-bottom: 1px dotted rgb(100, 100, 100);
         border-right: none;
     }  
 
@@ -227,15 +228,16 @@ body[theme="dark"] .topics-list-row {
         padding: 0px 2px; 
         text-align: right;
         display: block;
+        border-right: none;
     }
     
     body[theme='dark'] .cell-section {
         background: inherit;
-        border-bottom: 1px dotted #CCC;
+        border-bottom: 1px dotted rgb(100, 100, 100);
     } 
 
     .cell-preview-link {
-        border-right: 1px dotted #CCC;
+        border-right: 1px dotted rgb(100, 100, 100);
         grid-area: pv-link;
         width: 40px;
         font-size: 1.5em;
@@ -261,7 +263,7 @@ body[theme="dark"] .topics-list-row {
     
     body[theme='dark'] .cell-lastuser {
         background: inherit;
-        border-top: 1px dotted #CCC;
+        border-top: 1px dotted rgb(100, 100, 100);
         border-right: none;
     }  
    
@@ -281,7 +283,8 @@ body[theme="dark"] .topics-list-row {
 
     body[theme='dark'] .cell-answ {
         background: inherit;
-        border-top: 1px dotted #CCC;
+        border-top: 1px dotted rgb(100, 100, 100);
+        border-right: none;
     }  
 
     .cell-last20 {

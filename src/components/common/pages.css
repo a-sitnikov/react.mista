@@ -1,7 +1,9 @@
 body[theme='dark'] .page-item a {
     background-color: inherit;
+    border-color: rgb(100, 100, 100);
 }
 
 body[theme='dark'] .page-item.active span {
     background-color: darkblue;
+    border-color: rgb(100, 100, 100);
 }
