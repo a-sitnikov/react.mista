@@ -52,6 +52,8 @@ body[theme="dark"] {
 
 .button { 
     color: black;
+    border: 1px solid #bbb;
+    border-radius: 3px;
 }
 
 .button:hover:not([disabled=""]) {
