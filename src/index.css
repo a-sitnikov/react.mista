@@ -65,6 +65,7 @@ body[theme="dark"] {
 body[theme="dark"] .button {
     background: black;
     color: inherit;
+    border-color: rgb(100, 100, 100);
 }
 
 body[theme="dark"] .dropdown-menu {
@@ -234,6 +235,7 @@ body[theme='dark'] .link {
 body[theme="dark"] .input {
     background: black;
     color: inherit;
+    border-color: rgb(100, 100, 100);
 }
 
 @media (max-width: 768px) {
