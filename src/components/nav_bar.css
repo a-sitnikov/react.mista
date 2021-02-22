@@ -2,6 +2,11 @@
     height: 40px;
 }
 
+[theme='dark'] .navbar {
+    background-color: black !important;
+    border-bottom: 1px solid rgb(100, 100, 100);
+}
+
 .navbar-form {
     margin-top: 5px;
     margin-bottom: 5px;

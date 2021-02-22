@@ -8,7 +8,7 @@
     text-align: center;
 }
 
-body[theme="dark"] .th {
+[theme="dark"] .th {
     background: black;
     color: inherit;
 }
@@ -27,7 +27,7 @@ body[theme="dark"] .th {
     padding: 5px;
 } 
 
-body[theme="dark"] .tf {
+[theme="dark"] .tf {
     color: inherit;
     background-color: inherit;  
 }
@@ -53,7 +53,7 @@ body[theme="dark"] .tf {
     margin-top: 5px;
 }
 
-body[theme="dark"] .table {
+[theme="dark"] .table {
     color: inherit;
 }
 
@@ -67,7 +67,7 @@ body[theme="dark"] .table {
     grid-template-areas: "forum answ pv-link title author lastuser";
 }
 
-body[theme="dark"] .topics-list-row {
+[theme="dark"] .topics-list-row {
     background-color: inherit;
     border-color: rgb(100, 100, 100);
 }
@@ -175,7 +175,7 @@ body[theme="dark"] .topics-list-row {
         padding: 5px 0px;
     }
 
-    body[theme="dark"] .tf {
+    [theme="dark"] .tf {
         border: none;  
     }
     
@@ -213,7 +213,7 @@ body[theme="dark"] .topics-list-row {
         font-weight: bold;
     }
     
-    body[theme='dark'] .cell-author {
+    [theme='dark'] .cell-author {
         background: inherit;
         border-bottom: 1px dotted rgb(100, 100, 100);
         border-right: none;
@@ -231,7 +231,7 @@ body[theme="dark"] .topics-list-row {
         border-right: none;
     }
     
-    body[theme='dark'] .cell-section {
+    [theme='dark'] .cell-section {
         background: inherit;
         border-bottom: 1px dotted rgb(100, 100, 100);
     } 
@@ -261,7 +261,7 @@ body[theme="dark"] .topics-list-row {
         padding: 0px 2px; 
     }
     
-    body[theme='dark'] .cell-lastuser {
+    [theme='dark'] .cell-lastuser {
         background: inherit;
         border-top: 1px dotted rgb(100, 100, 100);
         border-right: none;
@@ -281,7 +281,7 @@ body[theme="dark"] .topics-list-row {
         text-align: right;
     }
 
-    body[theme='dark'] .cell-answ {
+    [theme='dark'] .cell-answ {
         background: inherit;
         border-top: 1px dotted rgb(100, 100, 100);
         border-right: none;
@@ -293,7 +293,7 @@ body[theme="dark"] .topics-list-row {
         border-left: 1px dotted #CCC;
     }
 
-    body[theme='dark'] .cell-last20 {
+    [theme='dark'] .cell-last20 {
         border-left: 1px dotted rgb(100, 100, 100);
     }
 }
