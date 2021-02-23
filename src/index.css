@@ -139,7 +139,7 @@ a {
 }
 
 [theme='dark'] a {
-    color: #007bff;
+    color: #00a2fd;
 }
 
 a:hover {
@@ -161,7 +161,7 @@ a:hover {
 }
 
 [theme='dark'] .link {
-    color: #007bff;
+    color: #00a2fd;
 }
 
 .mytopics {

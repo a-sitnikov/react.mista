@@ -20,7 +20,7 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <span
     ref={ref} 
     style={{ cursor: "pointer" }} 
-    className='your-name'
+    className='link'
     onClick={(e) => {
       e.preventDefault();
       onClick(e);
