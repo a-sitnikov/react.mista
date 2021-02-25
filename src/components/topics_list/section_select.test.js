@@ -30,15 +30,13 @@ const data = [
         "id": 8
     }
 ];
-const getSectionsMock = Promise.resolve(data);
-API.getSections = jest.fn(() => getSectionsMock);
 
 describe('SectionSelect', ()=>{
 
     let store, wrapper;
     store = createStore(rootReducer, applyMiddleware(thunk));
     
-    it('+++ render the connected() component', async () => {
+    it('+++ render the connected() component', (done) => {
         const props = {
             defaultValue: 'Секция',
             selected: '',
@@ -46,16 +44,16 @@ describe('SectionSelect', ()=>{
             size: 'sm'
         }
 
-        const component = mount(
-            <Provider store={store} >
-                <ConnectedSectionSelect {...props} />
-            </Provider>
-        )
+        API.getSections = jest.fn().mockImplementation(() => Promise.resolve(data));
 
-        getSectionsMock.then(() => {
-        component.update();
-        console.log(component.html());
-    });
+        const component = mount(
+            <ConnectedSectionSelect store={store} {...props} />
+        );
+
+        setImmediate(() => {
+            done();
+            expect(component.html()).toMatchSnapshot();
+        });
 
     });
 
