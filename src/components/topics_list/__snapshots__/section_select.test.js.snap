@@ -2,15 +2,9 @@
 
 exports[`SectionSelect +++ render the connected() component 1`] = `
 <select
-  className="form-control input-sm"
+  className="input form-control form-control-sm"
   id="s1"
   onChange={[Function]}
-  style={
-    Object {
-      "color": "black",
-    }
-  }
-  type={undefined}
   value=""
 >
   <option

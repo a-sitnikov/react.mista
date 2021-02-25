@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+*/
+
 import React from 'react'
 import renderer from 'react-test-renderer';
 
@@ -5,6 +9,8 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
+
+import { configure , mount, shallow } from 'enzyme'
 
 import * as API from '../../api'
 import ConnectedSectionSelect, {SectionSelect} from './section_select'
@@ -27,19 +33,12 @@ const data = [
 const getSectionsMock = Promise.resolve(data);
 API.getSections = jest.fn(() => getSectionsMock);
 
-const mockPromise = (data) => {
-    return new Promise(resolve => resolve(data), err => null)
-}
-
 describe('SectionSelect', ()=>{
 
     let store, wrapper;
     store = createStore(rootReducer, applyMiddleware(thunk));
-
-    beforeEach(()=>{
-    })
     
-    it('+++ render the connected() component', () => {
+    it('+++ render the connected() component', async () => {
         const props = {
             defaultValue: 'Секция',
             selected: '',
@@ -47,16 +46,16 @@ describe('SectionSelect', ()=>{
             size: 'sm'
         }
 
-        const component = renderer.create(
+        const component = mount(
             <Provider store={store} >
                 <ConnectedSectionSelect {...props} />
             </Provider>
         )
 
-        getSectionsMock.then(()=>{ 
-            const tree = component.toJSON();
-            expect(tree).toMatchSnapshot()
-        });
+        getSectionsMock.then(() => {
+        component.update();
+        console.log(component.html());
+    });
 
     });
 

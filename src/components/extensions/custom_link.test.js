@@ -9,9 +9,7 @@ import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
 import { configure , mount, shallow } from 'enzyme'
-import toJson from 'enzyme-to-json'
 
-import * as API from '../../api'
 import CustomLink from './custom_link'
 import LinkToPost from './link_to_post'
 import YoutubeLink from './youtube_link'
@@ -37,14 +35,13 @@ describe('CustomLink', ()=>{
     
     it('+++ render link to post', () => {
 
-        const href = 'https://www.forum.mista.ru/topic.php?id=822078#10';
+        const href = 'https://forum.mista.ru/topic.php?id=822078#10';
 
         wrapper = shallow(
             <CustomLink store={store} href={href}/>
         )
         
-        const component = wrapper.dive().find(LinkToPost);
-
+        const component = wrapper.dive().dive().find(LinkToPost);
         expect(component.length).toBe(1);
         expect(component.prop('topicId')).toBe('822078');
         expect(component.prop('number')).toBe('10');
@@ -59,7 +56,7 @@ describe('CustomLink', ()=>{
             <CustomLink store={store} href={href}/>
         )
         
-        const component = wrapper.dive().find(LinkToPost);
+        const component = wrapper.dive().dive().find(LinkToPost);
 
         expect(component.length).toBe(1);
         expect(component.prop('topicId')).toBe('822078');
@@ -75,7 +72,7 @@ describe('CustomLink', ()=>{
             <CustomLink store={store} href={href}/>
         )
         
-        const component = wrapper.dive().find(YoutubeLink);
+        const component = wrapper.dive().dive().find(YoutubeLink);
         expect(component.length).toBe(1);
 
     });
@@ -83,14 +80,14 @@ describe('CustomLink', ()=>{
     it('+++ render link to catalog.mista', () => {
 
         const href = 'http://catalog.mista.ru/public/590993/';
-
+        
         wrapper = shallow(
             <CustomLink store={store} href={href}>
                 link title
             </CustomLink>
         )
         
-        const component = wrapper.dive();
+        const component = wrapper.dive().dive().render();
         expect(component.prop('href')).toBe('http://infostart.ru/public/590993/');
 
     });    
@@ -105,7 +102,7 @@ describe('CustomLink', ()=>{
             />
         )
         
-        const component = wrapper.dive();
+        const component = wrapper.dive().render();
         expect(component.prop('href')).toBe('https://wikipadia.ru/имя_(значение)');
 
     }); 
@@ -118,8 +115,8 @@ describe('CustomLink', ()=>{
             <CustomLink store={store} href={href}/>
         )
         
-        const component = wrapper.dive();
-        expect(component.prop('href')).toBe('https://www.forum.mista.ru/users.php?id=111');
+        const component = wrapper.dive().render();
+        expect(component.prop('href')).toBe('https://forum.mista.ru/users.php?id=111');
 
     }); 
 

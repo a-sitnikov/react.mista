@@ -72,7 +72,7 @@ class CustomLink extends Component<Props> {
         let newHref = href;
         if (newHref.startsWith('/') ) {
             url.set('protocol', 'https')
-            url.set('hostname', 'www.forum.mista.ru')
+            url.set('hostname', 'forum.mista.ru')
             newHref = url.href;
         }
         
