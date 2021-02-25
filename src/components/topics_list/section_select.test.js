@@ -11,6 +11,7 @@ import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
 import { configure , mount, shallow } from 'enzyme'
+import { act } from "react-dom/test-utils"
 
 import * as API from '../../api'
 import ConnectedSectionSelect, {SectionSelect} from './section_select'
@@ -31,12 +32,19 @@ const data = [
     }
 ];
 
+const waitForComponentToPaint = async (wrapper) => {
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve));
+      wrapper.update();
+    });
+  };
+
 describe('SectionSelect', ()=>{
 
     let store, wrapper;
     store = createStore(rootReducer, applyMiddleware(thunk));
     
-    it('+++ render the connected() component', (done) => {
+    it('+++ render the connected() component', async () => {
         const props = {
             defaultValue: 'Секция',
             selected: '',
@@ -49,11 +57,8 @@ describe('SectionSelect', ()=>{
         const component = mount(
             <ConnectedSectionSelect store={store} {...props} />
         );
-
-        setImmediate(() => {
-            done();
-            expect(component.html()).toMatchSnapshot();
-        });
+        await waitForComponentToPaint(component);
+        expect(component.html()).toMatchSnapshot();
 
     });
 
