@@ -40,13 +40,13 @@ describe('NewTopic', ()=>{
     })
     
     it('+++ render TextEditor', () => {
-        const component = wrapper.dive().find(ConnectedTextEditor);
+        const component = wrapper.dive().dive().find(ConnectedTextEditor);
         expect(component.length).toBe(1);
         expect(component.prop('isVoting')).toBe(true);
     });
 
     it('+++ render 10 voting options', () => {
-        const component = wrapper.dive().find(InputGroup);
+        const component = wrapper.dive().dive().find(InputGroup);
         expect(component.length).toBe(10);
     });
 
