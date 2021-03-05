@@ -37,6 +37,10 @@
     background: white;
 }
 
+[theme='dark'] .preview-container {
+    background: inherit;
+}
+
 .user-td {
     flex: 1 auto;
     vertical-align: top;

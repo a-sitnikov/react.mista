@@ -17,3 +17,7 @@
 .topic-preview {
     background: white;
 }
+
+[theme='dark'] .topic-preview {
+    background: inherit;
+}
