@@ -80,9 +80,6 @@ class TextEditor extends Component<Props> {
             parent.dispatchEvent(new Event("submit", {cancelable: true, bubbles: true}));
         }
 
-        if (e.key === 'Enter') {
-            event.stopPropagation()
-        }    
     }
 
     render() {
