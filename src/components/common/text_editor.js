@@ -77,8 +77,12 @@ class TextEditor extends Component<Props> {
             while (parent.tagName.toUpperCase() !== "FORM") {
                 parent = parent.parentNode;
             }
-            parent.dispatchEvent(new Event("submit", {cancelable: true}));
+            parent.dispatchEvent(new Event("submit", {cancelable: true, bubbles: true}));
         }
+
+        if (e.key === 'Enter') {
+            event.stopPropagation()
+        }    
     }
 
     render() {
