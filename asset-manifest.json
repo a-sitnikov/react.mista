@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/react.mista/static/css/main.5e21199d.chunk.css",
+    "main.css": "/react.mista/static/css/main.7a92cdfd.chunk.css",
     "main.js": "/react.mista/static/js/main.835db84e.chunk.js",
     "main.js.map": "/react.mista/static/js/main.835db84e.chunk.js.map",
     "runtime-main.js": "/react.mista/static/js/runtime-main.0a069966.js",
@@ -8,13 +8,13 @@
     "static/js/2.a3908e6a.chunk.js": "/react.mista/static/js/2.a3908e6a.chunk.js",
     "static/js/2.a3908e6a.chunk.js.map": "/react.mista/static/js/2.a3908e6a.chunk.js.map",
     "index.html": "/react.mista/index.html",
-    "static/css/main.5e21199d.chunk.css.map": "/react.mista/static/css/main.5e21199d.chunk.css.map",
+    "static/css/main.7a92cdfd.chunk.css.map": "/react.mista/static/css/main.7a92cdfd.chunk.css.map",
     "static/js/2.a3908e6a.chunk.js.LICENSE.txt": "/react.mista/static/js/2.a3908e6a.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.0a069966.js",
     "static/js/2.a3908e6a.chunk.js",
-    "static/css/main.5e21199d.chunk.css",
+    "static/css/main.7a92cdfd.chunk.css",
     "static/js/main.835db84e.chunk.js"
   ]
 }
