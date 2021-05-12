@@ -39,6 +39,7 @@
 
 [theme='dark'] .preview-container {
     background: inherit;
+    border-color: rgb(100, 100, 100);
 }
 
 .user-td {
