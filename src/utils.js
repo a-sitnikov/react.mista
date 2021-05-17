@@ -12,6 +12,13 @@ export const groupBy = function (xs, key) {
 };
 
 export const parseJSON = (text) => {
+
+    try {
+        return JSON.parse(text);    
+    } catch(e) {
+
+    }
+
     try {
         text = text
             .replace(/\\</g, '<')
@@ -21,6 +28,7 @@ export const parseJSON = (text) => {
             .replace(/\\"/g, "")
             .replace(/ "/g, ' \\"')
             .replace(/""/g, '\\""')
+            .replace(/\t/g, '  ')
             .replace(/"(\.| |\?)/g, '\\"$1')
 
         //           console.log(text);
