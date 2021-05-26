@@ -64,7 +64,7 @@
     display: grid;
     width: 100%;
     background-color: white;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--inner-border-color);
     box-sizing: border-box;
     grid-template-columns: 50px 30px 30px auto 120px 155px;
     grid-template-areas: "forum answ pv-link title author lastuser";
@@ -76,7 +76,7 @@
 
 .cell-forum{
     padding: 6px;
-    border-right: 1px solid #eee;
+    border-right: 1px solid var(--inner-border-color);
     font-size: 80%;
     text-align: center;
     grid-area: forum;
@@ -85,7 +85,7 @@
 
 .cell-section {
     padding: 6px;
-    border-right: 1px solid #eee;
+    border-right: 1px solid var(--inner-border-color);
     font-size: 80%;
     text-align: center;
     grid-area: section;
@@ -94,7 +94,7 @@
 
 .cell-answ {
     padding: 6px;
-    border-right: 1px solid #eee;
+    border-right: 1px solid var(--inner-border-color);
     font-size: 80%;
     text-align: center;
     grid-area: answ;
@@ -110,7 +110,7 @@
 
 .cell-title {
     padding: 6px;
-    border-right: 1px solid #eee;
+    border-right: 1px solid var(--inner-border-color);
     grid-area: title;
 }
 
@@ -124,7 +124,7 @@
 
 .cell-author {
     padding: 6px;
-    border-right: 1px solid #eee;
+    border-right: 1px solid var(--inner-border-color);
     font-size: 80%;
     word-break: break-all;
     grid-area: author;
@@ -132,7 +132,7 @@
 
 .cell-lastuser {
     padding: 6px;
-    border-right: 1px solid var(--border-color);
+    border-right: 1px solid var(--inner-border-color);
     font-size: 80%;
     grid-area: lastuser;
 }
@@ -199,7 +199,7 @@
 
     .topics-list-row {
         margin-bottom: 5px;
-        border: 1px solid var(--border-color);
+        border: 1px solid var(--inner-border-color);
         grid-template-rows: auto;    
         grid-template-columns: [col] 40px [col] 1fr [col] 1fr [col] 40px;
 
