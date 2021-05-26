@@ -1,3 +1,23 @@
+:root {
+    --border-color: #CCC;
+    --header-background: #eee;
+    --background: white;
+    --font-color: black;
+    --link-color: #00C;
+    --link-hover-color: #D00;
+    --mytopics-color: #052;
+}
+
+body[theme="dark"] {
+    --border-color: rgb(100, 100, 100); 
+    --header-background: black;      
+    --background: black;
+    --font-color: white;
+    --link-color: #00a2fd;
+    --link-hover-color: #D00;
+    --mytopics-color: #052;
+}
+
 html {
     min-height: 100%;
 }
@@ -67,7 +87,6 @@ body[theme="dark"] {
 [theme="dark"] .button {
     background: black;
     color: inherit;
-    border-color: rgb(100, 100, 100);
 }
 
 [theme="dark"] .dropdown-menu {
@@ -112,8 +131,8 @@ body[theme="dark"] {
 }
 
 .border2 td {
-    border-left: 1px solid #CCC;
-    border-bottom: 1px solid #CCC;
+    border-left: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .cc {
@@ -135,11 +154,7 @@ body[theme="dark"] {
 }
 
 a {
-    color: #00C;
-}
-
-[theme='dark'] a {
-    color: #00a2fd;
+    color: var(--link-color);
 }
 
 a:hover {
@@ -148,24 +163,16 @@ a:hover {
 }
 
 .your-name {
-    color: #00C;
-}
-
-[theme='dark'] .your-name {
-    color: #007bff;
+    color: var(--link-color);
 }
 
 .link {
     cursor: pointer;
-    color: #00C;
-}
-
-[theme='dark'] .link {
-    color: #00a2fd;
+    color: var(--link-color);
 }
 
 .mytopics {
-    color: #052;
+    color: var(--mytopics-color);
 }
 
 .va-middle {
@@ -194,7 +201,7 @@ a:hover {
 }
 
 #tm {
-    border: 2px solid #CCC;
+    border: 2px solid var(--border-color);
     border-bottom: 0;
     border-spacing: 0;
     background-color: white;
@@ -208,8 +215,8 @@ a:hover {
 
 #tm th {
     background-color: #EEE;
-    border-left: 1px solid #CCC;
-    border-bottom: 1px solid #CCC;
+    border-left: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
 }
 
 #tm td {
@@ -237,7 +244,6 @@ a:hover {
 [theme="dark"] .input {
     background: black;
     color: inherit;
-    border-color: rgb(100, 100, 100);
 }
 
 @media (max-width: 768px) {

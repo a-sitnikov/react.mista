@@ -4,7 +4,6 @@
 
 [theme='dark'] .navbar {
     background-color: black !important;
-    border-bottom: 1px solid rgb(100, 100, 100);
 }
 
 .navbar-form {
@@ -13,7 +12,7 @@
 }
 
 .navbar-footer {
-    border-top: 1px solid #ccc;
+    border-top: 1px solid var(--border-color);
     padding: 5px 0px 5px 10px;
     margin-top: 10px;
     display: flex;

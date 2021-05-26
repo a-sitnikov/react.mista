@@ -1,15 +1,14 @@
 
 .th {
     display: grid;
-    background: #eee;
+    background: var(--header-background);
     font-weight: bold;
     grid-template-columns: 50px 30px 30px auto 120px 150px;
-    border-bottom: 1px solid #CCC;
+    border-bottom: 1px solid var(--border-color);
     text-align: center;
 }
 
 [theme="dark"] .th {
-    background: black;
     color: inherit;
 }
 
@@ -20,7 +19,7 @@
 .tf {
     box-sizing: border-box;
     width: 100%;
-    border-top: 1px solid #CCC;
+    border-top: 1px solid var(--border-color);
     background-color: #EEE;
     display: flex;
     justify-content: center;
@@ -39,7 +38,6 @@
 
 [theme='dark'] .preview-container {
     background: inherit;
-    border-color: rgb(100, 100, 100);
 }
 
 .user-td {
@@ -52,7 +50,7 @@
 }
 
 .table {
-    border: 1px solid #CCC;
+    border: 1px solid var(--border-color);
     box-sizing: border-box;
     opacity: 1;
     margin-top: 5px;
@@ -74,7 +72,6 @@
 
 [theme="dark"] .topics-list-row {
     background-color: inherit;
-    border-color: rgb(100, 100, 100);
 }
 
 .cell-forum{
@@ -135,7 +132,7 @@
 
 .cell-lastuser {
     padding: 6px;
-    border-right: 1px solid #eee;
+    border-right: 1px solid var(--border-color);
     font-size: 80%;
     grid-area: lastuser;
 }
@@ -176,7 +173,7 @@
     }
 
     .tf {
-        border: 1px solid #CCC;
+        border: 1px solid var(--border-color);
         padding: 5px 0px;
     }
 
@@ -188,7 +185,7 @@
         padding: 10px 15px 10px 15px;
         margin-top: -5px;
         margin-bottom: 5px;
-        border: 1px solid #CCC;
+        border: 1px solid var(--border-color);
         border-top: none;        
     }
 
@@ -202,7 +199,7 @@
 
     .topics-list-row {
         margin-bottom: 5px;
-        border: 1px solid #CCC;
+        border: 1px solid var(--border-color);
         grid-template-rows: auto;    
         grid-template-columns: [col] 40px [col] 1fr [col] 1fr [col] 40px;
 
@@ -213,14 +210,13 @@
     }
 
     .cell-author {
-        background: #eee;
+        background: var(--header-background);
         padding: 0px 2px; 
         font-weight: bold;
+        border-bottom: 1px dotted var(--border-color);
     }
     
     [theme='dark'] .cell-author {
-        background: inherit;
-        border-bottom: 1px dotted rgb(100, 100, 100);
         border-right: none;
     }  
 
@@ -229,20 +225,16 @@
     }
     
     .cell-section {
-        background: #eee; 
+        background: var(--header-background); 
         padding: 0px 2px; 
         text-align: right;
         display: block;
         border-right: none;
+        border-bottom: 1px dotted var(--border-color);
     }
     
-    [theme='dark'] .cell-section {
-        background: inherit;
-        border-bottom: 1px dotted rgb(100, 100, 100);
-    } 
-
     .cell-preview-link {
-        border-right: 1px dotted rgb(100, 100, 100);
+        border-right: 1px dotted var(--border-color);        
         grid-area: pv-link;
         width: 40px;
         font-size: 1.5em;
@@ -262,16 +254,12 @@
     }
 
     .cell-lastuser {
-        background: #eee;
+        background: var(--header-background);
         padding: 0px 2px; 
+        border-right: none;
+        border-top: 1px dotted var(--border-color);
     }
     
-    [theme='dark'] .cell-lastuser {
-        background: inherit;
-        border-top: 1px dotted rgb(100, 100, 100);
-        border-right: none;
-    }  
-   
     .cell-lastuser-user {
         order: 0;
     }
@@ -281,24 +269,19 @@
     }
 
     .cell-answ {
-        background: #eee; 
+        background: var(--header-background); 
         padding: 0px 2px; 
         text-align: right;
+        border-top: 1px dotted var(--border-color);
     }
 
     [theme='dark'] .cell-answ {
-        background: inherit;
-        border-top: 1px dotted rgb(100, 100, 100);
         border-right: none;
     }  
 
     .cell-last20 {
         display: flex;
         font-size: 1.5em;
-        border-left: 1px dotted #CCC;
-    }
-
-    [theme='dark'] .cell-last20 {
-        border-left: 1px dotted rgb(100, 100, 100);
+        border-left: 1px dotted var(--border-color);
     }
 }

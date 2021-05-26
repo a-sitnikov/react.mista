@@ -1,6 +1,6 @@
 
 .options-form {
-    border: 1px solid #eee;
+    border: 1px solid var(--border-color);
     font-weight: normal;
     border: 1px solid silver;
     box-sizing: border-box;
@@ -27,7 +27,7 @@
 .button-row {
     padding: 5px;
     border-top: 1px solid silver;
-    background-color: #eee;
+    background-color: var(--header-background);
     width: 100%;
     box-sizing: border-box;
 }
@@ -38,17 +38,17 @@
 
 .tab-header {
     width: 100%;
-    background-color: #eee;
+    background-color: var(--header-background);
     padding: 5px 10px;
     font-weight: bold;
     border-top: 1px solid silver;
     border-bottom: 1px solid silver;
 }
-
+/*
 [theme='dark'] .tab-header {
     background: inherit;
 }
-
+*/
 .tab-content {
     padding: 10px;
 }    
