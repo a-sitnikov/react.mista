@@ -74,7 +74,7 @@ body[theme="dark"] {
 
 .button { 
     color: black;
-    border: 1px solid #bbb;
+    border: 1px solid var(--border-color);
     border-radius: 3px;
 }
 
@@ -92,7 +92,7 @@ body[theme="dark"] {
 }
 
 [theme="dark"] .dropdown-menu {
-    background-color: black;
+    background-color: var(--background);
     border: 1px solid white;
 }
 
@@ -187,6 +187,7 @@ a:hover {
 .form-control {
     /*transition: none !important;*/
     box-shadow: none !important;
+    border-color: var(--border-color);
 }
 
 .form-control:focus {
