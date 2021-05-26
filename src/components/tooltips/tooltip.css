@@ -36,7 +36,7 @@
     margin-left: auto;
     font-weight: bold;
     margin-left: 5px;
-    border: 1px solid #CCC;
+    border: 1px solid var(--border-color);
     text-align: center;
     position: relative;
     margin-left: auto;
