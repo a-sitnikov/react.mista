@@ -111,11 +111,6 @@ body[theme="dark"] {
 	color:gray;
 } 
 
-.c {
-    border-bottom: 1px solid #EEE;
-    border-left: 1px solid #EEE;
-}
-
 .mr5 {
     margin-right: 5px;
 }
@@ -147,7 +142,7 @@ a {
 }
 
 a:hover {
-    color: #D00;
+    color: var(--link-hover-color);
     text-decoration: unset;
 }
 
@@ -189,30 +184,6 @@ a:hover {
     font-size: 120%;
 }
 
-#tm {
-    border: 2px solid var(--border-color);
-    border-bottom: 0;
-    border-spacing: 0;
-    background-color: white;
-    table-layout: fixed;
-    line-height: 1.4em;
-    font-size: 1em;
-    border-collapse: collapse;
-    width: 100%;
-    margin: 10px auto 0px;
-}
-
-#tm th {
-    background-color: #EEE;
-    border-left: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
-}
-
-#tm td {
-    padding: 4px;
-    vertical-align: top;
-}
-
 .form-control {
     /*transition: none !important;*/
     box-shadow: none !important;
@@ -227,7 +198,7 @@ a:hover {
 }
 
 .input {
-    color: black;
+    color: var(--font-color);
 }
 
 [theme="dark"] .input {
