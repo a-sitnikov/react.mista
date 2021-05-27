@@ -39,4 +39,4 @@ class StringOption extends Component<StringOptionProps> {
     }
 }
 
-export default StringOption;
+export default ( StringOption: any );

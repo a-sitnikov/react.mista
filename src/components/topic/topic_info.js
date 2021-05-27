@@ -60,4 +60,4 @@ const mapStateToProps = (state: State): StateProps => {
     }
 }
 
-export default connect(mapStateToProps)(TopicInfo);
+export default ( connect(mapStateToProps)(TopicInfo): any );

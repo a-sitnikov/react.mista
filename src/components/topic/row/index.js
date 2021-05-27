@@ -60,4 +60,4 @@ const mapStateToProps = (state: State): StateProps => {
     }
 }
 
-export default connect(mapStateToProps)(Row);
+export default ( connect(mapStateToProps)(Row): any );

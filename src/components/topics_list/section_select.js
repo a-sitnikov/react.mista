@@ -100,4 +100,4 @@ const mapStateToProps = (state: State): StateProps => {
     }
 }
 
-export default connect(mapStateToProps)(SectionSelect);
+export default ( connect(mapStateToProps)(SectionSelect): any );

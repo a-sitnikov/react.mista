@@ -10,12 +10,12 @@ export type LoginState = {
   error?: string
 };
 
-export const defaultLoginState = {
+export const defaultLoginState: LoginState = {
     isFetching: false,
     logged: undefined
 }
 
-const login = (state: LoginState = defaultLoginState, action: LoginAction) => {
+const login = (state: LoginState = defaultLoginState, action: LoginAction): LoginState => {
     switch (action.type) {
         case 'LOGIN_START':
             return {

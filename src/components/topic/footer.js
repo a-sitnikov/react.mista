@@ -1,7 +1,6 @@
 //@flow
 import * as React from 'react'
 import { connect } from 'react-redux'
-import type { Dispatch } from 'redux'
 import { Button } from 'react-bootstrap'
 
 import { fetchNewMessagesIfNeeded } from 'src/actions/topic'
@@ -10,7 +9,7 @@ import { getMaxPage } from 'src/utils'
 
 type FooterProps = {
     info: any,
-    dispatch: Dispatch<*>,
+    dispatch: any,
     bookmark: any,
     isFetching: boolean,
     params: any
@@ -92,4 +91,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Footer);
+export default ( connect(mapStateToProps)(Footer): any );

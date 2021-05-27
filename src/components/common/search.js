@@ -97,4 +97,4 @@ class Search extends Component<Props> {
     }
 }
 
-export default Search;
+export default ( Search: any );

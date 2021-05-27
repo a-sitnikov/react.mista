@@ -10,7 +10,7 @@ import type { State } from 'src/reducers'
 import type { NewMessageState } from 'src/reducers/new_message'
 
 import type { ResponseInfo } from 'src/api'
-import type { DefaultProps } from 'src/index'
+import type { DefaultProps } from 'src/components'
 
 type NewMessageProps = {
     onSubmitSuccess?: () => void
@@ -18,7 +18,8 @@ type NewMessageProps = {
 
 type StateProps = {
     info: ResponseInfo,
-    newMessage: NewMessageState
+    newMessage: NewMessageState,
+    voting: ?string
 }
 
 type Props = NewMessageProps & StateProps & DefaultProps;
@@ -160,4 +161,4 @@ const mapStateToProps = (state: State): StateProps => {
 
 }
 
-export default connect(mapStateToProps)(NewMessage);
+export default ( connect(mapStateToProps)(NewMessage): any );

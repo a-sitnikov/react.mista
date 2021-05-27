@@ -13,7 +13,7 @@ import { today } from 'src/utils'
 import type { State } from 'src/reducers'
 import type { TopicsListItem } from 'src/reducers/topics_list'
 import type { LoginState } from 'src/reducers/login'
-import type { DefaultProps } from 'src/components/index'
+import type { DefaultProps } from 'src/components'
 
 type RowProps = {
     columns: any,
@@ -79,4 +79,4 @@ const mapStateToProps = (state: State): StateProps => {
     }
 }
 
-export default connect(mapStateToProps)(Row);
+export default ( connect(mapStateToProps)(Row): any );

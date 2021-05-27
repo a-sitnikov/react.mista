@@ -59,4 +59,4 @@ class Header extends Component<Props> {
     }
 }
 
-export default connect()(withRouter(Header));
+export default ( connect()(withRouter(Header)): any );

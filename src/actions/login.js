@@ -9,12 +9,7 @@ export type LOGIN_START = {
 
 export type LOGIN_COMPLETE = {
     type: 'LOGIN_COMPLETE',
-    data: {
-        error: string,
-        userid: string,
-        username: string,
-        hashkey: string        
-    }
+    data: ResponseLogin
 }
 
 export type CHECK_LOGIN_START = {
@@ -92,7 +87,7 @@ const shouldLogin = (state: State): boolean => {
     return true
 }
 
-export const checkLogin = (params: any) => async (dispatch: any) => {
+export const checkLogin = (params: any): any => async (dispatch: any) => {
 
     dispatch(checkLoginStart());
 
@@ -119,13 +114,13 @@ export const checkLogin = (params: any) => async (dispatch: any) => {
         dispatch(loginFailed(''));
 }
 
-export const checkLoginIfNeeded = (params: any) => (dispatch: any, getState: any) => {
+export const checkLoginIfNeeded = (params: any): any => (dispatch: any, getState: any) => {
     if (shouldLogin(getState())) {
         return dispatch(checkLogin(params))
     }
 }
 
-export const doLogout = (params: any) => async (dispatch: any) => {
+export const doLogout = (params: any): any => async (dispatch: any) => {
 
     dispatch(logoutStart());
 
@@ -140,7 +135,7 @@ export const doLogout = (params: any) => async (dispatch: any) => {
 
 }
 
-export const doLogin = (params: RequestLogin) => async (dispatch: any) => {
+export const doLogin = (params: RequestLogin): any => async (dispatch: any) => {
 
     dispatch(loginStart());
 
@@ -165,7 +160,7 @@ export const doLogin = (params: RequestLogin) => async (dispatch: any) => {
 
 }
 
-export const doLoginIfNeeded = (params: RequestLogin) => (dispatch: any, getState: any) => {
+export const doLoginIfNeeded = (params: RequestLogin): any => (dispatch: any, getState: any) => {
     if (shouldLogin(getState())) {
         return dispatch(doLogin(params))
     }

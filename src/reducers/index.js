@@ -65,4 +65,4 @@ const rootReducer = combineReducers({
     options
 })
 
-export default rootReducer;
+export default ( rootReducer: any );

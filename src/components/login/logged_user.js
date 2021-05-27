@@ -77,4 +77,4 @@ class LoggedUser extends Component<Props> {
     }
 }
 
-export default connect()(withRouter(LoggedUser));
+export default ( connect()(withRouter(LoggedUser)): any );

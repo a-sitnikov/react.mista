@@ -31,7 +31,7 @@ export type RECEIVE_PREVIEW_TEXT = {
 
 export type TopicPreviewAction = SHOW_PREVIEW | CLOSE_PREVIEW | REQUEST_PREVIEW_TEXT | RECEIVE_PREVIEW_TEXT;
 
-export const fetchTopicPreviewText = (params: PreviewTextParams) => async (dispatch: any) => {
+export const fetchTopicPreviewText = (params: PreviewTextParams): any => async (dispatch: any) => {
 
     dispatch({
         type: 'REQUEST_PREVIEW_TEXT',

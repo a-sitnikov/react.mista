@@ -49,4 +49,4 @@ class Pages extends Component<Props> {
     }
 }
 
-export default Pages;
+export default ( Pages: any );

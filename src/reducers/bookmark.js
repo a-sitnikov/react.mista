@@ -5,11 +5,11 @@ export type BookmarkState = {
   isFetching: boolean
 };
 
-export const defaultBookmarkState = {
+export const defaultBookmarkState: BookmarkState = {
   isFetching: false
 };
 
-const bookmark = (state: BookmarkState = defaultBookmarkState, action: AddBookmarkAction) => {
+const bookmark = (state: BookmarkState = defaultBookmarkState, action: AddBookmarkAction): BookmarkState => {
     switch (action.type) {
         case 'ADD_BOOKMARK_START':
             return {

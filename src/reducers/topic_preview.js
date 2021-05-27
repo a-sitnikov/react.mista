@@ -6,11 +6,11 @@ export type TopicPreviewState = {
     items: {[string]: ResponseMessage | null}
 };
 
-export const defaultTopicPreviewState = {
+export const defaultTopicPreviewState: TopicPreviewState = {
     items: {}
 };
 
-const topicPreview = (state: TopicPreviewState = defaultTopicPreviewState, action: TopicPreviewAction) => {
+const topicPreview = (state: TopicPreviewState = defaultTopicPreviewState, action: TopicPreviewAction): TopicPreviewState => {
 
     let previewItem;
 

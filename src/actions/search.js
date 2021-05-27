@@ -26,7 +26,7 @@ const shouldFetch = (state: State): boolean => {
     return true
 }
 
-export const doSearch = (params: RequestSearch) => async (dispatch: any) => {
+export const doSearch = (params: RequestSearch): any => async (dispatch: any) => {
 
     let action1: REQUEST_SEARCH = {
         type: 'REQUEST_SEARCH'
@@ -37,7 +37,7 @@ export const doSearch = (params: RequestSearch) => async (dispatch: any) => {
 
 }
 
-export const doSearchIfNeeded = (params: RequestSearch) => (dispatch: any, getState: any) => {
+export const doSearchIfNeeded = (params: RequestSearch): any => (dispatch: any, getState: any) => {
     if (shouldFetch(getState())) {
         return dispatch(doSearch(params))
     }

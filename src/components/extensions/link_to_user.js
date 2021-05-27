@@ -14,4 +14,4 @@ class LinkToUser extends Component<LinkToUserProps> {
     }
 }
 
-export default LinkToUser;
+export default ( LinkToUser: any );

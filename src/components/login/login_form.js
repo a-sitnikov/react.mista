@@ -75,4 +75,4 @@ const mapStateToProps = (state: State): LoginState => {
     return state.login;
 }
 
-export default connect(mapStateToProps)(LoginForm);
+export default ( connect(mapStateToProps)(LoginForm): any );

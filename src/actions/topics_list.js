@@ -95,7 +95,7 @@ const shouldFetchTopicsList = (state: State) => {
     return true
 }
 
-export const fetchTopicsListIfNeeded = (params: any) => (dispatch: any, getState: any) => {
+export const fetchTopicsListIfNeeded = (params: any): any => (dispatch: any, getState: any) => {
     if (shouldFetchTopicsList(getState())) {
         return dispatch(fetchTopicsList(params));
     }

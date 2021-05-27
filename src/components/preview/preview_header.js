@@ -39,4 +39,4 @@ class PreviewHeader extends Component<TopicPreviewProps> {
 
 }
 
-export default PreviewHeader;
+export default ( PreviewHeader: any );

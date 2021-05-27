@@ -49,4 +49,4 @@ const VoteItem = (props: Props) => {
     )
 }
 
-export default VoteItem;
+export default ( VoteItem: any );

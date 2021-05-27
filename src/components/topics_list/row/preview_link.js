@@ -40,4 +40,4 @@ class PreviewLink extends Component<Props> {
 
 }
 
-export default connect()(PreviewLink);
+export default ( connect()(PreviewLink): any );

@@ -8,7 +8,7 @@ import type { ResponseTopicsListItem } from 'src/api'
 import type { State } from 'src/reducers'
 
 import type { LoginState } from 'src/reducers/login'
-import type { DefaultProps } from 'src/components/index'
+import type { DefaultProps } from 'src/components'
 import type { TopicPreviewState } from 'src/reducers/topic_preview'
 
 import Pages from './pages';
@@ -98,4 +98,4 @@ const mapStateToProps = (state: State): StateProps => {
     }
 }
 
-export default connect(mapStateToProps)(TopicNameCell);
+export default ( connect(mapStateToProps)(TopicNameCell): any );

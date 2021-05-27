@@ -8,7 +8,7 @@ import { domain } from 'src/api'
 import { addMessageText } from 'src/actions/new_message'
 
 import type { ResponseMessage } from 'src/api'
-import type { DefaultProps } from 'src/index'
+import type { DefaultProps } from 'src/components'
 
 type UserInfoProps = {
     data: ResponseMessage,
@@ -70,4 +70,4 @@ class UserInfo extends Component<Props> {
 
 }
 
-export default connect()(UserInfo);
+export default ( connect()(UserInfo): any );

@@ -9,10 +9,10 @@ export type NewTopicState = {
     subject: string,
     forum: string,
     isVoting: boolean,
-    error?: string
+    error?: ?string
 };
 
-export const defaultNewTopicState = {
+export const defaultNewTopicState: NewTopicState = {
     isFetching: false,
     section: null,
     text: '',
@@ -21,7 +21,7 @@ export const defaultNewTopicState = {
     isVoting: false
 }
 
-const newTopic = (state: NewTopicState = defaultNewTopicState, action: NewTopicAction) => {
+const newTopic = (state: NewTopicState = defaultNewTopicState, action: NewTopicAction): NewTopicState => {
     switch (action.type) {
         case 'POST_NEW_TOPIC_START':
             return {

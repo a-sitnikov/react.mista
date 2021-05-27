@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { FormControl, Button, ButtonGroup, Form } from 'react-bootstrap'
 
-import type { DefaultProps } from 'src/index'
+import type { DefaultProps } from 'src/components'
 
 import './text_editor.css'
 
@@ -35,7 +35,7 @@ class TextEditor extends Component<Props> {
         var openTag = '[1C]\n';
         var closeTag = '\n[/1C]';
 
-        var textArea = this.textArea.current;
+        var textArea: any = this.textArea.current;
 
         var start = textArea.selectionStart;
         var end = textArea.selectionEnd;
@@ -132,4 +132,4 @@ class TextEditor extends Component<Props> {
     }
 }
 
-export default connect()(TextEditor);
+export default ( connect()(TextEditor): any );

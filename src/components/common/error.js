@@ -16,4 +16,4 @@ const ErrorElem = (props: Props) => {
     )    
 }
 
-export default ErrorElem;
+export default ( ErrorElem: React.Component );

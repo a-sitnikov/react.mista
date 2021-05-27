@@ -7,12 +7,12 @@ export type SearchState = {
   lastUpdated?: Date
 }
 
-export const defaultSearchState = {
+export const defaultSearchState: SearchState = {
     isFetching: false,
     items: []
 }
 
-const search = (state: SearchState = defaultSearchState, action: SearchAction) => {
+const search = (state: SearchState = defaultSearchState, action: SearchAction): SearchState => {
     switch (action.type) {
         case 'REQUEST_SEARCH':
             return {

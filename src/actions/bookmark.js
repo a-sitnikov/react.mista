@@ -17,7 +17,7 @@ export type ADD_BOOKMARK_FAIL = {
 export type AddBookmarkAction = ADD_BOOKMARK_START | ADD_BOOKMARK_COMPLETE | ADD_BOOKMARK_FAIL;
 
 
-export const addBookmark = (params: RequestBookmark) => async (dispatch: any) => {
+export const addBookmark = (params: RequestBookmark): any => async (dispatch: any) => {
 
     dispatch({
         type: "ADD_BOOKMARK_START"

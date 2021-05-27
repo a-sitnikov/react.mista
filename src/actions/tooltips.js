@@ -1,13 +1,11 @@
 //@flow
 import type { State } from '../reducers'
 
-export type TooltipKeysTopic = {
+export type TooltipKeys = {
     type: 'TOPIC' | 'TOPIC_PREVIEW',
     topicId: string,
     number: number      
 }
-
-export type TooltipKeys = TooltipKeysTopic
 
 export type Coords = {
     x: number, 
@@ -34,7 +32,7 @@ export type CLOSE_TOOLTIP = {
 
 export type TooltipsAction = CREATE_TOOLTIP | CLOSE_TOOLTIP | CLEAR_TOOLTIPS;
 
-export const showTooltip = (keys: TooltipKeys, coords: Coords) => async (dispatch: any) => {
+export const showTooltip = (keys: TooltipKeys, coords: Coords): any => async (dispatch: any) => {
 
     if (keys.type === 'TOPIC' || keys.type === 'TOPIC_PREVIEW' ) {
 
@@ -48,14 +46,14 @@ export const showTooltip = (keys: TooltipKeys, coords: Coords) => async (dispatc
     }
 }
 
-export const closeTooltip = (keys: TooltipKeys) => (dispatch: any) => {
+export const closeTooltip = (keys: TooltipKeys): any => (dispatch: any) => {
     dispatch({
         type: 'CLOSE_TOOLTIP',
         keys
     });
 }
 
-export const clearTooltipsIfNeeded = (params: {}) => (dispatch: any, getState: any) => {
+export const clearTooltipsIfNeeded = (params: {}): any => (dispatch: any, getState: any) => {
     const state: State = getState(); 
     if (state.tooltips.items.length > 0) {
         

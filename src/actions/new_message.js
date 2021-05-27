@@ -30,7 +30,7 @@ export type PostNewmessageParams = {
     onSuccess?: () => void    
 }
 
-export const postNewMessage = (params: PostNewmessageParams) => async (dispatch: any) => {
+export const postNewMessage = (params: PostNewmessageParams): any => async (dispatch: any) => {
 
     dispatch({
         type: 'POST_NEW_MESSAGE_START'
@@ -59,7 +59,7 @@ export const postNewMessage = (params: PostNewmessageParams) => async (dispatch:
     }
 }
 
-export const addMessageText = (text: string) => (dispatch: any) => {
+export const addMessageText = (text: string): any => (dispatch: any) => {
     dispatch({
             type: 'ADD_MESSAGE_TEXT',
             text

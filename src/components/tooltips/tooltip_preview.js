@@ -14,7 +14,7 @@ import './tooltip.css'
 
 import { closeTooltip } from 'src/actions/tooltips'
 
-import type { DefaultProps } from 'src/index'
+import type { DefaultProps } from 'src/components'
 import type { TooltipItemState } from 'src/reducers/tooltips'
 
 type TooltipProps = {
@@ -169,4 +169,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(TooltipPreview);
+export default ( connect(mapStateToProps)(TooltipPreview): any );

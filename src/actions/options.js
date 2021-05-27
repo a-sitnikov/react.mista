@@ -1,4 +1,3 @@
-//@flow
 import type { OptionsItems } from 'src/reducers/options'
 
 export type READ_OPTIONS = {

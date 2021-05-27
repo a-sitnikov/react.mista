@@ -22,4 +22,4 @@ const VoteChart = (props: Props) => {
     )
 }
 
-export default VoteChart;
+export default ( VoteChart: any );

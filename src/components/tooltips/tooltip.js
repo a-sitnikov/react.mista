@@ -12,7 +12,7 @@ import TooltipHeader from './tooltip_header'
 import TooltipBody from './tooltip_body'
 import './tooltip.css'
 
-import type { DefaultProps } from 'src/index'
+import type { DefaultProps } from 'src/components'
 import type { TooltipItemState } from 'src/reducers/tooltips'
 
 type TooltipProps = {
@@ -141,4 +141,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Tooltip);
+export default ( connect(mapStateToProps)(Tooltip): React.Component );

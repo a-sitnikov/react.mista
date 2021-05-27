@@ -29,11 +29,6 @@ class Options extends Component<OptionsState> {
 
     constructor(props) {
         super(props);
-        this.closeForm    = this.closeForm.bind(this);
-        this.applyOptions = this.applyOptions.bind(this);
-        this.resetOptions = this.resetOptiopns.bind(this);
-        this.onChange     = this.onChange.bind(this);
-        this.onTabClick   = this.onTabClick.bind(this);
 
         this.state = {
             items: props.options.items
@@ -142,31 +137,31 @@ class Options extends Component<OptionsState> {
 
     }
 
-    closeForm(){
+    closeForm = () => {
         const { history } = this.props;
         history.push('/' + window.hash);
     }
     
-    resetOptiopns(){
+    resetOptiopns = () => {
         this.setState({
             items: Object.assign({}, defaultOptionsState.items)
         })
     }
 
-    applyOptions(){
+    applyOptions = () => {
 
         const { dispatch } = this.props;
         dispatch(saveOptions(this.state.items));
         this.closeForm();       
     }
 
-    onTabClick(e){
+    onTabClick = (e) => {
         this.setState({
             activeTab: e.target.textContent
         });
     }
 
-    onChange(e, name, value) {
+    onChange = (e, name, value) => {
 
         let items = Object.assign({}, this.state.items);
         items[name] = value;
@@ -334,4 +329,4 @@ const mapStateToProps = (state: State): OptionsState => {
 
 }
 
-export default connect(mapStateToProps)(withRouter(Options));
+export default ( connect(mapStateToProps)(withRouter(Options)): any );

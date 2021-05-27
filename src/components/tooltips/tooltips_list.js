@@ -6,7 +6,7 @@ import Tooltip from './tooltip'
 
 import type { State } from 'src/reducers'
 import type { TooltipItemState } from 'src/reducers/tooltips'
-import type { DefaultProps } from 'src/index'
+import type { DefaultProps } from 'src/components'
 
 type StateProps = {
     items: Array<TooltipItemState>
@@ -44,4 +44,4 @@ const mapStateToProps = (state: State): StateProps => {
     }
 }
 
-export default connect(mapStateToProps)(TooltipsList);
+export default ( connect(mapStateToProps)(TooltipsList): any );

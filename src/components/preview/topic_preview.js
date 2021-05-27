@@ -104,4 +104,4 @@ class TopicPreview extends Component<Props, State> {
 
 }
 
-export default TopicPreview;
+export default ( TopicPreview: any );

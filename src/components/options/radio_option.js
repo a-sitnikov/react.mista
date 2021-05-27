@@ -49,4 +49,4 @@ class RadioOption extends Component<RadioOptionProps> {
     }
 }
 
-export default RadioOption;
+export default ( RadioOption: any );

@@ -2,19 +2,19 @@
 import fetchJsonp from 'fetch-jsonp'
 import * as utils from './utils'
 
-export const domain = localStorage.getItem('domain') || 'https://forum.mista.ru';
+export const domain: string = localStorage.getItem('domain') || 'https://forum.mista.ru';
 //export const domain = 'https://dev.mista.ru';
-export const urlTopicsList    = localStorage.getItem('urlTopicsList') || 'api/topic.php';
-export const urlTopicInfo     = localStorage.getItem('urlTopicInfo') || 'ajax_gettopic.php';
-export const urlTopicMessages = localStorage.getItem('urlTopicMessages') || 'api/message.php';
-export const urlLogin         = localStorage.getItem('urlLogin') || 'ajax_login.php';
-export const urlLogout        = localStorage.getItem('urlLogout') || 'users.php'; // users.php?&action=exit
-export const urlCookies       = localStorage.getItem('urlCookies') || 'ajax_cookie.php';
-export const urlSections      = localStorage.getItem('urlSections') || 'ajax_getsectionslist.php';
-export const urlNewMessage    = localStorage.getItem('urlNewMessage') || 'topic.php?id=:id&page=1';
-export const urlNewTopic      = localStorage.getItem('urlNewTopic') || 'index.php';
-export const urlAddBookmark   = localStorage.getItem('urlAddBookmark') || 'ajax_addbookmark.php';
-export const urlSearch        = localStorage.getItem('urlSearch') || 'ajax_find.php';
+export const urlTopicsList: string    = localStorage.getItem('urlTopicsList') || 'api/topic.php';
+export const urlTopicInfo: string     = localStorage.getItem('urlTopicInfo') || 'ajax_gettopic.php';
+export const urlTopicMessages: string = localStorage.getItem('urlTopicMessages') || 'api/message.php';
+export const urlLogin : string        = localStorage.getItem('urlLogin') || 'ajax_login.php';
+export const urlLogout: string        = localStorage.getItem('urlLogout') || 'users.php'; // users.php?&action=exit
+export const urlCookies: string       = localStorage.getItem('urlCookies') || 'ajax_cookie.php';
+export const urlSections: string      = localStorage.getItem('urlSections') || 'ajax_getsectionslist.php';
+export const urlNewMessage: string    = localStorage.getItem('urlNewMessage') || 'topic.php?id=:id&page=1';
+export const urlNewTopic: string      = localStorage.getItem('urlNewTopic') || 'index.php';
+export const urlAddBookmark: string   = localStorage.getItem('urlAddBookmark') || 'ajax_addbookmark.php';
+export const urlSearch: string        = localStorage.getItem('urlSearch') || 'ajax_find.php';
 
 // Topics list
 export type RequestTopicsList = {
@@ -128,7 +128,7 @@ export const getMessage = async (id: number | string, n: number): Promise<?Respo
     return data;
 } 
 
-export const getTopicMessagesCount = async (id: number | string): number => {
+export const getTopicMessagesCount = async (id: number | string): Promise<number> => {
     const info = await getTopicInfo({id: String(id)});
     return +info.answers_count;
 }

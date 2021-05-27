@@ -222,4 +222,4 @@ const mapStateToProps = (state: State): StateProps => {
     }
 }
 
-export default connect(mapStateToProps)(NewTopic);
+export default ( connect(mapStateToProps)(NewTopic): any );

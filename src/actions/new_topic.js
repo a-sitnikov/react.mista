@@ -65,7 +65,7 @@ export const shouldPostNewTopic = (state: State): boolean => {
     return true
 }
 
-export const postNewTopicIfNeeded = (params: postNewTopicParams) => (dispatch: any, getState: any) => {
+export const postNewTopicIfNeeded = (params: postNewTopicParams): any => (dispatch: any, getState: any) => {
     if (shouldPostNewTopic(getState())) {
         return dispatch(postNewTopic(params));
     }

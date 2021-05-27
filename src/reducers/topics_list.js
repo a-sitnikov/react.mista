@@ -4,24 +4,23 @@ import type { ResponseTopicsListItem } from 'src/api'
 
 import { REQUEST_TOPICS_LIST, RECEIVE_TOPICS_LIST, RECEIVE_TOPICS_LIST_FAILED, TOGGLE_PREVIEW } from 'src/actions/topics_list'
 
-export type TopicsListItem = {
-    ...ResponseTopicsListItem,
-    showPreview: boolean
+export type TopicsListItem = ResponseTopicsListItem & {
+    showPreview?: ?boolean
 }
 
 export type TopicsListState = {
   isFetching: boolean;
   items: Array<TopicsListItem>,
-  error?: string,
+  error?: ?string,
   lastUpdated?: Date
 };
 
-export const defaultTopicsListState = {
+export const defaultTopicsListState: TopicsListState = {
     isFetching: false,
     items: []
 }
 
-const topicsList = (state: TopicsListState = defaultTopicsListState, action: TopicsListAction) => {
+const topicsList = (state: TopicsListState = defaultTopicsListState, action: TopicsListAction): TopicsListState => {
 
     switch (action.type) {
         case REQUEST_TOPICS_LIST:

@@ -11,7 +11,7 @@ import VoteChart from './vote_chart'
 import Vote from './vote'
 
 import type { ResponseInfo, ResponseMessage } from 'src/api'
-import type { DefaultProps } from 'src/components/index'
+import type { DefaultProps } from 'src/components'
 import type { State } from 'src/reducers'
 
 type MsgTextProps = {
@@ -118,4 +118,4 @@ const mapStateToProps = (state: State): StateProps => {
     }
 }
 
-export default connect(mapStateToProps)(MsgText);
+export default ( connect(mapStateToProps)(MsgText): any );

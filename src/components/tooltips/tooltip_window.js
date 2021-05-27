@@ -11,11 +11,12 @@ import './tooltip.css'
 
 import { closeTooltip } from 'src/actions/tooltips'
 
-import type { DefaultProps } from 'src/index'
+import type { DefaultProps } from 'src/components'
 import type { TooltipItemState } from 'src/reducers/tooltips'
 
 type TooltipProps = {
-    tooltip: TooltipItemState
+    tooltip: TooltipItemState,
+    onScroll: (delta: any) => void
 }
 
 type Props = TooltipProps & DefaultProps;
@@ -67,4 +68,4 @@ class TooltipWindow extends Component<Props> {
     }
 }
 
-export default connect()(TooltipWindow);
+export default ( connect()(TooltipWindow): any );

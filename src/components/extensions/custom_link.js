@@ -158,4 +158,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(CustomLink);
+export default ( connect(mapStateToProps)(CustomLink): any );

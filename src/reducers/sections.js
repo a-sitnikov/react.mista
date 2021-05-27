@@ -13,14 +13,14 @@ export type SectionsState = {
   error?: ?string
 };
 
-export const defaultSectionsState = {
+export const defaultSectionsState: SectionsState = {
     isFetching: false,
     items: [],
     tree: {},
     map: {}
 }
 
-const sections = (state: SectionsState = defaultSectionsState, action: SectionsAction) => {
+const sections = (state: SectionsState = defaultSectionsState, action: SectionsAction): SectionsState => {
     switch (action.type) {
         case 'REQUEST_SECTIONS':
             return {

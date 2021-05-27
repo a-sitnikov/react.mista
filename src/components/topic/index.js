@@ -8,7 +8,7 @@ import type { DefaultProps, Location } from 'src/components'
 import type { ResponseInfo, ResponseMessage, ResponseMessages } from 'src/api'
 import type { State } from 'src/reducers'
 import type { LoginState } from 'src/reducers/login'
-import { OptionsItems } from 'src/reducers/options'
+import type { OptionsItems } from 'src/reducers/options'
 
 import Pages from 'src/components/common/pages'
 import Header from './header'
@@ -38,7 +38,8 @@ type StateProps = {
 type Props = {
     fetchTopicIfNeeded: any,
     fetchNewMessagesIfNeeded: any,
-    closeTopic: any
+    closeTopic: any,
+    clearText: any
 } & DefaultProps & StateProps
 
 class Topic extends Component<Props> {
@@ -223,4 +224,4 @@ const mapDispatchToProps = (dispatch) => ({
     clearText: () => dispatch({type: 'NEW_MESSAGE_TEXT', text: ''})
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Topic);
+export default ( connect(mapStateToProps, mapDispatchToProps)(Topic): any );

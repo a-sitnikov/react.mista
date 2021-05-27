@@ -148,4 +148,4 @@ const mapStateToProps = (state: State): StateProps => {
     }
 }
 
-export default connect(mapStateToProps)(LinkToPost);
+export default ( connect(mapStateToProps)(LinkToPost): any );

@@ -6,12 +6,12 @@ export type NewMessageState = {
     text: string
 };
 
-export const defaultNewMessageState = {
+export const defaultNewMessageState: NewMessageState = {
     isFetching: false,
     text: ''
 }
 
-const newMessage = (state: NewMessageState = defaultNewMessageState, action: NewMessageAction) => {
+const newMessage = (state: NewMessageState = defaultNewMessageState, action: NewMessageAction): NewMessageState => {
     switch (action.type) {
         case 'POST_NEW_MESSAGE_START':
             return {

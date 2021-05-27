@@ -1,6 +1,5 @@
 //@flow
 import * as API from 'src/api'
-import type { Dispatch } from 'redux'
 
 import type { ResponseInfo, ResponseMessage, ResponseMessages } from 'src/api'
 
@@ -39,11 +38,11 @@ export type CLOSE_TOPIC = {
 
 export type TopicAction = REQUEST_TOPIC | RECEIVE_TOPIC | RECEIVE_TOPIC_FAILED | CLOSE_TOPIC | REQUEST_NEW_MESSAGES | RECEIVE_NEW_MESSAGES;
 
-export const requestTopic = () => ({
+export const requestTopic = (): any => ({
     type: 'REQUEST_TOPIC'
 })
 
-export const receiveTopic = (info: ResponseInfo, item0: ?ResponseMessage, items: ResponseMessages) => {
+export const receiveTopic = (info: ResponseInfo, item0: ?ResponseMessage, items: ResponseMessages): any => {
     
     return {
         type: 'RECEIVE_TOPIC',
@@ -54,14 +53,14 @@ export const receiveTopic = (info: ResponseInfo, item0: ?ResponseMessage, items:
     }
 }
 
-export const closeTopic = () => {
+export const closeTopic = (): any => {
 
     return {
         type: 'CLOSE_TOPIC',
     }
 }
 
-export const fetchTopic = (params: any, item0: ?ResponseMessage) => async (dispatch: Dispatch<*>) => {
+export const fetchTopic = (params: any, item0: ?ResponseMessage): any => async (dispatch: any) => {
 
     dispatch(requestTopic())
 
@@ -191,7 +190,7 @@ const shouldFetch = (state) => {
     return true
 }
 
-export const fetchTopicIfNeeded = (params: any, item0: ?ResponseMessage) => (dispatch: Dispatch<*>, getState: any) => {
+export const fetchTopicIfNeeded = (params: any, item0: ?ResponseMessage): any => (dispatch: any, getState: any) => {
     if (shouldFetch(getState())) {
         return dispatch(fetchTopic(params, item0));
     }
@@ -202,7 +201,7 @@ export type FetchNewMessageseParams = {
     last: number    
 }
 
-export const fetchNewMessages = (params: FetchNewMessageseParams) => async (dispatch: Dispatch<*>) => {
+export const fetchNewMessages = (params: FetchNewMessageseParams): any => async (dispatch: any) => {
 
     dispatch({
         type: 'REQUEST_NEW_MESSAGES'
@@ -233,7 +232,7 @@ export const fetchNewMessages = (params: FetchNewMessageseParams) => async (disp
 
 }
 
-export const fetchNewMessagesIfNeeded = (params: FetchNewMessageseParams) => (dispatch: Dispatch<*>, getState: any) => {
+export const fetchNewMessagesIfNeeded = (params: FetchNewMessageseParams) : any => (dispatch: any, getState: any) => {
     if (shouldFetch(getState())) {
         return dispatch(fetchNewMessages(params));
     }

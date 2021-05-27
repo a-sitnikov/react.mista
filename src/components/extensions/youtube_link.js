@@ -74,4 +74,4 @@ class YoutubeLink extends Component<YoutubeLinkProps> {
     }
 }
 
-export default YoutubeLink;
+export default (YoutubeLink: any);

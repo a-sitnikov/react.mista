@@ -6,19 +6,19 @@ import type { TopicAction } from 'src/actions/topic'
 export type TopicState = {
   isFetching: boolean;
   info: ResponseInfo,
-  item0?: ResponseMessage,
+  item0?: ?ResponseMessage,
   items: ResponseMessages,
-  lastUpdated?: Date,
+  lastUpdated?: ?Date,
   error?: ?string
 };
 
-export const defaultTopicState = {
+export const defaultTopicState: TopicState = {
     isFetching: false,
     info: defaultInfo,
     items: []
 }
 
-const topic = (state: TopicState = defaultTopicState, action: TopicAction) => {
+const topic = (state: TopicState = defaultTopicState, action: TopicAction): TopicState => {
     switch (action.type) {
         case 'REQUEST_TOPIC':
             return {

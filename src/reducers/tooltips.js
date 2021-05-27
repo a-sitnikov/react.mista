@@ -14,7 +14,7 @@ export const defaultTooltipsState: TooltipsState = {
     items: []
 }
 
-const tooltips = (state: TooltipsState = defaultTooltipsState, action: TooltipsAction) => {
+const tooltips = (state: TooltipsState = defaultTooltipsState, action: TooltipsAction): TooltipsState => {
     let hash: string;
     let items: Array<TooltipItemState>;
     let tooltip;

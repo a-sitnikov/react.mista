@@ -1,4 +1,4 @@
-
+//@flow
 export type Column = {
     name: string,
     className?: string,
@@ -12,22 +12,23 @@ export type OptionsItems = {
     autoRefreshTopicsListInterval: string,
     autoRefreshTopic: string,
     autoRefreshTopicInterval: string,
-    contetnMaxWidth: string
+    contetnMaxWidth?: string,
+    tooltipDelay: string
 }
 
 export type OptionsState = {
-    show: boolean,
-    voteColors: Array<string>,
-    listColumns: Array<Column>,
-    showTitle: boolean,
-    items: OptionsItems    
+    voteColors?: Array<string>,
+    items: OptionsItems,    
+    show?: boolean,
+    showTitle?: boolean,
+    listColumns?: Array<Column>
 };
 
 function readOption(name, defaultValue) {
     return window.localStorage.getItem(name) || defaultValue;
 }
 
-export const defaultOptionsState = {
+export const defaultOptionsState: OptionsState = {
     voteColors: [
         "#FF1616", //1
         "#1A861A", //2
@@ -59,7 +60,7 @@ export const defaultOptionsState = {
     }    
 }
 
-const options = (state: OptionsState = defaultOptionsState, action: any) => {
+const options = (state: OptionsState = defaultOptionsState, action: any): OptionsState => {
 
     switch (action.type) {
 
