@@ -4,7 +4,7 @@
     background: var(--header-background);
     font-weight: bold;
     grid-template-columns: 50px 30px 30px auto 120px 150px;
-    border-bottom: 1px solid var(--border-color);
+    border: 1px solid var(--border-color);
     text-align: center;
 }
 
@@ -19,7 +19,7 @@
 .tf {
     box-sizing: border-box;
     width: 100%;
-    border-top: 1px solid var(--border-color);
+    border: 1px solid var(--border-color);
     background-color: var(--header-background);
     display: flex;
     justify-content: center;
@@ -45,7 +45,6 @@
 }
 
 .table {
-    border: 1px solid var(--border-color);
     box-sizing: border-box;
     opacity: 1;
     margin-top: 5px;
@@ -67,6 +66,7 @@
 
 .cell-forum{
     padding: 6px;
+    border-left: 1px solid var(--border-color);
     border-right: 1px solid var(--inner-border-color);
     font-size: 80%;
     text-align: center;
@@ -123,7 +123,7 @@
 
 .cell-lastuser {
     padding: 6px;
-    border-right: 1px solid var(--inner-border-color);
+    border-right: 1px solid var(--border-color);
     font-size: 80%;
     grid-area: lastuser;
 }

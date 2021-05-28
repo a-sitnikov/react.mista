@@ -81,7 +81,6 @@ class TooltipPreview extends Component<Props> {
             text = e.message;
         }
 
-        // $FlowFixMe
         this.setState({ data, text, number });
     }
 
@@ -124,7 +123,8 @@ class TooltipPreview extends Component<Props> {
     }
 
     render() {
-       const { keys, topicId } = this.props.tooltip;
+
+        const { keys, topicId } = this.props.tooltip;
 
         if (!this.state.text)
             return null;
@@ -135,7 +135,7 @@ class TooltipPreview extends Component<Props> {
         } else {
             header = <UserInfo data={this.state.data} isAuthor={false}/>
         }   
-        console.log('p', this.onTouchMove);
+        
         if (keys.type === 'TOPIC' || keys.type === 'TOPIC_PREVIEW') 
             return (
                 <Tooltipwindow tooltip={this.props.tooltip} onWheel={this.onWheel}>
