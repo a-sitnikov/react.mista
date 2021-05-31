@@ -1,8 +1,8 @@
 .topic-table {
-    border-bottom: 1px solid var(--border-color);
+    /*border-bottom: 1px solid var(--border-color);
     border-right: 1px solid var(--border-color);
     border-left: 1px solid var(--border-color);
-    box-sizing: border-box;
+    box-sizing: border-box;*/
     opacity: 1;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -12,7 +12,7 @@
     display: grid;
     width: 100%;
     background-color: white;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--inner-border-color);
     box-sizing: border-box;
     grid-template-columns: 165px 1fr;
     grid-template-areas: "user message";
@@ -29,13 +29,15 @@
 
 .cell-userinfo {
     grid-area: user; 
-    border-right: 1px solid var(--border-color); 
+    border-right: 1px solid var(--inner-border-color); 
+    border-left: 1px solid var(--border-color); 
     padding: 6px;
     width: 100%; 
     text-align: right;
 }
 
 .cell-message {
+    border-right: 1px solid var(--border-color); 
     grid-area: message;    
     padding: 10px;  
     min-width: 0px;
