@@ -31,17 +31,12 @@ export class SectionSelect extends Component<Props> {
 
     onChange: any;
 
-    constructor(props: Props) {
-        super(props);
-        this.onChange = this.onChange.bind(this);
-    }
-
     componentDidMount() {
         const { dispatch } = this.props;
         dispatch(fetchSectionsIfNeeded());
     }
 
-    onChange(event: any) {
+    onChange = (event: any) => {
 
         const { items, onChange } = this.props;
 

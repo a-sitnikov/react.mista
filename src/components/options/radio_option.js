@@ -12,14 +12,7 @@ type RadioOptionProps = {
 
 class RadioOption extends Component<RadioOptionProps> {
     
-    onChange: (e: any) => void;
-
-    constructor(props: RadioOptionProps) {
-        super(props);
-        this.onChange = this.onChange.bind(this);
-    }
-
-    onChange(e: any) {
+    onChange = (e: any) => {
         const { name } = this.props;
         this.props.onChange(e, name, e.target.value);
     }

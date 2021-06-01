@@ -11,14 +11,7 @@ type StringOptionProps = {
 
 class StringOption extends Component<StringOptionProps> {
     
-    onChange: (e: any) => void;
-
-    constructor(props: StringOptionProps) {
-        super(props);
-        this.onChange = this.onChange.bind(this);
-    }
-
-    onChange(e: any) {
+    onChange = (e: any) => {
         const { name } = this.props;
         this.props.onChange(e, name, e.target.value);
     }

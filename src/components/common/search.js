@@ -12,17 +12,9 @@ type Props = {};
 class Search extends Component<Props> {
 
     state: any;
-    doSearch: () => void;
-    onKeyPress: (e: any) => void;
-    onSearchEngineChange: (e: any) => void;
-    onSearchTextChange: (e: any) => void;
 
     constructor(props: Props) {
         super(props);
-        this.doSearch = this.doSearch.bind(this);
-        this.onKeyPress = this.onKeyPress.bind(this);
-        this.onSearchEngineChange = this.onSearchEngineChange.bind(this);
-        this.onSearchTextChange = this.onSearchTextChange.bind(this);
 
         this.state = {
             searchEngine: 'Яндекс',
@@ -30,7 +22,7 @@ class Search extends Component<Props> {
         }
     }
 
-    doSearch() {
+    doSearch = () => {
         
         let url;
         let text = this.state.text;
@@ -50,21 +42,21 @@ class Search extends Component<Props> {
         });        
     }
 
-    onSearchEngineChange(eventKey: string) {
+    onSearchEngineChange = (eventKey: string) => {
         this.setState({
             ...this.state,
             searchEngine: eventKey
         })
     }
     
-    onSearchTextChange(e: any) {
+    onSearchTextChange = (e: any) => {
         this.setState({
             ...this.state,
             text: e.target.value
         })
     }
 
-    onKeyPress(e: any) {
+    onKeyPress = (e: any) => {
         if (e.key === 'Enter') {
             this.doSearch();
         }        

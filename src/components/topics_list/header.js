@@ -17,19 +17,12 @@ type Props = StateProps & DefaultProps;
 
 class Header extends Component<Props> {
 
-    onSectionSelect: () => void;
-
-    constructor(props) {
-        super(props);
-        this.onSectionSelect = this.onSectionSelect.bind(this);
-    }
-
     componentDidMount() {
         const { dispatch } = this.props;
         dispatch(fetchSectionsIfNeeded());
     }
     
-    onSectionSelect(event, value) {
+    onSectionSelect = (e, value) => {
         if (value)
             this.props.history.push(`/index.php?section=${value.shortn}`);
         else
