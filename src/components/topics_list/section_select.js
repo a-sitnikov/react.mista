@@ -29,24 +29,22 @@ type Props = SectionSelectProps & StateProps & DefaultProps;
 
 export class SectionSelect extends Component<Props> {
 
-    onChange: any;
-
     componentDidMount() {
         const { dispatch } = this.props;
         dispatch(fetchSectionsIfNeeded());
     }
 
-    onChange = (event: any) => {
+    onSelect = (e: any) => {
 
         const { items, onChange } = this.props;
 
         if (onChange) {
-            const shortn = event.target.value;
+            const shortn = e.target.value;
             const arr = items.filter(val => val.shortn === shortn);
             if (arr.length > 0) 
-                onChange(event, arr[0]);
+                onChange(e, arr[0]);
             else    
-                onChange(event, null);
+                onChange(e, null);
         }    
     }
 
@@ -71,7 +69,7 @@ export class SectionSelect extends Component<Props> {
 
         return  (
             <Form.Control as="select" 
-                onChange={this.onChange}
+                onChange={this.onSelect}
                 value={selected}
                 style={style}
                 className='input'

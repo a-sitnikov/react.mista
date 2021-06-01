@@ -23,8 +23,11 @@ type StateProps = {
 }
 
 type Props = NewMessageProps & StateProps & DefaultProps;
+type ComponentState = {
+    voting?: number
+}
 
-class NewMessage extends Component<Props> {
+class NewMessage extends Component<Props, ComponentState> {
 
     constructor(props) {
         super(props);
@@ -35,7 +38,6 @@ class NewMessage extends Component<Props> {
 
         e.preventDefault();
         e.stopPropagation();
-        console.log('submitted');
 
         const { dispatch, info, newMessage } = this.props;
         

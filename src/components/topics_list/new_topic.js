@@ -200,7 +200,6 @@ class NewTopic extends Component<Props> {
                         placeholder="Сообщение"
                         showVoting={true}
                         isVoting={newTopic.isVoting}
-                        onSend={this.onSend}
                         text={newTopic.text} 
                         isFetching={newTopic.isFetching}
                         formName="NEW_TOPIC"

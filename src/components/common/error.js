@@ -7,7 +7,7 @@ type Props = {
     text: ?string
 }
 
-const ErrorElem = (props: Props) => {
+const ErrorElem = (props: Props): any => {
     if (!props.text)
         return null;
 
@@ -16,4 +16,4 @@ const ErrorElem = (props: Props) => {
     )    
 }
 
-export default ( ErrorElem: React.Component );
+export default ErrorElem;

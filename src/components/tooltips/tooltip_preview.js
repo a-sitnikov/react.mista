@@ -24,13 +24,18 @@ type TooltipProps = {
 }
 
 type Props = TooltipProps & DefaultProps;
+type State = {
+    data: any,
+    text: any,
+    number: any
+}
 
-class TooltipPreview extends Component<Props> {
+class TooltipPreview extends Component<Props, State> {
     
     data: any;
     text: string;
     fetchData: any;
-    state: any;
+    state: State;
 
     constructor(props) {
         super();

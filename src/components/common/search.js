@@ -7,87 +7,56 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import './search.css'
 
-type Props = {};
+const Search = () => {
 
+    const [searchEngine, setSearchEngine] = useState('Яндекс');
+    const [text, setText] = useState('');
 
-class Search extends Component<Props> {
-
-    state: any;
-
-    constructor(props: Props) {
-        super(props);
-
-        this.state = {
-            searchEngine: 'Яндекс',
-            text: ''
-        }
+    function onKeyPress(e: any) {
+        if (e.key === 'Enter') {
+            doSearch();
+        }  
     }
 
-    doSearch = () => {
+    function doSearch() {
         
         let url;
-        let text = this.state.text;
-
-        if (this.state.searchEngine === 'Яндекс') {
+        if (searchEngine === 'Яндекс') {
             url = `https://www.yandex.ru/search/?text=${text}&site=forum.mista.ru`;
 
-        } else if (this.state.searchEngine === 'Google') {
+        } else if (searchEngine === 'Google') {
             url = `https://www.google.ru/search?q=${text}+site:forum.mista.ru`
         }    
 
         window.open(url);
         
-        this.setState({
-            ...this.state,
-            text: ''
-        });        
-    }
-
-    onSearchEngineSelect = (eventKey: string) => {
-        this.setState({
-            ...this.state,
-            searchEngine: eventKey
-        })
-    }
+        setText('');   
     
-    onSearchTextChange = (e: any) => {
-        this.setState({
-            ...this.state,
-            text: e.target.value
-        })
     }
 
-    onKeyPress = (e: any) => {
-        if (e.key === 'Enter') {
-            this.doSearch();
-        }        
-    }
+    return (
+        <InputGroup size="sm">
+            <InputGroup.Prepend>
+                <DropdownButton id="search-engine" title="" size="sm" style={{ marginRight: "2px" }} className='button' variant="light">
+                    <Dropdown.Item eventKey="Яндекс" onSelect={() => setSearchEngine("Яндекс")}>Яндекс</Dropdown.Item>
+                    <Dropdown.Item eventKey="Google" onSelect={() => setSearchEngine("Google")}>Google</Dropdown.Item>
+                </DropdownButton>
+            </InputGroup.Prepend>
+            <FormControl
+                type="text"
+                placeholder={`${searchEngine}: поиск`}
+                style={{ marginRight: "4px", paddingRight: "27px" }}
+                className='input'
+                onKeyPress={onKeyPress}
+                onChange={e => setText(e.target.value)}
+                value={text}
+            />
+            <InputGroup.Append style={{ marginLeft: "-25px", marginTop: "auto", marginBottom: "auto", cursor: "pointer" }} onClick={doSearch}>
+                <i className="fa fa-search input" style={{ zIndex: 1000 }} />
+            </InputGroup.Append>
+        </InputGroup>
+    )
 
-    render() {
-
-        return (
-            <InputGroup size="sm">
-                <InputGroup.Prepend>   
-                    <DropdownButton id="search-engine" title="" size="sm" style={{marginRight: "2px"}} className='button' variant="light">
-                        <Dropdown.Item eventKey="Яндекс" onSelect={this.onSearchEngineSelect}>Яндекс</Dropdown.Item>
-                        <Dropdown.Item eventKey="Google" onSelect={this.onSearchEngineSelect}>Google</Dropdown.Item>
-                    </DropdownButton> 
-                </InputGroup.Prepend>   
-                <FormControl 
-                    type="text" 
-                    placeholder={`${this.state.searchEngine}: поиск`} 
-                    style={{marginRight: "4px", paddingRight: "27px"}}
-                    className='input'
-                    onKeyPress={this.onKeyPress}
-                    onChange={this.onSearchTextChange}
-                    value={this.state.text}
-                />
-                <InputGroup.Append style={{marginLeft: "-25px", marginTop: "auto", marginBottom: "auto", cursor: "pointer"}} onClick={this.doSearch}>
-                    <i className="fa fa-search input" style={{zIndex: 1000}}/>
-                </InputGroup.Append>
-            </InputGroup>
-        )
-    }
 }
 
-export default ( Search: any );
+export default (Search: any);

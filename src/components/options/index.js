@@ -12,19 +12,16 @@ import { saveOptions } from 'src/actions/options'
 import type { State } from 'src/reducers'
 import type { OptionsState } from 'src/reducers/options'
 import { defaultOptionsState } from 'src/reducers/options'
+import type { DefaultProps } from 'src/components'
 
 import './options.css'
 
-class Options extends Component<OptionsState> {
+type Props = OptionsState & DefaultProps;
+
+class Options extends Component<Props> {
 
     optionsParams: any;
     state: any;
-    setState;
-    closeForm;
-    applyOptions;
-    resetOptions;
-    onChange;
-    onTabClick;
     form: any;
 
     constructor(props) {
@@ -142,8 +139,9 @@ class Options extends Component<OptionsState> {
         history.push('/' + window.hash);
     }
     
-    resetOptiopns = () => {
+    resetOptions = () => {
         this.setState({
+            ...this.state,
             items: Object.assign({}, defaultOptionsState.items)
         })
     }
@@ -157,6 +155,7 @@ class Options extends Component<OptionsState> {
 
     onTabClick = (e) => {
         this.setState({
+            ...this.state,
             activeTab: e.target.textContent
         });
     }
