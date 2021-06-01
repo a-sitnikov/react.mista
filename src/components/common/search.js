@@ -1,5 +1,5 @@
 //@flow
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
 import Dropdown from 'react-bootstrap/Dropdown'
@@ -8,6 +8,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 import './search.css'
 
 type Props = {};
+
 
 class Search extends Component<Props> {
 
@@ -28,10 +29,10 @@ class Search extends Component<Props> {
         let text = this.state.text;
 
         if (this.state.searchEngine === 'Яндекс') {
-            url = `https://www.yandex.ru/search/?text=${text}&site=mista.ru`;
+            url = `https://www.yandex.ru/search/?text=${text}&site=forum.mista.ru`;
 
         } else if (this.state.searchEngine === 'Google') {
-            url = `https://www.google.ru/search?q=${text}+site:mista.ru`
+            url = `https://www.google.ru/search?q=${text}+site:forum.mista.ru`
         }    
 
         window.open(url);
@@ -42,7 +43,7 @@ class Search extends Component<Props> {
         });        
     }
 
-    onSearchEngineChange = (eventKey: string) => {
+    onSearchEngineSelect = (eventKey: string) => {
         this.setState({
             ...this.state,
             searchEngine: eventKey
@@ -68,8 +69,8 @@ class Search extends Component<Props> {
             <InputGroup size="sm">
                 <InputGroup.Prepend>   
                     <DropdownButton id="search-engine" title="" size="sm" style={{marginRight: "2px"}} className='button' variant="light">
-                        <Dropdown.Item eventKey="Яндекс" onSelect={this.onSearchEngineChange}>Яндекс</Dropdown.Item>
-                        <Dropdown.Item eventKey="Google" onSelect={this.onSearchEngineChange}>Google</Dropdown.Item>
+                        <Dropdown.Item eventKey="Яндекс" onSelect={this.onSearchEngineSelect}>Яндекс</Dropdown.Item>
+                        <Dropdown.Item eventKey="Google" onSelect={this.onSearchEngineSelect}>Google</Dropdown.Item>
                     </DropdownButton> 
                 </InputGroup.Prepend>   
                 <FormControl 
