@@ -29,7 +29,7 @@ type TopicLocationParams = {
 type StateProps = {
     login: LoginState,
     info: ResponseInfo,
-    item0?: ResponseMessage,
+    item0?: ?ResponseMessage,
     items: ResponseMessages,
     error?: any,
     options: OptionsItems

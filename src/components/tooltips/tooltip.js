@@ -14,131 +14,139 @@ import './tooltip.css'
 
 import type { DefaultProps } from 'src/components'
 import type { TooltipItemState } from 'src/reducers/tooltips'
+import type { TooltipKeys } from 'src/actions/tooltips'
 
 type TooltipProps = {
-    tooltip: TooltipItemState,
-    topicId: string,
-    number: number
+  tooltip: TooltipItemState,
+  info: any,
+  items: any,
+  item0: any
 }
 
 type Props = TooltipProps & DefaultProps;
+type State = {
+  data: any,
+  text: string,
+  number: number
+}
 
-class Tooltip extends Component<Props> {
-    
-    data: any;
-    text: string;
-    fetchData: any;
-    state: any;
+class Tooltip extends Component<Props, State> {
 
-    constructor(props) {
-        super();
-        
-        const { keys, info, items, item0 } = props;
+  data: any;
+  text: string;
+  fetchData: any;
 
-        let text = '';
-        let data;
-        if (keys.topicId === info.id) {
-            if (keys.number === 0)
-                data = item0;
-            else
-                data = items.find(item => item.n === String(keys.number));
+  constructor(props) {
+    super(props);
 
-            if (data)
-                text = data.text;
-        }
+    const { tooltip, info, items, item0 } = props;
+    const { keys } = tooltip;
 
-        this.state ={
-            data,
-            text,
-            number: keys.number
-        }
+    let text = '';
+    let data;
+    if (keys.topicId === info.id) {
+      if (keys.number === 0)
+        data = item0;
+      else
+        data = items.find(item => item.n === String(keys.number));
+
+      if (data)
+        text = data.text;
     }
 
-    fetchData = async (number) => {
-
-        if (number < 0) return;
-
-        let data;
-        let text = '';
-        const topicId = this.props.keys.topicId;
-
-        try {
-            data = await API.getMessage(topicId, number);
-            if (data)                
-                text = data.text;
-            else 
-                text = `Сообщение не найдено ${number}`;
-
-        } catch (e) {
-            text = e.message;
-        }
-
-        // $FlowFixMe
-        this.setState({ data, text, number });
+    this.state = {
+      data,
+      text,
+      number: keys.number
     }
- 
-    onScroll = (delta) => {
+  }
 
-        const { keys } = this.props.tooltip;
-        if (keys.type !== 'TOPIC_PREVIEW') return;
-        if (delta > 0) {
-            this.fetchData(this.state.number + 1)
-        } else {
-            this.fetchData(this.state.number - 1)
-        }
+  fetchData = async (number: number) => {
+
+    if (number < 0) return;
+
+    let data;
+    let text = '';
+    const topicId = this.props.tooltip.keys.topicId;
+
+    try {
+      data = await API.getMessage(topicId, number);
+      if (data)
+        text = data.text;
+      else
+        text = `Сообщение не найдено ${number}`;
+
+    } catch (e) {
+      text = e.message;
     }
 
-    componentDidMount() {
+    this.setState({ data, text, number });
+  }
 
-        if (!this.state.data)
-            this.fetchData(this.state.number);
+  onScroll = (delta) => {
 
+    const { keys } = this.props.tooltip;
+    if (keys.type !== 'TOPIC_PREVIEW') return;
+    if (delta > 0) {
+      this.fetchData(this.state.number + 1)
+    } else {
+      this.fetchData(this.state.number - 1)
     }
-    
-    render() {
-       const { keys } = this.props.tooltip;
+  }
 
-        if (!this.state.text)
-            return null;
+  componentDidMount() {
 
-        let header;
-        if (!this.state.data) {
-            header = <b>Заголовок</b>
-        } else {
-            header = <UserInfo data={this.state.data} isAuthor={false}/>
-        }   
+    if (!this.state.data)
+      this.fetchData(this.state.number);
 
-        if (keys.type === 'TOPIC' || keys.type === 'TOPIC_PREVIEW') 
-            return (
-                <TooltipWindow tooltip={this.props.tooltip} onScroll={this.onScroll}>
-                    <TooltipHeader>
-                        {header}
-                    </TooltipHeader>
-                    <TooltipBody>
-                        <MsgText 
-                            data={this.state.data} 
-                            html={this.state.text} 
-                            topicId={keys.topicId} 
-                            style={{maxHeight: "min(550px, 80vh)", overflowY: "auto"}} 
-                        />
-                    </TooltipBody>
-                </TooltipWindow>
-            )
+  }
+
+  render() {
+    const { keys } = this.props.tooltip;
+
+    if (!this.state.text)
+      return null;
+
+    let header;
+    if (!this.state.data) {
+      header = <b>Заголовок</b>
+    } else {
+      header = <UserInfo data={this.state.data} isAuthor={false} />
     }
+
+    if (keys.type === 'TOPIC' || keys.type === 'TOPIC_PREVIEW')
+      return (
+        <TooltipWindow tooltip={this.props.tooltip} onScroll={this.onScroll}>
+          <TooltipHeader>
+            {header}
+          </TooltipHeader>
+          <TooltipBody>
+            <MsgText
+              data={this.state.data}
+              html={this.state.text}
+              topicId={keys.topicId}
+              style={{ maxHeight: "min(550px, 80vh)", overflowY: "auto" }}
+            />
+          </TooltipBody>
+        </TooltipWindow>
+      )
+    else
+      return null;
+  }
 }
 const mapStateToProps = (state) => {
 
-    const {
-        info,
-        items,
-        item0
-    } = state.topic;
+  const {
+    info,
+    items,
+    item0
+  } = state.topic;
 
-    return {
-        info,
-        items,
-        item0
-    }
+  return {
+    info,
+    items,
+    item0
+  }
 }
 
-export default ( connect(mapStateToProps)(Tooltip): React.Component );
+export default (connect(mapStateToProps)(Tooltip): any );

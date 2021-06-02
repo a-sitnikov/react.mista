@@ -5,51 +5,51 @@ import { connect } from 'react-redux'
 import Login from '../login'
 
 type Props = {
-    info: { forum: string }
+  info: { forum: string }
 }
 
 class Header extends React.Component<Props> {
 
-    render() {
+  render() {
 
-        const { info } = this.props;
+    const { info } = this.props;
 
-        const forums = {
-            '1c': '1С:Предприятие',
-            'life': 'О жизни',
-            'it': 'Информационные технологии',
-            'job': 'Работа'
-        };
+    const forums = {
+      '1c': '1С:Предприятие',
+      'life': 'О жизни',
+      'it': 'Информационные технологии',
+      'job': 'Работа'
+    };
 
-        return (
+    return (
 
-            <div className="flex-row">
-                <div className="user-td">
-                    <Login />
-                </div>
-                <div className="section-td">
-                    <span id="forum_string" className="bold120">
-                        <a rel="nofollow" href={`${window.hash}/index.php?forum=${info.forum}`} style={{ textDecoration: "none" }}>{forums[info.forum]}</a>
-                    </span>
-                </div>
-            </div>
-        )
-    }
+      <div className="flex-row">
+        <div className="user-td">
+          <Login />
+        </div>
+        <div className="section-td">
+          <span id="forum_string" className="bold120">
+            <a rel="nofollow" href={`${window.hash}/index.php?forum=${info.forum}`} style={{ textDecoration: "none" }}>{forums[info.forum]}</a>
+          </span>
+        </div>
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = state => {
 
-    const {
-        info
-    } = state.topic || {
-        info: {
-            forum: ''
-        }
+  const {
+    info
+  } = state.topic || {
+    info: {
+      forum: ''
     }
+  }
 
-    return {
-        info
-    }
+  return {
+    info
+  }
 }
 
-export default ( connect(mapStateToProps)(Header): any );
+export default (connect(mapStateToProps)(Header): any );

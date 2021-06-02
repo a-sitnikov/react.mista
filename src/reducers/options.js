@@ -19,9 +19,7 @@ export type OptionsItems = {
 export type OptionsState = {
     voteColors?: Array<string>,
     items: OptionsItems,    
-    show?: boolean,
-    showTitle?: boolean,
-    listColumns?: Array<Column>
+    show?: boolean
 };
 
 function readOption(name, defaultValue) {
