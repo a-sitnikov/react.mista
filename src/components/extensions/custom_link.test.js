@@ -7,116 +7,116 @@ import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
-import { configure , mount, shallow } from 'enzyme'
+import { configure, mount, shallow } from 'enzyme'
 
 import CustomLink from './custom_link'
 import LinkToPost from './link_to_post'
 import YoutubeLink from './youtube_link'
 import rootReducer from '../../reducers'
 
-describe('CustomLink', ()=>{
+describe('CustomLink', () => {
 
-    let wrapper, store;
-    
-    beforeAll(()=>{
-            let initialState = {
-                options: {
-                    items: {
-                        showTooltipOnPostLink: 'true',
-                        showYoutubeVideoTitle: 'true',
-                        replaceCatalogMista: 'true',
-                        fixBrokenLinks: 'true'                
-                    }
-                }
-            }
-        store = createStore(rootReducer, initialState, applyMiddleware(thunk));
-    })
-    
-    it('+++ render link to post', () => {
+  let wrapper, store;
 
-        const href = 'https://forum.mista.ru/topic.php?id=822078#10';
+  beforeAll(() => {
+    let initialState = {
+      options: {
+        items: {
+          showTooltipOnPostLink: 'true',
+          showYoutubeVideoTitle: 'true',
+          replaceCatalogMista: 'true',
+          fixBrokenLinks: 'true'
+        }
+      }
+    }
+    store = createStore(rootReducer, initialState, applyMiddleware(thunk));
+  })
 
-        wrapper = shallow(
-            <CustomLink store={store} href={href}/>
-        )
-        
-        const component = wrapper.dive().dive().find(LinkToPost);
-        expect(component.length).toBe(1);
-        expect(component.prop('topicId')).toBe('822078');
-        expect(component.prop('number')).toBe('10');
+  it('+++ render link to post', () => {
 
-    });
+    const href = 'https://forum.mista.ru/topic.php?id=822078#10';
 
-    it('+++ render link to post href=react.mista', () => {
+    wrapper = shallow(
+      <CustomLink store={store} href={href} />
+    )
 
-        const href = 'https://a-sitnikov.github.io/react.mista/#/topic.php?id=822078#10';
+    const component = wrapper.dive().dive().find(LinkToPost);
+    expect(component.length).toBe(1);
+    expect(component.prop('topicId')).toBe('822078');
+    expect(component.prop('number')).toBe('10');
 
-        wrapper = shallow(
-            <CustomLink store={store} href={href}/>
-        )
-        
-        const component = wrapper.dive().dive().find(LinkToPost);
+  });
 
-        expect(component.length).toBe(1);
-        expect(component.prop('topicId')).toBe('822078');
-        expect(component.prop('number')).toBe('10');
+  it('+++ render link to post href=react.mista', () => {
 
-    });
+    const href = 'https://a-sitnikov.github.io/react.mista/#/topic.php?id=822078#10';
 
-    it('+++ render link to youtube', () => {
+    wrapper = shallow(
+      <CustomLink store={store} href={href} />
+    )
 
-        const href = 'https://www.youtube.com/watch?v=mIkEKO-B_OU';
+    const component = wrapper.dive().dive().find(LinkToPost);
 
-        wrapper = shallow(
-            <CustomLink store={store} href={href}/>
-        )
-        
-        const component = wrapper.dive().dive().find(YoutubeLink);
-        expect(component.length).toBe(1);
+    expect(component.length).toBe(1);
+    expect(component.prop('topicId')).toBe('822078');
+    expect(component.prop('number')).toBe('10');
 
-    });
+  });
 
-    it('+++ render link to catalog.mista', () => {
+  it('+++ render link to youtube', () => {
 
-        const href = 'http://catalog.mista.ru/public/590993/';
-        
-        wrapper = shallow(
-            <CustomLink store={store} href={href}>
-                link title
+    const href = 'https://www.youtube.com/watch?v=mIkEKO-B_OU';
+
+    wrapper = shallow(
+      <CustomLink store={store} href={href} />
+    )
+
+    const component = wrapper.dive().dive().find(YoutubeLink);
+    expect(component.length).toBe(1);
+
+  });
+
+  it('+++ render link to catalog.mista', () => {
+
+    const href = 'http://catalog.mista.ru/public/590993/';
+
+    wrapper = shallow(
+      <CustomLink store={store} href={href}>
+        link title
             </CustomLink>
-        )
-        
-        const component = wrapper.dive().dive().render();
-        expect(component.prop('href')).toBe('http://infostart.ru/public/590993/');
+    )
 
-    });    
+    const component = wrapper.dive().dive().render();
+    expect(component.prop('href')).toBe('http://infostart.ru/public/590993/');
 
-    it('+++ render fix broken link', () => {
+  });
 
-        const href = 'https://wikipadia.ru/имя_(значение';
+  it('+++ render fix broken link', () => {
 
-        wrapper = shallow(
-            <CustomLink store={store} href={href} 
-            parentText='<a href="https://wikipadia.ru/имя_(значение">https://wikipadia.ru/имя_(значение</a>)'
-            />
-        )
-        
-        const component = wrapper.dive().render();
-        expect(component.prop('href')).toBe('https://wikipadia.ru/имя_(значение)');
+    const href = 'https://wikipadia.ru/имя_(значение';
 
-    }); 
-    
-    it('+++ link without host', () => {
+    wrapper = shallow(
+      <CustomLink store={store} href={href}
+        parentText='<a href="https://wikipadia.ru/имя_(значение">https://wikipadia.ru/имя_(значение</a>)'
+      />
+    )
 
-        const href = '/users.php?id=111';
+    const component = wrapper.dive().render();
+    expect(component.prop('href')).toBe('https://wikipadia.ru/имя_(значение)');
 
-        wrapper = shallow(
-            <CustomLink store={store} href={href}/>
-        )
-        
-        const component = wrapper.dive().render();
-        expect(component.prop('href')).toBe('https://forum.mista.ru/users.php?id=111');
+  });
 
-    }); 
+  it('+++ link without host', () => {
 
-})    
+    const href = '/users.php?id=111';
+
+    wrapper = shallow(
+      <CustomLink store={store} href={href} />
+    )
+
+    const component = wrapper.dive().render();
+    expect(component.prop('href')).toBe('https://forum.mista.ru/users.php?id=111');
+
+  });
+
+})

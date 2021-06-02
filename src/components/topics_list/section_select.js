@@ -11,86 +11,87 @@ import type { DefaultProps } from 'src/components'
 import type { State } from 'src/reducers'
 
 type SectionSelectProps = {
-    defaultValue: string,
-    selected: string,
-    className: string,
-    id: string,
-    style?: {},
-    size: ?string,
-    onChange: (e: any, section: ResponseSection | null) => void
+  defaultValue: string,
+  selected: string,
+  className: string,
+  id: string,
+  style?: {},
+  size: ?string,
+  onChange: (e: any, section: ResponseSection | null) => void
 }
 
 type StateProps = {
-    items: ResponseSections,
-    tree: {}
+  items: ResponseSections,
+  tree: {}
 }
 
 type Props = SectionSelectProps & StateProps & DefaultProps;
 
-export class SectionSelect extends Component<Props> {
+class SectionSelect extends Component<Props> {
 
-    componentDidMount() {
-        const { dispatch } = this.props;
-        dispatch(fetchSectionsIfNeeded());
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(fetchSectionsIfNeeded());
+  }
+
+  onSelect: (e: SyntheticEvent<HTMLSelectElement>) => void = (e: SyntheticEvent<HTMLSelectElement>) => {
+
+    const { items, onChange } = this.props;
+
+    if (onChange) {
+      const shortn = e.currentTarget.value;
+      const arr = items.filter(val => val.shortn === shortn);
+      if (arr.length > 0)
+        onChange(e, arr[0]);
+      else
+        onChange(e, null);
+    }
+  }
+
+  render() {
+
+    const { id, tree, defaultValue, selected, style, size } = this.props;
+
+    let sectionsElem = [];
+    for (let forum in tree) {
+
+      let group =
+        <optgroup key={forum} label={forum}>
+          {tree[forum].map((item, i) => (
+            <option key={item.id} value={item.shortn}>
+              {item.fulln}
+            </option>
+          ))}
+        </optgroup>
+
+      sectionsElem.push(group);
     }
 
-    onSelect = (e: any) => {
-
-        const { items, onChange } = this.props;
-
-        if (onChange) {
-            const shortn = e.target.value;
-            const arr = items.filter(val => val.shortn === shortn);
-            if (arr.length > 0) 
-                onChange(e, arr[0]);
-            else    
-                onChange(e, null);
-        }    
-    }
-
-    render() {
-
-        const { id, tree, defaultValue, selected, style, size } = this.props;
-        
-        let sectionsElem = [];
-        for (let forum in tree) {
-
-            let group =
-                <optgroup key={forum} label={forum}>
-                    {tree[forum].map((item, i) => (
-                        <option key={item.id} value={item.shortn}>
-                            {item.fulln}
-                        </option>
-                    ))}
-                </optgroup>
-
-            sectionsElem.push(group);
-        }
-
-        return  (
-            <Form.Control as="select" 
-                onChange={this.onSelect}
-                value={selected}
-                style={style}
-                className='input'
-                size={size}
-                id={id}
-            >
-                <option value="">{defaultValue}</option>
-                {sectionsElem}
-            </Form.Control>    
-        )
-    }
+    return (
+      <Form.Control as="select"
+        onChange={this.onSelect}
+        value={selected}
+        style={style}
+        className='input'
+        size={size}
+        id={id}
+      >
+        <option value="">{defaultValue}</option>
+        {sectionsElem}
+      </Form.Control>
+    )
+  }
 }
 
 const mapStateToProps = (state: State): StateProps => {
 
-    const { items, tree } = state.sections;
+  const { items, tree } = state.sections;
 
-    return {
-        items,
-        tree
-    }
+  return {
+    items,
+    tree
+  }
 }
 
-export default ( connect(mapStateToProps)(SectionSelect): any );
+export { SectionSelect };
+export default (connect(mapStateToProps)(SectionSelect): any );

@@ -3,7 +3,7 @@ import type { NewTopicAction } from '../actions/new_topic'
 import type { ResponseSection } from 'src/api'
 
 export type NewTopicState = {
-    isFetching: boolean;
+    isFetching: boolean,
     section: ?ResponseSection,
     text: string,
     subject: string,
@@ -27,7 +27,7 @@ const newTopic = (state: NewTopicState = defaultNewTopicState, action: NewTopicA
             return {
                 ...state,
                 isFetching: true,
-                error: null
+                error: undefined
             }
         case 'POST_NEW_TOPIC_COMPLETE':
             return {

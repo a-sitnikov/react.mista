@@ -4,6 +4,7 @@
 
 [theme='dark'] .navbar {
     background-color: black !important;
+    border-bottom: 1px dotted var(--border-color);
 }
 
 .navbar-form {

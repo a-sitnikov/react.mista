@@ -22,137 +22,136 @@ import TopicPreview from 'src/components/preview/topic_preview'
 import './topics_list.css'
 
 type StateProps = {
-    topicsList: TopicsListState,
-    sections: SectionsState,
-    login: LoginState,
-    topicsPerPage: string,
-    autoRefreshTopicsList: string,
-    autoRefreshTopicsListInterval: string
+  topicsList: TopicsListState,
+  sections: SectionsState,
+  login: LoginState,
+  topicsPerPage: string,
+  autoRefreshTopicsList: string,
+  autoRefreshTopicsListInterval: string
 }
 
 type Props = {
-    fetchTopicsListIfNeeded: any
+  fetchTopicsListIfNeeded: any
 } & DefaultProps & StateProps;
 
 class TopicsList extends Component<Props> {
-    
-    location: Location;
-    locationParams: { page?: string };
-    page: string;
-    timer: any;
 
-    constructor(props: Props) {
-        super(props);
-        this.locationParams = { page: '1' };
+  location: Location;
+  locationParams: { page?: string };
+  page: string;
+  timer: any;
+
+  constructor(props: Props) {
+    super(props);
+    this.locationParams = { page: '1' };
+  }
+
+  componentDidMount() {
+
+    let { location } = this.props;
+
+    this.location = location;
+    this.updateTopicsList();
+
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+  }
+
+  componentDidUpdate() {
+
+    const { location, topicsPerPage } = this.props;
+
+    if (this.location.search !== location.search
+      || this.props.topicsPerPage !== topicsPerPage) {
+
+      this.location = location;
+      this.updateTopicsList();
+      window.scrollTo(0, 0);
     }
 
-    componentDidMount() {
+  }
 
-        let { location } = this.props;
+  updateTopicsList = () => {
 
-        this.location = location;
-        this.updateTopicsList();
-        
+    const { fetchTopicsListIfNeeded } = this.props;
+    let { autoRefreshTopicsList, autoRefreshTopicsListInterval } = this.props;
+
+    this.locationParams = queryString.parse(this.location.search);
+    fetchTopicsListIfNeeded(this.locationParams);
+
+    if (autoRefreshTopicsList === 'true') {
+
+      autoRefreshTopicsListInterval = +autoRefreshTopicsListInterval;
+      if (autoRefreshTopicsListInterval < 60) autoRefreshTopicsListInterval = 60;
+
+      clearTimeout(this.timer);
+      this.timer = setTimeout(this.updateTopicsList, autoRefreshTopicsListInterval * 1000);
     }
-    
-    componentWillUnmount() {
-        clearTimeout(this.timer);
-    }
+  }
 
-    UNSAFE_componentWillReceiveProps(props: Props) {
-        
-        const { location, topicsPerPage } = props;
+  onPostNewTopicSuccess = () => {
+    this.updateTopicsList();
+  }
 
-        if (this.location.search !== location.search 
-            || this.props.topicsPerPage !== topicsPerPage) {
+  render() {
 
-            this.location = location;
-            this.updateTopicsList();
-            window.scrollTo(0, 0);
-        }
+    const { topicsList, sections } = this.props;
 
-        document.title = 'React.Mista';
-    }
+    let rows = [];
+    for (let item of topicsList.items) {
 
-    updateTopicsList = () => {
-        
-        const { fetchTopicsListIfNeeded } = this.props;       
-        let { autoRefreshTopicsList, autoRefreshTopicsListInterval } = this.props;
-
-        this.locationParams = queryString.parse(this.location.search);
-        fetchTopicsListIfNeeded(this.locationParams);
-
-        if (autoRefreshTopicsList === 'true') {
-            
-            autoRefreshTopicsListInterval = +autoRefreshTopicsListInterval;
-            if (autoRefreshTopicsListInterval < 60) autoRefreshTopicsListInterval = 60;
-
-            clearTimeout(this.timer);
-            this.timer = setTimeout(this.updateTopicsList, autoRefreshTopicsListInterval * 1000);
-        }        
-    }
-
-    onPostNewTopicSuccess = () => {
-        this.updateTopicsList();
-    }
-
-    render() {
-
-        const { topicsList, sections } = this.props;
-
-        let rows = [];
-        for (let item of topicsList.items) {
-            
-            rows.push(<Row key={item.id} data={item}/>);
-            if (item.showPreview)
-                rows.push(
-                    <div key={`preview${String(item.id)}`} className="preview-container">
-                        <TopicPreview topicId={String(item.id)} n={0}/>
-                    </div>
-                )
-        }
-
-        return (
-            <div>
-                <Header history={this.props.history} />
-                {topicsList.error && (<Error text={topicsList.error} />)}
-                <div className="table">
-                    <div className="th" style={{position:"sticky", top:"39px"}}>
-                        <div>Раздел</div>
-                        <div>Re</div>
-                        <div></div>
-                        <div>Тема</div>
-                        <div>Автор</div>
-                        <div><span style={{cursor: "pointer"}} title="Обновить список" onClick={this.updateTopicsList}>{topicsList.isFetching ? "Обновляется" : "Обновлено"}</span></div>
-                    </div>
-                    {rows}
-                    <div className="tf">
-                        <Pages baseUrl='index.php' locationParams={this.locationParams} maxPage={10}/>
-                    </div>    
-                </div>
-                <div id="F" className="newtopic" style={{ marginBottom: "10px", marginTop: "5px", position: 'relative' }}>
-                    <NewTopic sections={sections.items} onSubmitSuccess={this.onPostNewTopicSuccess} locationParams={this.locationParams}/>
-                </div>    
-            </div>
+      rows.push(<Row key={item.id} data={item} />);
+      if (item.showPreview)
+        rows.push(
+          <div key={`preview${String(item.id)}`} className="preview-container">
+            <TopicPreview topicId={String(item.id)} n={0} />
+          </div>
         )
     }
+
+    return (
+      <div>
+        <Header history={this.props.history} />
+        {topicsList.error && (<Error text={topicsList.error} />)}
+        <div className="table">
+          <div className="th" style={{ position: "sticky", top: "39px" }}>
+            <div>Раздел</div>
+            <div>Re</div>
+            <div></div>
+            <div>Тема</div>
+            <div>Автор</div>
+            <div><span style={{ cursor: "pointer" }} title="Обновить список" onClick={this.updateTopicsList}>{topicsList.isFetching ? "Обновляется" : "Обновлено"}</span></div>
+          </div>
+          {rows}
+          <div className="tf">
+            <Pages baseUrl='index.php' locationParams={this.locationParams} maxPage={10} />
+          </div>
+        </div>
+        <div id="F" className="newtopic" style={{ marginBottom: "10px", marginTop: "5px", position: 'relative' }}>
+          <NewTopic sections={sections.items} onSubmitSuccess={this.onPostNewTopicSuccess} locationParams={this.locationParams} />
+        </div>
+      </div>
+    )
+  }
 }
 
 
 const mapStateToProps = (state: State): StateProps => {
 
-    return {
-        topicsList: state.topicsList,
-        sections: state.sections,
-        login: state.login,
-        topicsPerPage: state.options.items.topicsPerPage,
-        autoRefreshTopicsList: state.options.items.autoRefreshTopicsList,
-        autoRefreshTopicsListInterval: state.options.items.autoRefreshTopicsListInterval,
-    }
+  return {
+    topicsList: state.topicsList,
+    sections: state.sections,
+    login: state.login,
+    topicsPerPage: state.options.items.topicsPerPage,
+    autoRefreshTopicsList: state.options.items.autoRefreshTopicsList,
+    autoRefreshTopicsListInterval: state.options.items.autoRefreshTopicsListInterval,
+  }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchTopicsListIfNeeded: (...params) => dispatch(fetchTopicsListIfNeeded(...params)),
+  fetchTopicsListIfNeeded: (...params) => dispatch(fetchTopicsListIfNeeded(...params)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopicsList);

@@ -16,67 +16,67 @@ import type { LoginState } from 'src/reducers/login'
 import type { DefaultProps } from 'src/components'
 
 type RowProps = {
-    columns: any,
-    data: TopicsListItem
+  columns: any,
+  data: TopicsListItem
 }
 
 type StateProps = {
-    login: LoginState,
-    showTooltipOnTopicsList: string
+  login: LoginState,
+  showTooltipOnTopicsList: string
 }
 
 type Props = RowProps & StateProps & DefaultProps;
 
 const Row = (props: Props) => {
 
-    const { data, showTooltipOnTopicsList } = props;
-    let time = new Date(+data.utime * 1000);
-    if (today(time)) {
-        time = dateFormat(time, 'HH:MM')
-    } else {
-        time = dateFormat(time, 'dd.mm.yy');
-    }
-    return (
-        <div className="topics-list-row">
-            {/*{cells}*/}
-            <div className="cell-forum">
-                {data.forum}
-            </div>
-            <div className="cell-section">
-                {data.sect1}
-            </div>
-            <div className="cell-answ">
-                { showTooltipOnTopicsList === 'true' ?
-                    <LinkToPost topicId={data.id} number={data.answ} style={{color: "inherit"}} isPreview/>
-                    :
-                    data.answ
-                }
-            </div>
-            <PreviewLink topicId={data.id} expanded={data.showPreview}/>
-            <TopicNameCell data={data}/>
-            <div className="cell-author">
-                {data.user0}
-            </div>
-            <div className="cell-lastuser">
-                <div style={{display: "flex"}}>
-                    <span className="cell-lastuser-time">{time}</span>
-                    <span className="cell-lastuser-user">{data.user}</span>
-                </div>
-            </div>
-            <div className="cell-last20">
-                <Link to={`/topic.php?id=${String(data.id)}&page=last20`} style={{color: "inherit", display: "block", width: "100%", textAlign: "center"}}>{'>'}</Link>
-            </div>
+  const { data, showTooltipOnTopicsList } = props;
+  let time = new Date(+data.utime * 1000);
+  if (today(time)) {
+    time = dateFormat(time, 'HH:MM')
+  } else {
+    time = dateFormat(time, 'dd.mm.yy');
+  }
+  return (
+    <div className="topics-list-row">
+      {/*{cells}*/}
+      <div className="cell-forum">
+        {data.forum}
+      </div>
+      <div className="cell-section">
+        {data.sect1}
+      </div>
+      <div className="cell-answ">
+        {showTooltipOnTopicsList === 'true' ?
+          <LinkToPost topicId={data.id} number={data.answ} style={{ color: "inherit" }} isPreview />
+          :
+          data.answ
+        }
+      </div>
+      <PreviewLink topicId={data.id} expanded={data.showPreview} />
+      <TopicNameCell data={data} />
+      <div className="cell-author">
+        {data.user0}
+      </div>
+      <div className="cell-lastuser">
+        <div style={{ display: "flex" }}>
+          <span className="cell-lastuser-time">{time}</span>
+          <span className="cell-lastuser-user">{data.user}</span>
         </div>
-    )
+      </div>
+      <div className="cell-last20">
+        <Link to={`/topic.php?id=${String(data.id)}&page=last20`} style={{ color: "inherit", display: "block", width: "100%", textAlign: "center" }}>{'>'}</Link>
+      </div>
+    </div>
+  )
 
 }
 
 const mapStateToProps = (state: State): StateProps => {
 
-    return {
-        login: state.login,
-        showTooltipOnTopicsList: state.options.items.showTooltipOnTopicsList
-    }
+  return {
+    login: state.login,
+    showTooltipOnTopicsList: state.options.items.showTooltipOnTopicsList
+  }
 }
 
-export default ( connect(mapStateToProps)(Row): any );
+export default (connect(mapStateToProps)(Row): any );

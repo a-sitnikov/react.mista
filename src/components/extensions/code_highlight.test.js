@@ -1,29 +1,29 @@
 import highlight from './code_highlight'
 
-describe('Code highlight', ()=>{
+describe('Code highlight', () => {
 
-    it('+++test 1', () => {
+  it('+++test 1', () => {
 
-        const text = highlight(
-            '// Комментарий\n' +
-            'Процедура Тест()\n' +
-            '  а = 1;\n' +
-            'КонецПроцедуры\n'
-        );
+    const text = highlight(
+      '// Комментарий\n' +
+      'Процедура Тест()\n' +
+      '  а = 1;\n' +
+      'КонецПроцедуры\n'
+    );
 
-        expect({text}).toMatchSnapshot();
+    expect({ text }).toMatchSnapshot();
 
-    })
+  })
 
-    it('+++test 2', () => {
+  it('+++test 2', () => {
 
-        const text = highlight(
-            'd = "\n' +
-            '| dfsf\n' +
-            '| dsgffsg";'
-        );
+    const text = highlight(
+      'd = "\n' +
+      '| dfsf\n' +
+      '| dsgffsg";'
+    );
 
-        expect({text}).toMatchSnapshot();
+    expect({ text }).toMatchSnapshot();
 
-    })    
+  })
 });

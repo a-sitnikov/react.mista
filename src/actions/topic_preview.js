@@ -3,53 +3,53 @@ import * as API from 'src/api'
 import type { ResponseMessage } from 'src/api'
 
 export type PreviewTextParams = {
-    topicId: string,
-    n: number
+  topicId: string,
+  n: number
 }
 
 export type SHOW_PREVIEW = {
-    type: 'SHOW_PREVIEW',
-    topicId: string
+  type: 'SHOW_PREVIEW',
+  topicId: string
 }
 
 export type CLOSE_PREVIEW = {
-    type: 'CLOSE_PREVIEW',
-    topicId: string
+  type: 'CLOSE_PREVIEW',
+  topicId: string
 }
 
 export type REQUEST_PREVIEW_TEXT = {
-    type: 'REQUEST_PREVIEW_TEXT',
-    topicId: string
+  type: 'REQUEST_PREVIEW_TEXT',
+  topicId: string
 }
 
 export type RECEIVE_PREVIEW_TEXT = {
-    type: 'RECEIVE_PREVIEW_TEXT',
-    topicId: string,
-    message: ResponseMessage,
-    receivedAt: Date
+  type: 'RECEIVE_PREVIEW_TEXT',
+  topicId: string,
+  message: ResponseMessage,
+  receivedAt: Date
 }
 
 export type TopicPreviewAction = SHOW_PREVIEW | CLOSE_PREVIEW | REQUEST_PREVIEW_TEXT | RECEIVE_PREVIEW_TEXT;
 
 export const fetchTopicPreviewText = (params: PreviewTextParams): any => async (dispatch: any) => {
 
+  dispatch({
+    type: 'REQUEST_PREVIEW_TEXT',
+    topicId: params.topicId
+  });
+
+
+  const json = await API.getTopicMessages({
+    id: params.topicId,
+    from: params.n,
+    to: params.n + 1
+  });
+
+  if (json.length > 0)
     dispatch({
-        type: 'REQUEST_PREVIEW_TEXT',
-        topicId: params.topicId
+      type: 'RECEIVE_PREVIEW_TEXT',
+      topicId: params.topicId,
+      message: json[0],
+      receivedAt: new Date()
     });
-
-
-    const json = await API.getTopicMessages({
-        id: params.topicId,
-        from: params.n,
-        to: params.n+1
-        });
-
-    if (json.length > 0)
-        dispatch({
-            type: 'RECEIVE_PREVIEW_TEXT',
-            topicId: params.topicId,
-            message: json[0],
-            receivedAt: new Date()
-        });    
-}    
+}

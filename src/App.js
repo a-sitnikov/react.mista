@@ -1,5 +1,5 @@
 //@flow
-import React, { Fragment, Component } from 'react';
+import React, { Component, Fragment, useEffect } from 'react';
 import { connect } from 'react-redux'
 import NavBar from './components/nav_bar';
 import Container from './components/container';
@@ -12,50 +12,32 @@ import type { State } from 'src/reducers'
 import type { DefaultProps } from 'src/components'
 
 type StateProps = {
-  theme: string   
+  theme: string
 }
 
 type Props = StateProps & DefaultProps
 
-class App extends Component<Props> {
- 
-  constructor(props) {
-    super(props);
-    // for github pages
-    window.hash = '#';
-    props.dispatch(readOptions());
-  }
+function App(props): Props {
 
-  UNSAFE_componentWillMount() {
-      const { theme } = this.props;
-      if (document.body)
-        document.body.setAttribute('theme', theme);
-  }
-  
-  UNSAFE_componentWillReceiveProps(props) {
-      const { theme } = props;
-      if (document.body)
-        document.body.setAttribute('theme', theme);
-              //document.body.className = theme;
-  }
+  useEffect(() => {
+    document.body.setAttribute('theme', props.theme);
+  })
 
-  render() {
-    return (
-      <Fragment>
-        <NavBar />
-        <Container />
-        <NavBarFooter />
-        <TooltipsList />
-      </Fragment>
-    )
-  }
+  return (
+    <Fragment>
+      <NavBar />
+      <Container />
+      <NavBarFooter />
+      <TooltipsList />
+    </Fragment>
+  );
 }
 
 const mapStateToProps = (state: State): StateProps => {
 
-    return {
-        theme: state.options.items.theme
-    }
+  return {
+    theme: state.options.items.theme
+  }
 }
 
-export default ( connect(mapStateToProps)(App): any );
+export default connect(mapStateToProps)(App);

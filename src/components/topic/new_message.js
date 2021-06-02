@@ -18,8 +18,7 @@ type NewMessageProps = {
 
 type StateProps = {
   info: ResponseInfo,
-  newMessage: NewMessageState,
-  voting: ?string
+  newMessage: NewMessageState
 }
 
 type Props = NewMessageProps & StateProps & DefaultProps;
@@ -123,11 +122,11 @@ class NewMessage extends Component<Props, ComponentState> {
         <FormGroup>
           <legend>
             <small>Ваш выбор:
-                        <span href="" id="voting_clear" style={{ marginLeft: "5px", cursor: "pointer" }} onClick={this.clearVoting}>очистить</span>
+              <span href="" id="voting_clear" style={{ marginLeft: "5px", cursor: "pointer" }} onClick={this.clearVoting}>очистить</span>
             </small>
           </legend>
           {votingOptions}
-                    Обоснуйте свой выбор!
+          Обоснуйте свой выбор!
         </FormGroup>
       );
 

@@ -26,7 +26,7 @@ type MsgTextProps = {
 type StateProps = {
   info: ResponseInfo,
   showTooltips: string,
-  voteColors: Array<string>
+  voteColors?: Array<string>
 }
 
 type Props = MsgTextProps & StateProps & DefaultProps;

@@ -34,6 +34,9 @@ const Root = ({ store }) => (
     </Provider>
 )
 
+// for github pages
+window.hash = "#";
+
 ReactDOM.render(<Root store={store} />,
     document.getElementById('root'));
 
