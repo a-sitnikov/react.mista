@@ -84,7 +84,7 @@
 }
 
 .cell-answ {
-    padding: 6px;
+    padding: 6px 0px 6px 0px;
     border-right: 1px solid var(--inner-border-color);
     font-size: 80%;
     text-align: center;
