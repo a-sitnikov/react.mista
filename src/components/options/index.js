@@ -252,7 +252,7 @@ class Options extends Component<Props> {
                 name={name}
                 checked={String(value) === 'true'}
                 onChange={(e) => this.onChange(e, name, e.target.checked)}
-                style={{ flex: "0 0 auto", margin: "0px" }}
+                style={{ flex: "0 0 auto", margin: "0px", width: "100%" }}
               />
             );
           }
