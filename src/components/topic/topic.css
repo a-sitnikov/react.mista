@@ -138,6 +138,7 @@
 
     .topic-title {
         margin: 0px;
+        overflow-wrap: anywhere
     }
     
     .cell-userinfo {
@@ -182,6 +183,18 @@
         grid-template-areas: 
             "title percentage"
             "bar bar";
+    }
+    
+    .cell-message {
+        border-right: none;
+    }
+    
+    .user-info {
+        border-left: none;
+    }
+    
+    .cell-userinfo {
+        border-left: none;
     }
 }
 

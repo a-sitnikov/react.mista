@@ -200,6 +200,7 @@ a:hover {
 
 .input {
     color: var(--font-color);
+    border-color: var(--border-color);
 }
 
 [theme="dark"] .input {
