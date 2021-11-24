@@ -6,7 +6,7 @@ export type Location = {
 
 export type DefaultProps = {
     location: Location,
-    history: Array<any>,
+    history: any[],
     dispatch: any,
-    children?: Array<any>
+    children?: any[] 
 }

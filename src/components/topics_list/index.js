@@ -71,6 +71,7 @@ class TopicsList extends Component<Props> {
       window.scrollTo(0, 0);
     }
 
+    document.title = 'React.Mista';
   }
 
   updateTopicsList = () => {

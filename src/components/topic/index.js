@@ -87,7 +87,11 @@ class Topic extends Component<Props> {
 
     let title = info.text;
     if (title && document.title !== title) {
-      title = title.replace(/&quot;/g, '"');
+      
+      const parser = new DOMParser();
+      const floatingElement = parser.parseFromString(title, 'text/html');
+      title = floatingElement.firstChild.innerText;
+
       document.title = title;
     }
     
