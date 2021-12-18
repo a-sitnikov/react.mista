@@ -46,6 +46,7 @@ const Row = (props: Props) => {
         {data.sect1}
       </div>
       <div className="cell-answ">
+        <i className="fa fa-comments-o" aria-hidden="true" style={{marginRight: "3px"}}></i>
         {showTooltipOnTopicsList === 'true' ?
           <LinkToPost topicId={data.id} number={data.answ} style={{ color: "inherit" }} isPreview />
           :

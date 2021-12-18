@@ -94,6 +94,10 @@
     grid-area: answ;
 }
 
+.cell-answ > .fa {
+    display: none;    
+}
+
 .cell-preview-link {
     grid-area: pv-link;
     cursor: pointer;
@@ -267,6 +271,10 @@
         padding: 0px 2px; 
         text-align: right;
         border-top: 1px dotted var(--border-color);
+    }
+
+    .cell-answ > .fa {
+        display: initial;    
     }
 
     [theme='dark'] .cell-answ {
