@@ -33,6 +33,9 @@
 .preview-container {
     padding: 10px 20px 10px 115px;
     background: var(--background);
+    border-top: 1px solid var(--inner-border-color);
+    border-right: 1px solid var(--border-color);
+    border-left: 1px solid var(--border-color);
 }
 
 .user-td {
