@@ -118,7 +118,7 @@ class TopicsList extends Component<Props> {
         {topicsList.error && (<Error text={topicsList.error} />)}
         <div className="table">
           <div className="th" style={{ position: "sticky", top: "39px" }}>
-            <div>Раздел</div>
+            <div style={{letterSpacing: "-1px"}}>Раздел</div>
             <div>Re</div>
             <div></div>
             <div>Тема</div>
