@@ -118,7 +118,7 @@ export const getMessage = async (id: number | string, n: number): Promise<?Respo
   const json = await getTopicMessages({
     id,
     from: n,
-    to: n + 1
+    to: +n + 1
   }
   );
 
