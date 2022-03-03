@@ -203,12 +203,12 @@
         margin-bottom: 5px;
         border: 1px solid var(--border-color);
         grid-template-rows: auto;    
-        grid-template-columns: [col] 40px [col] 1fr [col] 1fr [col] 60px;
+        grid-template-columns: [col] 40px [col] 1fr [col] 1fr [col] 20px [col] 40px;
 
         grid-template-areas: 
-            "author author section section"
-            "pv-link title title last20"
-            "lastuser lastuser lastuser answ";
+            "author author section section section"
+            "pv-link title title title last20"
+            "lastuser lastuser lastuser answ answ";
     }
 
     .cell-author {
