@@ -99,8 +99,9 @@ export const checkLogin = (params: any): any => async (dispatch: any) => {
     return;
   }
   const { cookie, session } = json;
+  console.log(cookie);
 
-  if (session && session.user_id) {
+  if (session && session.user_id){
 
     let error = (session.last_error || '').trim();
     if (error === 'Не указано сообщение.') error = '';
@@ -109,6 +110,15 @@ export const checkLogin = (params: any): any => async (dispatch: any) => {
       userid: session.user_id,
       username: session.user_name,
       hashkey: cookie.entr_hash
+    }));
+  } else if (cookie && cookie.entr_key){
+
+    let error = '';
+    dispatch(loginComplete({
+      error,
+      userid: cookie.entr_key,
+      username: cookie.entr_key,
+      hashkey: ''
     }));
   } else
     dispatch(loginFailed(''));

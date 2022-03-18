@@ -22,7 +22,7 @@ class Login extends Component<Props> {
 
     render() {
 
-        const { logged, userid, username, error, dispatch } = this.props;
+        const { logged, userid, username, entr_key, error, dispatch } = this.props;
 
         let elem;
         if (logged === true) 

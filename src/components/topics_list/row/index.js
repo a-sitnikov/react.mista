@@ -56,7 +56,7 @@ const Row = (props: Props) => {
       <PreviewLink topicId={data.id} expanded={data.showPreview} />
       <TopicNameCell data={data} />
       <div className="cell-author">
-        <i aria-hidden="true" class="fa fa-user-circle" style={{marginRight: "3px"}}></i>
+        <i aria-hidden="true" className="fa fa-user-circle" style={{marginRight: "3px"}}></i>
         {data.user0}
       </div>
       <div className="cell-lastuser">
