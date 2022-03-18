@@ -99,7 +99,6 @@ export const checkLogin = (params: any): any => async (dispatch: any) => {
     return;
   }
   const { cookie, session } = json;
-  console.log(cookie);
 
   if (session && session.user_id){
 
@@ -112,7 +111,7 @@ export const checkLogin = (params: any): any => async (dispatch: any) => {
       hashkey: cookie.entr_hash
     }));
   } else if (cookie && cookie.entr_key){
-
+    //Передали неполные куки
     let error = '';
     dispatch(loginComplete({
       error,
