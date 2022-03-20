@@ -47,7 +47,7 @@ export type ResponseTopicsListItem = {
 export type ResponseTopicsList = Array<ResponseTopicsListItem>;
 
 export const getTopicsList = async (params: RequestTopicsList): Promise<ResponseTopicsList> => {
-  const json = await fetchJsonpAndGetJson(urlTopicsList, params);
+  const json = await fetchAndGetJson(urlTopicsList, params);
   return json;
 }
 
@@ -85,7 +85,7 @@ export const defaultInfo = {
 }
 
 export const getTopicInfo = async (params: RequestInfo): Promise<ResponseInfo> => {
-  const json = await fetchJsonpAndGetJson(urlTopicInfo, params);
+  const json = await fetchAndGetJson(urlTopicInfo, params);
   return json;
 }
 
@@ -110,7 +110,7 @@ export type ResponseMessage = {
 export type ResponseMessages = Array<ResponseMessage>;
 
 export const getTopicMessages = async (params: RequestMessages): Promise<ResponseMessages> => {
-  const json = await fetchJsonpAndGetJson(urlTopicMessages, params);
+  const json = await fetchAndGetJson(urlTopicMessages, params);
   return json;
 }
 
@@ -322,6 +322,25 @@ export const fetchJsonpAndGetJson = async (url: string, params: any): Promise<an
 
   let fullUrl = `${domain}/${url}${paramsToString('?', params)}`;
   const response = await fetchJsonp(fullUrl);
+  let responseJson = await response.json();
+  let json;
+  if (typeof (responseJson) === 'string') {
+
+    try {
+      json = JSON.parse(responseJson)
+    } catch (e) {
+      json = utils.parseJSON(responseJson);
+    }
+  } else {
+    json = responseJson;
+  }
+  return json;
+}
+
+export const fetchAndGetJson = async (url: string, params: any): Promise<any> => {
+
+  let fullUrl = `${domain}/${url}${paramsToString('?', params)}`;
+  const response = await fetch(fullUrl);
   let responseJson = await response.json();
   let json;
   if (typeof (responseJson) === 'string') {
