@@ -13,21 +13,15 @@ import type { DefaultProps } from 'src/components'
 type UserInfoProps = {
   data: ResponseMessage,
   isAuthor: boolean,
-  isYou?: boolean
+  isYou?: boolean,
+  isTooltip?: boolean
 }
 
 type Props = UserInfoProps & DefaultProps;
 
 class UserInfo extends Component<Props> {
 
-  onClick;
-
-  constructor() {
-    super();
-    this.onClick = this.onClick.bind(this);
-  }
-
-  onClick() {
+  onClick = () => {
     const { dispatch, data } = this.props;
     dispatch(addMessageText(`(${data.n})`));
 
@@ -36,8 +30,12 @@ class UserInfo extends Component<Props> {
       window.scrollTo(0, elem.offsetTop);
   }
 
+  onImageLoad = (event) => {
+    event.target.style.visibility = 'visible';
+  }
+
   render() {
-    const { data, isAuthor, isYou } = this.props;
+    const { data, isAuthor, isYou, isTooltip } = this.props;
     const href = `${domain}/users.php?id=${data.userId}`;
     let dataStr;
     if (!data) {
@@ -57,17 +55,29 @@ class UserInfo extends Component<Props> {
       "is-you": isYou
     });
 
-    let style;
-    if (window.innerWidth > 768)
-      style = {background: `transparent url("${domain}/css/user_icons/${data.userId}_16x16.png") no-repeat`, paddingLeft: "19px"};
+    let img;
+    if (isTooltip !== true && window.innerWidth > 768)
+      img = <img src={`${domain}/css/user_icons/${data.userId}_16x16.png`} 
+              onLoad={this.onImageLoad} 
+              style={{visibility:"hidden", marginBottom:"4px", marginRight:"1px"}}/>
 
-    return (
-      <div className="user-info">
-        <a className={userClassNames} href={href} style={style}>{data.user}</a>
+    let timeElem;  
+    if (isTooltip) {
+      timeElem = 
+       <span className="message-time">{dataStr}</span>
+    } else {
+      timeElem =
         <div className="message-time">
           <span className="ah" >{dataStr}</span>
           <button className="button ah" onClick={this.onClick}>{dataStr}</button>
         </div>
+    }  
+
+    return (
+      <div className="user-info">
+        {img}
+        <a className={userClassNames} href={href}>{data.user}</a>
+        {timeElem}
       </div>
     )
   }

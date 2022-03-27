@@ -111,7 +111,7 @@ class Tooltip extends Component<Props, State> {
     if (!this.state.data) {
       header = <b>Заголовок</b>
     } else {
-      header = <UserInfo data={this.state.data} isAuthor={false} />
+      header = <UserInfo data={this.state.data} isAuthor={false} isTooltip={true}/>
     }
 
     if (keys.type === 'TOPIC' || keys.type === 'TOPIC_PREVIEW')
