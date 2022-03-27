@@ -8,7 +8,7 @@ export const urlTopicsList: string = localStorage.getItem('urlTopicsList') || 'a
 export const urlTopicInfo: string = localStorage.getItem('urlTopicInfo') || 'ajax_gettopic.php';
 export const urlTopicMessages: string = localStorage.getItem('urlTopicMessages') || 'api/message.php';
 export const urlLogin: string = localStorage.getItem('urlLogin') || 'users.php?action=do_enter';
-export const urlLogout: string = localStorage.getItem('urlLogout') || 'users.php?action=exit';
+export const urlLogout: string = localStorage.getItem('urlLogout') || 'users.php';
 export const urlCookies: string = localStorage.getItem('urlCookies') || 'ajax_cookie.php';
 export const urlSections: string = localStorage.getItem('urlSections') || 'ajax_getsectionslist.php';
 export const urlNewMessage: string = localStorage.getItem('urlNewMessage') || 'topic.php?id=:id&page=1';

@@ -129,7 +129,7 @@ export const doLogout = (params: any): any => async (dispatch: any) => {
   } catch (e) {
 
     dispatch(logoutComplete());
-    checkLogin();
+    dispatch(checkLogin());
 
   }
 
