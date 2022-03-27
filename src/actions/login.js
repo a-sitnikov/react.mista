@@ -110,15 +110,6 @@ export const checkLogin = (params: any): any => async (dispatch: any) => {
       username: session.user_name,
       hashkey: cookie.entr_hash
     }));
-  } else if (cookie && cookie.entr_key){
-    //Передали неполные куки
-    let error = '';
-    dispatch(loginComplete({
-      error,
-      userid: cookie.entr_key,
-      username: cookie.entr_key,
-      hashkey: ''
-    }));
   } else
     dispatch(loginFailed(''));
 }
@@ -150,17 +141,12 @@ export const doLogin = (params: RequestLogin): any => async (dispatch: any) => {
 
   try {
 
-    const json = await API.getLogin({
+    await API.getLogin({
       username: encodeURIComponent(params.username),
       password: encodeURIComponent(params.password)
     })
-    if (!json.error) {
-      dispatch(loginComplete(json));
-    } else {
-      dispatch(loginFailed(
-        'ОШИБКА: Вход не выполнен! Возможно указан неверный пароль.'
-      ));
-    }
+
+    dispatch(checkLogin());
 
   } catch (err) {
     console.error('Login error :', err);

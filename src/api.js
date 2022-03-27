@@ -7,8 +7,8 @@ export const domain: string = localStorage.getItem('domain') || 'https://forum.m
 export const urlTopicsList: string = localStorage.getItem('urlTopicsList') || 'api/topic.php';
 export const urlTopicInfo: string = localStorage.getItem('urlTopicInfo') || 'ajax_gettopic.php';
 export const urlTopicMessages: string = localStorage.getItem('urlTopicMessages') || 'api/message.php';
-export const urlLogin: string = localStorage.getItem('urlLogin') || 'ajax_login.php';
-export const urlLogout: string = localStorage.getItem('urlLogout') || 'users.php'; // users.php?&action=exit
+export const urlLogin: string = localStorage.getItem('urlLogin') || 'users.php?action=do_enter';
+export const urlLogout: string = localStorage.getItem('urlLogout') || 'users.php?action=exit';
 export const urlCookies: string = localStorage.getItem('urlCookies') || 'ajax_cookie.php';
 export const urlSections: string = localStorage.getItem('urlSections') || 'ajax_getsectionslist.php';
 export const urlNewMessage: string = localStorage.getItem('urlNewMessage') || 'topic.php?id=:id&page=1';
@@ -148,9 +148,20 @@ export type ResponseLogin = {
   error?: string
 }
 
-export const getLogin = async (params: RequestLogin): Promise<ResponseLogin> => {
-  const json = await fetchJsonpAndGetJson(urlLogin, params);
-  return json;
+export const getLogin = async (params: RequestLogin): Promise<any> => {
+  let result = await fetch(`${domain}/${urlLogin}`, {
+    method: 'POST',
+    body: paramsToString('', {user_name: params.username, user_password: params.password}),
+    mode: 'no-cors',
+    credentials: 'include',
+    headers: {
+      'Accept': 'text/html,application/xhtml+xml,application/xml',
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: 'follow'
+  });
+  //const json = await fetchJsonpAndGetJson(urlLogin, params);
+  //return json;
 }
 
 export const getLogout = async (): Promise<any> => {
