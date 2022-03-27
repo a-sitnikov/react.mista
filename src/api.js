@@ -165,8 +165,11 @@ export const getLogin = async (params: RequestLogin): Promise<any> => {
 }
 
 export const getLogout = async (): Promise<any> => {
-  const params = { action: "exit" };
-  await fetchAndGetJson(urlLogout, params);
+  const fullUrl = `${domain}/${urlLogout}?action=exit`;
+  await fetch(fullUrl, {
+    mode: 'no-cors',
+    credentials: 'include'
+  });
 }
 
 
@@ -348,10 +351,10 @@ export const fetchJsonpAndGetJson = async (url: string, params: any): Promise<an
   return json;
 }
 
-export const fetchAndGetJson = async (url: string, params: any): Promise<any> => {
+export const fetchAndGetJson = async (url: string, params: any, options: any): Promise<any> => {
 
   let fullUrl = `${domain}/${url}${paramsToString('?', params)}`;
-  const response = await fetch(fullUrl);
+  const response = await fetch(fullUrl, options);
   let responseJson = await response.json();
   let json;
   if (typeof (responseJson) === 'string') {

@@ -125,13 +125,15 @@ export const doLogout = (params: any): any => async (dispatch: any) => {
   dispatch(logoutStart());
 
   try {
+    
     API.getLogout();
+
   } catch (e) {
-
-    dispatch(logoutComplete());
-    dispatch(checkLogin());
-
+    console.error(e);
   }
+  
+  dispatch(logoutComplete());
+  dispatch(checkLogin());
 
 }
 
