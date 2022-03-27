@@ -166,7 +166,7 @@ export const getLogin = async (params: RequestLogin): Promise<any> => {
 
 export const getLogout = async (): Promise<any> => {
   const params = { action: "exit" };
-  await fetchJsonpAndGetJson(urlLogout, params);
+  await fetchAndGetJson(urlLogout, params);
 }
 
 
