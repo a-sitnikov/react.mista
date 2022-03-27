@@ -31,7 +31,7 @@ class UserInfo extends Component<Props> {
   }
 
   onImageLoad = (event) => {
-    event.target.style.visibility = 'visible';
+    event.target.style.display = 'inline';
   }
 
   render() {
@@ -55,11 +55,11 @@ class UserInfo extends Component<Props> {
       "is-you": isYou
     });
 
-    let img;
-    if (isTooltip !== true && window.innerWidth > 768)
-      img = <img src={`${domain}/css/user_icons/${data.userId}_16x16.png`} 
+    let imgElem;
+    if (window.innerWidth > 768)
+    imgElem = <img src={`${domain}/css/user_icons/${data.userId}_16x16.png`} 
               onLoad={this.onImageLoad} 
-              style={{visibility:"hidden", marginBottom:"4px", marginRight:"1px"}}/>
+              style={{display:"none", marginBottom:"4px", marginRight:"1px"}}/>
 
     let timeElem;  
     if (isTooltip) {
@@ -75,7 +75,7 @@ class UserInfo extends Component<Props> {
 
     return (
       <div className="user-info">
-        {img}
+        {imgElem}
         <a className={userClassNames} href={href}>{data.user}</a>
         {timeElem}
       </div>
