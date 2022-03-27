@@ -57,9 +57,13 @@ class UserInfo extends Component<Props> {
       "is-you": isYou
     });
 
+    let style;
+    if (window.innerWidth > 768)
+      style = {background: `transparent url("${domain}/css/user_icons/${data.userId}_16x16.png") no-repeat`, paddingLeft: "19px"};
+
     return (
       <div className="user-info">
-        <a className={userClassNames} href={href}>{data.user}</a>
+        <a className={userClassNames} href={href} style={style}>{data.user}</a>
         <div className="message-time">
           <span className="ah" >{dataStr}</span>
           <button className="button ah" onClick={this.onClick}>{dataStr}</button>
