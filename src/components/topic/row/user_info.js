@@ -63,8 +63,7 @@ class UserInfo extends Component<Props> {
 
     let timeElem;  
     if (isTooltip) {
-      timeElem = 
-       <span className="message-time">{dataStr}</span>
+      timeElem = <div className="ah" style={{display:"inline-block", marginLeft:"2px"}}>{dataStr}</div>;
     } else {
       timeElem =
         <div className="message-time">
