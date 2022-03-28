@@ -1,5 +1,7 @@
 //@flow
 import React, { Component, Fragment, useEffect } from 'react';
+import { HashRouter } from 'react-router-dom'
+
 import { connect } from 'react-redux'
 import NavBar from './components/nav_bar';
 import Container from './components/container';
@@ -24,12 +26,12 @@ function App(props): Props {
   })
 
   return (
-    <Fragment>
+    <HashRouter>
       <NavBar />
       <Container />
       <NavBarFooter />
       <TooltipsList />
-    </Fragment>
+    </HashRouter>
   );
 }
 

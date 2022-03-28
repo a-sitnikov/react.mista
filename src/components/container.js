@@ -1,5 +1,5 @@
 //@flow
-import { HashRouter, Switch, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
@@ -20,21 +20,19 @@ class Container extends Component<DefaultProps> {
   render() {
 
     const routes =
-      <Switch>
-        <Route exact path='/' component={TopicsList} />
-        <Route path='/index.php' component={TopicsList} />
-        <Route path='/topic.php' component={Topic} />
-        <Route path='/options.php' component={Options} />
-      </Switch>
+      <Routes>
+        <Route path='/' element={<TopicsList />} />
+        <Route path='/index.php' element={<TopicsList />} />
+        <Route path='/topic.php' element={<Topic />} />
+        <Route path='/options.php' element={<Options />} />   
+      </Routes>
 
     if (window.hash)
 
       return (
         <div onClick={this.onClick} style={{ flex: "auto" }}>
           <div className="container" >
-            <HashRouter>
               {routes}
-            </HashRouter >
           </div>
         </div>
       )

@@ -1,6 +1,5 @@
 //@flow
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Dropdown } from 'react-bootstrap'
 
@@ -32,14 +31,7 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
 
 class LoggedUser extends Component<Props> {
 
-    onLogout;
-
-    constructor(props: Props) {
-        super(props);
-        this.onLogout = this.onLogout.bind(this);
-    }
-    
-    onLogout(event: any) {
+    onLogout = (event: any) => {
 
         event.preventDefault();
 
@@ -77,4 +69,4 @@ class LoggedUser extends Component<Props> {
     }
 }
 
-export default ( connect()(withRouter(LoggedUser)): any );
+export default ( connect()(LoggedUser): any );

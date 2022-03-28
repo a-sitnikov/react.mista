@@ -1,6 +1,6 @@
 //@flow
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Form, FormControl, Button } from 'react-bootstrap'
 
@@ -17,6 +17,13 @@ import type { DefaultProps } from 'src/components'
 import './options.css'
 
 type Props = OptionsState & DefaultProps;
+
+export const withNavigate = (Component: any) => {
+  return (props: any) => {
+    const navigate = useNavigate();
+    return <Component navigate={navigate} {...props} />;
+  };
+};
 
 class Options extends Component<Props> {
 
@@ -135,8 +142,8 @@ class Options extends Component<Props> {
   }
 
   closeForm = () => {
-    const { history } = this.props;
-    history.push('/' + window.hash);
+    const { navigate } = this.props;
+    navigate('/' + window.hash);
   }
 
   resetOptions = () => {
@@ -328,4 +335,4 @@ const mapStateToProps = (state: State) => {
 
 }
 
-export default (connect(mapStateToProps)(withRouter(Options)): any );
+export default (connect(mapStateToProps)(withNavigate(Options)): any );

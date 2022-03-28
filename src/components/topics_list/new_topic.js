@@ -15,7 +15,7 @@ import type { NewTopicState } from 'src/reducers/new_topic'
 import { postNewTopicIfNeeded } from 'src/actions/new_topic'
 import type { NewTopicAction, postNewTopicParams } from 'src/actions/new_topic'
 
-import SectionSelect from './section_select'
+import SectionSelect from './sections'
 import TextEditor from '../common/text_editor'
 import ErrorElem from '../common/error'
 
