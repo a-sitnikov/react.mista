@@ -50,15 +50,14 @@ const Topic = (props) => {
   const location = useLocation();
 
   let locationParams = queryString.parse(location.search);
- 
+  if (!locationParams.page)
+    locationParams.page = 1;
+
   const updateTopic = () => {
 
     let { fetchTopicIfNeeded, item0 } = props;
 
-    if (!locationParams.page)
-      locationParams.page = 1;
-
-    else if (locationParams.page !== 'last20') {
+    if (locationParams.page !== 'last20') {
       locationParams.page = +locationParams.page;
       if (isNaN(locationParams.page))
         locationParams.page = 1;
