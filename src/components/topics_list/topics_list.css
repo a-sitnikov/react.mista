@@ -47,6 +47,16 @@
     flex: 0 1 auto;
 }
 
+.header-left {
+    flex: 1 auto;
+    vertical-align: top;
+}
+
+.header-right {
+    flex: 0 1 auto;
+    margin-left: auto;
+}
+
 .table {
     box-sizing: border-box;
     opacity: 1;

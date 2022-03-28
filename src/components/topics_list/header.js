@@ -28,10 +28,10 @@ const Header = (props) => {
 
   return (
     <div className="flex-row">
-      <div className="user-td">
+      <div className="header-left">
         <Login />
       </div>
-      <div className="section-td" style={{ marginLeft: "auto" }}>
+      <div className="header-right">
         <Sections
           defaultValue="--Все секции--"
           selected={params.section || ""}

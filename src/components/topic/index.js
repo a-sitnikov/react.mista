@@ -1,6 +1,7 @@
 //@flow
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component, useEffect } from 'react'
+import { connect, useDispatch } from 'react-redux'
+import { useLocation } from "react-router-dom";
 import queryString from 'query-string'
 import { fetchTopicIfNeeded, fetchNewMessagesIfNeeded, closeTopic } from 'src/actions/topic'
 
@@ -43,7 +44,79 @@ type Props = {
   clearText: any
 } & DefaultProps & StateProps
 
-class Topic extends Component<Props> {
+const Topic = (props) => {
+  
+  const dispatch = useDispatch()
+  const location = useLocation();
+
+  let locationParams = queryString.parse(location.search);
+ 
+  const updateTopic = () => {
+
+    let { fetchTopicIfNeeded, item0 } = props;
+
+    if (!locationParams.page)
+      locationParams.page = 1;
+
+    else if (locationParams.page !== 'last20') {
+      locationParams.page = +locationParams.page;
+      if (isNaN(locationParams.page))
+        locationParams.page = 1;
+    }
+
+    if (locationParams.id !== locationParams.id)
+      item0 = null;
+
+    fetchTopicIfNeeded(locationParams, item0);
+  }
+
+  const onPostNewMessageSuccess = () => {
+
+    const { fetchNewMessagesIfNeeded, info } = props;
+
+    const isLastPage = (locationParams.page === 'last20' || locationParams.page === getMaxPage(+info.answers_count));
+
+    if (isLastPage)
+      fetchNewMessagesIfNeeded({
+        id: info.id,
+        last: parseInt(info.answers_count, 10)
+      });
+
+  }
+  
+  const { login, items, item0, info, error } = props;
+  const maxPage = getMaxPage(+info.answers_count);
+
+  useEffect(() => {
+    updateTopic();
+  }, [dispatch, location.search]);
+
+  return (
+    <div style={{ marginBottom: "5px" }}>
+      {error && <Error text={error.message} />}
+      <Header currentPage={locationParams.page} />
+      <div className="topic-table">
+        <TopicInfo />
+        <Row key='0' data={item0} />
+        {items.map((item, i) => (
+          <Row key={item.n} data={item} />
+        ))}
+        {(maxPage > 1 || locationParams.page === "last20") &&
+          <div className="tf">
+            <Pages baseUrl='topic.php' locationParams={locationParams} maxPage={maxPage} last20 />
+          </div>
+        }
+      </div>
+      <Footer params={locationParams} />
+      {login.logged &&
+        <NewMessage onSubmitSuccess={onPostNewMessageSuccess} />
+      }
+    </div>
+  )
+
+}
+
+class Topic1 extends Component<Props> {
 
   locationParams: TopicLocationParams;
   location: Location;
