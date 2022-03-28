@@ -3,7 +3,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
 
-import { fetchNewMessagesIfNeeded } from 'src/actions/topic'
+import { fetchNewMessagesIfNeeded } from 'src/data/topic/actions'
 import { addBookmark } from 'src/actions/bookmark'
 import { getMaxPage } from 'src/utils'
 

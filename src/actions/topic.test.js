@@ -1,4 +1,4 @@
-import { fetchTopic } from './topic'
+import { fetchTopic } from '../data/topic/actions'
 import * as API from '../api'
 
 const item0 = {

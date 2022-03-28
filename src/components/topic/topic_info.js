@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { defaultTopicState } from 'src/reducers/topic'
+import { defaultTopicState } from 'src/data/topic/reducer'
 
 import type { State } from 'src/reducers'
 import type { ResponseInfo } from 'src/api'

@@ -4,8 +4,8 @@ import { combineReducers } from 'redux'
 import topicsList from 'src/data/topicslist/reducer'
 import type { TopicsListState } from 'src/data/topicslist/reducer'
 
-import topic from './topic'
-import type { TopicState } from './topic'
+import topic from 'src/data/topic/reducer'
+import type { TopicState } from 'src/data/topic/reducer'
 
 import login from './login'
 import type { LoginState } from './login'

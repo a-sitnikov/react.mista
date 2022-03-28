@@ -107,7 +107,7 @@ class LinkToPost extends Component<Props, { text: string }> {
       pageParam = `&page=${page}`;
 
     let a;
-    if (topicId === info.id || !isNaN(this.state.text))
+    if (info && topicId === info.id || !isNaN(this.state.text))
       a = (
         <span
           onMouseOver={this.onMouseOver}

@@ -1,64 +1,35 @@
 //@flow
 import * as API from 'src/api'
+import { createAction } from '@reduxjs/toolkit'
 
 import type { ResponseInfo, ResponseMessage, ResponseMessages } from 'src/api'
 
-export type REQUEST_TOPIC = {
-  type: 'REQUEST_TOPIC'
-}
-
-export type RECEIVE_TOPIC = {
-  type: 'RECEIVE_TOPIC',
-  info: ResponseInfo,
-  item0: ResponseMessage,
-  items: ResponseMessages,
-  receivedAt: Date
-}
-
-export type RECEIVE_TOPIC_FAILED = {
-  type: 'RECEIVE_TOPIC_FAILED',
-  error: any,
-  receivedAt: Date
-}
-
-export type REQUEST_NEW_MESSAGES = {
-  type: 'REQUEST_NEW_MESSAGES'
-}
-
-export type RECEIVE_NEW_MESSAGES = {
-  type: 'RECEIVE_NEW_MESSAGES',
-  items: ResponseMessages,
-  receivedAt: Date
-}
-
-export type CLOSE_TOPIC = {
-  type: 'CLOSE_TOPIC'
-}
-
-
-export type TopicAction = REQUEST_TOPIC | RECEIVE_TOPIC | RECEIVE_TOPIC_FAILED | CLOSE_TOPIC | REQUEST_NEW_MESSAGES | RECEIVE_NEW_MESSAGES;
-
-export const requestTopic = (): any => ({
-  type: 'REQUEST_TOPIC'
-})
-
-export const receiveTopic = (info: ResponseInfo, item0: ?ResponseMessage, items: ResponseMessages): any => {
-
-  return {
-    type: 'RECEIVE_TOPIC',
+export const requestTopic = createAction('REQUEST_TOPIC');
+export const receiveTopic = createAction('RECEIVE_TOPIC', (info, item0, list) => ({
+  payload: {
     info,
     item0,
-    items,
-    receivedAt: Date.now()
-  }
-}
+    list
+  },
+  error: false
+}));
+export const receiveTopicFailed = createAction('RECEIVE_TOPIC', error => ({
+  payload: error,
+  error: true
+}));
+export const clearTopicMessages = createAction('CLEAR_TOPIC_MESSAGES');
 
-export const closeTopic = (): any => {
-
-  return {
-    type: 'CLOSE_TOPIC',
-  }
-}
+export const requestNewMessages = createAction('REQUEST_NEW_MESSAGES');
+export const receiveNewMessages = createAction('RECEIVE_NEW_MESSAGES', (list) => ({
+  payload: {
+    list
+  },
+  error: false
+}));
+export const receiveNewMessagesFailed = createAction('RECEIVE_NEW_MESSAGES', error => ({
+  payload: error,
+  error: true
+}));
 
 export const fetchTopic = (params: any, item0: ?ResponseMessage): any => async (dispatch: any) => {
 
@@ -75,7 +46,6 @@ export const fetchTopic = (params: any, item0: ?ResponseMessage): any => async (
       answers_count: "0"
     };
   }
-
   try {
     let page = params.page || 1;
 
@@ -169,12 +139,7 @@ export const fetchTopic = (params: any, item0: ?ResponseMessage): any => async (
   } catch (error) {
 
     console.error('Failed to fetch topic:', error);
-
-    dispatch({
-      type: 'RECEIVE_TOPIC_FAILED',
-      error,
-      receivedAt: Date.now()
-    });
+    dispatch(receiveTopicFailed(error));
 
   }
 }
@@ -203,31 +168,20 @@ export type FetchNewMessageseParams = {
 
 export const fetchNewMessages = (params: FetchNewMessageseParams): any => async (dispatch: any) => {
 
-  dispatch({
-    type: 'REQUEST_NEW_MESSAGES'
-  });
+  dispatch(requestNewMessages());
 
   try {
     const json = await API.getTopicMessages({
       id: params.id,
-      from: params.last + 1,
+      from: +params.last + 1,
       to: 1002
     });
 
-    dispatch({
-      type: 'RECEIVE_NEW_MESSAGES',
-      items: json,
-      receivedAt: Date.now()
-    });
+    dispatch(receiveNewMessages(json));
 
   } catch (error) {
     console.error('Failed to fetch new messages:', error);
-
-    dispatch({
-      type: 'RECEIVE_NEW_MESSAGES_FAILED',
-      error,
-      receivedAt: Date.now()
-    });
+    dispatch(receiveNewMessagesFailed(error));
   }
 
 }

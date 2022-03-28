@@ -3,7 +3,7 @@ import React, { Component, useEffect } from 'react'
 import { connect, useDispatch } from 'react-redux'
 import { useLocation } from "react-router-dom";
 import queryString from 'query-string'
-import { fetchTopicIfNeeded, fetchNewMessagesIfNeeded, closeTopic } from 'src/actions/topic'
+import { fetchTopicIfNeeded, fetchNewMessagesIfNeeded, clearTopicMessages } from 'src/data/topic/actions'
 
 import type { DefaultProps, Location } from 'src/components'
 import type { ResponseInfo, ResponseMessage, ResponseMessages } from 'src/api'
@@ -66,7 +66,7 @@ const Topic = (props) => {
     if (locationParams.id !== locationParams.id)
       item0 = null;
 
-    fetchTopicIfNeeded(locationParams, item0);
+    fetchTopicIfNeeded(locationParams, null);
   }
 
   const onPostNewMessageSuccess = () => {
@@ -89,6 +89,13 @@ const Topic = (props) => {
   useEffect(() => {
     updateTopic();
   }, [dispatch, location.search]);
+  
+  useEffect(() => {
+    const clearStore = () => {
+      dispatch(clearTopicMessages());
+    }
+    return clearStore;
+  }, [dispatch]);
 
   return (
     <div style={{ marginBottom: "5px" }}>
