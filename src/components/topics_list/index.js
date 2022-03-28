@@ -5,11 +5,11 @@ import queryString from 'query-string'
 import type { State } from 'src/reducers'
 import type { DefaultProps, Location } from 'src/components'
 
-import type { TopicsListState } from 'src/reducers/topics_list'
-import type { SectionsState } from 'src/reducers/sections'
+import type { TopicsListState } from 'src/data/topicslist/reducer'
+import type { SectionsState } from 'src/data/sections/reducer'
 import type { LoginState } from 'src/reducers/login'
 
-import { fetchTopicsListIfNeeded } from 'src/actions/topics_list'
+import { fetchTopicsListIfNeeded } from 'src/data/topicslist/actions'
 
 import Header from './header'
 import Row from './row'
