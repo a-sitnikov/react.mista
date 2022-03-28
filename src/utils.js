@@ -4,12 +4,14 @@ export function today(td) {
     return td.getDate() === d.getDate() && td.getMonth() === d.getMonth() && td.getFullYear() === d.getFullYear();
 }
 
-export const groupBy = function (xs, key) {
-    return xs.reduce(function (rv, x) {
-        (rv[x[key]] = rv[x[key]] || []).push(x);
-        return rv;
-    }, {});
-};
+export const groupBy = (list, getKey) =>
+  list.reduce((previous, currentItem) => {
+    const group = getKey(currentItem);
+    if (!previous[group]) previous[group] = [];
+    previous[group].push(currentItem);
+    return previous;
+  }, {})
+
 
 export const parseJSON = (text) => {
 

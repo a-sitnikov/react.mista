@@ -9,7 +9,7 @@ import type { ResponseSection } from 'src/api'
 
 import type { DefaultProps } from 'src/components'
 import type { State } from 'src/reducers'
-import type { SectionsState } from 'src/reducers/sections'
+import type { SectionsState } from 'src/data/sections/reducer'
 import type { NewTopicState } from 'src/reducers/new_topic'
 
 import { postNewTopicIfNeeded } from 'src/actions/new_topic'

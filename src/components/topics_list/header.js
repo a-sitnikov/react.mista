@@ -6,7 +6,7 @@ import queryString from 'query-string'
 
 import Login from '../login'
 import SectionSelect from './section_select'
-import { fetchSectionsIfNeeded } from 'src/actions/sections'
+import { fetchSectionsIfNeeded } from 'src/data/sections/actions'
 
 import type { DefaultProps } from 'src/components'
 

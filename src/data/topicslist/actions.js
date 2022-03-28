@@ -1,45 +1,27 @@
 //@flow
-import * as API from '../api'
+import { createAction } from '@reduxjs/toolkit'
+
+import * as API from 'src/api'
 import type { RequestTopicsList, ResponseTopicsList } from 'src/api'
 import type { State } from 'src/reducers'
 
-export const REQUEST_TOPICS_LIST = 'REQUEST_TOPICS_LIST';
-export const RECEIVE_TOPICS_LIST = 'RECEIVE_TOPICS_LIST';
-export const RECEIVE_TOPICS_LIST_FAILED = 'RECEIVE_TOPICS_LIST_FAILED';
-export const TOGGLE_PREVIEW = 'TOGGLE_PREVIEW';
-
-export type typeREQUEST_TOPICS_LIST = {
-  type: typeof REQUEST_TOPICS_LIST
-}
-
-export type typeRECEIVE_TOPICS_LIST = {
-  type: typeof RECEIVE_TOPICS_LIST,
-  items: ResponseTopicsList,
-  receivedAt: Date
-}
-
-export type typeRECEIVE_TOPICS_LIST_FAILED = {
-  type: typeof RECEIVE_TOPICS_LIST_FAILED,
-  error: string,
-  receivedAt: Date
-}
-
-export type typeTOGGLE_PREVIEW = {
-  type: typeof TOGGLE_PREVIEW,
-  topicId: string
-}
-
-export type TopicsListAction = typeREQUEST_TOPICS_LIST | typeRECEIVE_TOPICS_LIST | typeRECEIVE_TOPICS_LIST_FAILED | typeTOGGLE_PREVIEW;
-
-export const requestTopicsList = (): typeREQUEST_TOPICS_LIST => ({
-  type: REQUEST_TOPICS_LIST
-})
-
-export const receiveTopicsList = (data: ResponseTopicsList): typeRECEIVE_TOPICS_LIST => ({
-  type: RECEIVE_TOPICS_LIST,
-  items: data,
-  receivedAt: new Date()
-})
+export const requestTopicsList = createAction('REQUEST_TOPICS_LIST');
+export const receiveTopicsList = createAction('RECEIVE_TOPICS_LIST', list => ({
+  payload: {
+    list
+  },
+  error: false
+}));
+export const receiveTopicsListFailed = createAction('RECEIVE_TOPICS_LIST', error => ({
+  payload: error,
+  error: true
+}));
+export const clearTopicsList = createAction('CLEAR_TOPICS_LIST');
+export const togglePreview = createAction('TOGGLE_PREVIEW', id => ({
+  payload : {
+    id
+  }
+}));
 
 const fetchTopicsList = (params: any) => async (dispatch: any, getState: any) => {
 
@@ -72,13 +54,7 @@ const fetchTopicsList = (params: any) => async (dispatch: any, getState: any) =>
     let data = json.slice(-topicsPerPage);
     dispatch(receiveTopicsList(data));
   } catch (e) {
-
-    let action: TopicsListAction = {
-      type: RECEIVE_TOPICS_LIST_FAILED,
-      error: e.message,
-      receivedAt: new Date()
-    }
-    dispatch(action);
+    dispatch(receiveTopicsListFailed(e));
     console.error(e);
   }
 

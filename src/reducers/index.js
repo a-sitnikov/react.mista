@@ -1,8 +1,8 @@
 //@flow
 import { combineReducers } from 'redux'
 
-import topicsList from './topics_list'
-import type { TopicsListState } from './topics_list'
+import topicsList from 'src/data/topicslist/reducer'
+import type { TopicsListState } from 'src/data/topicslist/reducer'
 
 import topic from './topic'
 import type { TopicState } from './topic'
@@ -10,8 +10,8 @@ import type { TopicState } from './topic'
 import login from './login'
 import type { LoginState } from './login'
 
-import sections from './sections'
-import type { SectionsState } from './sections'
+import sections from 'src/data/sections/reducer'
+import type { SectionsState } from 'src/data/sections/reducer'
 
 import bookmark from './bookmark'
 import type { BookmarkState } from './bookmark'

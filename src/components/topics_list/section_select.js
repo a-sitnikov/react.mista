@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Form from 'react-bootstrap/Form'
 
-import { fetchSectionsIfNeeded } from 'src/actions/sections'
+import { fetchSectionsIfNeeded } from 'src/data/sections/actions'
 
 import type { ResponseSection, ResponseSections } from 'src/api'
 

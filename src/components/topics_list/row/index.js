@@ -11,7 +11,7 @@ import PreviewLink from './preview_link'
 import { today } from 'src/utils'
 
 import type { State } from 'src/reducers'
-import type { TopicsListItem } from 'src/reducers/topics_list'
+import type { TopicsListItem } from 'src/data/topicslist/reducer'
 import type { LoginState } from 'src/reducers/login'
 import type { DefaultProps } from 'src/components'
 

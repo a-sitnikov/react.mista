@@ -7,7 +7,7 @@ import queryString from 'query-string'
 import { withRouter } from 'react-router-dom'
 
 import Search from 'src/components/common/search'
-import { fetchTopicsListIfNeeded } from 'src/actions/topics_list'
+import { fetchTopicsListIfNeeded } from 'src/data/topicslist/actions'
 
 import './nav_bar.css'
 
