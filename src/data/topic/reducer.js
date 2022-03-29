@@ -40,7 +40,10 @@ const reducer = createReducer(defaultTopicState, (builder) => {
       state.isFetching = false;
     })
     .addCase(clearTopicMessages, (state) => {
-      state = defaultTopicState;
+      state.items = defaultTopicState.items;
+      state.item0 = defaultTopicState.item0;
+      state.info = defaultTopicState.info;
+      delete state.error;
     })
     .addCase(requestNewMessages, (state) => {
       state.isFetching = true

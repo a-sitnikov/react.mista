@@ -1,5 +1,5 @@
 import React, { Component, useEffect } from 'react'
-import { connect, useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import queryString from 'query-string'
 
@@ -10,6 +10,7 @@ import type { TopicsListState } from 'src/data/topicslist/reducer'
 import type { SectionsState } from 'src/data/sections/reducer'
 import type { LoginState } from 'src/data/login/reducer'
 
+import { useAppDispatch } from 'src/data/store'
 import { fetchTopicsListIfNeeded } from 'src/data/topicslist/actions'
 
 import Header from './header'
@@ -37,7 +38,7 @@ type Props = {
 
 const TopicsList = (props) => {
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const location = useLocation();
   const locationParams = queryString.parse(location.search);
 
