@@ -9,7 +9,7 @@ import type { DefaultProps, Location } from 'src/components'
 import type { ResponseInfo, ResponseMessage, ResponseMessages } from 'src/api'
 import type { State } from 'src/reducers'
 import type { LoginState } from 'src/data/login/reducer'
-import type { OptionsItems } from 'src/reducers/options'
+import type { OptionsItems } from 'src/data/options/reducer'
 
 import Error from 'src/components/common/error'
 import Pages from 'src/components/common/pages'

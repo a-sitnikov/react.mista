@@ -25,8 +25,8 @@ import type { TooltipsState } from '../data/tooltips/reducer'
 import topicPreview from './topic_preview'
 import type { TopicPreviewState } from './topic_preview'
 
-import options from './options'
-import type { OptionsState } from './options'
+import options from '../data/options/reducer'
+import type { OptionsState } from '../data/options/reducer'
 
 export type State = {
   topicsList: TopicsListState,

@@ -8,7 +8,7 @@ import Container from './components/container';
 import NavBarFooter from './components/nav_bar_footer';
 import TooltipsList from './components/tooltips/tooltips_list';
 
-import { readOptions } from 'src/actions/options'
+import { readOptions } from 'src/data/options/actions'
 
 import type { State } from 'src/reducers'
 import type { DefaultProps } from 'src/components'

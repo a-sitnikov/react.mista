@@ -1,4 +1,7 @@
 //@flow
+import { createReducer } from '@reduxjs/toolkit'
+import { readOptions, saveOptions } from './actions'
+
 export type Column = {
   name: string,
   className?: string,
@@ -56,11 +59,11 @@ export const defaultOptionsState: OptionsState = {
   }
 }
 
-function readOption(name, defaultValue) {
+const readOption = (name, defaultValue) => {
   return window.localStorage.getItem(name) || defaultValue;
 }
 
-function readOptions() {
+const readAllOptions = () => {
   
   let state: OptionsState = defaultOptionsState;
   for (let key in state.items) {
@@ -70,38 +73,22 @@ function readOptions() {
   return state;
 }
 
-const options = (state: OptionsState, action: any): OptionsState => {
-
-  if (!state)
-    state = readOptions();
-
-  switch (action.type) {
-
-    case 'READ_OPTIONS':
-
+const reducer = createReducer(readAllOptions(), (builder) => {
+  builder
+    .addCase(readOptions, (state) => {
       let items = Object.assign({}, defaultOptionsState.items);
       for (let key in items) {
         items[key] = readOption(key, defaultOptionsState.items[key]);
       }
-
-      return {
-        ...state,
-        items
+      state.items = items;
+    })
+    .addCase(saveOptions, (state, action) => {
+      for (let key in action.payload.options) {
+        const value = String(action.payload.options[key]); 
+        window.localStorage.setItem(key, value);
+        state.items[key] = value;
       }
+    })
+  })
 
-    case 'SAVE_OPTIONS':
-
-      for (let key in action.options) {
-        window.localStorage.setItem(key, String(action.options[key]));
-      }
-
-      return {
-        ...state,
-        items: action.options
-      }
-    default:
-      return state
-  }
-}
-
-export default options;
+export default reducer;

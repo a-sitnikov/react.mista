@@ -7,11 +7,11 @@ import { Form, FormControl, Button } from 'react-bootstrap'
 import RadioOption from './radio_option'
 import StringOption from './string_option'
 
-import { saveOptions } from 'src/actions/options'
+import { saveOptions } from 'src/data/options/actions'
 
 import type { State } from 'src/reducers'
-import type { OptionsState } from 'src/reducers/options'
-import { defaultOptionsState } from 'src/reducers/options'
+import type { OptionsState } from 'src/data/options/reducer'
+import { defaultOptionsState } from 'src/data/options/reducer'
 import type { DefaultProps } from 'src/components'
 
 import './options.css'
