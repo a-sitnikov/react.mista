@@ -38,15 +38,6 @@
     border-left: 1px solid var(--border-color);
 }
 
-.user-td {
-    flex: 1 auto;
-    vertical-align: top;
-}
-
-.section-td {
-    flex: 0 1 auto;
-}
-
 .header-left {
     flex: 1 auto;
     vertical-align: top;
@@ -201,7 +192,7 @@
         border-top: none;        
     }
 
-    .section-td {
+    .header-right{
         display: none;
     }
 
