@@ -54,6 +54,7 @@ const reducer = createReducer(defaultTopicState, (builder) => {
       } else {
         state.isFetching = false;
         state.items = state.items.concat(action.payload.list);
+        state.info.answers_count = state.items[state.items.length - 1].n;
       }
     })
 })
