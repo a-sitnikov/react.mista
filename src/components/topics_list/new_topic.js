@@ -116,7 +116,6 @@ class NewTopic extends Component<Props> {
 
   }
 
-
   onSubmitSuccess = () => {
 
     const { dispatch } = this.props;

@@ -1,7 +1,7 @@
 //@flow
 import { createAction } from '@reduxjs/toolkit'
 
-import * as API from 'src/api'
+import * as API from 'src/api/login'
 import type { RequestLogin, ResponseLogin } from 'src/api'
 import type { State } from 'src/reducers'
 
@@ -73,7 +73,7 @@ export const doLogout = (params: any): any => async (dispatch: any) => {
 
   try {
     
-    API.getLogout();
+    await API.getLogout();
 
   } catch (e) {
     console.error(e);
