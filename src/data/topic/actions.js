@@ -171,13 +171,13 @@ export const fetchNewMessages = (params: FetchNewMessageseParams): any => async 
   dispatch(requestNewMessages());
 
   try {
-    const json = await API.getTopicMessages({
+    const list = await API.getTopicMessages({
       id: params.id,
       from: +params.last + 1,
       to: 1002
     });
 
-    dispatch(receiveNewMessages(json));
+    dispatch(receiveNewMessages(list));
 
   } catch (error) {
     console.error('Failed to fetch new messages:', error);

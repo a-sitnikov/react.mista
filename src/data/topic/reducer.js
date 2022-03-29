@@ -53,7 +53,7 @@ const reducer = createReducer(defaultTopicState, (builder) => {
         state.error = action.error.toString();
       } else {
         state.isFetching = false;
-        state.items.concat(action.payload.list);
+        state.items = state.items.concat(action.payload.list);
       }
     })
 })
