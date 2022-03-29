@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import Tooltip from './tooltip'
 
 import type { State } from 'src/reducers'
-import type { TooltipItemState } from 'src/reducers/tooltips'
+import type { TooltipItemState } from 'src/data/tooltips/reducer'
 import type { DefaultProps } from 'src/components'
 
 type StateProps = {

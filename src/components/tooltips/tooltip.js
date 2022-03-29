@@ -13,8 +13,8 @@ import TooltipBody from './tooltip_body'
 import './tooltip.css'
 
 import type { DefaultProps } from 'src/components'
-import type { TooltipItemState } from 'src/reducers/tooltips'
-import type { TooltipKeys } from 'src/actions/tooltips'
+import type { TooltipItemState } from 'src/data/tooltips/reducer'
+import type { TooltipKeys } from 'src/data/tooltips/actions'
 
 type TooltipProps = {
   tooltip: TooltipItemState,

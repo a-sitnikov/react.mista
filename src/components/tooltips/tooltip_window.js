@@ -9,10 +9,10 @@ import TooltipBody from './tooltip_body'
 
 import './tooltip.css'
 
-import { closeTooltip } from 'src/actions/tooltips'
+import { closeTooltip } from 'src/data/tooltips/actions'
 
 import type { DefaultProps } from 'src/components'
-import type { TooltipItemState } from 'src/reducers/tooltips'
+import type { TooltipItemState } from 'src/data/tooltips/reducer'
 
 type TooltipProps = {
   tooltip: TooltipItemState,

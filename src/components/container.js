@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import TopicsList from './topics_list'
 import Topic from './topic'
 import Options from './options'
-import { clearTooltipsIfNeeded } from 'src/actions/tooltips'
+import { clearTooltipsIfNeeded } from 'src/data/tooltips/actions'
 
 import type { DefaultProps } from 'src/components'
 

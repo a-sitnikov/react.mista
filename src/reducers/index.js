@@ -19,8 +19,8 @@ import type { NewTopicState } from './new_topic'
 import newMessage from './new_message'
 import type { NewMessageState } from './new_message'
 
-import tooltips from './tooltips'
-import type { TooltipsState } from './tooltips'
+import tooltips from '../data/tooltips/reducer'
+import type { TooltipsState } from '../data/tooltips/reducer'
 
 import topicPreview from './topic_preview'
 import type { TopicPreviewState } from './topic_preview'

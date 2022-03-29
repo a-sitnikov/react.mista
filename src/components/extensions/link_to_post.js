@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { showTooltip } from '../../actions/tooltips'
+import { showTooltip } from '../../data/tooltips/actions'
 
 import { getMaxPage, childrenToText } from 'src/utils';
 import { getTopicInfo } from 'src/api'
