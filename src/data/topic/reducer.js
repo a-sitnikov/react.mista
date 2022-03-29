@@ -48,13 +48,12 @@ const reducer = createReducer(defaultTopicState, (builder) => {
     .addCase(requestNewMessages, (state) => {
       state.isFetching = true
     })
-    .addCase(receiveNewMessages, (state) => {
+    .addCase(receiveNewMessages, (state, action) => {
       if (action.error) {
         state.error = action.error.toString();
       } else {
         state.isFetching = false;
-        state.items.concat(action.payload.items);
-        state.info = action.payload.info
+        state.items.concat(action.payload.list);
       }
     })
 })

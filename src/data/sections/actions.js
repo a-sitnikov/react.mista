@@ -20,7 +20,7 @@ export const receiveSectionsFailed = createAction('RECEIVE_SECTIONS', error => (
 
 export const fetchSections = (): any => async (dispatch: any) => {
 
-  dispatch(requestSections);
+  dispatch(requestSections());
 
   try {
     
