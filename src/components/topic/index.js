@@ -86,6 +86,15 @@ const Topic = (props) => {
   const { login, items, item0, info, error } = props;
   const maxPage = getMaxPage(+info.answers_count);
 
+  if (info.text) {
+      
+    const parser = new DOMParser();
+    const floatingElement = parser.parseFromString(info.text, 'text/html');
+    const title = floatingElement.firstChild.innerText;
+
+    document.title = title;
+  }
+  
   useEffect(() => {
     updateTopic();
   }, [dispatch, location.search]);
