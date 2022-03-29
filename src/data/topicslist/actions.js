@@ -1,8 +1,8 @@
 //@flow
 import { createAction } from '@reduxjs/toolkit'
 
-import * as API from 'src/api'
-import type { RequestTopicsList, ResponseTopicsList } from 'src/api'
+import * as API from 'src/api/topicslist'
+import type { RequestTopicsList, ResponseTopicsList } from 'src/api/topicslist'
 import type { State } from 'src/reducers'
 
 export const requestTopicsList = createAction('REQUEST_TOPICS_LIST');
@@ -23,7 +23,7 @@ export const togglePreview = createAction('TOGGLE_PREVIEW', id => ({
   }
 }));
 
-const fetchTopicsList = (params: any) => async (dispatch: any, getState: any) => {
+const getTopicsList = (params: any) => async (dispatch: any, getState: any) => {
 
   dispatch(requestTopicsList())
 
@@ -49,7 +49,7 @@ const fetchTopicsList = (params: any) => async (dispatch: any, getState: any) =>
     reqestParams.mytopics = params.mytopics;
 
   try {
-    const json = await API.getTopicsList(reqestParams);
+    const json = await API.fetchTopicsList(reqestParams);
 
     let data = json.slice(-topicsPerPage);
     dispatch(receiveTopicsList(data));
@@ -60,7 +60,7 @@ const fetchTopicsList = (params: any) => async (dispatch: any, getState: any) =>
 
 }
 
-const shouldFetchTopicsList = (state: State) => {
+const shouldGetTopicsList = (state: State) => {
   const topicsList = state.topicsList;
   if (!topicsList) {
     return true
@@ -71,8 +71,8 @@ const shouldFetchTopicsList = (state: State) => {
   return true
 }
 
-export const fetchTopicsListIfNeeded = (params: any): any => (dispatch: any, getState: any) => {
-  if (shouldFetchTopicsList(getState())) {
-    return dispatch(fetchTopicsList(params));
+export const getTopicsListIfNeeded = (params: any): any => (dispatch: any, getState: any) => {
+  if (shouldGetTopicsList(getState())) {
+    return dispatch(getTopicsList(params));
   }
 }

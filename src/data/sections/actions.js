@@ -1,7 +1,7 @@
 //@flow
 import { createAction } from '@reduxjs/toolkit'
 
-import * as API from 'src/api'
+import * as API from 'src/api/sections'
 import type { ResponseSections } from 'src/api'
 import type { State } from 'src/reducers'
 
@@ -18,13 +18,13 @@ export const receiveSectionsFailed = createAction('RECEIVE_SECTIONS', error => (
   error: true
 }));
 
-export const fetchSections = (): any => async (dispatch: any) => {
+export const getSections = (): any => async (dispatch: any) => {
 
   dispatch(requestSections());
 
   try {
     
-    const list: ResponseSections = await API.getSections();
+    const list: ResponseSections = await API.fetchSections();
     dispatch(receiveSections(list));
 
   } catch (e) {
@@ -36,7 +36,7 @@ export const fetchSections = (): any => async (dispatch: any) => {
 
 }
 
-const shouldfetchSections = (state: State): boolean => {
+const shouldGetSections = (state: State): boolean => {
 
   const sections = state.sections;
 
@@ -52,8 +52,8 @@ const shouldfetchSections = (state: State): boolean => {
   return true
 }
 
-export const fetchSectionsIfNeeded = (): any => (dispatch: any, getState: any) => {
-  if (shouldfetchSections(getState())) {
-    return dispatch(fetchSections());
+export const getSectionsIfNeeded = (): any => (dispatch: any, getState: any) => {
+  if (shouldGetSections(getState())) {
+    return dispatch(getSections());
   }
 }

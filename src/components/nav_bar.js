@@ -7,7 +7,7 @@ import queryString from 'query-string'
 import { useLocation } from "react-router-dom";
 
 import Search from 'src/components/common/search'
-import { fetchTopicsListIfNeeded } from 'src/data/topicslist/actions'
+import { getTopicsListIfNeeded } from 'src/data/topicslist/actions'
 
 import './nav_bar.css'
 
@@ -17,7 +17,7 @@ const NavBar = (props) => {
   const dispatch = useDispatch();
 
   const onClick = (e) => {
-    dispatch(fetchTopicsListIfNeeded({}));
+    dispatch(getTopicsListIfNeeded({}));
   }
 
   const menu = [

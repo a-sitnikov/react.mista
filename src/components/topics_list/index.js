@@ -11,7 +11,7 @@ import type { SectionsState } from 'src/data/sections/reducer'
 import type { LoginState } from 'src/data/login/reducer'
 
 import { useAppDispatch } from 'src/data/store'
-import { fetchTopicsListIfNeeded } from 'src/data/topicslist/actions'
+import { getTopicsListIfNeeded } from 'src/data/topicslist/actions'
 
 import Header from './header'
 import Row from './row'
@@ -43,7 +43,7 @@ const TopicsList = (props) => {
   const locationParams = queryString.parse(location.search);
 
   const updateTopicsList = () => {
-    dispatch(fetchTopicsListIfNeeded(locationParams));
+    dispatch(getTopicsListIfNeeded(locationParams));
   }
 
   useEffect(() => {
@@ -110,7 +110,7 @@ const mapStateToProps = (state: State): StateProps => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchTopicsListIfNeeded: (...params) => dispatch(fetchTopicsListIfNeeded(...params)),
+  getTopicsListIfNeeded: (...params) => dispatch(getTopicsListIfNeeded(...params)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopicsList);

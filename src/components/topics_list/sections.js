@@ -1,14 +1,15 @@
 //@flow
-import React, { Component } from 'react'
+import React, { Component, useEffect } from 'react'
 import { connect } from 'react-redux'
 import Form from 'react-bootstrap/Form'
 
-import { fetchSectionsIfNeeded } from 'src/data/sections/actions'
+import { getSectionsIfNeeded } from 'src/data/sections/actions'
 
 import type { ResponseSection, ResponseSections } from 'src/api'
 
 import type { DefaultProps } from 'src/components'
 import type { State } from 'src/reducers'
+import { useAppDispatch } from 'src/data/store'
 
 type SectionSelectProps = {
   defaultValue: string,
@@ -27,16 +28,17 @@ type StateProps = {
 
 type Props = SectionSelectProps & StateProps & DefaultProps;
 
-class SectionSelect extends Component<Props> {
+const Sections = (props) => {
 
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchSectionsIfNeeded());
-  }
+  const dispatch = useAppDispatch();
 
-  onSelect: (e: SyntheticEvent<HTMLSelectElement>) => void = (e: SyntheticEvent<HTMLSelectElement>) => {
+  useEffect(() => {
+    dispatch(getSectionsIfNeeded());
+  }, [dispatch]);
 
-    const { items, onChange } = this.props;
+  const onSelect: (e: SyntheticEvent<HTMLSelectElement>) => void = (e: SyntheticEvent<HTMLSelectElement>) => {
+
+    const { items, onChange } = props;
 
     if (onChange) {
       const shortn = e.currentTarget.value;
@@ -48,39 +50,36 @@ class SectionSelect extends Component<Props> {
     }
   }
 
-  render() {
+  const { id, tree, defaultValue, selected, style, size } = props;
 
-    const { id, tree, defaultValue, selected, style, size } = this.props;
+  let sectionsElem = [];
+  for (let forum in tree) {
 
-    let sectionsElem = [];
-    for (let forum in tree) {
+    let group =
+      <optgroup key={forum} label={forum}>
+        {tree[forum].map((item, i) => (
+          <option key={item.id} value={item.shortn}>
+            {item.fulln}
+          </option>
+        ))}
+      </optgroup>
 
-      let group =
-        <optgroup key={forum} label={forum}>
-          {tree[forum].map((item, i) => (
-            <option key={item.id} value={item.shortn}>
-              {item.fulln}
-            </option>
-          ))}
-        </optgroup>
-
-      sectionsElem.push(group);
-    }
-
-    return (
-      <Form.Control as="select"
-        onChange={this.onSelect}
-        value={selected}
-        style={style}
-        className='input'
-        size={size}
-        id={id}
-      >
-        <option value="">{defaultValue}</option>
-        {sectionsElem}
-      </Form.Control>
-    )
+    sectionsElem.push(group);
   }
+
+  return (
+    <Form.Control as="select"
+      onChange={onSelect}
+      value={selected}
+      style={style}
+      className='input'
+      size={size}
+      id={id}
+    >
+      <option value="">{defaultValue}</option>
+      {sectionsElem}
+    </Form.Control>
+  )
 }
 
 const mapStateToProps = (state: State): StateProps => {
@@ -93,5 +92,5 @@ const mapStateToProps = (state: State): StateProps => {
   }
 }
 
-export { SectionSelect };
-export default (connect(mapStateToProps)(SectionSelect): any );
+export { Sections };
+export default connect(mapStateToProps)(Sections);

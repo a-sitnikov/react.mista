@@ -1,6 +1,6 @@
 //@flow
 import fetchJsonp from 'fetch-jsonp'
-import * as utils from './utils'
+import * as utils from 'src/utils'
 
 export const domain: string = localStorage.getItem('domain') || 'https://forum.mista.ru';
 //export const domain = 'https://dev.mista.ru';
@@ -15,42 +15,6 @@ export const urlNewMessage: string = localStorage.getItem('urlNewMessage') || 't
 export const urlNewTopic: string = localStorage.getItem('urlNewTopic') || 'index.php';
 export const urlAddBookmark: string = localStorage.getItem('urlAddBookmark') || 'ajax_addbookmark.php';
 export const urlSearch: string = localStorage.getItem('urlSearch') || 'ajax_find.php';
-
-// Topics list
-export type RequestTopicsList = {
-  topics?: number, // число тем, которые нужно вернуть (по умолчанию - 20);
-  utime?: number, // время (в формате unixtime) после которого надо вернуть ветки;
-  callback?: string, // если указано, то ответ заворачивается в вызов функции, имя которой передано в параметре (реализация JSONP)
-  forum?: string, // раздел форума (1c|it|life);
-  section_short_name?: string,
-  user_id?: string,
-  mytopics?: string
-}
-
-export type ResponseTopicsListItem = {
-  id: number,
-  forum: string,
-  sect1: string,
-  sect2: string,
-  v8: string,
-  closed: number,
-  down: number,
-  text: string,
-  utime: number,
-  created: number,
-  user: string,
-  user0: string,
-  is_voting: number,
-  answ: number
-}
-
-export type ResponseTopicsList = Array<ResponseTopicsListItem>;
-
-export const getTopicsList = async (params: RequestTopicsList): Promise<ResponseTopicsList> => {
-  const json = await fetchAndGetJson(urlTopicsList, params);
-  return json;
-}
-
 
 // Topics info
 export type RequestInfo = {
@@ -197,22 +161,6 @@ export const getCookies = async (): Promise<ResponseCookies> => {
   return json;
 }
 
-
-// Sections
-export type ResponseSection = {
-  id: number,
-  forum: string,
-  shortn: string,
-  fulln: string,
-  id: number
-}
-
-export type ResponseSections = Array<ResponseSection>;
-
-export const getSections = async (): Promise<ResponseSections> => {
-  const json = await fetchJsonpAndGetJson(urlSections);
-  return json;
-}
 
 
 // New message

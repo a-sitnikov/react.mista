@@ -6,7 +6,7 @@ import queryString from 'query-string'
 
 import Login from '../login'
 import Sections from './sections'
-import { fetchSectionsIfNeeded } from 'src/data/sections/actions'
+import { getSectionsIfNeeded } from 'src/data/sections/actions'
 
 const Header = (props) => {
 
@@ -16,7 +16,7 @@ const Header = (props) => {
   const params = queryString.parse(location.search);
 
   useEffect(() => {
-    dispatch(fetchSectionsIfNeeded());
+    dispatch(getSectionsIfNeeded());
   }, [dispatch]);  
 
   const onSectionChange = (e, value) => {
