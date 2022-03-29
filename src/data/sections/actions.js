@@ -17,29 +17,7 @@ export const receiveSectionsFailed = createAction('RECEIVE_SECTIONS', error => (
   payload: error,
   error: true
 }));
-/*
-export type REQUEST_SECTIONS = {
-  type: 'REQUEST_SECTIONS',
-}
 
-export type RECEIVE_SECTIONS = {
-  type: 'RECEIVE_SECTIONS',
-  items: ResponseSections,
-  receivedAt: Date
-}
-
-export type SectionsAction = REQUEST_SECTIONS | RECEIVE_SECTIONS;
-
-export const requestSections = (): REQUEST_SECTIONS => ({
-  type: 'REQUEST_SECTIONS'
-})
-
-export const receiveSections = (json: ResponseSections): RECEIVE_SECTIONS => ({
-  type: 'RECEIVE_SECTIONS',
-  items: json,
-  receivedAt: new Date()
-})
-*/
 export const fetchSections = (): any => async (dispatch: any) => {
 
   dispatch(requestSections);

@@ -8,7 +8,7 @@ import type { DefaultProps, Location } from 'src/components'
 
 import type { TopicsListState } from 'src/data/topicslist/reducer'
 import type { SectionsState } from 'src/data/sections/reducer'
-import type { LoginState } from 'src/reducers/login'
+import type { LoginState } from 'src/data/login/reducer'
 
 import { fetchTopicsListIfNeeded } from 'src/data/topicslist/actions'
 

@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
 
 import { fetchNewMessagesIfNeeded } from 'src/data/topic/actions'
-import { addBookmark } from 'src/actions/bookmark'
 import { getMaxPage } from 'src/utils'
 
 type FooterProps = {
@@ -19,7 +18,7 @@ class Footer extends React.Component<FooterProps> {
 
   onBookmarkClick = () => {
     const { info, dispatch } = this.props;
-    dispatch(addBookmark(info));
+    //dispatch(addBookmark(info));
   }
 
   onRefreshClick = () => {

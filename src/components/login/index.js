@@ -5,11 +5,11 @@ import LoggedUser from './logged_user'
 import LoginForm from './login_form'
 import ErrorElem from '../common/error'
 
-import { checkLoginIfNeeded } from 'src/actions/login'
+import { checkLoginIfNeeded } from 'src/data/login/actions'
 
 import type { State } from 'src/reducers'
 import type { DefaultProps } from 'src/components'
-import type { LoginState } from 'src/reducers/login'
+import type { LoginState } from 'src/data/login/reducer'
 
 type Props = LoginState & DefaultProps;
 

@@ -7,7 +7,7 @@ import MsgText from './msg_text'
 
 import type { ResponseMessage } from 'src/api'
 import type { State } from 'src/reducers'
-import type { LoginState } from 'src/reducers/login'
+import type { LoginState } from 'src/data/login/reducer'
 import type { DefaultProps } from 'src/components'
 
 type RowProps = {

@@ -3,10 +3,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { FormControl, Button } from 'react-bootstrap'
 
-import { doLoginIfNeeded } from 'src/actions/login'
+import { doLoginIfNeeded } from 'src/data/login/actions'
 
 import type { DefaultProps } from 'src/components'
-import type { LoginState } from 'src/reducers/login'
+import type { LoginState } from 'src/data/login/reducer'
 import type { State } from 'src/reducers'
 
 type Props = LoginState & DefaultProps;

@@ -1,80 +1,28 @@
 //@flow
+import { createAction } from '@reduxjs/toolkit'
+
 import * as API from 'src/api'
 import type { RequestLogin, ResponseLogin } from 'src/api'
 import type { State } from 'src/reducers'
 
-export type LOGIN_START = {
-  type: 'LOGIN_START',
-}
+export const loginStart = createAction('LOGIN_START');
+export const loginComplete = createAction('LOGIN_COMPLETE', (userid, username, hashkey) => ({
+  payload: {
+    userid,
+    username,
+    hashkey,
+  },
+  error: false
+}));
+export const loginFailed = createAction('LOGIN_COMPLETE', error => ({
+  payload: error,
+  error: true
+}));
 
-export type LOGIN_COMPLETE = {
-  type: 'LOGIN_COMPLETE',
-  data: ResponseLogin
-}
+export const logoutStart = createAction('LOGOUT_START');
+export const logoutComplete = createAction('LOGOUT_COMPLETE');
 
-export type CHECK_LOGIN_START = {
-  type: 'CHECK_LOGIN_START'
-}
-
-export type LOGOUT_START = {
-  type: 'LOGOUT_START'
-}
-
-export type LOGOUT_COMPLETE = {
-  type: 'LOGOUT_COMPLETE'
-}
-
-export type LOGIN_FAILED = {
-  type: 'LOGIN_FAILED',
-  error: string
-}
-
-
-export type LoginAction = LOGIN_START | LOGIN_COMPLETE | LOGIN_FAILED | CHECK_LOGIN_START | LOGOUT_START | LOGOUT_COMPLETE;
-
-export const loginStart = (): LOGIN_START => {
-
-  return {
-    type: 'LOGIN_START'
-  }
-}
-
-export const loginComplete = (json: ResponseLogin): LOGIN_COMPLETE => {
-
-  return {
-    type: 'LOGIN_COMPLETE',
-    data: json
-  }
-}
-
-export const loginFailed = (error: string): LOGIN_FAILED => {
-
-  return {
-    type: 'LOGIN_FAILED',
-    error
-  }
-}
-
-export const checkLoginStart = (): CHECK_LOGIN_START => {
-
-  return {
-    type: 'CHECK_LOGIN_START'
-  }
-}
-
-export const logoutStart = (): LOGOUT_START => {
-
-  return {
-    type: 'LOGOUT_START'
-  }
-}
-
-export const logoutComplete = (): LOGOUT_COMPLETE => {
-
-  return {
-    type: 'LOGOUT_COMPLETE'
-  }
-}
+export const checkLoginStart = createAction('CHECK_LOGIN_START');
 
 const shouldLogin = (state: State): boolean => {
   const { login } = state;
@@ -95,7 +43,7 @@ export const checkLogin = (params: any): any => async (dispatch: any) => {
   try {
     json = await API.getCookies();
   } catch (e) {
-    dispatch(loginFailed(e.message));
+    dispatch(loginFailed(e));
     return;
   }
   const { cookie, session } = json;
@@ -104,12 +52,11 @@ export const checkLogin = (params: any): any => async (dispatch: any) => {
 
     let error = (session.last_error || '').trim();
     if (error === 'Не указано сообщение.') error = '';
-    dispatch(loginComplete({
-      error,
-      userid: session.user_id,
-      username: session.user_name,
-      hashkey: cookie.entr_hash
-    }));
+    dispatch(loginComplete(
+      session.user_id,
+      session.user_name,
+      cookie.entr_hash
+    ));
   } else
     dispatch(loginFailed(''));
 }

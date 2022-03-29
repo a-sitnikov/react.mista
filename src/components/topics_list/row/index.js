@@ -12,7 +12,7 @@ import { today } from 'src/utils'
 
 import type { State } from 'src/reducers'
 import type { TopicsListItem } from 'src/data/topicslist/reducer'
-import type { LoginState } from 'src/reducers/login'
+import type { LoginState } from 'src/data/login/reducer'
 import type { DefaultProps } from 'src/components'
 
 type RowProps = {

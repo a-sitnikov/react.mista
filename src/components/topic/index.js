@@ -8,7 +8,7 @@ import { fetchTopicIfNeeded, fetchNewMessagesIfNeeded, clearTopicMessages } from
 import type { DefaultProps, Location } from 'src/components'
 import type { ResponseInfo, ResponseMessage, ResponseMessages } from 'src/api'
 import type { State } from 'src/reducers'
-import type { LoginState } from 'src/reducers/login'
+import type { LoginState } from 'src/data/login/reducer'
 import type { OptionsItems } from 'src/reducers/options'
 
 import Error from 'src/components/common/error'

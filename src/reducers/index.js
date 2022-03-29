@@ -7,14 +7,11 @@ import type { TopicsListState } from 'src/data/topicslist/reducer'
 import topic from 'src/data/topic/reducer'
 import type { TopicState } from 'src/data/topic/reducer'
 
-import login from './login'
-import type { LoginState } from './login'
+import login from '../data/login/reducer'
+import type { LoginState } from '../data/login/reducer'
 
 import sections from 'src/data/sections/reducer'
 import type { SectionsState } from 'src/data/sections/reducer'
-
-import bookmark from './bookmark'
-import type { BookmarkState } from './bookmark'
 
 import newTopic from './new_topic'
 import type { NewTopicState } from './new_topic'
@@ -49,7 +46,6 @@ const rootReducer = combineReducers({
   sections,
   topic,
   login,
-  bookmark,
   newTopic,
   newMessage,
   tooltips,

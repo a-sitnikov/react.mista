@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Dropdown } from 'react-bootstrap'
 
-import { doLogout } from 'src/actions/login'
+import { doLogout } from 'src/data/login/actions'
 import { domain } from 'src/api'
 
 import type { DefaultProps } from 'src/components'
