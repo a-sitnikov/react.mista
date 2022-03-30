@@ -66,7 +66,7 @@ const Row = (props: Props) => {
         </div>
       </div>
       <div className="cell-last20">
-        <Link to={`/topic.php?id=${String(data.id)}&page=last20`} style={{ color: "inherit", display: "block", width: "100%", textAlign: "center" }}>{'>'}</Link>
+        <Link to={`/topic.php?id=${String(data.id)}&page=last20#F`} style={{ color: "inherit", display: "block", width: "100%", textAlign: "center" }}>{'>'}</Link>
       </div>
     </div>
   )
