@@ -101,6 +101,7 @@ const Topic = (props) => {
     
     const clearStore = () => {
       dispatch(clearTopicMessages());
+      scrolledToHash = undefined;
     }
     return clearStore;
 
