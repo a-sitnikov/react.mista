@@ -1,8 +1,8 @@
 //@flow
-import * as API from 'src/api'
+import * as API from 'src/api/topic'
 import { createAction } from '@reduxjs/toolkit'
 
-import type { ResponseInfo, ResponseMessage, ResponseMessages } from 'src/api'
+import type { ResponseInfo, ResponseMessage, ResponseMessages } from 'src/api/topic'
 
 export const requestTopic = createAction('REQUEST_TOPIC');
 export const receiveTopic = createAction('RECEIVE_TOPIC', (info, item0, list) => ({

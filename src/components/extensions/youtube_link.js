@@ -1,77 +1,82 @@
-//@flow
-import React, { Component } from 'react'
-import queryString from 'query-string'
+import React, { FC, ReactElement, useEffect, useState } from 'react';
 
-type YoutubeLinkProps = {
+type IProps = {
   href: string,
 }
 
-class YoutubeLink extends Component<YoutubeLinkProps> {
+const getVideoId = (href: string): string | null => {
 
-  state: any;
+  let fullHref = href;
+  if (href.search(/http/) === -1) fullHref = 'http://' + fullHref;
 
-  constructor(props: YoutubeLinkProps) {
-    super(props);
-    this.state = { hrefName: props.href, title: '' };
-  }
-
-  getVideoId(href: string): ?string {
-
-    if (href.search(/youtube/) !== -1) {
-      let arr = href.split('?');
-      return queryString.parse(arr[1]).v;
-    }
-
-    if (href.search(/youtu\.be/) !== -1) {
-      let arr = href.match(/e\/(.+?)(&|\?|$)/);
-
-      if (arr && arr.length > 1)
-        return arr[1];
-    }
+  try {
+    var url = new URL(fullHref);
+  } catch (e)  {
     return null;
   }
 
-  async getVideoParams(videoId: string): any {
+  if (url.hostname.search(/youtube/) !== -1) {
+    return url.searchParams.get('v');
 
-    const apiKey = localStorage.getItem('youtubeApiKey') || 'AIzaSyCztN2QW4Fxw_1YuAHBTOZdYLbzigPz25g';
-    let apiUrl = `https://www.googleapis.com/youtube/v3/videos?key=${apiKey}&fields=items(snippet(title))&part=snippet&id=${videoId}`;
-    const response = await fetch(apiUrl);
-    const json = await response.json();
-
-    let title = json.items[0].snippet.title;
-    let hrefName = title;
-    let maxLength = 50;
-    if (title.length > maxLength + 5)
-      hrefName = hrefName.substring(0, maxLength) + '...'
-
-    return {
-      hrefName,
-      title
-    }
+  } else if (url.hostname.search(/youtu\.be/) !== -1) {
+    return url.pathname.substring(1)
   }
 
-  async componentDidMount() {
+  return null;
+}
 
-    const { href } = this.props;
-    const videoId = this.getVideoId(href);
-    if (!videoId)
-      return;
+const getVideoParams = async (videoId: string): Promise<{ hrefName: string, title: string }> => {
 
-    try {
-      const params = await this.getVideoParams(videoId);
-      this.setState({
-        ...params
-      });
+  const apiKey = localStorage.getItem('youtubeApiKey') || 'AIzaSyCztN2QW4Fxw_1YuAHBTOZdYLbzigPz25g';
+  let apiUrl = `https://www.googleapis.com/youtube/v3/videos?key=${apiKey}&fields=items(snippet(title))&part=snippet&id=${videoId}`;
+  const response = await fetch(apiUrl);
+  const json = await response.json();
 
-    } catch (e) {
-      console.error('youtube', e.message);
-    }
-  }
+  let title = json.items[0].snippet.title;
+  let hrefName = title;
+  let maxLength = 50;
+  if (title.length > maxLength + 5)
+    hrefName = hrefName.substring(0, maxLength) + '...'
 
-  render() {
-    let prefix = 'youtube';
-    return <a href={this.props.href} title={this.state.title}>{`${prefix}: ${this.state.hrefName}`}</a>
+  return {
+    hrefName,
+    title
   }
 }
 
-export default (YoutubeLink: any);
+const YoutubeLink: FC<IProps> = ({ href }): ReactElement => {
+
+  let [state, setState] = useState({
+    hrefName: href,
+    title: ''
+  });
+
+  useEffect(() => {
+
+    const run = async () => {
+
+      const videoId = getVideoId(href);
+      if (!videoId)
+        return;
+
+      try {
+        const params = await getVideoParams(videoId);
+        setState({
+          ...params
+        });
+
+      } catch (e) {
+        console.error('youtube', e.message);
+      }
+    }
+
+    run();
+  }, [href])
+
+  const prefix = 'youtube';
+  return (
+    <a href={href} title={state.title}>{`${prefix}: ${state.hrefName}`}</a>
+  )
+}
+
+export default YoutubeLink;

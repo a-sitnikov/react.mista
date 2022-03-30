@@ -3,16 +3,12 @@ import React from 'react'
 
 import './error.css'
 
-type Props = {
-  text: ?string
-}
-
-const ErrorElem = (props: Props): any => {
-  if (!props.text)
+const ErrorElem = ({ text }): any => {
+  if (!text)
     return null;
 
   return (
-    <div className="error" dangerouslySetInnerHTML={{ __html: props.text }}></div>
+    <div className="error" dangerouslySetInnerHTML={{ __html: text }}></div>
   )
 }
 

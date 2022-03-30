@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
-import * as API from 'src/api'
+import * as API from 'src/api/topic'
 
 import MsgText from '../topic/row/msg_text'
 import UserInfo from '../topic/row/user_info';

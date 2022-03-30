@@ -1,7 +1,7 @@
 //@flow
 import { createAction } from '@reduxjs/toolkit'
 
-import * as API from 'src/api'
+import * as API from 'src/api/topic'
 import type { ResponseMessage } from 'src/api'
 
 export type PreviewTextParams = {

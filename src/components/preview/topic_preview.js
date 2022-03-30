@@ -1,7 +1,7 @@
 //@flow
 import React, { Component } from 'react'
 
-import * as API from 'src/api'
+import * as API from 'src/api/topic'
 
 import MsgText from 'src/components/topic/row/msg_text'
 

@@ -1,7 +1,6 @@
 //@flow 
 import { createReducer } from '@reduxjs/toolkit'
-import { defaultInfo } from 'src/api'
-import type { ResponseInfo, ResponseMessages, ResponseMessage } from 'src/api'
+import type { ResponseInfo, ResponseMessages, ResponseMessage } from 'src/api/topic'
 import type { TopicAction } from 'src/data/topic/actions'
 
 import { requestTopic, receiveTopic, clearTopicMessages, requestNewMessages, receiveNewMessages } from './actions'
@@ -14,6 +13,12 @@ export type TopicState = {
   lastUpdated?: ?Date,
   error?: ?string
 };
+
+export const defaultInfo = {
+  id: "",
+  text: "",
+  answers_count: ""
+}
 
 export const defaultTopicState: TopicState = {
   isFetching: false,

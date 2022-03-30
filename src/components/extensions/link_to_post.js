@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { showTooltip } from '../../data/tooltips/actions'
 
 import { getMaxPage, childrenToText } from 'src/utils';
-import { getTopicInfo } from 'src/api'
+import { getTopicInfo } from 'src/api/topic'
 
 import type { State } from 'src/reducers'
 import type { DefaultProps } from 'src/components'

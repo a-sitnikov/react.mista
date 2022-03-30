@@ -6,12 +6,8 @@ type LinkToUserProps = {
   children: any
 }
 
-class LinkToUser extends Component<LinkToUserProps> {
-
-  render() {
-    const { href, children } = this.props;
-    return <a href={href} className="registered-user">{children}</a>
-  }
+const LinkToUser = ({ href, children }) => {
+  return <a href={href} className="registered-user">{children}</a>
 }
 
-export default (LinkToUser: any);
+export default LinkToUser;

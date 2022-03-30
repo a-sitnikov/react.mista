@@ -4,6 +4,7 @@ import { createAction } from '@reduxjs/toolkit'
 import * as API from 'src/api/topicslist'
 import type { RequestTopicsList, ResponseTopicsList } from 'src/api/topicslist'
 import type { State } from 'src/reducers'
+import { domain, urlTopicsList } from 'src/api/index';
 
 export const requestTopicsList = createAction('REQUEST_TOPICS_LIST');
 export const receiveTopicsList = createAction('RECEIVE_TOPICS_LIST', list => ({
@@ -53,9 +54,12 @@ const getTopicsList = (params: any) => async (dispatch: any, getState: any) => {
 
     let data = json.slice(-topicsPerPage);
     dispatch(receiveTopicsList(data));
-  } catch (e) {
-    dispatch(receiveTopicsListFailed(e));
-    console.error(e);
+
+  } catch (error) {
+
+    dispatch(receiveTopicsListFailed(`${error.message} ${domain}/${urlTopicsList}`));
+    console.error(error.message);
+
   }
 
 }
