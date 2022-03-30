@@ -44,7 +44,7 @@ const reducer = createReducer(defaultTopicsListState, (builder) => {
     })
     .addCase(togglePreview, (state, action) => {
       let items = state.items.slice();
-      const ind = items.findIndex(item => item.id === action.topicId);
+      const ind = items.findIndex(item => item.id === action.payload.id);
 
       let item = Object.assign({}, items[ind]);
       item.showPreview = !item.showPreview;

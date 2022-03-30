@@ -82,7 +82,7 @@ export const getMessage = async (id: number | string, n: number): Promise<?Respo
   
   let from = n;
   let to = +n;
-  if (n === 0) 
+  if (n === 0) //does't work from=0&to=0
     to++;
 
   const json = await getTopicMessages({

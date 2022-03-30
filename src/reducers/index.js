@@ -20,7 +20,7 @@ import newMessage from './new_message'
 import type { NewMessageState } from './new_message'
 
 import type { TooltipsState } from '../data/tooltips/reducer'
-import type { TopicPreviewState } from './topic_preview'
+import type { TopicPreviewState } from '../data/topic_preview/reducer'
 import type { OptionsState } from '../data/options/reducer'
 
 export type State = {

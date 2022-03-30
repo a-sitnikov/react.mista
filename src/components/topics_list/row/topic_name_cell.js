@@ -9,7 +9,7 @@ import type { State } from 'src/reducers'
 
 import type { LoginState } from 'src/data/login/reducer'
 import type { DefaultProps } from 'src/components'
-import type { TopicPreviewState } from 'src/reducers/topic_preview'
+import type { TopicPreviewState } from 'src/data/topic_preview/reducer'
 
 import Pages from './pages';
 

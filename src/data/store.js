@@ -11,7 +11,7 @@ import tooltips from './tooltips/reducer'
 
 import newTopic from 'src/reducers/new_topic'
 import newMessage from 'src/reducers/new_message'
-import topicPreview from 'src/reducers/topic_preview'
+import topicPreview from './topic_preview/reducer'
 
 const reducer = {
   topicsList,

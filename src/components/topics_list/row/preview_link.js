@@ -3,41 +3,29 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import type { DefaultProps } from 'src/components'
+import { useAppDispatch } from 'src/data/store';
+import { togglePreview } from 'src/data/topicslist/actions';
 
 type PreviewLinkProps = {
-    topicId: string,
-    expanded: boolean
+  topicId: string,
+  expanded: boolean
 };
 
-type Props = PreviewLinkProps & DefaultProps;
+const PreviewLink = ({ topicId, expanded }) => {
 
-class PreviewLink extends Component<Props> {
+  const dispatch = useAppDispatch();
 
-    onClick = () => {
-        const { topicId, dispatch } = this.props;
+  const onClick = () => {
+    dispatch(togglePreview(topicId));
+  }
 
-        dispatch({
-            type: 'TOGGLE_PREVIEW',
-            topicId 
-        });
-    }
-
-    render() {
-
-        const { expanded } = this.props;
-        let text;
-        if (expanded)
-            text = '-'
-        else
-            text = '+'    
-
-        return (
-            <div className="cell-preview-link" onClick={this.onClick}>
-                <span>{text}</span>
-            </div>
-        )        
-    }
+  const text = expanded ? '-' : '+';
+  return (
+    <div className="cell-preview-link" onClick={onClick}>
+      <span>{text}</span>
+    </div>
+  )
 
 }
 
-export default ( connect()(PreviewLink): any );
+export default connect()(PreviewLink);
