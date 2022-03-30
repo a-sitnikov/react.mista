@@ -18,7 +18,7 @@ import TopicInfo from './topic_info'
 import Row from './row'
 import Footer from './footer'
 import NewMessage from './new_message';
-import { getMaxPage } from 'src/utils';
+import { getMaxPage, extractTextFromHTML } from 'src/utils';
 
 import './topic.css'
 
@@ -86,15 +86,11 @@ const Topic = (props) => {
   const { login, items, item0, info, error } = props;
   const maxPage = getMaxPage(+info.answers_count);
 
-  if (info.text) {
-      
-    const parser = new DOMParser();
-    const floatingElement = parser.parseFromString(info.text, 'text/html');
-    const title = floatingElement.firstChild.innerText;
+  useEffect(() => {
+    if (info.text)
+      document.title = extractTextFromHTML(info.text);
+  }, [info.text]);
 
-    document.title = title;
-  }
-  
   useEffect(() => {
     updateTopic();
   }, [dispatch, location.search]);

@@ -92,3 +92,9 @@ export const childrenToText = (children) => {
         }    
     })    
 }
+
+export const extractTextFromHTML = (htmltext) => {
+    const parser = new DOMParser();
+    const floatingElement = parser.parseFromString(htmltext, 'text/html');
+    return floatingElement.firstChild.innerText;
+}
