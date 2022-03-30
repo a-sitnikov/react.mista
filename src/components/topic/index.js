@@ -44,11 +44,13 @@ type Props = {
   clearText: any
 } & DefaultProps & StateProps
 
+var scrolledToHash;
+
 const Topic = (props) => {
   
   const dispatch = useDispatch()
   const location = useLocation();
-
+  let timer;
   let locationParams = queryString.parse(location.search);
   if (!locationParams.page)
     locationParams.page = 1;
@@ -93,14 +95,27 @@ const Topic = (props) => {
 
   useEffect(() => {
     updateTopic();
-  }, [dispatch, location.search]);
-  
+  }, [dispatch, locationParams.id, locationParams.page]);
+    
   useEffect(() => {
+    
     const clearStore = () => {
       dispatch(clearTopicMessages());
     }
     return clearStore;
+
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!scrolledToHash &&
+      location.hash &&
+      props.items.length > 0) {
+      let nodeHash = document.getElementById(location.hash.slice(1));
+      if (nodeHash)
+        setTimeout(() => window.scrollTo(0, nodeHash.offsetTop), 1);
+      scrolledToHash = true;
+    }  
+  });  
 
   return (
     <div style={{ marginBottom: "5px" }}>
