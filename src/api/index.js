@@ -79,10 +79,16 @@ export const getTopicMessages = async (params: RequestMessages): Promise<Respons
 }
 
 export const getMessage = async (id: number | string, n: number): Promise<?ResponseMessage> => {
+  
+  let from = n;
+  let to = +n;
+  if (n === 0) 
+    to++;
+
   const json = await getTopicMessages({
     id,
-    from: n,
-    to: +n + 1
+    from,
+    to
   }
   );
 
