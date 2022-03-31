@@ -21,7 +21,7 @@ const Header = (props) => {
 
   const onSectionChange = (e, value) => {
     if (value)
-      navigate(`/index.php?section=${value.shortn}`);
+      navigate(`/index.php?section=${value.code}`);
     else
       navigate(`/`);
   }

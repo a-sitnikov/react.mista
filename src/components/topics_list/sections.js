@@ -41,8 +41,8 @@ const Sections = (props) => {
     const { items, onChange } = props;
 
     if (onChange) {
-      const shortn = e.currentTarget.value;
-      const arr = items.filter(val => val.shortn === shortn);
+      const code = e.currentTarget.value;
+      const arr = items.filter(val => val.code === code);
       if (arr.length > 0)
         onChange(e, arr[0]);
       else
@@ -59,7 +59,7 @@ const Sections = (props) => {
       <optgroup key={forum} label={forum}>
         {tree[forum].map((item, i) => (
           <option key={item.id} value={item.shortn}>
-            {item.fulln}
+            {item.name}
           </option>
         ))}
       </optgroup>

@@ -11,7 +11,18 @@ export type ResponseSection = {
 
 export type ResponseSections = Array<ResponseSection>;
 
+function convertResponse(response: IAPIResponse): ISectionItem {
+
+  return ({
+    id: response.id,
+    forum: response.forum,
+    code: response.shortn,
+    name: response.fulln,
+  })
+
+}
+
 export const fetchSections = async (): Promise<ResponseSections> => {
-  const json = await fetchJsonpAndGetJson(urlSections);
-  return json;
+  const list = await fetchJsonpAndGetJson(urlSections);
+  return list.map(convertResponse);
 }
