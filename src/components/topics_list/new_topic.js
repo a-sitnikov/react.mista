@@ -10,12 +10,12 @@ import type { ResponseSection } from 'src/api'
 import type { DefaultProps } from 'src/components'
 import type { State } from 'src/reducers'
 import type { SectionsState } from 'src/data/sections/reducer'
-import type { NewTopicState } from 'src/reducers/new_topic'
+import type { NewTopicState } from 'src/data/new_topic/reducer'
 
-import { postNewTopicIfNeeded } from 'src/actions/new_topic'
-import type { NewTopicAction, postNewTopicParams } from 'src/actions/new_topic'
+import { newTopicClear, newTopicSection, newTopicSubject, postNewTopicError, postNewTopicIfNeeded } from 'src/data/newtopic/actions'
+import type { NewTopicAction, postNewTopicParams } from 'src/data/newtopic/actions'
 
-import SectionSelect from './sections'
+import Sections from './sections'
 import TextEditor from '../common/text_editor'
 import ErrorElem from '../common/error'
 
@@ -39,13 +39,7 @@ class NewTopic extends Component<Props> {
   onSectionChange = (e: any, section: ResponseSection) => {
     const { dispatch } = this.props;
     this.currentSection = section;
-
-    const action: NewTopicAction = {
-      type: 'NEW_TOPIC_SECTION',
-      section
-    };
-
-    dispatch(action);
+    dispatch(newTopicSection(section));
   }
 
   onSubmit = (e) => {
@@ -55,30 +49,18 @@ class NewTopic extends Component<Props> {
 
     let action: NewTopicAction;
     if (!this.currentSection) {
-      action = {
-        type: 'POST_NEW_TOPIC_ERROR',
-        error: 'Не выбрана секция'
-      };
-      dispatch(action);
+      dispatch(postNewTopicError('Не выбрана секция'));
       return;
     }
 
     let subject = newTopic.subject;
     if (!subject) {
-      action = {
-        type: 'POST_NEW_TOPIC_ERROR',
-        error: 'Не указана тема'
-      };
-      dispatch(action);
+      dispatch(postNewTopicError('Не указана тема'));
       return;
     }
 
     if (!newTopic.text) {
-      action = {
-        type: 'POST_NEW_TOPIC_ERROR',
-        error: 'Не указано сообщение'
-      };
-      dispatch(action);
+      dispatch(postNewTopicError('Не указано сообщение'));
       return;
 
     }
@@ -109,20 +91,14 @@ class NewTopic extends Component<Props> {
   onSubjectChange = (e) => {
 
     const { dispatch } = this.props;
-    dispatch({
-      type: 'NEW_TOPIC_SUBJECT',
-      text: e.target.value
-    });
+    dispatch(newTopicSubject(e.target.value));
 
   }
 
   onSubmitSuccess = () => {
 
     const { dispatch } = this.props;
-    dispatch({
-      type: 'NEW_TOPIC_CLEAR',
-      text: ''
-    });
+    dispatch(newTopicClear());
 
     if (this.props.onSubmitSuccess) {
       this.props.onSubmitSuccess();
@@ -177,7 +153,7 @@ class NewTopic extends Component<Props> {
             >
               {groupsElem}
             </Form.Control>
-            <SectionSelect
+            <Sections
               defaultValue="Секция"
               id="target_section"
               size="sm"

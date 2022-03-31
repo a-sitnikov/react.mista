@@ -8,8 +8,7 @@ import sections from './sections/reducer'
 import options from './options/reducer'
 import login from './login/reducer'
 import tooltips from './tooltips/reducer'
-
-import newTopic from 'src/reducers/new_topic'
+import newTopic from './newtopic/reducer'
 import newMessage from 'src/reducers/new_message'
 import topicPreview from './topic_preview/reducer'
 

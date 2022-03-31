@@ -49,7 +49,9 @@ class TextEditor extends Component<Props> {
     const { dispatch, formName } = this.props;
     dispatch({
       type: formName + '_TEXT',
-      text: newText
+      payload: {
+        text: newText
+      }
     })
 
   }
@@ -58,7 +60,9 @@ class TextEditor extends Component<Props> {
     const { dispatch } = this.props;
     dispatch({
       type: 'SHOW_VOTING',
-      data: e.currentTarget.checked
+      payload: {
+        show: e.currentTarget.checked
+      }
     })
   }
 
@@ -66,7 +70,9 @@ class TextEditor extends Component<Props> {
     const { dispatch, formName } = this.props;
     dispatch({
       type: formName + '_TEXT',
-      text: e.currentTarget.value
+      payload: {
+        text: e.currentTarget.value
+      }  
     })
   }
 
