@@ -1,26 +1,8 @@
-//@flow
 import { createReducer } from '@reduxjs/toolkit'
+import { initialState } from '.'
 import { requestTopicsList, receiveTopicsList, clearTopicsList, togglePreview } from './actions'
 
-import type { ResponseTopicsListItem } from 'src/api'
-
-export type TopicsListItem = ResponseTopicsListItem & {
-  showPreview?: ?boolean
-}
-
-export type TopicsListState = {
-  isFetching: boolean;
-  items: Array<TopicsListItem>,
-  error?: ?string,
-  lastUpdated?: Date
-};
-
-export const defaultTopicsListState: TopicsListState = {
-  isFetching: false,
-  items: []
-}
-
-const reducer = createReducer(defaultTopicsListState, (builder) => {
+const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(requestTopicsList, (state) => {
       state.isFetching = true

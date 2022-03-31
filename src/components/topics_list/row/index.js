@@ -30,7 +30,7 @@ type Props = RowProps & StateProps & DefaultProps;
 const Row = (props: Props) => {
 
   const { data, showTooltipOnTopicsList } = props;
-  let time = new Date(+data.utime * 1000);
+  let time = new Date(data.updated);
   if (today(time)) {
     time = dateFormat(time, 'HH:MM')
   } else {
@@ -48,7 +48,7 @@ const Row = (props: Props) => {
       <div className="cell-answ">
         <i className="fa fa-comments-o" aria-hidden="true" style={{marginRight: "3px"}}></i>
         {showTooltipOnTopicsList === 'true' ?
-          <LinkToPost topicId={data.id} number={data.answ} style={{ color: "inherit" }} isPreview />
+          <LinkToPost topicId={data.id} number={data.count} style={{ color: "inherit" }} isPreview />
           :
           data.answ
         }
@@ -57,12 +57,12 @@ const Row = (props: Props) => {
       <TopicNameCell data={data} />
       <div className="cell-author">
         <i aria-hidden="true" className="fa fa-user-circle" style={{marginRight: "3px"}}></i>
-        {data.user0}
+        {data.author}
       </div>
       <div className="cell-lastuser">
         <div style={{ display: "flex" }}>
           <span className="cell-lastuser-time">{time}</span>
-          <span className="cell-lastuser-user">{data.user}</span>
+          <span className="cell-lastuser-user">{data.lastUser}</span>
         </div>
       </div>
       <div className="cell-last20">

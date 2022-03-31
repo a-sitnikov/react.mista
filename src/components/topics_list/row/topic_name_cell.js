@@ -14,88 +14,79 @@ import type { TopicPreviewState } from 'src/data/topic_preview/reducer'
 import Pages from './pages';
 
 type TopicNameCellProps = {
-    data: ResponseTopicsListItem,
-    preview: ?number
+  data: ResponseTopicsListItem,
+  preview: ?number
 };
 
 type StateProps = {
-    login: LoginState,
-    topicPreview: TopicPreviewState
+  login: LoginState,
+  topicPreview: TopicPreviewState
 };
 
 type Props = TopicNameCellProps & StateProps & DefaultProps;
 
-class TopicNameCell extends Component<Props> {
+const TopicNameCell = ({ data, login }) => {
 
-    componentDidMount(){
+  let href = `/topic.php?id=${data.id}`;
+  let classes = classNames('agb', 'mr5', {
+    'bold': data.count >= 100,
+    'mytopics': data.author === login.username
+  });
 
-    }
+  let isVoting;
+  if (data.isVoting) {
+    isVoting = <span className="agh separator">[±]</span>
+  }
 
-    render() {
+  let sectionHref = `/index.php?section=${data.sectionCode}`;
+  let section;
 
-        const { data, login } = this.props;
+  if (data.section) {
+    section = (
+      <span className="topic-section">
+        <span className="agh" style={{ margin: "0px 5px" }}>/</span>
+        <Link key="1" rel="nofollow" className="agh" to={sectionHref} >{data.section}</Link>
+      </span>
+    )
+  }
 
-        let href = `/topic.php?id=${data.id}`;
-        let classes = classNames('agb', 'mr5', {
-            'bold': data.answ >= 100,
-            'mytopics': data.user0 === login.username
-        });
+  let closed;
+  let down;
+  let text = data.text;
+  if (data.closed)
+    closed = <span className="agh">Ø</span>
 
-        let isVoting;
-        if (data.is_voting === 1) {
-            isVoting = <span className="agh separator">[±]</span>
-        }
-        
-        let sectionHref = `/index.php?section=${data.sect2}`;
-        let section;
+  if (data.down)
+    down = <span className="agh">↓</span>
 
-        if (data.sect1) {
-            section = (
-            <span className="topic-section">
-                <span className="agh" style={{margin: "0px 5px"}}>/</span>
-                <Link key="1" rel="nofollow" className="agh" to={sectionHref} >{data.sect1}</Link>
-            </span>    
-            )
-        }
+  if (data.sectionCode === 'job' && text.substring(0, 3) !== 'JOB')
+    text = 'JOB: ' + text;
 
-        let closed;
-        let down;
-        let text = data.text;
-        if (data.closed)
-            closed = <span className="agh">Ø</span>
+  else if (data.forum === 'life' && text.substring(0, 3) !== 'OFF')
+    text = 'OFF: ' + text;
 
-        if (data.down === 1)
-            down = <span className="agh">↓</span>
+  else if (data.sectionCode === 'v7' && text.substring(0, 2) !== 'v7')
+    text = 'v7: ' + text;
 
-        if (data.sect2 === 'job' && text.substr(0, 3) !== 'JOB')
-            text = 'JOB: ' + text;
+  return (
+    <div className="cell-title">
+      <Link to={href} className={classes} dangerouslySetInnerHTML={{ __html: text }} style={{ overflowWrap: "anywhere" }}></Link>
+      {isVoting}
+      <Pages answ={data.count} topicId={data.id} />
+      {closed}
+      {down}
+      {section}
+    </div>
+  )
 
-        else if (data.forum === 'life' && text.substr(0, 3) !== 'OFF')
-            text = 'OFF: ' + text;
-
-        else if (data.sect2 === 'v7' && text.substr(0, 2) !== 'v7')
-            text = 'v7: ' + text;
-
-        return (
-            <div className="cell-title">
-                <Link to={href} className={classes} dangerouslySetInnerHTML={{ __html: text }} style={{overflowWrap: "anywhere"}}></Link>
-                {isVoting}
-                <Pages answ={data.answ} topicId={data.id} />
-                {closed}
-                {down}
-                {section}
-            </div>
-        )
-
-    }
 }
 
 const mapStateToProps = (state: State): StateProps => {
 
-    return {
-        login: state.login,
-        topicPreview: state.topicPreview
-    }
+  return {
+    login: state.login,
+    topicPreview: state.topicPreview
+  }
 }
 
-export default ( connect(mapStateToProps)(TopicNameCell): any );
+export default (connect(mapStateToProps)(TopicNameCell): any );

@@ -1,10 +1,9 @@
-//@flow
 import { createAction } from '@reduxjs/toolkit'
 
 import * as API from 'src/api/topicslist'
-import type { RequestTopicsList, ResponseTopicsList } from 'src/api/topicslist'
-import type { State } from 'src/reducers'
 import { domain, urlTopicsList } from 'src/api/index';
+
+import { RootState } from '../store';
 
 export const requestTopicsList = createAction('REQUEST_TOPICS_LIST');
 export const receiveTopicsList = createAction('RECEIVE_TOPICS_LIST', list => ({
@@ -29,7 +28,7 @@ const getTopicsList = (params: any) => async (dispatch: any, getState: any) => {
   dispatch(requestTopicsList())
 
   const page = params.page || 1;
-  let reqestParams: RequestTopicsList = {};
+  let reqestParams: any = {};
 
   let topicsPerPage = +getState().options.items.topicsPerPage;
   if (topicsPerPage > 99) topicsPerPage = 99;
@@ -55,16 +54,16 @@ const getTopicsList = (params: any) => async (dispatch: any, getState: any) => {
     let data = json.slice(-topicsPerPage);
     dispatch(receiveTopicsList(data));
 
-  } catch (error) {
+  } catch (e) {
 
-    dispatch(receiveTopicsListFailed(`${error.message} ${domain}/${urlTopicsList}`));
-    console.error(error.message);
+    dispatch(receiveTopicsListFailed(`${e.message} ${domain}/${urlTopicsList}`));
+    console.error(e.message);
 
   }
 
 }
 
-const shouldGetTopicsList = (state: State) => {
+const shouldGetTopicsList = (state: RootState) => {
   const topicsList = state.topicsList;
   if (!topicsList) {
     return true
