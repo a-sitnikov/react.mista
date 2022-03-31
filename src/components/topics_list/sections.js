@@ -58,7 +58,7 @@ const Sections = (props) => {
     let group =
       <optgroup key={forum} label={forum}>
         {tree[forum].map((item, i) => (
-          <option key={item.id} value={item.shortn}>
+          <option key={item.id} value={item.code}>
             {item.name}
           </option>
         ))}
