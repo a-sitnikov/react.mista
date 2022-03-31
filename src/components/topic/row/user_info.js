@@ -5,7 +5,7 @@ import dateFormat from 'dateformat'
 import classNames from 'classnames'
 import { domain } from 'src/api'
 
-import { addMessageText } from 'src/actions/new_message'
+import { addMessageText } from 'src/data/newmessage/actions'
 
 import type { ResponseMessage } from 'src/api'
 import type { DefaultProps } from 'src/components'

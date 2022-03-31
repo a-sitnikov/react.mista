@@ -4,10 +4,10 @@ import { connect } from 'react-redux'
 import { FormGroup, Form } from 'react-bootstrap'
 
 import TextEditor from 'src/components/common/text_editor'
-import { postNewMessage } from 'src/actions/new_message'
+import { postNewMessage } from 'src/data/newmessage/actions'
 
 import type { State } from 'src/reducers'
-import type { NewMessageState } from 'src/reducers/new_message'
+import type { NewMessageState } from 'src/data/newmessage/reducer'
 
 import type { ResponseInfo } from 'src/api'
 import type { DefaultProps } from 'src/components'

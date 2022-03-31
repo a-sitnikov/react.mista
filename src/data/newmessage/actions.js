@@ -1,27 +1,20 @@
 //@flow
-import * as API from '../api'
+import { createAction } from '@reduxjs/toolkit'
+import * as API from 'src/api'
 import type { RequestNewMessage } from 'src/api'
 
-export type POST_NEW_MESSAGE_START = {
-  type: 'POST_NEW_MESSAGE_START'
-}
-
-export type POST_NEW_MESSAGE_COMPLETE = {
-  type: 'POST_NEW_MESSAGE_COMPLETE'
-}
-
-export type NEW_MESSAGE_TEXT = {
-  type: 'NEW_MESSAGE_TEXT',
-  text: string
-}
-
-export type ADD_MESSAGE_TEXT = {
-  type: 'ADD_MESSAGE_TEXT',
-  text: string
-}
-
-
-export type NewMessageAction = POST_NEW_MESSAGE_START | POST_NEW_MESSAGE_COMPLETE | NEW_MESSAGE_TEXT | ADD_MESSAGE_TEXT;
+export const postNewMessageStart = createAction('POST_NEW_MESSAGE_START');
+export const postNewMessageComplete = createAction('POST_NEW_MESSAGE_COMPLETE');
+export const newMessageText = createAction('NEW_MESSAGE_TEXT', text => ({
+  payload: {
+    text,
+  }
+}));
+export const addMessageText = createAction('ADD_MESSAGE_TEXT', text => ({
+  payload: {
+    text,
+  }
+}));
 
 export type PostNewmessageParams = {
   text: string,
@@ -32,9 +25,7 @@ export type PostNewmessageParams = {
 
 export const postNewMessage = (params: PostNewmessageParams): any => async (dispatch: any) => {
 
-  dispatch({
-    type: 'POST_NEW_MESSAGE_START'
-  });
+  dispatch(postNewMessageStart());
 
   let fetchParams: RequestNewMessage = {
     message_text: encodeURIComponent(params.text),
@@ -48,20 +39,11 @@ export const postNewMessage = (params: PostNewmessageParams): any => async (disp
 
   try {
     await API.postNewMessage(fetchParams);
-    await dispatch({
-      type: 'POST_NEW_MESSAGE_COMPLETE'
-    });
+    await dispatch(postNewMessageComplete());
     if (params.onSuccess)
       params.onSuccess();
 
   } catch (err) {
     console.error("Failed to post new message: " + err);
   }
-}
-
-export const addMessageText = (text: string): any => (dispatch: any) => {
-  dispatch({
-    type: 'ADD_MESSAGE_TEXT',
-    text
-  })
 }
