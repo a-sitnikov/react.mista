@@ -1,5 +1,5 @@
 
-export function today(td: Date): Boolean {
+export function today(td: Date): boolean {
   var d = new Date();
   return td.getDate() === d.getDate() && td.getMonth() === d.getMonth() && td.getFullYear() === d.getFullYear();
 }
@@ -44,7 +44,7 @@ export const parseJSON = (text: string): {} => {
   }
 }
 
-export const getMaxPage = (count: number) => Math.min(Math.ceil(count / 100), 10) || 1;
+export const getMaxPage = (count: number): number => Math.min(Math.ceil(count / 100), 10) || 1;
 
 export const childrenToText = (children) => {
 

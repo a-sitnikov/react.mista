@@ -1,34 +1,25 @@
-//@flow
-import React, { Component, useEffect } from 'react'
+import React, { FC, ReactElement, useEffect } from 'react'
 import { connect } from 'react-redux'
 import Form from 'react-bootstrap/Form'
 
 import { getSectionsIfNeeded } from 'src/data/sections/actions'
 
-import type { ResponseSection, ResponseSections } from 'src/api'
+import { RootState, useAppDispatch } from 'src/data/store'
 
-import type { DefaultProps } from 'src/components'
-import type { State } from 'src/reducers'
-import { useAppDispatch } from 'src/data/store'
+import type { ISectionItem, ISectionsList, ISectionsTree } from 'src/data/sections'
 
-type SectionSelectProps = {
+interface IProps {
+  id: string,
+  items: ISectionsList,
+  tree?: ISectionsTree,
   defaultValue: string,
   selected: string,
-  className: string,
-  id: string,
-  style?: {},
-  size: ?string,
-  onChange: (e: any, section: ResponseSection | null) => void
+  style: {},
+  size: 'sm' | 'lg',
+  onChange: (e: any, value: ISectionItem) => void
 }
 
-type StateProps = {
-  items: ResponseSections,
-  tree: {}
-}
-
-type Props = SectionSelectProps & StateProps & DefaultProps;
-
-const Sections = (props) => {
+const Sections: FC<IProps> = (props): ReactElement => {
 
   const dispatch = useAppDispatch();
 
@@ -36,13 +27,13 @@ const Sections = (props) => {
     dispatch(getSectionsIfNeeded());
   }, [dispatch]);
 
-  const onSelect: (e: SyntheticEvent<HTMLSelectElement>) => void = (e: SyntheticEvent<HTMLSelectElement>) => {
+  const onSelect: (e: any) => void = (e: any) => {
 
     const { items, onChange } = props;
 
     if (onChange) {
       const code = e.currentTarget.value;
-      const arr = items.filter(val => val.code === code);
+      const arr = items.filter(item => item.code === code);
       if (arr.length > 0)
         onChange(e, arr[0]);
       else
@@ -82,7 +73,7 @@ const Sections = (props) => {
   )
 }
 
-const mapStateToProps = (state: State): StateProps => {
+const mapStateToProps = (state: RootState) => {
 
   const { items, tree } = state.sections;
 

@@ -1,9 +1,7 @@
-//@flow
 import { createAction } from '@reduxjs/toolkit'
 
 import * as API from 'src/api/sections'
-import type { ResponseSections } from 'src/api'
-import type { State } from 'src/reducers'
+import { RootState } from '../store';
 
 export const requestSections = createAction('REQUEST_SECTIONS');
 export const receiveSections = createAction('RECEIVE_SECTIONS', list => ({
@@ -18,25 +16,25 @@ export const receiveSectionsFailed = createAction('RECEIVE_SECTIONS', error => (
   error: true
 }));
 
-export const getSections = (): any => async (dispatch: any) => {
+export const getSections = () => async (dispatch: any) => {
 
   dispatch(requestSections());
 
   try {
     
-    const list: ResponseSections = await API.fetchSections();
+    const list = await API.fetchSections();
     dispatch(receiveSections(list));
 
   } catch (e) {
 
-    dispatch(receiveSectionsFailed(e));
+    dispatch(receiveSectionsFailed(e.message));
     console.error(e);
 
   }
 
 }
 
-const shouldGetSections = (state: State): boolean => {
+const shouldGetSections = (state: RootState): boolean => {
 
   const sections = state.sections;
 
