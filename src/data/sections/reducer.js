@@ -34,7 +34,7 @@ const reducer = createReducer(initialState, (builder) => {
       } else {
         let map = {};
         action.payload.list.forEach(item => {
-            map[val.code] = item.name
+            map[item.code] = item.name
         });
         state.items = action.payload.list;
         state.tree = groupBy(state.items, item => item.forum);
