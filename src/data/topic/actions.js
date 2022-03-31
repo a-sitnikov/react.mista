@@ -91,12 +91,7 @@ export const fetchTopic = (params: any, item0: ?ResponseMessage): any => async (
 
         first = (page - 1) * 100;
         if (!_item0) {
-          let items = await API.getTopicMessages({
-            id: params.id,
-            from: 0,
-            to: 1
-          });
-          _item0 = items[0];
+          _item0 = await API.getMessage(params.id, 0);
         }
 
         _items = await API.getTopicMessages({
