@@ -174,7 +174,7 @@ export const fetchNewMessages = (params: FetchNewMessageseParams): any => async 
     const list = await API.getTopicMessages({
       id: params.id,
       from: +params.last + 1,
-      to: 1002
+      to: 1010
     });
 
     dispatch(receiveNewMessages(list));
