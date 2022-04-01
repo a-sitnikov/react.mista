@@ -1,4 +1,3 @@
-//@flow
 import fetchJsonp from 'fetch-jsonp'
 import * as utils from 'src/utils'
 
@@ -96,17 +95,7 @@ export const postBookmark = async (params: RequestBookmark) => {
   });
 }
 
-export const postSearch = async (params: RequestSearch) => {
-
-  await fetch(`${domain}/${urlSearch}`, {
-    method: 'POST',
-    body: paramsToString('', params),
-    mode: 'no-cors',
-    credentials: 'include',
-  });
-}
-
-export const paramsToString = (paramsPrefix: string, params: ?{}): string => {
+export const paramsToString = (paramsPrefix: string, params?: {}): string => {
 
   if (!params)
     return '';
@@ -123,7 +112,7 @@ export const paramsToString = (paramsPrefix: string, params: ?{}): string => {
     return '';
 }
 
-export const fetchJsonpAndGetJson = async (url: string, params: any): Promise<any> => {
+export const fetchJsonpAndGetJson = async (url: string, params?: {}): Promise<any> => {
 
   let fullUrl = `${domain}/${url}${paramsToString('?', params)}`;
   const response = await fetchJsonp(fullUrl);
@@ -142,21 +131,10 @@ export const fetchJsonpAndGetJson = async (url: string, params: any): Promise<an
   return json;
 }
 
-export const fetchAndGetJson = async (url: string, params: any, options: any): Promise<any> => {
+export const fetchAndGetJson = async (url: string, params?: {}, options?: {}): Promise<any> => {
 
   let fullUrl = `${domain}/${url}${paramsToString('?', params)}`;
   const response = await fetch(fullUrl, options);
-  let responseJson = await response.json();
-  let json;
-  if (typeof (responseJson) === 'string') {
-
-    try {
-      json = JSON.parse(responseJson)
-    } catch (e) {
-      json = utils.parseJSON(responseJson);
-    }
-  } else {
-    json = responseJson;
-  }
-  return json;
+  return await response.json();
+  
 }

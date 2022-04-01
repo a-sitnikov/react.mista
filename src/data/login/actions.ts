@@ -1,16 +1,15 @@
-//@flow
 import { createAction } from '@reduxjs/toolkit'
 
-import * as API from 'src/api/login'
-import type { RequestLogin, ResponseLogin } from 'src/api'
-import type { State } from 'src/reducers'
+import { fetchCookies } from 'src/api/cookies';
+import { fetchLogin, fetchLogout } from 'src/api/login'
+import { RootState } from '../store';
 
 export const loginStart = createAction('LOGIN_START');
-export const loginComplete = createAction('LOGIN_COMPLETE', (userid, username, hashkey) => ({
+export const loginComplete = createAction('LOGIN_COMPLETE', (userId, userName, userHash) => ({
   payload: {
-    userid,
-    username,
-    hashkey,
+    userId,
+    userName,
+    userHash,
   },
   error: false
 }));
@@ -24,7 +23,7 @@ export const logoutComplete = createAction('LOGOUT_COMPLETE');
 
 export const checkLoginStart = createAction('CHECK_LOGIN_START');
 
-const shouldLogin = (state: State): boolean => {
+const shouldLogin = (state: RootState): boolean => {
   const { login } = state;
   if (!login) {
     return true
@@ -35,46 +34,43 @@ const shouldLogin = (state: State): boolean => {
   return true
 }
 
-export const checkLogin = (params: any): any => async (dispatch: any) => {
+export const checkLogin = () => async (dispatch: any) => {
 
   dispatch(checkLoginStart());
 
   let json;
   try {
-    json = await API.getCookies();
+    json = await fetchCookies();
   } catch (e) {
     dispatch(loginFailed(e));
     return;
   }
-  const { cookie, session } = json;
+ 
+  if (json && json.userId){
 
-  if (session && session.user_id){
-
-    let error = (session.last_error || '').trim();
+    let error = (json.lastError || '').trim();
     if (error === 'Не указано сообщение.') error = '';
     dispatch(loginComplete(
-      session.user_id,
-      session.user_name,
-      cookie.entr_hash
+      json.userId,
+      json.userName,
+      json.userHash
     ));
   } else
     dispatch(loginFailed(''));
 }
 
-export const checkLoginIfNeeded = (params: any): any => (dispatch: any, getState: any) => {
+export const checkLoginIfNeeded = () => (dispatch: any, getState: any) => {
   if (shouldLogin(getState())) {
-    return dispatch(checkLogin(params))
+    return dispatch(checkLogin())
   }
 }
 
-export const doLogout = (params: any): any => async (dispatch: any) => {
+export const doLogout = () => async (dispatch: any) => {
 
   dispatch(logoutStart());
 
   try {
-    
-    await API.getLogout();
-
+    await fetchLogout();
   } catch (e) {
     console.error(e);
   }
@@ -84,13 +80,13 @@ export const doLogout = (params: any): any => async (dispatch: any) => {
 
 }
 
-export const doLogin = (params: RequestLogin): any => async (dispatch: any) => {
+export const doLogin = (params: any): any => async (dispatch: any) => {
 
   dispatch(loginStart());
 
   try {
 
-    await API.getLogin({
+    await fetchLogin({
       username: encodeURIComponent(params.username),
       password: encodeURIComponent(params.password)
     })
@@ -104,7 +100,7 @@ export const doLogin = (params: RequestLogin): any => async (dispatch: any) => {
 
 }
 
-export const doLoginIfNeeded = (params: RequestLogin): any => (dispatch: any, getState: any) => {
+export const doLoginIfNeeded = (params: any): any => (dispatch: any, getState: any) => {
   if (shouldLogin(getState())) {
     return dispatch(doLogin(params))
   }

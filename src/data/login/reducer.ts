@@ -1,22 +1,8 @@
-//@flow 
 import { createReducer } from '@reduxjs/toolkit'
+import { initialState } from '.';
 import { loginStart, loginComplete, logoutStart, logoutComplete, checkLoginStart } from './actions'
 
-export type LoginState = {
-  isFetching: boolean;
-  logged: any,
-  userid?: string,
-  username?: string,
-  hashkey?: string,
-  error?: string
-};
-
-export const defaultLoginState: LoginState = {
-  isFetching: false,
-  logged: undefined
-}
-
-const reducer = createReducer(defaultLoginState, (builder) => {
+const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(loginStart, (state) => {
       state.isFetching = true;
@@ -27,9 +13,9 @@ const reducer = createReducer(defaultLoginState, (builder) => {
         state.error = action.payload.toString();
       } else {
 
-        state.userid = action.payload.userid;
-        state.username = action.payload.username;
-        state.hashkey = action.payload.hashkey;
+        state.userId = action.payload.userId;
+        state.userName = action.payload.userName;
+        state.userHash = action.payload.userHash;
         state.logged = true;
         delete state.error;
       }
@@ -42,9 +28,9 @@ const reducer = createReducer(defaultLoginState, (builder) => {
     .addCase(logoutComplete, (state) => {
       state.isFetching = false;
       state.logged = false;
-      delete state.userid;
-      delete state.username;
-      delete state.hashkey;
+      delete state.userId;
+      delete state.userName;
+      delete state.userHash;
       delete state.error;
     })    
 })
