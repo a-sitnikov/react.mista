@@ -1,6 +1,6 @@
 //@flow
 import { createAction } from '@reduxjs/toolkit'
-import type { State } from '../reducers'
+import { RootState } from '../store'
 
 export type TooltipKeys = {
   type: 'TOPIC' | 'TOPIC_PREVIEW',
@@ -39,7 +39,7 @@ export const showTooltip = (keys: TooltipKeys, coords: Coords): any => async (di
 }
 
 export const clearTooltipsIfNeeded = (): any => (dispatch: any, getState: any) => {
-  const state: State = getState();
+  const state: RootState = getState();
   if (state.tooltips.items.length > 0) {
     dispatch(clearTooltips());;
   }

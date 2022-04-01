@@ -1,21 +1,9 @@
 //@flow
 import { createReducer } from '@reduxjs/toolkit'
+import { initialState } from '.';
 import { createTooltip, closeTooltip, clearTooltips } from './actions'
 
-export type TooltipItemState = {
-  i: number,
-  hash: string
-} & TooltipItem
-
-export type TooltipsState = {
-  items: Array<TooltipItemState>
-};
-
-export const defaultTooltipsState: TooltipsState = {
-  items: []
-}
-
-const reducer = createReducer(defaultTooltipsState, (builder) => {
+const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(createTooltip, (state, action) => {
       const hash = JSON.stringify(action.payload.keys);
