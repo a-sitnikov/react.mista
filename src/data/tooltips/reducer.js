@@ -32,7 +32,7 @@ const reducer = createReducer(defaultTooltipsState, (builder) => {
         })
       else {
         //state.list = moveToEnd(state.list, index);
-        state.list[state.list.length - 1].zIndex = zIndex;
+        state.items[state.items.length - 1].zIndex = zIndex;
       }  
     })
     .addCase(closeTooltip, (state, action) => {

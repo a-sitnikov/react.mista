@@ -3,7 +3,7 @@ import React, { Component, useEffect } from 'react'
 import { connect, useDispatch } from 'react-redux'
 import { useLocation } from "react-router-dom";
 import queryString from 'query-string'
-import { fetchTopicIfNeeded, fetchNewMessagesIfNeeded, clearTopicMessages } from 'src/data/topic/actions'
+import { getTopicIfNeeded, getNewMessagesIfNeeded, clearTopicMessages } from 'src/data/topic/actions'
 
 import type { DefaultProps, Location } from 'src/components'
 import type { ResponseInfo, ResponseMessage, ResponseMessages } from 'src/api'
@@ -38,8 +38,8 @@ type StateProps = {
 }
 
 type Props = {
-  fetchTopicIfNeeded: any,
-  fetchNewMessagesIfNeeded: any,
+  getTopicIfNeeded: any,
+  getNewMessagesIfNeeded: any,
   closeTopic: any,
   clearText: any
 } & DefaultProps & StateProps
@@ -57,7 +57,7 @@ const Topic = (props) => {
 
   const updateTopic = () => {
 
-    let { fetchTopicIfNeeded, item0 } = props;
+    let { getTopicIfNeeded, item0 } = props;
 
     if (locationParams.page !== 'last20') {
       locationParams.page = +locationParams.page;
@@ -68,7 +68,7 @@ const Topic = (props) => {
     if (locationParams.id !== locationParams.id)
       item0 = null;
 
-    fetchTopicIfNeeded(locationParams, null);
+    getTopicIfNeeded(locationParams, null);
   }
 
   const onPostNewMessageSuccess = () => {
@@ -78,20 +78,20 @@ const Topic = (props) => {
     const isLastPage = (locationParams.page === 'last20' || locationParams.page === getMaxPage(+info.answers_count));
 
     if (isLastPage)
-      fetchNewMessagesIfNeeded({
+      getNewMessagesIfNeeded({
         id: info.id,
-        last: parseInt(info.answers_count, 10)
+        last: parseInt(info.count, 10)
       });
 
   }
   
   const { login, items, item0, info, error } = props;
-  const maxPage = getMaxPage(+info.answers_count);
+  const maxPage = getMaxPage(info.count);
 
   useEffect(() => {
-    if (info.text)
-      document.title = extractTextFromHTML(info.text);
-  }, [info.text]);
+    if (info.title)
+      document.title = extractTextFromHTML(info.title);
+  }, [info.title]);
 
   useEffect(() => {
     updateTopic();
@@ -211,11 +211,11 @@ class Topic1 extends Component<Props> {
   }
 
   autoUpdate = () => {
-    const { info, fetchNewMessagesIfNeeded } = this.props;
+    const { info, getNewMessagesIfNeeded } = this.props;
     const isLastPage = (this.locationParams.page === 'last20' || this.locationParams.page === getMaxPage(+info.answers_count));
 
     if (isLastPage)
-      fetchNewMessagesIfNeeded({
+      getNewMessagesIfNeeded({
         id: info.id,
         last: parseInt(info.answers_count, 10)
       })
@@ -223,7 +223,7 @@ class Topic1 extends Component<Props> {
 
   updateTopic = () => {
 
-    let { fetchTopicIfNeeded, item0 } = this.props;
+    let { getTopicIfNeeded, item0 } = this.props;
     let locationParams = queryString.parse(this.location.search);
 
     if (!locationParams.page)
@@ -239,17 +239,17 @@ class Topic1 extends Component<Props> {
       item0 = null;
 
     this.locationParams = locationParams;
-    fetchTopicIfNeeded(this.locationParams, item0);
+    getTopicIfNeeded(this.locationParams, item0);
   }
 
   onPostNewMessageSuccess = () => {
 
-    const { fetchNewMessagesIfNeeded, info } = this.props;
+    const { getNewMessagesIfNeeded, info } = this.props;
 
     const isLastPage = (this.locationParams.page === 'last20' || this.locationParams.page === getMaxPage(+info.answers_count));
 
     if (isLastPage)
-      fetchNewMessagesIfNeeded({
+      getNewMessagesIfNeeded({
         id: info.id,
         last: parseInt(info.answers_count, 10)
       });
@@ -310,8 +310,8 @@ const mapStateToProps = (state: State): StateProps => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchTopicIfNeeded: (...params) => dispatch(fetchTopicIfNeeded(...params)),
-  fetchNewMessagesIfNeeded: (...params) => dispatch(fetchNewMessagesIfNeeded(...params)),
+  getTopicIfNeeded: (...params) => dispatch(getTopicIfNeeded(...params)),
+  getNewMessagesIfNeeded: (...params) => dispatch(getNewMessagesIfNeeded(...params)),
   closeTopic: (...params) => dispatch(closeTopic(...params)),
   clearText: () => dispatch({ type: 'NEW_MESSAGE_TEXT', text: '' })
 })

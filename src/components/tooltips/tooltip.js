@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
-import * as API from 'src/api/topic'
+import { fetchTopicMessage } from 'src/api/topicMessages';
 
 import MsgText from '../topic/row/msg_text'
 import UserInfo from '../topic/row/user_info';
@@ -48,7 +48,7 @@ class Tooltip extends Component<Props, State> {
       if (keys.number === 0)
         data = item0;
       else
-        data = items.find(item => item.n === String(keys.number));
+        data = items.find(item => item.n === keys.number);
 
       if (data)
         text = data.text;
@@ -70,7 +70,7 @@ class Tooltip extends Component<Props, State> {
     const topicId = this.props.tooltip.keys.topicId;
 
     try {
-      data = await API.getMessage(topicId, number);
+      data = await fetchTopicMessage(topicId, number);
       if (data)
         text = data.text;
       else

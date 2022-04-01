@@ -1,5 +1,5 @@
 export interface ISectionItem {
-  id: string;
+  id: number;
   forum: string,
   code: string,
   name: string,

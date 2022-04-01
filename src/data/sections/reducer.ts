@@ -14,10 +14,6 @@ const reducer = createReducer(initialState, (builder) => {
       if (action.error) {
         state.error = action.payload.toString();
       } else {
-        let map = {};
-        action.payload.list.forEach(item => {
-            map[item.code] = item.name
-        });
         state.items = action.payload.list;
         state.tree = groupBy(state.items, item => item.forum);
         delete state.error;

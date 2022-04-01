@@ -41,11 +41,11 @@ class UserInfo extends Component<Props> {
     if (!data) {
       dataStr = '';
     } else if (data.n === "0") {
-      dataStr = dateFormat(new Date(+data.utime * 1000), 'dd.mm.yy - HH:MM');
+      dataStr = dateFormat(new Date(data.time), 'dd.mm.yy - HH:MM');
     } else {
       dataStr = (
         <Fragment>
-          <span className="message-number">{data.n}</span>{' - ' + dateFormat(new Date(+data.utime * 1000), 'dd.mm.yy - HH:MM')}
+          <span className="message-number">{data.n}</span>{' - ' + dateFormat(new Date(data.time), 'dd.mm.yy - HH:MM')}
         </Fragment>
       )
     }

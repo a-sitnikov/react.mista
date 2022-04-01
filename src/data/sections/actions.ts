@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit'
 
-import * as API from 'src/api/sections'
+import { fetchSections } from 'src/api/sections'
 import { RootState } from '../store';
 
 export const requestSections = createAction('REQUEST_SECTIONS');
@@ -22,7 +22,7 @@ export const getSections = () => async (dispatch: any) => {
 
   try {
     
-    const list = await API.fetchSections();
+    const list = await fetchSections();
     dispatch(receiveSections(list));
 
   } catch (e) {

@@ -12,7 +12,7 @@ const Container = () => {
 
   const dispatch = useAppDispatch();
 
-  const onClick = (e: SyntheticEvent<HTMLElement>) => {
+  const onClick = () => {
     dispatch(clearTooltipsIfNeeded());
   }
 

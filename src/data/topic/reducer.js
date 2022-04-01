@@ -1,6 +1,6 @@
 //@flow 
 import { createReducer } from '@reduxjs/toolkit'
-import type { ResponseInfo, ResponseMessages, ResponseMessage } from 'src/api/topic'
+import type { ResponseInfo, ResponseMessages, ResponseMessage } from 'src/api/topicMessages'
 import type { TopicAction } from 'src/data/topic/actions'
 
 import { requestTopic, receiveTopic, clearTopicMessages, requestNewMessages, receiveNewMessages } from './actions'

@@ -1,7 +1,7 @@
 //@flow
 import React, { Component } from 'react'
 
-import * as API from 'src/api/topic'
+import { fetchTopicMessage } from 'src/api/topicMessages'
 
 import MsgText from 'src/components/topic/row/msg_text'
 
@@ -38,7 +38,7 @@ class TopicPreview extends Component<Props, State> {
     fetchData = async (n: number) => {
         let data, error;
         try {
-            data = await API.getMessage(this.props.topicId, n);
+            data = await fetchTopicMessage(this.props.topicId, n);
             if (!data)
                 error = `Сообщение не найдено ${n}`;
 

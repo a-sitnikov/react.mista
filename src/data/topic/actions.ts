@@ -1,8 +1,9 @@
 //@flow
-import * as API from 'src/api/topic'
 import { createAction } from '@reduxjs/toolkit'
 
-import type { ResponseInfo, ResponseMessage, ResponseMessages } from 'src/api/topic'
+import { fetchTopicInfo } from 'src/api/topicinfo'
+import { fetchTopicMessage, fetchTopicMessages } from 'src/api/topicMessages'
+import { ITopicInfo } from '.';
 
 export const requestTopic = createAction('REQUEST_TOPIC');
 export const receiveTopic = createAction('RECEIVE_TOPIC', (info, item0, list) => ({
@@ -31,19 +32,19 @@ export const receiveNewMessagesFailed = createAction('RECEIVE_NEW_MESSAGES', err
   error: true
 }));
 
-export const fetchTopic = (params: any, item0: ?ResponseMessage): any => async (dispatch: any) => {
+export const getTopic = (params: any, item0: any): any => async (dispatch: any) => {
 
   dispatch(requestTopic())
 
-  let info;
+  let info: ITopicInfo;
   try {
-    info = await API.getTopicInfo({ id: params.id });
+    info = await fetchTopicInfo(params.id);
   } catch (e) {
     console.error(e);
     info = {
       id: params.id,
-      text: '',
-      answers_count: "0"
+      title: '',
+      count: 0
     };
   }
   try {
@@ -53,26 +54,21 @@ export const fetchTopic = (params: any, item0: ?ResponseMessage): any => async (
     let _items;
     if (page === 'last20') {
 
-      if (+info.answers_count > 21) {
+      if (info.count > 21) {
 
         if (!_item0) {
-          let items = await API.getTopicMessages({
-            id: params.id,
-            from: 0,
-            to: 1
-          });
-          _item0 = items[0];
+          _item0 = await fetchTopicMessage(params.id, 0);
         }
 
-        let first = +info.answers_count - 20;
-        _items = await API.getTopicMessages({
+        let first = info.count - 20;
+        _items = await fetchTopicMessages({
           id: params.id,
           from: first,
           to: 1010
         });
 
       } else {
-        let items = await API.getTopicMessages({
+        let items = await fetchTopicMessages({
           id: params.id,
           from: 0,
           to: 1010
@@ -91,10 +87,10 @@ export const fetchTopic = (params: any, item0: ?ResponseMessage): any => async (
 
         first = (page - 1) * 100;
         if (!_item0) {
-          _item0 = await API.getMessage(params.id, 0);
+          _item0 = await fetchTopicMessage(params.id, 0);
         }
 
-        _items = await API.getTopicMessages({
+        _items = await fetchTopicMessages({
           id: params.id,
           from: first,
           to: last
@@ -106,7 +102,7 @@ export const fetchTopic = (params: any, item0: ?ResponseMessage): any => async (
         else
           first = 0;
 
-        let items = await API.getTopicMessages({
+        let items = await fetchTopicMessages({
           id: params.id,
           from: first,
           to: last
@@ -122,8 +118,8 @@ export const fetchTopic = (params: any, item0: ?ResponseMessage): any => async (
 
     }
 
-    if (info.answers_count === "0" && _items.length > 0)
-      info.answers_count = _items[_items.length - 1].n;
+    if (info.count === 0 && _items.length > 0)
+      info.count = _items[_items.length - 1].n;
 
     if (page === 'last20' && _items.length > 20) {
       _items = _items.slice(-20);
@@ -150,9 +146,9 @@ const shouldFetch = (state) => {
   return true
 }
 
-export const fetchTopicIfNeeded = (params: any, item0: ?ResponseMessage): any => (dispatch: any, getState: any) => {
+export const getTopicIfNeeded = (params: any, item0: any): any => (dispatch: any, getState: any) => {
   if (shouldFetch(getState())) {
-    return dispatch(fetchTopic(params, item0));
+    return dispatch(getTopic(params, item0));
   }
 }
 
@@ -161,12 +157,12 @@ export type FetchNewMessageseParams = {
   last: number
 }
 
-export const fetchNewMessages = (params: FetchNewMessageseParams): any => async (dispatch: any) => {
+export const getNewMessages = (params: any): any => async (dispatch: any) => {
 
   dispatch(requestNewMessages());
 
   try {
-    const list = await API.getTopicMessages({
+    const list = await fetchTopicMessages({
       id: params.id,
       from: +params.last + 1,
       to: 1010
@@ -181,8 +177,8 @@ export const fetchNewMessages = (params: FetchNewMessageseParams): any => async 
 
 }
 
-export const fetchNewMessagesIfNeeded = (params: FetchNewMessageseParams): any => (dispatch: any, getState: any) => {
+export const getNewMessagesIfNeeded = (params: FetchNewMessageseParams): any => (dispatch: any, getState: any) => {
   if (shouldFetch(getState())) {
-    return dispatch(fetchNewMessages(params));
+    return dispatch(getNewMessages(params));
   }
 }

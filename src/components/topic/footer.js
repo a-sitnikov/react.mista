@@ -3,7 +3,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
 
-import { fetchNewMessagesIfNeeded } from 'src/data/topic/actions'
+import { getNewMessagesIfNeeded } from 'src/data/topic/actions'
 import { getMaxPage } from 'src/utils'
 
 type FooterProps = {
@@ -25,9 +25,9 @@ class Footer extends React.Component<FooterProps> {
 
     const { info, dispatch } = this.props;
 
-    dispatch(fetchNewMessagesIfNeeded({
+    dispatch(getNewMessagesIfNeeded({
       id: info.id,
-      last: parseInt(info.answers_count, 10)
+      last: parseInt(info.count, 10)
     }));
 
   }
@@ -35,7 +35,7 @@ class Footer extends React.Component<FooterProps> {
   render() {
 
     const { info, bookmark, isFetching, params } = this.props;
-    const maxPage = getMaxPage(info.answers_count);
+    const maxPage = getMaxPage(info.count);
 
     let updateButton;
     let page = params.page || 1;

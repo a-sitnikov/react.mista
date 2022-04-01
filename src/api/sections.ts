@@ -1,15 +1,12 @@
 import { fetchJsonpAndGetJson, urlSections } from '.'
+import type { ISectionsList, ISectionItem } from 'src/data/sections'
 
-// Sections
-export type ResponseSection = {
+interface IAPIResponse {
   id: number,
   forum: string,
   shortn: string,
-  fulln: string,
-  id: number
+  fulln: string
 }
-
-export type ResponseSections = Array<ResponseSection>;
 
 function convertResponse(response: IAPIResponse): ISectionItem {
 
@@ -22,7 +19,7 @@ function convertResponse(response: IAPIResponse): ISectionItem {
 
 }
 
-export const fetchSections = async (): Promise<ResponseSections> => {
+export const fetchSections = async (): Promise<ISectionsList> => {
   const list = await fetchJsonpAndGetJson(urlSections);
   return list.map(convertResponse);
 }

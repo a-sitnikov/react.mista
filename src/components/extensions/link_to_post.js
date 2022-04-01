@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { showTooltip } from '../../data/tooltips/actions'
 
 import { getMaxPage, childrenToText } from 'src/utils';
-import { getTopicInfo } from 'src/api/topic'
+import { fetchTopicInfo } from 'src/api/topicinfo'
 
 import type { State } from 'src/reducers'
 import type { DefaultProps } from 'src/components'
@@ -51,7 +51,7 @@ class LinkToPost extends Component<Props, { text: string }> {
     if (this.state.text.startsWith("http")) {
 
       const { topicId } = this.props;
-      getTopicInfo({ id: topicId })
+      fetchTopicInfo(topicId)
         .then(response => {
           this.setState({
             text: response.text
@@ -88,9 +88,8 @@ class LinkToPost extends Component<Props, { text: string }> {
     const keys = {
       type: isPreview ? 'TOPIC_PREVIEW' : 'TOPIC',
       topicId,
-      number
+      number: +number
     }
-
     dispatch(showTooltip(
       keys,
       coords

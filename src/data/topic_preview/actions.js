@@ -1,7 +1,7 @@
 //@flow
 import { createAction } from '@reduxjs/toolkit'
 
-import * as API from 'src/api/topic'
+import { fetchTopicMessage } from 'src/api/topicMessages'
 import type { ResponseMessage } from 'src/api'
 
 export type PreviewTextParams = {
@@ -31,11 +31,11 @@ export const recievePreviewText = createAction('RECEIVE_PREVIEW_TEXT', topicId =
   }
 }));
 
-export const fetchTopicPreviewText = (params: PreviewTextParams): any => async (dispatch: any) => {
+export const getTopicPreviewText = (params: PreviewTextParams): any => async (dispatch: any) => {
 
   dispatch(requestPreviewText(params.topicId));
 
-  const json = await API.getMessage(params.topicId, params.n);
+  const json = await fetchTopicMessage(params.topicId, params.n);
 
   if (json.length > 0)
     dispatch(recievePreviewText(params.topicId, json[0]));
