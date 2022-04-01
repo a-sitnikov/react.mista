@@ -1,6 +1,6 @@
 //@flow
-import React from 'react'
-import { connect } from 'react-redux'
+import React, { FC, ReactElement } from 'react'
+import { connect, ConnectedProps } from 'react-redux'
 import { Link } from 'react-router-dom'
 import dateFormat from 'dateformat'
 
@@ -9,49 +9,42 @@ import LinkToPost from 'src/components/extensions/link_to_post'
 import PreviewLink from './preview_link'
 
 import { today } from 'src/utils'
+import { RootState } from 'src/data/store';
+import { ITopicsListItem } from 'src/data/topicslist';
 
-import type { State } from 'src/reducers'
-import type { TopicsListItem } from 'src/data/topicslist/reducer'
-import type { LoginState } from 'src/data/login/reducer'
-import type { DefaultProps } from 'src/components'
+const mapState = (state: RootState) => {
 
-type RowProps = {
-  columns: any,
-  data: TopicsListItem
+  return {
+    login: state.login,
+    showTooltipOnTopicsList: state.options.items.showTooltipOnTopicsList
+  }
+}
+const connector = connect(mapState);
+
+type IProps = {
+  data: ITopicsListItem
 }
 
-type StateProps = {
-  login: LoginState,
-  showTooltipOnTopicsList: string
-}
+const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data }): ReactElement => {
 
-type Props = RowProps & StateProps & DefaultProps;
-
-const Row = (props: Props) => {
-
-  const { data, showTooltipOnTopicsList } = props;
   let time = new Date(data.updated);
+  let timeF: string;
   if (today(time)) {
-    time = dateFormat(time, 'HH:MM')
+    timeF = dateFormat(time, 'HH:MM')
   } else {
-    time = dateFormat(time, 'dd.mm.yy');
+    timeF = dateFormat(time, 'dd.mm.yy');
   }
   return (
     <div className="topics-list-row">
-      {/*{cells}*/}
       <div className="cell-forum">
         {data.forum}
       </div>
       <div className="cell-section">
-        {data.sect1}
+        {data.section}
       </div>
       <div className="cell-answ">
         <i className="fa fa-comments-o" aria-hidden="true" style={{marginRight: "3px"}}></i>
-        {showTooltipOnTopicsList === 'true' ?
-          <LinkToPost topicId={data.id} number={data.count} style={{ color: "inherit" }} isPreview />
-          :
-          data.answ
-        }
+        <LinkToPost topicId={data.id} number={data.count} style={{ color: "inherit" }} isPreview />
       </div>
       <PreviewLink topicId={data.id} expanded={data.showPreview} />
       <TopicNameCell data={data} />
@@ -61,7 +54,7 @@ const Row = (props: Props) => {
       </div>
       <div className="cell-lastuser">
         <div style={{ display: "flex" }}>
-          <span className="cell-lastuser-time">{time}</span>
+          <span className="cell-lastuser-time">{timeF}</span>
           <span className="cell-lastuser-user">{data.lastUser}</span>
         </div>
       </div>
@@ -73,12 +66,4 @@ const Row = (props: Props) => {
 
 }
 
-const mapStateToProps = (state: State): StateProps => {
-
-  return {
-    login: state.login,
-    showTooltipOnTopicsList: state.options.items.showTooltipOnTopicsList
-  }
-}
-
-export default (connect(mapStateToProps)(Row): any );
+export default connector(Row);

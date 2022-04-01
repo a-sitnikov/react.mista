@@ -1,16 +1,9 @@
-import React, { Component, useEffect } from 'react'
-import { connect } from 'react-redux'
+import React, { FC, ReactElement, useEffect } from 'react'
+import { connect, ConnectedProps } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import queryString from 'query-string'
 
-import type { State } from 'src/reducers'
-import type { DefaultProps, Location } from 'src/components'
-
-import type { TopicsListState } from 'src/data/topicslist/reducer'
-import type { SectionsState } from 'src/data/sections/reducer'
-import type { LoginState } from 'src/data/login/reducer'
-
-import { useAppDispatch } from 'src/data/store'
+import { RootState, useAppDispatch } from 'src/data/store'
 import { getTopicsListIfNeeded } from 'src/data/topicslist/actions'
 
 import Header from './header'
@@ -23,20 +16,19 @@ import TopicPreview from 'src/components/preview/topic_preview'
 
 import './topics_list.css'
 
-type StateProps = {
-  topicsList: TopicsListState,
-  sections: SectionsState,
-  login: LoginState,
-  topicsPerPage: string,
-  autoRefreshTopicsList: string,
-  autoRefreshTopicsListInterval: string
+const mapState = (state: RootState) => {
+
+  return {
+    topicsList: state.topicsList,
+    sections: state.sections,
+    login: state.login,
+    options: state.options
+  }
 }
 
-type Props = {
-  fetchTopicsListIfNeeded: any
-} & DefaultProps & StateProps;
+const connector = connect(mapState);
 
-const TopicsList = (props) => {
+const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, sections }): ReactElement => {
 
   const dispatch = useAppDispatch()
   const location = useLocation();
@@ -53,8 +45,6 @@ const TopicsList = (props) => {
   useEffect(() => {
     updateTopicsList();
   }, [location.search]);
-
-  const { topicsList, sections } = props;
 
   let rows = [];
   for (let item of topicsList.items) {
@@ -97,20 +87,4 @@ const TopicsList = (props) => {
   )
 }
 
-const mapStateToProps = (state: State): StateProps => {
-
-  return {
-    topicsList: state.topicsList,
-    sections: state.sections,
-    login: state.login,
-    topicsPerPage: state.options.items.topicsPerPage,
-    autoRefreshTopicsList: state.options.items.autoRefreshTopicsList,
-    autoRefreshTopicsListInterval: state.options.items.autoRefreshTopicsListInterval,
-  }
-}
-
-const mapDispatchToProps = (dispatch) => ({
-  getTopicsListIfNeeded: (...params) => dispatch(getTopicsListIfNeeded(...params)),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(TopicsList);
+export default connector(TopicsList);

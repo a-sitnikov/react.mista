@@ -1,14 +1,14 @@
 //@flow
-import React, { Component, useEffect } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { connect, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import queryString from 'query-string'
 
 import Login from '../login'
 import Sections from './sections'
 import { getSectionsIfNeeded } from 'src/data/sections/actions'
 
-const Header = (props) => {
+const Header = (): ReactElement => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -33,8 +33,9 @@ const Header = (props) => {
       </div>
       <div className="header-right">
         <Sections
+          id="sect"
           defaultValue="--Все секции--"
-          selected={params.section || ""}
+          selected={String(params.section) || ""}
           onChange={onSectionChange}
           size="sm"
         />
@@ -44,4 +45,4 @@ const Header = (props) => {
 
 }
 
-export default connect()(Header);
+export default Header;

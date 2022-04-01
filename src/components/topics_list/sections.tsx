@@ -14,8 +14,8 @@ interface IProps {
   tree?: ISectionsTree,
   defaultValue: string,
   selected: string,
-  style: {},
-  size: 'sm' | 'lg',
+  style?: {},
+  size?: 'sm' | 'lg',
   onChange: (e: any, value: ISectionItem) => void
 }
 
