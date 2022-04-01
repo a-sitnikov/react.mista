@@ -1,20 +1,25 @@
-//@flow
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { FC, ReactElement } from 'react'
+import { connect, ConnectedProps } from 'react-redux'
 
 import { initialState } from 'src/data/topic'
+import { RootState, useAppDispatch } from 'src/data/store'
 
-import type { State } from 'src/reducers'
-import type { ResponseInfo } from 'src/api'
 import { domain, urlTopicInfo, urlTopicMessages } from 'src/api'
 
-type StateProps = {
-  info: ResponseInfo
+const mapState = (state: RootState) => {
+
+  const {
+    info
+  } = state.topic;
+
+  return {
+    info
+  }
 }
+const connector = connect(mapState);
+const TopicInfo: FC<ConnectedProps<typeof connector>> = ({ info }): ReactElement => {
 
-const TopicInfo = ({ info }) => {
-
-  let yandexUrl = "https://www.yandex.ru/yandsearch?rpt=rad&text=" + encodeURIComponent(info.text);
+  let yandexUrl = "https://www.yandex.ru/yandsearch?rpt=rad&text=" + encodeURIComponent(info.title);
 
   return (
     <div className="topic-row">
@@ -29,7 +34,7 @@ const TopicInfo = ({ info }) => {
         <div className="flex-row">
           <div style={{ flex: 1, textAlign: "center" }}>
             <a href={`${domain}/topic.php?id=${info.id}`}>
-              <h1 className="topic-title" dangerouslySetInnerHTML={{ __html: info.text }}></h1>
+              <h1 className="topic-title" dangerouslySetInnerHTML={{ __html: info.title }}></h1>
             </a>
             <div className="moder-action"></div>
           </div>
@@ -45,15 +50,4 @@ const TopicInfo = ({ info }) => {
 
 }
 
-const mapStateToProps = (state: State): StateProps => {
-
-  const {
-    info
-  } = state.topic || initialState;
-
-  return {
-    info
-  }
-}
-
-export default connect(mapStateToProps)(TopicInfo);
+export default connector(TopicInfo);
