@@ -1,5 +1,5 @@
 import React, { FC, ReactElement, useEffect } from 'react'
-import { connect } from 'react-redux'
+import { connect, ConnectedProps } from 'react-redux'
 import Form from 'react-bootstrap/Form'
 
 import { getSectionsIfNeeded } from 'src/data/sections/actions'
@@ -8,7 +8,7 @@ import { RootState, useAppDispatch } from 'src/data/store'
 
 import type { ISectionItem, ISectionsList, ISectionsTree } from 'src/data/sections'
 
-interface IProps {
+type IProps = {
   id: string,
   items: ISectionsList,
   tree?: ISectionsTree,
@@ -19,7 +19,18 @@ interface IProps {
   onChange: (e: any, value: ISectionItem) => void
 }
 
-const Sections: FC<IProps> = (props): ReactElement => {
+const mapState = (state: RootState) => {
+
+  const { items, tree } = state.sections;
+
+  return {
+    items,
+    tree
+  }
+}
+
+const connector = connect(mapState);
+const Sections: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactElement => {
 
   const dispatch = useAppDispatch();
 
@@ -48,7 +59,7 @@ const Sections: FC<IProps> = (props): ReactElement => {
 
     let group =
       <optgroup key={forum} label={forum}>
-        {tree[forum].map((item, i) => (
+        {tree[forum].map((item) => (
           <option key={item.id} value={item.code}>
             {item.name}
           </option>
@@ -73,15 +84,5 @@ const Sections: FC<IProps> = (props): ReactElement => {
   )
 }
 
-const mapStateToProps = (state: RootState) => {
-
-  const { items, tree } = state.sections;
-
-  return {
-    items,
-    tree
-  }
-}
-
 export { Sections };
-export default connect(mapStateToProps)(Sections);
+export default connector(Sections);
