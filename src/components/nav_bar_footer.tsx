@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { domain } from 'src/api'
 
-const NavBarFooter = (props) => {
+const NavBarFooter = (): ReactElement => {
 
     return (
         <footer className="flex-row navbar-footer">
