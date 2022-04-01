@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/react.mista/static/css/main.f51fb7ae.chunk.css",
-    "main.js": "/react.mista/static/js/main.c15d0a7a.chunk.js",
-    "main.js.map": "/react.mista/static/js/main.c15d0a7a.chunk.js.map",
+    "main.js": "/react.mista/static/js/main.b460df31.chunk.js",
+    "main.js.map": "/react.mista/static/js/main.b460df31.chunk.js.map",
     "runtime-main.js": "/react.mista/static/js/runtime-main.97a40c8a.js",
     "runtime-main.js.map": "/react.mista/static/js/runtime-main.97a40c8a.js.map",
-    "static/js/2.5569196b.chunk.js": "/react.mista/static/js/2.5569196b.chunk.js",
-    "static/js/2.5569196b.chunk.js.map": "/react.mista/static/js/2.5569196b.chunk.js.map",
+    "static/js/2.4b205ba0.chunk.js": "/react.mista/static/js/2.4b205ba0.chunk.js",
+    "static/js/2.4b205ba0.chunk.js.map": "/react.mista/static/js/2.4b205ba0.chunk.js.map",
     "index.html": "/react.mista/index.html",
     "static/css/main.f51fb7ae.chunk.css.map": "/react.mista/static/css/main.f51fb7ae.chunk.css.map",
-    "static/js/2.5569196b.chunk.js.LICENSE.txt": "/react.mista/static/js/2.5569196b.chunk.js.LICENSE.txt"
+    "static/js/2.4b205ba0.chunk.js.LICENSE.txt": "/react.mista/static/js/2.4b205ba0.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.97a40c8a.js",
-    "static/js/2.5569196b.chunk.js",
+    "static/js/2.4b205ba0.chunk.js",
     "static/css/main.f51fb7ae.chunk.css",
-    "static/js/main.c15d0a7a.chunk.js"
+    "static/js/main.b460df31.chunk.js"
   ]
 }
