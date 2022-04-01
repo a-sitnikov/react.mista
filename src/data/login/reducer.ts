@@ -7,6 +7,9 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loginStart, (state) => {
       state.isFetching = true;
     })
+    .addCase(checkLoginStart, (state) => {
+      state.isFetching = true;
+    })    
     .addCase(loginComplete, (state, action) => {
       if (action.error) {
         state.logged = false;

@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useEffect, useState } from 'react'
+import React, { FC, ReactElement, useState } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { FormGroup, Form } from 'react-bootstrap'
 
@@ -26,7 +26,7 @@ const NewMessage: FC<ConnectedProps<typeof connector> & IProps> = ({ info, newMe
   const [voting, setVoting] = useState();
   const dispatch = useAppDispatch()
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: any) => {
 
     e.preventDefault();
     e.stopPropagation();

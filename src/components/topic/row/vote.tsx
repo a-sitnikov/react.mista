@@ -1,5 +1,4 @@
 import React, { FC, ReactElement } from 'react'
-import { IVotingItem } from 'src/data/topic';
 
 type IProps = {
   colors: string[],

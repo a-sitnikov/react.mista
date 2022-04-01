@@ -134,7 +134,7 @@ class LinkToPost extends Component<Props, { text: string }> {
   }
 }
 
-const mapStateToProps = (state: State): StateProps => {
+const mapStateToProps = (state: State) => {
 
   const {
     items, info
@@ -147,4 +147,4 @@ const mapStateToProps = (state: State): StateProps => {
   }
 }
 
-export default (connect(mapStateToProps)(LinkToPost): any );
+export default connect(mapStateToProps)(LinkToPost);

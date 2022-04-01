@@ -63,10 +63,10 @@ const Topic: FC<ConnectedProps<typeof connector>>  = (props): ReactElement => {
         page = 1;
     }
 
-    if (locationParams.id !== locationParams.id)
+    if (locationParams.id !== String(props.info.id))
       item0 = null;
 
-    dispatch(getTopicIfNeeded(locationParams, null));
+    dispatch(getTopicIfNeeded(locationParams, item0));
   }
 
   const onPostNewMessageSuccess = () => {

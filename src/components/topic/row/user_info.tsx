@@ -55,6 +55,7 @@ const UserInfo: FC<IProps> = (props): ReactElement => {
     let imgElem;
     if (window.innerWidth > 768)
     imgElem = <img src={`${domain}/css/user_icons/${data.userId}_16x16.png`} 
+              alt="user ico"
               onLoad={onImageLoad} 
               style={{display:"none", marginBottom:"4px", marginRight:"1px"}}/>
 

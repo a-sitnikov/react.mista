@@ -10,7 +10,6 @@ import login from './login/reducer'
 import tooltips from './tooltips/reducer'
 import newTopic from './newtopic/reducer'
 import newMessage from './newmessage/reducer'
-import topicPreview from './topic_preview/reducer'
 
 const reducer = {
   topicsList,
@@ -20,8 +19,7 @@ const reducer = {
   login,
   tooltips,
   newTopic,
-  newMessage,
-  topicPreview  
+  newMessage
 }
 
 const store = configureStore({

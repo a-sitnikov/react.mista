@@ -8,22 +8,18 @@ import { ITopicsListItem } from 'src/data/topicslist';
 import { RootState } from 'src/data/store';
 
 type IProps = {
-  data: ITopicsListItem,
-  preview?: number
+  data: ITopicsListItem
 };
 
 
 const mapState = (state: RootState) => {
-
   return {
-    login: state.login,
-    topicPreview: state.topicPreview
+    login: state.login
   }
 }
 
 const connector = connect(mapState);
-
-const TopicNameCell: FC<ConnectedProps<typeof connector> & IProps> = ({ data, login }) => {
+const TopicNameCell: FC<ConnectedProps<typeof connector> & IProps> = ({ data, login }): ReactElement => {
 
   let href = `/topic.php?id=${data.id}`;
   let classes = classNames('agb', 'mr5', {

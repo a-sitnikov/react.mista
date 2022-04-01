@@ -4,13 +4,13 @@ export function today(td: Date): boolean {
   return td.getDate() === d.getDate() && td.getMonth() === d.getMonth() && td.getFullYear() === d.getFullYear();
 }
 
-export const groupBy = (list, getKey) =>
+export const groupBy = <T, K extends keyof any>(list: T[], getKey: (item: T) => K) =>
   list.reduce((previous, currentItem) => {
     const group = getKey(currentItem);
     if (!previous[group]) previous[group] = [];
     previous[group].push(currentItem);
     return previous;
-  }, {})
+  }, {} as Record<K, T[]>)
 
 export const parseJSON = (text: string): {} => {
 
@@ -46,7 +46,7 @@ export const parseJSON = (text: string): {} => {
 
 export const getMaxPage = (count: number): number => Math.min(Math.ceil(count / 100), 10) || 1;
 
-export const childrenToText = (children) => {
+export const childrenToText = (children: any): string => {
 
   if (!children) return children;
 
@@ -67,5 +67,5 @@ export const childrenToText = (children) => {
 export const extractTextFromHTML = (htmltext: string): string => {
   const parser = new DOMParser();
   const floatingElement = parser.parseFromString(htmltext, 'text/html');
-  return floatingElement.firstChild.innerText;
+  return (floatingElement.firstChild as HTMLElement).innerText;
 }

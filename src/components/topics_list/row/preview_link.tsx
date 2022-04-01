@@ -1,17 +1,14 @@
-//@flow
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { FC, ReactElement } from 'react'
 
-import type { DefaultProps } from 'src/components'
 import { useAppDispatch } from 'src/data/store';
 import { togglePreview } from 'src/data/topicslist/actions';
 
-type PreviewLinkProps = {
-  topicId: string,
+type IProps = {
+  topicId: number,
   expanded: boolean
 };
 
-const PreviewLink = ({ topicId, expanded }) => {
+const PreviewLink: FC<IProps> = ({ topicId, expanded }): ReactElement => {
 
   const dispatch = useAppDispatch();
 
@@ -28,4 +25,4 @@ const PreviewLink = ({ topicId, expanded }) => {
 
 }
 
-export default connect()(PreviewLink);
+export default PreviewLink;

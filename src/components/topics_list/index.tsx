@@ -53,7 +53,7 @@ const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, sections
     if (item.showPreview)
       rows.push(
         <div key={`preview${String(item.id)}`} className="preview-container">
-          <TopicPreview topicId={String(item.id)} n={0} />
+          <TopicPreview topicId={item.id} />
         </div>
       )
   }
