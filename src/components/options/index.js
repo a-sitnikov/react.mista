@@ -143,7 +143,7 @@ class Options extends Component<Props> {
 
   closeForm = () => {
     const { navigate } = this.props;
-    navigate('/' + window.hash);
+    navigate('/#');
   }
 
   resetOptions = () => {

@@ -1,21 +1,19 @@
-//@flow
-import React from 'react'
+import React, { FC, ReactElement } from 'react'
 import { Pagination } from 'react-bootstrap'
 
 import { paramsToString } from 'src/api'
 import './pages.css'
 
-type Props = {
+type IProps = {
   locationParams: { page?: string },
   baseUrl: string,
   maxPage: number,
   last20?: boolean
 }
 
-const Pages = (props: Props): any => {
+const Pages: FC<IProps> = ({ locationParams, baseUrl, maxPage, last20 }): ReactElement => {
 
-  const { locationParams, baseUrl, maxPage, last20 } = props;
-  let currentPage;
+  let currentPage: number | string;
   if (!locationParams.page)
     currentPage = 1;
   else if (locationParams.page === "last20")
@@ -26,14 +24,14 @@ const Pages = (props: Props): any => {
   let pages = [];
   for (let i = 1; i <= maxPage; i++) {
     let params = { ...locationParams, page: i };
-    let href = `${window.hash}/${baseUrl}` + paramsToString('?', params);
+    let href = `#/${baseUrl}` + paramsToString('?', params);
 
     pages.push(<Pagination.Item active={currentPage === i} key={i} href={href}>{i}</Pagination.Item>);
   }
 
   if (last20 === true) {
     let params = { ...locationParams, page: "last20" };
-    let href = `${window.hash}/${baseUrl}` + paramsToString('?', params);
+    let href = `#/${baseUrl}` + paramsToString('?', params);
     pages.push(<Pagination.Item active={currentPage === "last20"} key="last20" href={href}>»</Pagination.Item>);
   }
 

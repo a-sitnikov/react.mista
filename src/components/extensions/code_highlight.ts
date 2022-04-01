@@ -1,8 +1,15 @@
 
-function highlight(text) {
+function highlight(text: string): string {
 
   const keywords = new Set(
-    "|if|если|then|тогда|elsif|иначеесли|else|иначе|endif|конецесли|do|цикл|for|для|to|по|each|каждого|in|из|while|пока|enddo|конеццикла|procedure|процедура|endprocedure|конецпроцедуры|function|функция|endfunction|конецфункции|var|перем|export|экспорт|goto|перейти|and|и|or|или|not|не|val|знач|break|прервать|continue|продолжить|return|возврат|try|попытка|except|исключение|endtry|конецпопытки|raise|вызватьисключение|false|ложь|true|истина|undefined|неопределено|null|new|новый|execute|выполнить|"
+    ("if|если|then|тогда|elsif|иначеесли|else|иначе|endif|конецесли" +
+    "|do|цикл|for|для|to|по|each|каждого|in|из|while|пока|enddo|конеццикла" +
+    "|procedure|процедура|endprocedure|конецпроцедуры|function|функция|endfunction" +
+    "|конецфункции|var|перем|export|экспорт|goto|перейти|and|и|or|или|not|не" +
+    "|val|знач|break|прервать|continue|продолжить|return|возврат|try|попытка|except|исключение" +
+    "|endtry|конецпопытки|raise|вызватьисключение|false|ложь|true|истина" +
+    "|undefined|неопределено|null|new|новый|execute|выполнить" +
+    "|асинх|async|ждать|wait")
       .split('|')
   );
 
@@ -20,30 +27,30 @@ function highlight(text) {
   const мЦветКлючевогоСлова1 = "key>";
 
 
-  let СтрокаРезультат;
-  let УстановленЦвет;
-  let ПоследнийЦвет;
+  let СтрокаРезультат: string;
+  let УстановленЦвет: boolean;
+  let ПоследнийЦвет: string | undefined;
 
   let ВСтроке = false;
   let Токен = "";
 
-  function ПустаяСтрока(Строка) {
+  function ПустаяСтрока(Строка: string) {
     return Строка.trim() === '';
   }
 
-  function Сред(Строка, Нач, Длина) {
+  function Сред(Строка: string, Нач: number, Длина: number) {
     return Строка.substr(Нач - 1, Длина);
   }
 
-  function Прав(Строка, Длина) {
-    return Строка.substr(-Длина);
+  function Прав(Строка: string, Длина: number) {
+    return Строка.substring(-Длина);
   }
 
-  function isKeyword(token) {
+  function isKeyword(token: string) {
     return keywords.has(token.toLowerCase().trim());
   }
 
-  function ДобавитьЧастьСтроки1С(Часть, Цвет) {
+  function ДобавитьЧастьСтроки1С(Часть: string, Цвет: string) {
 
     if (Часть === " " || ПоследнийЦвет === Цвет) {
       СтрокаРезультат = СтрокаРезультат + Часть;
@@ -59,7 +66,7 @@ function highlight(text) {
     };
   }
 
-  function РазукраситьСтроку(СтрокаКода) {
+  function РазукраситьСтроку(СтрокаКода: string) {
 
     //  https://infostart.ru/profile/34707/public/
     let ВСтрокеСкобка = false;

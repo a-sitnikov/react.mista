@@ -1,27 +1,25 @@
 //@flow
-import React from 'react'
+import React, { FC, ReactElement } from 'react'
 import { domain } from 'src/api'
 
-import type { ResponseVoteItem } from 'src/api'
+import { IVotingItem } from 'src/data/topic'
 
-type Props = {
-  topicId: string,
-  data: ResponseVoteItem,
-  colors: Array<string>,
+type IProps = {
+  topicId: number,
+  data: IVotingItem,
+  colors: string[],
   total: number,
   n: number
 }
 
-const VoteItem = (props: Props) => {
-
-  const { topicId, data, total, n, colors } = props;
+const VoteItem: FC<IProps> = ({ topicId, data, total, n, colors }): ReactElement => {
 
   const img = `${domain}/css/voting${n}.png`;
 
   let percent = 0;
 
   if (total) {
-    percent = Math.round(100 * data.result / total);
+    percent = Math.round(100 * data.count / total);
   }
 
   const imgStyle = { maxWwidth: "500px", width: "100%", height: "15px" };
@@ -29,13 +27,13 @@ const VoteItem = (props: Props) => {
   return (
     <div className="voting-item">
       <div className="voting-title">
-        <a rel="nofollow" style={{ textDecoration: "none" }} href={`${window.hash}/topic.php?id=${topicId}&sel=${n}`}>
-          <b><span style={{ color: colors[n - 1] }}>{`${n}. ${data.select}`}</span></b>
+        <a rel="nofollow" style={{ textDecoration: "none" }} href={`#/topic.php?id=${topicId}&sel=${n}`}>
+          <b><span style={{ color: colors[n - 1] }}>{`${n}. ${data.text}`}</span></b>
         </a>
       </div>
       <div className="voting-percentage">
         {/*<div className="div-va-middle">*/}
-        <b><span style={{ color: colors[n - 1] }}>{`${percent}% (${data.result})`}</span></b>
+        <b><span style={{ color: colors[n - 1] }}>{`${percent}% (${data.count})`}</span></b>
         {/*</div>*/}
       </div>
       <div className="voting-bar">
@@ -49,4 +47,4 @@ const VoteItem = (props: Props) => {
   )
 }
 
-export default (VoteItem: any);
+export default VoteItem;

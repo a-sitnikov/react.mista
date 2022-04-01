@@ -1,9 +1,12 @@
-//@flow
-import React from 'react'
+import React, { FC, ReactElement } from 'react'
 
 import './error.css'
 
-const ErrorElem = ({ text }): any => {
+type IProps = {
+  text: string
+}
+
+const ErrorElem: FC<IProps> = ({ text }): ReactElement => {
   if (!text)
     return null;
 

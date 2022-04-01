@@ -29,6 +29,8 @@ const NavBarFooter = (): ReactElement => {
             <span className="separator">|</span>
             <a href={`${domain}/users_gallery.php`}>Галерея</a>
             <span className="separator">|</span>
+            <a href={`${domain}/ban_list.php`}>Баны</a>
+            <span className="separator">|</span>
             <span>18+</span>
         </footer>
     )

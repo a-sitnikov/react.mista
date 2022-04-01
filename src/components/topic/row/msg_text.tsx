@@ -20,6 +20,40 @@ type IProps = {
   style?: {}
 }
 
+const processLinksToPosts = (text: string, topicId: number): string => {
+
+  const regexp = /(\()(\d+)(\))/gi; // (12)
+  return text.replace(regexp, (res, ...segments) => {
+    const number = segments[1];
+    return `(<link data-topicid='${topicId}' data-number='${number}' ></link>)`
+  });
+}
+
+const processCode1C = (text: string): string => {
+
+  const regexp = /(\[1[CС]\])((.|\n|\r)*?)(\[\/1[CС]\])/gi; // [1C] text [/1C]
+  return text.replace(regexp, (res, ...segments) => {
+    let txt = segments[1];
+
+    //remove first <br>
+    if (txt.substr(0, 4) === "<br>")
+      txt = txt.substr(4);
+    return `<code>${txt}</code>`
+  });
+}
+
+const processText = (text: string, topicId: number): string | undefined => {
+
+  if (!text)
+    return text;
+
+  let newtext = processCode1C(text);
+  newtext = processLinksToPosts(newtext, topicId);
+
+  return newtext;
+}
+
+
 const mapState = (state: RootState) => {
 
   const { info } = state.topic;
@@ -31,54 +65,14 @@ const mapState = (state: RootState) => {
   }
 }
 const connector = connect(mapState);
-const MsgText: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactElement => {
-
-  const processLinksToPosts = (text: string): string => {
-
-    const { topicId } = props;
-
-    const regexp = /(\()(\d+)(\))/gi; // (12)
-    return text.replace(regexp, (res, ...segments) => {
-      const number = segments[1];
-      return `(<link data-topicid='${topicId}' data-number='${number}' ></link>)`
-    });
-  }
-
-  const processCode1C = (text: string): string => {
-
-    const regexp = /(\[1[CС]\])((.|\n|\r)*?)(\[\/1[CС]\])/gi; // [1C] text [/1C]
-    return text.replace(regexp, (res, ...segments) => {
-      let txt = segments[1];
-
-      //remove first <br>
-      if (txt.substr(0, 4) === "<br>")
-        txt = txt.substr(4);
-      return `<code>${txt}</code>`
-    });
-  }
-
-  const processText = (text?: string): string | undefined => {
-
-    if (!text)
-      return text;
-
-    const { showTooltips } = props;
-
-    text = processCode1C(text);
-
-    if (showTooltips === 'true')
-      text = processLinksToPosts(text);
-
-    return text;
-  }
-
-  const { topicId, n, html, vote, info, style, voteColors } = props;
+const MsgText: FC<ConnectedProps<typeof connector> & IProps> = 
+  ({ topicId, n, html, vote, info, style, voteColors }): ReactElement => {
 
   let voteElement;
   if (vote && info.voting && topicId === info.id) {
     let voteOption = info.voting[vote - 1];
     if (voteOption)
-      voteElement = <Vote info={info.voting} vote={vote} colors={voteColors} />
+      voteElement = <Vote text={voteOption.text} n={vote} colors={voteColors} />
   }
 
   let voteChart;
@@ -86,16 +80,16 @@ const MsgText: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactEle
     voteChart = <VoteChart items={info.voting} topicId={topicId} colors={voteColors} />
   }
 
-  let processedHtml = processText(html);
+  let processedHtml = processText(html, topicId);
   const componentsMap = {
-    link: props => <LinkToPost topicId={props['data-topicid']} number={props['data-number']} key={props.key} />,
-    code: props => <Code {...props} />,
-    a: props => <CustomLink {...props} parentText={processedHtml} />
+    link: (props: any) => <LinkToPost topicId={props['data-topicid']} number={props['data-number']} key={props.key} />,
+    code: (props: any) => <Code {...props} />,
+    a: (props: any) => <CustomLink {...props} parentText={processedHtml} />
   };
-  let textComponent = activeHtml(processedHtml, componentsMap);
+  const textComponent = activeHtml(processedHtml, componentsMap);
 
   return (
-    <div className="message" style={{ ...style }}>
+    <div className="message" style={style}>
       {voteChart}
       <div>
         {textComponent}

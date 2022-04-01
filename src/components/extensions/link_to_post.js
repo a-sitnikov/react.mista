@@ -119,7 +119,7 @@ class LinkToPost extends Component<Props, { text: string }> {
     else
       a = (
         <span>
-          <a href={`${window.hash}/topic.php?id=${topicId}${pageParam}#${number}`}
+          <a href={`#/topic.php?id=${topicId}${pageParam}#${number}`}
             style={{ ...style }}
           >{this.state.text}</a>{' '}
                     (<span onMouseOver={this.onMouseOver}
