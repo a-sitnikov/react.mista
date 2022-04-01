@@ -1,50 +1,58 @@
-//@flow
-import * as React from 'react'
-import { connect } from 'react-redux'
+import React, { FC, ReactElement } from 'react';
+import { connect, ConnectedProps } from 'react-redux'
 import { Button } from 'react-bootstrap'
 
 import { getNewMessagesIfNeeded } from 'src/data/topic/actions'
 import { getMaxPage } from 'src/utils'
-import { useAppDispatch } from 'src/data/store'
+import { RootState, useAppDispatch } from 'src/data/store'
+import { defaultInfo } from 'src/data/topic';
 
-type FooterProps = {
-  info: any,
-  dispatch: any,
-  bookmark: any,
-  isFetching: boolean,
-  params: any
+const mapState = (state: RootState) => {
+
+  const {
+    isFetching,
+    lastUpdated,
+    info,
+  } = state.topic || {
+    isFetching: true,
+    info: defaultInfo,
+  }
+
+  return {
+    info,
+    isFetching,
+    lastUpdated
+  }
 }
+const connector = connect(mapState);
+type IProps = { locationParams?: any};
 
-const Footer = (props) => {
+const Footer: FC<ConnectedProps<typeof connector> & IProps> = ({ info, isFetching, locationParams }): ReactElement => {
 
   const dispatch = useAppDispatch();
 
   const onBookmarkClick = () => {
-    const { info } = props;
     //dispatch(addBookmark(info));
   }
 
   const onRefreshClick = () => {
 
-    const { info } = props;
-
     dispatch(getNewMessagesIfNeeded({
       id: info.id,
-      last: parseInt(info.count, 10)
+      last: info.count
     }));
 
   }
 
-  const { info, bookmark, isFetching, params } = props;
   const maxPage = getMaxPage(info.count);
 
   let updateButton;
-  let page = params.page || 1;
+  let page = locationParams.page || 1;
   if (page === 'last20' || page === maxPage)
     updateButton =
       <Button
         onClick={onRefreshClick}
-        disabled={bookmark.isFetching}
+        disabled={false}
         size="sm"
         className='button'
         variant="light">
@@ -56,11 +64,11 @@ const Footer = (props) => {
       <div className="ta-left va-top" style={{ width: "50%" }}>
         <Button
           onClick={onBookmarkClick}
-          disabled={bookmark.isFetching}
+          disabled={false}
           size="sm"
           className='button'
           variant="light">
-          {bookmark.isFetching ? 'Подождите...' : 'Закладка'}
+          {'Закладка'}
         </Button>
       </div>
       <div className="ta-right va-middle" style={{ marginLeft: "auto" }}>
@@ -70,24 +78,4 @@ const Footer = (props) => {
   )
 }
 
-
-const mapStateToProps = state => {
-
-  const {
-    isFetching,
-    lastUpdated,
-    info,
-  } = state.topic || {
-    isFetching: true,
-    info: {},
-  }
-
-  return {
-    info,
-    isFetching,
-    lastUpdated,
-    bookmark: state.bookmark || {}
-  }
-}
-
-export default (connect(mapStateToProps)(Footer): any );
+export default connector(Footer);

@@ -134,7 +134,7 @@ const Topic = (props) => {
           </div>
         }
       </div>
-      <Footer params={locationParams} />
+      <Footer locationParams={locationParams} />
       {login.logged &&
         <NewMessage onSubmitSuccess={onPostNewMessageSuccess} />
       }
