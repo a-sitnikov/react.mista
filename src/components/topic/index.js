@@ -73,7 +73,7 @@ const Topic = (props) => {
 
   const onPostNewMessageSuccess = () => {
 
-    const { fetchNewMessagesIfNeeded, info } = props;
+    const { getNewMessagesIfNeeded, info } = props;
 
     const isLastPage = (locationParams.page === 'last20' || locationParams.page === getMaxPage(+info.answers_count));
 

@@ -1,32 +1,10 @@
 //@flow 
 import { createReducer } from '@reduxjs/toolkit'
-import type { ResponseInfo, ResponseMessages, ResponseMessage } from 'src/api/topicMessages'
-import type { TopicAction } from 'src/data/topic/actions'
+import { defaultInfo, initialState } from '.';
 
 import { requestTopic, receiveTopic, clearTopicMessages, requestNewMessages, receiveNewMessages } from './actions'
 
-export type TopicState = {
-  isFetching: boolean;
-  info: ResponseInfo,
-  item0?: ?ResponseMessage,
-  items: ResponseMessages,
-  lastUpdated?: ?Date,
-  error?: ?string
-};
-
-export const defaultInfo = {
-  id: "",
-  text: "",
-  answers_count: ""
-}
-
-export const defaultTopicState: TopicState = {
-  isFetching: false,
-  info: defaultInfo,
-  items: []
-}
-
-const reducer = createReducer(defaultTopicState, (builder) => {
+const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(requestTopic, (state) => {
       state.isFetching = true
@@ -45,9 +23,9 @@ const reducer = createReducer(defaultTopicState, (builder) => {
       state.isFetching = false;
     })
     .addCase(clearTopicMessages, (state) => {
-      state.items = defaultTopicState.items;
-      state.item0 = defaultTopicState.item0;
-      state.info = defaultTopicState.info;
+      state.items = [];
+      state.info = defaultInfo;
+      delete state.item0;
       delete state.error;
     })
     .addCase(requestNewMessages, (state) => {
@@ -55,11 +33,11 @@ const reducer = createReducer(defaultTopicState, (builder) => {
     })
     .addCase(receiveNewMessages, (state, action) => {
       if (action.error) {
-        state.error = action.error.toString();
+        state.error = action.payload.toString();
       } else {
         state.isFetching = false;
         state.items = state.items.concat(action.payload.list);
-        state.info.answers_count = state.items[state.items.length - 1].n;
+        state.info.count = state.items[state.items.length - 1].n;
       }
     })
 })

@@ -42,7 +42,15 @@ export interface ITopicState {
   lastUpdated?: number
 }
 
+export const defaultInfo: ITopicInfo = {
+  id: 0,
+  title: "",
+  count: 0
+}
+
 export const initialState: ITopicState = {
   isFetching: false,
   items: [],
+  info: defaultInfo
 }
+
