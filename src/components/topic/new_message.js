@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { FormGroup, Form } from 'react-bootstrap'
 
 import TextEditor from 'src/components/common/text_editor'
-import { postNewMessage } from 'src/data/newmessage/actions'
+import { newMessageText, postNewMessage } from 'src/data/newmessage/actions'
 
 import type { State } from 'src/reducers'
 import type { NewMessageState } from 'src/data/newmessage/reducer'
@@ -58,10 +58,7 @@ class NewMessage extends Component<Props, ComponentState> {
 
     const { dispatch } = this.props;
 
-    dispatch({
-      type: 'NEW_MESSAGE_TEXT',
-      text: ''
-    });
+    dispatch(newMessageText(''));
 
     this.setState({
       ...this.state,

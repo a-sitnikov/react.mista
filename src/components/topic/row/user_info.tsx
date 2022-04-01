@@ -1,28 +1,26 @@
 //@flow
-import React, { Component, Fragment } from 'react'
-import { connect } from 'react-redux'
+import React, { FC, ReactElement } from 'react'
 import dateFormat from 'dateformat'
 import classNames from 'classnames'
 import { domain } from 'src/api'
 
 import { addMessageText } from 'src/data/newmessage/actions'
+import { useAppDispatch } from 'src/data/store'
+import { ITopicMessage } from 'src/data/topic'
 
-import type { ResponseMessage } from 'src/api'
-import type { DefaultProps } from 'src/components'
-
-type UserInfoProps = {
-  data: ResponseMessage,
+type IProps ={
+  data: ITopicMessage,
   isAuthor: boolean,
-  isYou?: boolean,
+  isYou: boolean,
   isTooltip?: boolean
 }
 
-type Props = UserInfoProps & DefaultProps;
+const UserInfo: FC<IProps> = (props): ReactElement => {
 
-class UserInfo extends Component<Props> {
+  const dispatch = useAppDispatch();
 
-  onClick = () => {
-    const { dispatch, data } = this.props;
+  const onClick = () => {
+    const { data } = props;
     dispatch(addMessageText(`(${data.n})`));
 
     let elem = document.getElementById('message_text');
@@ -30,23 +28,22 @@ class UserInfo extends Component<Props> {
       window.scrollTo(0, elem.offsetTop);
   }
 
-  onImageLoad = (event) => {
+  const onImageLoad = (event) => {
     event.target.style.display = 'inline';
   }
 
-  render() {
-    const { data, isAuthor, isYou, isTooltip } = this.props;
+    const { data, isAuthor, isYou, isTooltip } = props;
     const href = `${domain}/users.php?id=${data.userId}`;
     let dataStr;
     if (!data) {
       dataStr = '';
-    } else if (data.n === "0") {
+    } else if (data.n === 0) {
       dataStr = dateFormat(new Date(data.time), 'dd.mm.yy - HH:MM');
     } else {
       dataStr = (
-        <Fragment>
+        <>
           <span className="message-number">{data.n}</span>{' - ' + dateFormat(new Date(data.time), 'dd.mm.yy - HH:MM')}
-        </Fragment>
+        </>
       )
     }
 
@@ -58,7 +55,7 @@ class UserInfo extends Component<Props> {
     let imgElem;
     if (window.innerWidth > 768)
     imgElem = <img src={`${domain}/css/user_icons/${data.userId}_16x16.png`} 
-              onLoad={this.onImageLoad} 
+              onLoad={onImageLoad} 
               style={{display:"none", marginBottom:"4px", marginRight:"1px"}}/>
 
     let timeElem;  
@@ -68,7 +65,7 @@ class UserInfo extends Component<Props> {
       timeElem =
         <div className="message-time">
           <span className="ah" >{dataStr}</span>
-          <button className="button ah" onClick={this.onClick}>{dataStr}</button>
+          <button className="button ah" onClick={onClick}>{dataStr}</button>
         </div>
     }  
 
@@ -79,8 +76,7 @@ class UserInfo extends Component<Props> {
         {timeElem}
       </div>
     )
-  }
 
 }
 
-export default (connect()(UserInfo): any );
+export default UserInfo;
