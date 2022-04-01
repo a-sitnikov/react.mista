@@ -1,8 +1,7 @@
 import React, { FC, ReactElement } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 
-import { initialState } from 'src/data/topic'
-import { RootState, useAppDispatch } from 'src/data/store'
+import { RootState } from 'src/data/store'
 
 import { domain, urlTopicInfo, urlTopicMessages } from 'src/api'
 
