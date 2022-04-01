@@ -45,12 +45,12 @@ type Props = {
 } & DefaultProps & StateProps
 
 var scrolledToHash;
+var timer;
 
 const Topic = (props) => {
   
   const dispatch = useDispatch()
   const location = useLocation();
-  let timer;
   let locationParams = queryString.parse(location.search);
   if (!locationParams.page)
     locationParams.page = 1;

@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap'
 
 import { getNewMessagesIfNeeded } from 'src/data/topic/actions'
 import { getMaxPage } from 'src/utils'
+import { useAppDispatch } from 'src/data/store'
 
 type FooterProps = {
   info: any,
@@ -14,16 +15,18 @@ type FooterProps = {
   params: any
 }
 
-class Footer extends React.Component<FooterProps> {
+const Footer = (props) => {
 
-  onBookmarkClick = () => {
-    const { info, dispatch } = this.props;
+  const dispatch = useAppDispatch();
+
+  const onBookmarkClick = () => {
+    const { info } = props;
     //dispatch(addBookmark(info));
   }
 
-  onRefreshClick = () => {
+  const onRefreshClick = () => {
 
-    const { info, dispatch } = this.props;
+    const { info } = props;
 
     dispatch(getNewMessagesIfNeeded({
       id: info.id,
@@ -32,42 +35,39 @@ class Footer extends React.Component<FooterProps> {
 
   }
 
-  render() {
+  const { info, bookmark, isFetching, params } = props;
+  const maxPage = getMaxPage(info.count);
 
-    const { info, bookmark, isFetching, params } = this.props;
-    const maxPage = getMaxPage(info.count);
+  let updateButton;
+  let page = params.page || 1;
+  if (page === 'last20' || page === maxPage)
+    updateButton =
+      <Button
+        onClick={onRefreshClick}
+        disabled={bookmark.isFetching}
+        size="sm"
+        className='button'
+        variant="light">
+        {isFetching ? 'Обновляется' : 'Обновить ветку'}
+      </Button>
 
-    let updateButton;
-    let page = params.page || 1;
-    if (page === 'last20' || page === maxPage)
-      updateButton =
+  return (
+    <div className="flex-row" id="F">
+      <div className="ta-left va-top" style={{ width: "50%" }}>
         <Button
-          onClick={this.onRefreshClick}
+          onClick={onBookmarkClick}
           disabled={bookmark.isFetching}
           size="sm"
           className='button'
           variant="light">
-          {isFetching ? 'Обновляется' : 'Обновить ветку'}
+          {bookmark.isFetching ? 'Подождите...' : 'Закладка'}
         </Button>
-
-    return (
-      <div className="flex-row" id="F">
-        <div className="ta-left va-top" style={{ width: "50%" }}>
-          <Button
-            onClick={this.onBookmarkClick}
-            disabled={bookmark.isFetching}
-            size="sm"
-            className='button'
-            variant="light">
-            {bookmark.isFetching ? 'Подождите...' : 'Закладка'}
-          </Button>
-        </div>
-        <div className="ta-right va-middle" style={{ marginLeft: "auto" }}>
-          {updateButton}
-        </div>
       </div>
-    )
-  }
+      <div className="ta-right va-middle" style={{ marginLeft: "auto" }}>
+        {updateButton}
+      </div>
+    </div>
+  )
 }
 
 

@@ -167,7 +167,6 @@ export const getNewMessages = (params: any): any => async (dispatch: any) => {
       from: +params.last + 1,
       to: 1010
     });
-
     dispatch(receiveNewMessages(list));
 
   } catch (error) {

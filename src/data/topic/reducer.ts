@@ -37,7 +37,8 @@ const reducer = createReducer(initialState, (builder) => {
       } else {
         state.isFetching = false;
         state.items = state.items.concat(action.payload.list);
-        state.info.count = state.items[state.items.length - 1].n;
+        if (state.items.length > 0)
+          state.info.count = state.items[state.items.length - 1].n;
       }
     })
 })
