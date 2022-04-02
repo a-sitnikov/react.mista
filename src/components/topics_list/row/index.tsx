@@ -30,8 +30,7 @@ const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data, topicId }): 
 
   const [time, setTime] = useState(data.updated);
   const updateTime = useCallback(async () => {
-    const info = await fetchTopicInfo(topicId);
-    const msg = await fetchTopicMessage(topicId, info.count);
+    const msg = await fetchTopicMessage(topicId, data.count);
     setTime(msg.time);
   }, [])
   
