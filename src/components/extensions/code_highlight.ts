@@ -39,11 +39,11 @@ function highlight(text: string): string {
   }
 
   function Сред(Строка: string, Нач: number, Длина: number) {
-    return Строка.substr(Нач - 1, Длина);
+    return Строка.substring(Нач - 1, Нач -1 + Длина);
   }
 
   function Прав(Строка: string, Длина: number) {
-    return Строка.substring(-Длина);
+    return Строка.substring(Строка.length - Длина);
   }
 
   function isKeyword(token: string) {

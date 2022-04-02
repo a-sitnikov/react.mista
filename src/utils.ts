@@ -46,7 +46,7 @@ export const parseJSON = (text: string): {} => {
 
 export const getMaxPage = (count: number): number => Math.min(Math.ceil(count / 100), 10) || 1;
 
-export const childrenToText = (children: any): string => {
+export const childrenToText = (children: any): string[]=> {
 
   if (!children) return children;
 
