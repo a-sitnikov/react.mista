@@ -71,9 +71,9 @@ const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, sections
       <div className="table">
         <div className="th" style={{ position: "sticky", top: "39px" }}>
           <div style={{ letterSpacing: "-1px" }}>Раздел</div>
-          <div>Re</div>
           <div></div>
           <div>Тема</div>
+          <div>Re</div>
           <div>Автор</div>
           <div><span style={{ cursor: "pointer" }} title="Обновить список" onClick={updateTopicsList}>{topicsList.isFetching ? "Обновляется" : "Обновлено"}</span></div>
         </div>

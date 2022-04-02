@@ -3,7 +3,7 @@
     display: grid;
     background: var(--header-background);
     font-weight: bold;
-    grid-template-columns: 50px 30px 30px auto 120px 150px;
+    grid-template-columns: 50px 30px auto 30px 120px 150px;
     border: 1px solid var(--border-color);
     text-align: center;
 }
