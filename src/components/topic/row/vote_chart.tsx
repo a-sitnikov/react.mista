@@ -11,7 +11,6 @@ type IProps = {
 const VoteChart: FC<IProps> = ({ items, topicId, colors }): ReactElement => {
 
   let total = Math.max(...items.map(item => item.count));
-  console.log(total);
 
   return (
     <div style={{ marginBottom: "10px" }}>
