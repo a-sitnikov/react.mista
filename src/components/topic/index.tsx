@@ -56,6 +56,7 @@ const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info
   
   const dispatch = useAppDispatch()
   const location = useLocation();
+  
   let locationParams = queryString.parse(location.search);
   let page = getPageNumber(locationParams.page);
   const maxPage = getMaxPage(info.count);

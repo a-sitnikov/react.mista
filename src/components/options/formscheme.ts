@@ -1,4 +1,4 @@
-export const form = [
+export const formTabs = [
   {
     tabName: 'Общие',
     rows: [
@@ -26,7 +26,7 @@ export const form = [
   }
 ];
 
-export const optionsParams = {
+export const formParams = {
   'theme': {
     type: 'radio',
     label: 'Цветовая палитра:',
