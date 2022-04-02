@@ -1,16 +1,7 @@
 //@flow
 import { createReducer } from '@reduxjs/toolkit'
-import { addMessageText, NewMessageAction, newMessageText, postNewMessageComplete, postNewMessageStart } from './actions'
-
-export type NewMessageState = {
-  isFetching: boolean;
-  text: string
-};
-
-export const initialState: NewMessageState = {
-  isFetching: false,
-  text: ''
-}
+import { initialState } from '.';
+import { addMessageText, newMessageText, postNewMessageComplete, postNewMessageStart } from './actions'
 
 const reducer = createReducer(initialState, (builder) => {
   builder

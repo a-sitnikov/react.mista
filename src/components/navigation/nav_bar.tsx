@@ -10,7 +10,6 @@ import Search from 'src/components/common/search'
 import { getTopicsListIfNeeded } from 'src/data/topicslist/actions'
 
 import './nav_bar.css'
-import { isConstructorDeclaration } from 'typescript';
 
 const NavBar = (): ReactElement => {
 

@@ -1,7 +1,5 @@
-//@flow
 import React, { ReactElement } from 'react';
 import ReactDOM from 'react-dom';
-import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux'
 
 import './index.css';
@@ -16,5 +14,3 @@ const Root = ({ store }): ReactElement => (
 
 ReactDOM.render(<Root store={store} />,
   document.getElementById('root'));
-
-//registerServiceWorker();

@@ -6,6 +6,7 @@ import { fetchTopicMessage } from 'src/api/topicMessages'
 
 import MsgText from 'src/components/topic/row/msg_text'
 import { ITopicMessage } from 'src/data/topic'
+import ErrorElem from '../common/error'
 
 import PreviewHeader from './preview_header'
 import './topic_preview.css'
@@ -15,7 +16,6 @@ type IProps = {
 }
 
 type IState = {
-  n: number,
   data?: ITopicMessage,
   error?: string  
 }
@@ -23,14 +23,15 @@ type IState = {
 const TopicPreview: FC<IProps> = ({ topicId }): ReactElement => {
 
   const [state, setState] = useState<IState>({
-    n: 0,
     data: null,
     error: null
   })
 
+  const [ msgNumber, setMsgNumber ] = useState(0);
+
   useEffect(() => {
-    fetchData(state.n);
-  }, [state.n])
+    fetchData(msgNumber);
+  }, [msgNumber]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchData = async (n: number) => {
     let data, error;
@@ -44,31 +45,30 @@ const TopicPreview: FC<IProps> = ({ topicId }): ReactElement => {
     };
 
     setState({
-      n,
       data,
       error
     })
   }
 
   const onClickFirst = () => {
-    fetchData(0);
+    setMsgNumber(0);
   }
 
   const onClickNext = () => {
-    fetchData(state.n + 1);
+    setMsgNumber(msgNumber + 1);
   }
 
   const onClickPrev = () => {
-    if (state.n > 0)
-      fetchData(state.n - 1);
+    if (msgNumber > 0)
+      setMsgNumber(msgNumber - 1);
   }
 
   const onClickLast = async () => {
     const info = await fetchTopicInfo(topicId);
-    fetchData(info.count);
+    setMsgNumber(info.count)
   }
 
-  const { data, error, n } = state;
+  const { data, error } = state;
   if (!data && !error)
     return null;
 
@@ -81,7 +81,7 @@ const TopicPreview: FC<IProps> = ({ topicId }): ReactElement => {
         user={user}
         time={time}
         topicId={topicId}
-        n={n}
+        n={msgNumber}
         onFirst={onClickFirst}
         onLast={onClickLast}
         onNext={onClickNext}
@@ -89,13 +89,13 @@ const TopicPreview: FC<IProps> = ({ topicId }): ReactElement => {
       />
       {data && <MsgText
         topicId={topicId}
-        n={state.n}
+        n={msgNumber}
         data={data}
         html={data.text}
         vote={data.vote}
         style={{ maxHeight: "500px", overflowY: "auto", overflowWrap: "break-word" }}
       />}
-      {error && <p>{error}</p>}
+      {error && <ErrorElem text={error}/>}
     </div>
   )
 

@@ -1,10 +1,7 @@
-//@flow
 import { createAction } from '@reduxjs/toolkit'
 
-import * as API from 'src/api'
-import type { RequestNewTopic } from 'src/api'
-import type { State } from 'src/reducers'
-import type { ResponseSection } from 'src/api'
+import { fetchNewTopic, IRequest } from 'src/api/newtopic';
+import { RootState } from '../store';
 
 export type postNewTopicParams = {
   subject: string,
@@ -48,7 +45,7 @@ export const newTopicShowVoting = createAction('SHOW_VOTING', show => ({
   error: false
 }));
 
-export const shouldPostNewTopic = (state: State): boolean => {
+export const shouldPostNewTopic = (state: RootState): boolean => {
   const newTopic = state.newTopic;
   if (!newTopic) {
     return false
@@ -69,7 +66,7 @@ const postNewTopic = (params: postNewTopicParams) => async (dispatch: any) => {
 
   dispatch(postNewTopicStart());
 
-  let fetchParams: RequestNewTopic = {
+  let fetchParams: IRequest = {
     message_text: encodeURIComponent(params.text),
     topic_text: encodeURIComponent(params.subject),
     target_section: String(params.section),
@@ -84,7 +81,7 @@ const postNewTopic = (params: postNewTopicParams) => async (dispatch: any) => {
       fetchParams[`section${i + 1}`] = params.votingItems[i];
     }
 
-  await API.postNewTopic(fetchParams);
+  await fetchNewTopic(fetchParams);
 
   dispatch(postNewTopicComplete());
 

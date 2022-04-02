@@ -1,6 +1,6 @@
 import { configureStore  } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-import logger from 'redux-logger'
+import logger from 'redux-logger' // eslint-disable-line @typescript-eslint/no-unused-vars
 
 import topicsList from './topicslist/reducer'
 import topic from './topic/reducer'

@@ -1,7 +1,5 @@
-//@flow
 import { createAction } from '@reduxjs/toolkit'
-import * as API from 'src/api'
-import type { RequestNewMessage } from 'src/api'
+import { fetchNewMessage, IRequest } from 'src/api/newmessage'
 
 export const postNewMessageStart = createAction('POST_NEW_MESSAGE_START');
 export const postNewMessageComplete = createAction('POST_NEW_MESSAGE_COMPLETE');
@@ -27,7 +25,7 @@ export const postNewMessage = (params: PostNewmessageParams): any => async (disp
 
   dispatch(postNewMessageStart());
 
-  let fetchParams: RequestNewMessage = {
+  let fetchParams: IRequest = {
     message_text: encodeURIComponent(params.text),
     action: "new",
     topic_id: params.topicId,
@@ -38,7 +36,7 @@ export const postNewMessage = (params: PostNewmessageParams): any => async (disp
     fetchParams.voting_select = params.voting_select;
 
   try {
-    await API.postNewMessage(fetchParams);
+    await fetchNewMessage(fetchParams);
     await dispatch(postNewMessageComplete());
     if (params.onSuccess)
       params.onSuccess();

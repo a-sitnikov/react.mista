@@ -1,11 +1,9 @@
-//@flow
 import React, { FC, ReactElement } from 'react'
 import { Dropdown } from 'react-bootstrap'
 
 import { doLogout } from 'src/data/login/actions'
 import { domain } from 'src/api'
 
-import type { DefaultProps } from 'src/components'
 import { useAppDispatch } from 'src/data/store'
 
 type IProps = {

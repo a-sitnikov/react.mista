@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import React, { Component } from 'react';
+import React, { ReactElement } from 'react';
 
 import TopicsList from './topics_list'
 import Topic from './topic'
@@ -8,7 +8,7 @@ import { clearTooltipsIfNeeded } from 'src/data/tooltips/actions'
 
 import { useAppDispatch } from 'src/data/store';
 
-const Container = () => {
+const Container = (): ReactElement => {
 
   const dispatch = useAppDispatch();
 

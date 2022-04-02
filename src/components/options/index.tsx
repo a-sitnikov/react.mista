@@ -1,5 +1,5 @@
 //@flow
-import React, { Component } from 'react'
+import React, { Component, ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Form, FormControl, Button } from 'react-bootstrap'
@@ -9,23 +9,21 @@ import StringOption from './string_option'
 
 import { saveOptions } from 'src/data/options/actions'
 
-import type { State } from 'src/reducers'
-import type { OptionsState } from 'src/data/options/reducer'
-import { defaultOptionsState } from 'src/data/options/reducer'
-import type { DefaultProps } from 'src/components'
+import { IOptionsState, defaultOptionsState } from 'src/data/options'
+import { form, optionsParams } from './formscheme'
+import Tab from './tab'
 
 import './options.css'
+import { RootState } from 'src/data/store'
 
-type Props = OptionsState & DefaultProps;
-
-export const withNavigate = (Component: any) => {
+export const withNavigate = (Component: any): any => {
   return (props: any) => {
     const navigate = useNavigate();
     return <Component navigate={navigate} {...props} />;
   };
 };
 
-class Options extends Component<Props> {
+class Options extends Component {
 
   optionsParams: any;
   state: any;
@@ -37,109 +35,7 @@ class Options extends Component<Props> {
     this.state = {
       items: props.options.items
     };
-
-    this.optionsParams = {
-      'theme': {
-        type: 'radio',
-        label: 'Цветовая палитра:',
-        oneLine: true,
-        values: [
-          { name: 'yellow', descr: 'Золотая' },
-          { name: 'lightgray', descr: 'Серая' },
-          { name: 'dark', descr: 'Темная' }
-        ]
-      },
-      'topicsPerPage': {
-        type: 'number',
-        label: 'Тем на странице (max 99):',
-        min: 1,
-        max: 99
-      },
-      'autoRefreshTopicsList': {
-        type: 'checkbox',
-        label: 'Автообновление списка тем'
-      },
-      'autoRefreshTopicsListInterval': {
-        type: 'number',
-        label: '',
-        min: 60,
-        max: 1000000,
-        postfix: 'сек'
-      },
-      'autoRefreshTopic': {
-        type: 'checkbox',
-        label: 'Автообновление темы'
-      },
-      'autoRefreshTopicInterval': {
-        type: 'number',
-        label: '',
-        min: 60,
-        max: 1000000,
-        postfix: 'сек'
-      },
-      //Tooltips   
-      'showTooltips': {
-        type: 'checkbox',
-        label: 'Показывать тултипы, задержка'
-      },
-      'tooltipDelay': {
-        type: 'number',
-        max: 1000000,
-        label: '',
-        postfix: 'мс'
-      },
-      'showTooltipOnTopicsList': {
-        type: 'checkbox',
-        label: 'Показывать тултипы на главной странице, при наведении на кол-во ответов'
-      },
-      'showTooltipOnPostLink': {
-        type: 'checkbox',
-        label: 'Показывать тултип ссыки на другую ветку'
-      },
-      //links   
-      'showYoutubeVideoTitle': {
-        type: 'checkbox',
-        label: 'Показывать наименования роликов youtube'
-      },
-      'replaceCatalogMista': {
-        type: 'checkbox',
-        label: 'Обратно заменять catalog.mista.ru на infostart.ru'
-      },
-      'fixBrokenLinks': {
-        type: 'checkbox',
-        label: 'Чинить поломанные ссылки (с русскими символами)'
-      },
-    }
-
-    this.form = [
-      {
-        tabName: 'Общие',
-        rows: [
-          ['theme'],
-          ['topicsPerPage'],
-          ['autoRefreshTopicsList', 'autoRefreshTopicsListInterval'],
-          ['autoRefreshTopic', 'autoRefreshTopicInterval'],
-        ]
-      },
-      {
-        tabName: 'Тултипы',
-        rows: [
-          ['showTooltips', 'tooltipDelay'],
-          ['showTooltipOnTopicsList'],
-          ['showTooltipOnPostLink']
-        ]
-      },
-      {
-        tabName: 'Ссылки',
-        rows: [
-          ['showYoutubeVideoTitle'],
-          ['replaceCatalogMista'],
-          ['fixBrokenLinks'],
-        ]
-      }
-    ]
-
-  }
+  }  
 
   closeForm = () => {
     const { navigate } = this.props;
@@ -180,7 +76,7 @@ class Options extends Component<Props> {
   render() {
 
     let tabs = [];
-    for (let tab of this.form) {
+    for (let tab of form) {
 
       let rows = [];
       for (let i in tab.rows) {
@@ -189,7 +85,7 @@ class Options extends Component<Props> {
         let rowElem = [];
         for (let name of row) {
 
-          const item = this.optionsParams[name];
+          const item = optionsParams[name];
           if (!item) continue;
 
           const value = this.state.items[name];
@@ -274,14 +170,9 @@ class Options extends Component<Props> {
       }
 
       tabs.push(
-        <div key={tab.tabName}>
-          <div className="tab-header">
-            {tab.tabName}
-          </div>
-          <div className="tab-content">
-            {rows}
-          </div>
-        </div>
+        <Tab key={tab.tabName} name={tab.tabName}>
+          {rows}          
+        </Tab>
       );
     }
 
@@ -327,7 +218,7 @@ class Options extends Component<Props> {
 
 }
 
-const mapStateToProps = (state: State) => {
+const mapStateToProps = (state: RootState) => {
 
   return {
     options: state.options
@@ -335,4 +226,4 @@ const mapStateToProps = (state: State) => {
 
 }
 
-export default (connect(mapStateToProps)(withNavigate(Options)): any );
+export default connect(mapStateToProps)(withNavigate(Options));
