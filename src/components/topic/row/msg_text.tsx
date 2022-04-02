@@ -72,7 +72,7 @@ const MsgText: FC<ConnectedProps<typeof connector> & IProps> =
     if (vote && info.voting && topicId === info.id)
       var _voteText = info.voting[vote - 1].text;
     else
-    _voteText = null;  
+      _voteText = null;
 
     const [voteText, setVoteText] = useState(_voteText);
 
@@ -83,15 +83,17 @@ const MsgText: FC<ConnectedProps<typeof connector> & IProps> =
         setVoteText(info.voting[vote - 1].text);
       } catch (e) {
         console.error(e.message);
-      } 
+      }
     }
 
     useEffect(() => {
       if (vote) {
         if (!voteText)
           getVoteText();
-      } else 
-        setVoteText(null)
+      } else {
+        if (voteText)
+          setVoteText(null)
+      }
     }, [vote]);
 
     let voteElement: ReactElement;
