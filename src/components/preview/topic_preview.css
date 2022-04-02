@@ -18,7 +18,7 @@
     background: var(--background);
 }
 
-.topic-preview-header {
+.topic-preview-rewind {
     display: flex;
     margin-bottom: 5px;
     flex-direction: row;

@@ -9,10 +9,10 @@ type IProps = {
   onNext: any
 }
 
-const PreviewHeader: FC<IProps> = ({ onFirst, onPrev, onNext, onLast }): ReactElement => {
+const PreviewButtons: FC<IProps> = ({ onFirst, onPrev, onNext, onLast }): ReactElement => {
 
   return (
-    <div className="topic-preview-header">
+    <div className="topic-preview-rewind">
       <div className="topic-preview-button flex-small" onClick={onFirst} title="К первому">
         <i className="fa fa-angle-double-left" aria-hidden="true"></i>
       </div>
@@ -30,4 +30,4 @@ const PreviewHeader: FC<IProps> = ({ onFirst, onPrev, onNext, onLast }): ReactEl
 
 }
 
-export default PreviewHeader;
+export default PreviewButtons;

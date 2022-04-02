@@ -1,4 +1,3 @@
-//@flow
 import React, { FC, ReactElement, useState, useEffect, useCallback } from 'react'
 import { fetchTopicInfo } from 'src/api/topicinfo'
 
@@ -6,10 +5,9 @@ import { fetchTopicMessage } from 'src/api/topicMessages'
 
 import MsgText from 'src/components/topic/row/msg_text'
 import { ITopicMessage } from 'src/data/topic'
-import ErrorElem from '../common/error'
 import UserInfo from '../topic/row/user_info'
 
-import PreviewHeader from './preview_header'
+import PreviewHeader from './preview_buttons'
 import './topic_preview.css'
 
 type IProps = {
@@ -94,7 +92,7 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, you }): R
   return (
     <div className="preview-container">
       <div className="topic-preview">
-        <PreviewHeader
+      <PreviewHeader
           onFirst={onClickFirst}
           onLast={onClickLast}
           onNext={onClickNext}
