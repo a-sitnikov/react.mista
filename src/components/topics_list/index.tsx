@@ -15,6 +15,7 @@ import Error from 'src/components/common/error'
 import TopicPreview from 'src/components/preview/topic_preview'
 
 import './topics_list.css'
+import login from '../login'
 
 const mapState = (state: RootState) => {
 
@@ -28,7 +29,7 @@ const mapState = (state: RootState) => {
 
 const connector = connect(mapState);
 
-const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, sections }): ReactElement => {
+const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, sections, login }): ReactElement => {
 
   const dispatch = useAppDispatch()
   const location = useLocation();
@@ -53,7 +54,13 @@ const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, sections
     rows.push(<Row key={item.id} data={item} topicId={item.id}/>);
     if (item.showPreview)
       rows.push(
-        <TopicPreview key={`preview${item.id}`} topicId={item.id} initialMsgNumber={item.previewMsgNumber}/>
+        <TopicPreview 
+          key={`preview${item.id}`} 
+          topicId={item.id} 
+          initialMsgNumber={item.previewMsgNumber}
+          author={item.author}
+          you={login.userId}
+          />
       )
   }
 

@@ -26,7 +26,7 @@ function convertResponse(response: IAPIResponse): ITopicMessage {
     id: parseInt(response.id),
     n: parseInt(response.n),
     user: response.user,
-    userId: response.userId,
+    userId: parseInt(response.userId),
     text: response.text,
     time: parseInt(response.utime) * 1000,
     vote: response.vote

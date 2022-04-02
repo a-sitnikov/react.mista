@@ -25,7 +25,7 @@ export interface ITopicMessage {
   id: number,
   n: number,
   user: string,
-  userId: string,
+  userId: number,
   text: string,
   time: number,
   vote: number

@@ -14,7 +14,9 @@ import './topic_preview.css'
 
 type IProps = {
   topicId: number,
-  initialMsgNumber: number
+  initialMsgNumber: number,
+  author: string,
+  you: number
 }
 
 type IState = {
@@ -22,7 +24,7 @@ type IState = {
   error?: string
 }
 
-const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber }): ReactElement => {
+const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, you }): ReactElement => {
 
   const [state, setState] = useState<IState>({
     data: null,
@@ -102,7 +104,7 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber }): ReactElement =
           {data &&
             <>
               <div className='topic-preview-userinfo'>
-                <UserInfo data={data} isAuthor={false} isYou={false} isTooltip />
+                <UserInfo data={data} isAuthor={data.user === author} isYou={data.userId === you} isTooltip />
               </div>
               <MsgText
                 topicId={topicId}
@@ -110,7 +112,7 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber }): ReactElement =
                 data={data}
                 html={data.text}
                 vote={data.vote}
-                style={{ maxHeight: "500px", overflowY: "auto", overflowWrap: "break-word" }}
+                style={{ overflowY: "auto", overflowWrap: "break-word" }}
               />
             </>}
           {error && <span>{error}</span>}
