@@ -7,27 +7,29 @@ import { fetchTopicMessage } from 'src/api/topicMessages'
 import MsgText from 'src/components/topic/row/msg_text'
 import { ITopicMessage } from 'src/data/topic'
 import ErrorElem from '../common/error'
+import UserInfo from '../topic/row/user_info'
 
 import PreviewHeader from './preview_header'
 import './topic_preview.css'
 
 type IProps = {
-  topicId: number
+  topicId: number,
+  initialMsgNumber: number
 }
 
 type IState = {
   data?: ITopicMessage,
-  error?: string  
+  error?: string
 }
 
-const TopicPreview: FC<IProps> = ({ topicId }): ReactElement => {
+const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber }): ReactElement => {
 
   const [state, setState] = useState<IState>({
     data: null,
     error: null
   })
 
-  const [ msgNumber, setMsgNumber ] = useState(0);
+  const [msgNumber, setMsgNumber] = useState(initialMsgNumber);
 
   const fetchData = useCallback(async (n: number) => {
     let data, error;
@@ -68,34 +70,52 @@ const TopicPreview: FC<IProps> = ({ topicId }): ReactElement => {
     setMsgNumber(info.count)
   }
 
+  let startX = 0;
+
+  const onTouchStart = (e: React.TouchEvent<HTMLElement>) => {
+    startX = e.nativeEvent.changedTouches[0].clientX;
+  }
+
+  const onTouchEnd = (e: React.TouchEvent<HTMLElement>) => {
+    let endX = e.nativeEvent.changedTouches[0].clientX;
+    if (Math.abs(endX - startX) > 100)
+      if (endX < startX)
+        onClickNext()
+      else
+        onClickPrev()
+  }
+
   const { data, error } = state;
   if (!data && !error)
     return null;
 
-  if (data)
-    var { user, time } = data;
-
   return (
-    <div className="topic-preview">
-      <PreviewHeader
-        user={user}
-        time={time}
-        topicId={topicId}
-        n={msgNumber}
-        onFirst={onClickFirst}
-        onLast={onClickLast}
-        onNext={onClickNext}
-        onPrev={onClickPrev}
-      />
-      {data && <MsgText
-        topicId={topicId}
-        n={msgNumber}
-        data={data}
-        html={data.text}
-        vote={data.vote}
-        style={{ maxHeight: "500px", overflowY: "auto", overflowWrap: "break-word" }}
-      />}
-      {error && <ErrorElem text={error}/>}
+    <div className="preview-container">
+      <div className="topic-preview">
+        <PreviewHeader
+          onFirst={onClickFirst}
+          onLast={onClickLast}
+          onNext={onClickNext}
+          onPrev={onClickPrev}
+        />
+        <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+          {data &&
+            <>
+              <div className='topic-preview-userinfo'>
+                <UserInfo data={data} isAuthor={false} isYou={false} isTooltip />
+              </div>
+              <MsgText
+                topicId={topicId}
+                n={msgNumber}
+                data={data}
+                html={data.text}
+                vote={data.vote}
+                style={{ maxHeight: "500px", overflowY: "auto", overflowWrap: "break-word" }}
+              />
+            </>}
+          {error && <span>{error}</span>}
+        </div>
+      </div>
     </div>
   )
 

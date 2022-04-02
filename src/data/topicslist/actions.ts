@@ -17,9 +17,10 @@ export const receiveTopicsListFailed = createAction('RECEIVE_TOPICS_LIST', error
   error: true
 }));
 export const clearTopicsList = createAction('CLEAR_TOPICS_LIST');
-export const togglePreview = createAction('TOGGLE_PREVIEW', id => ({
+export const togglePreview = createAction('TOGGLE_PREVIEW', (id, msgNumber) => ({
   payload : {
-    id
+    id,
+    msgNumber
   }
 }));
 

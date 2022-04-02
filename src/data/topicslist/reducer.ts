@@ -30,6 +30,7 @@ const reducer = createReducer(initialState, (builder) => {
 
       let item = Object.assign({}, items[ind]);
       item.showPreview = !item.showPreview;
+      item.previewMsgNumber = action.payload.msgNumber;
       items[ind] = item;
       state.items = items;
     })    

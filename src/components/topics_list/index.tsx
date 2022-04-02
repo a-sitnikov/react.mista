@@ -53,9 +53,7 @@ const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, sections
     rows.push(<Row key={item.id} data={item} topicId={item.id}/>);
     if (item.showPreview)
       rows.push(
-        <div key={`preview${String(item.id)}`} className="preview-container">
-          <TopicPreview topicId={item.id} />
-        </div>
+        <TopicPreview key={`preview${item.id}`} topicId={item.id} initialMsgNumber={item.previewMsgNumber}/>
       )
   }
 

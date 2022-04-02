@@ -8,10 +8,11 @@ import LinkToPost from 'src/components/extensions/link_to_post'
 import PreviewLink from './preview_link'
 
 import { today } from 'src/utils'
-import { RootState } from 'src/data/store';
+import { RootState, useAppDispatch } from 'src/data/store';
 import { ITopicsListItem } from 'src/data/topicslist';
 import { fetchTopicInfo } from 'src/api/topicinfo';
 import { fetchTopicMessage } from 'src/api/topicMessages';
+import { togglePreview } from 'src/data/topicslist/actions';
 
 const mapState = (state: RootState) => {
 
@@ -28,6 +29,8 @@ type IProps = {
 
 const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data, topicId }): ReactElement => {
 
+  const dispatch = useAppDispatch();
+
   const [time, setTime] = useState(data.updated);
   const updateTime = useCallback(async () => {
     const msg = await fetchTopicMessage(topicId, data.count);
@@ -38,6 +41,10 @@ const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data, topicId }): 
     if (data.pinned)
       updateTime();
   }, [data.pinned, updateTime])
+
+  const countOnClick = () => {
+    dispatch(togglePreview(topicId, data.count));
+  }
 
   let date = new Date(time);
   let timeF: string;
@@ -56,9 +63,9 @@ const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data, topicId }): 
       <div className="cell-section">
         {data.section}
       </div>
-      <div className="cell-answ">
+      <div className="cell-answ" onClick={countOnClick} onTouchEnd={countOnClick}>
         <i className="fa fa-comments-o" aria-hidden="true" style={{marginRight: "3px"}}></i>
-        <LinkToPost topicId={data.id} number={data.count} style={{ color: "inherit" }} isPreview />
+        <span>{data.count}</span>
       </div>
       <PreviewLink topicId={data.id} expanded={data.showPreview} />
       <TopicNameCell data={data}/>
@@ -73,7 +80,9 @@ const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data, topicId }): 
         </div>
       </div>
       <div className="cell-last20">
-        <Link to={`/topic.php?id=${String(data.id)}&page=last20#F`} style={{ color: "inherit", display: "block", width: "100%", textAlign: "center" }}>{'>'}</Link>
+        <Link to={`/topic.php?id=${String(data.id)}&page=last20#F`} style={{ color: "inherit", display: "block", width: "100%", textAlign: "center" }}>
+          <i className="fa fa-angle-right" aria-hidden="true"></i>
+        </Link>
       </div>
     </div>
   )

@@ -15,9 +15,33 @@
 }
 
 .topic-preview {
-    background: white;
+    background: var(--background);
 }
 
-[theme='dark'] .topic-preview {
-    background: inherit;
+.topic-preview-header {
+    display: flex;
+    margin-bottom: 5px;
+    flex-direction: row;
+}
+
+.topic-preview-button {
+    text-align: center;
+    border-color: var(--border-color) !important;
+    border: 1px solid;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.flex-small {
+    flex: 1 1 auto;
+}
+
+.flex-large {
+    flex: 2 2 auto;
+}
+
+.topic-preview-userinfo {
+    margin-bottom: 5px;
+    border-bottom: 1px solid;
+    border-color: var(--border-color) !important;
 }

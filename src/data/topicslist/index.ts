@@ -13,7 +13,8 @@ export interface ITopicsListItem {
   down: boolean,
   pinned: boolean
   isVoting: boolean,
-  showPreview: boolean
+  showPreview: boolean,
+  previewMsgNumber?: number
 }
 
 export interface ITopicsList extends Array<ITopicsListItem> { }

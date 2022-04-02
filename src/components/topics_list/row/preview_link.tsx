@@ -13,7 +13,7 @@ const PreviewLink: FC<IProps> = ({ topicId, expanded }): ReactElement => {
   const dispatch = useAppDispatch();
 
   const onClick = () => {
-    dispatch(togglePreview(topicId));
+    dispatch(togglePreview(topicId, 0));
   }
 
   const text = expanded 
