@@ -1,6 +1,10 @@
-import React from 'react'
+import { FC, ReactElement } from 'react'
 
-const TooltipHeader = ({children, closeWindow}) => {
+type IProps ={
+    closeWindow: (e: any) => any
+}
+
+const TooltipHeader: FC<IProps> = ({children, closeWindow}): ReactElement => {
     return (
         <div className="tooltip-header">
             {children}

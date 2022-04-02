@@ -80,15 +80,14 @@ export const doLogout = () => async (dispatch: any) => {
 
 }
 
-export const doLogin = (params: any): any => async (dispatch: any) => {
+export const doLogin = (username: string, password: string): any => async (dispatch: any) => {
 
   dispatch(loginStart());
-
   try {
 
     await fetchLogin({
-      username: encodeURIComponent(params.username),
-      password: encodeURIComponent(params.password)
+      username: encodeURIComponent(username),
+      password: encodeURIComponent(password)
     })
 
     dispatch(checkLogin());
@@ -100,8 +99,8 @@ export const doLogin = (params: any): any => async (dispatch: any) => {
 
 }
 
-export const doLoginIfNeeded = (params: any): any => (dispatch: any, getState: any) => {
+export const doLoginIfNeeded = (username: string, password: string): any => (dispatch: any, getState: any) => {
   if (shouldLogin(getState())) {
-    return dispatch(doLogin(params))
+    return dispatch(doLogin(username, password))
   }
 }

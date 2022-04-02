@@ -10,8 +10,8 @@ import { RootState, useAppDispatch } from 'src/data/store'
 const mapState = (state: RootState) => {
   return state.login;
 }
-const connector = connect(mapState);
 
+const connector = connect(mapState);
 const Login: FC<ConnectedProps<typeof connector>> = ({ logged, userId, userName, error }): ReactElement => {
 
   const dispatch = useAppDispatch();
