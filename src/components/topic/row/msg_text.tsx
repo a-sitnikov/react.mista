@@ -78,9 +78,8 @@ const MsgText: FC<ConnectedProps<typeof connector> & IProps> =
 
     const getVoteText = async () => {
       try {
-        let info = await fetchTopicInfo(topicId);
-        //console.log(vote, )
-        setVoteText(info.voting[vote - 1].text);
+        const _info = await fetchTopicInfo(topicId);
+        setVoteText(_info.voting[vote - 1].text);
       } catch (e) {
         console.error(e.message);
       }
@@ -88,7 +87,7 @@ const MsgText: FC<ConnectedProps<typeof connector> & IProps> =
 
     useEffect(() => {
       if (vote) {
-        if (!voteText)
+        if (!(_voteText))
           getVoteText();
       } else {
         if (voteText)
