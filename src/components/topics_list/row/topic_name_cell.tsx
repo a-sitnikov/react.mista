@@ -65,6 +65,7 @@ const TopicNameCell: FC<ConnectedProps<typeof connector> & IProps> = ({ data, lo
 
   return (
     <div className="cell-title">
+      {pinned && <i className="fa fa-thumb-tack" aria-hidden="true" style={{marginRight: "5px"}}></i>}
       <Link to={href} className={classes} dangerouslySetInnerHTML={{ __html: text }} style={{ overflowWrap: "anywhere" }}></Link>
       {isVoting}
       <Pages count={data.count} topicId={data.id} />
