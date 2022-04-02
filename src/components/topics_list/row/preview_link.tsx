@@ -16,7 +16,9 @@ const PreviewLink: FC<IProps> = ({ topicId, expanded }): ReactElement => {
     dispatch(togglePreview(topicId));
   }
 
-  const text = expanded ? '-' : '+';
+  const text = expanded 
+    ? <i className="fa fa-minus-square-o agh" aria-hidden="true"></i> 
+    : <i className="fa fa-plus-square-o agh" aria-hidden="true"></i>;
   return (
     <div className="cell-preview-link" onClick={onClick}>
       <span>{text}</span>
