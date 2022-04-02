@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react'
+import { FC, ReactElement, useEffect, useState } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import activeHtml from 'react-active-html';
 
@@ -10,6 +10,7 @@ import VoteChart from './vote_chart'
 import Vote from './vote'
 import { ITopicMessage } from 'src/data/topic';
 import { RootState } from 'src/data/store';
+import { fetchTopicInfo } from 'src/api/topicinfo';
 
 type IProps = {
   topicId: number,
@@ -65,38 +66,60 @@ const mapState = (state: RootState) => {
   }
 }
 const connector = connect(mapState);
-const MsgText: FC<ConnectedProps<typeof connector> & IProps> = 
+const MsgText: FC<ConnectedProps<typeof connector> & IProps> =
   ({ topicId, n, html, vote, info, style, voteColors }): ReactElement => {
 
-  let voteElement;
-  if (vote && info.voting && topicId === info.id) {
-    let voteOption = info.voting[vote - 1];
-    if (voteOption)
-      voteElement = <Vote text={voteOption.text} n={vote} colors={voteColors} />
-  }
+    if (vote && info.voting && topicId === info.id)
+      var _voteText = info.voting[vote - 1].text;
+    else
+    _voteText = null;  
 
-  let voteChart;
-  if (n === 0 && info.isVoting && info.voting) {
-    voteChart = <VoteChart items={info.voting} topicId={topicId} colors={voteColors} />
-  }
+    const [voteText, setVoteText] = useState(_voteText);
 
-  let processedHtml = processText(html, topicId);
-  const componentsMap = {
-    link: (props: any) => <LinkToPost topicId={props['data-topicid']} number={props['data-number']} key={props.key} />,
-    code: (props: any) => <Code {...props} />,
-    a: (props: any) => <CustomLink {...props} parentText={processedHtml} />
-  };
-  const textComponent = activeHtml(processedHtml, componentsMap);
+    const getVoteText = async () => {
+      try {
+        let info = await fetchTopicInfo(topicId);
+        //console.log(vote, )
+        setVoteText(info.voting[vote - 1].text);
+      } catch (e) {
+        console.error(e.message);
+      } 
+    }
 
-  return (
-    <div className="message" style={style}>
-      {voteChart}
-      <div>
-        {textComponent}
+    useEffect(() => {
+      if (vote) {
+        if (!voteText)
+          getVoteText();
+      } else 
+        setVoteText(null)
+    }, [vote]);
+
+    let voteElement: ReactElement;
+    if (voteText)
+      voteElement = <Vote text={voteText} n={vote} colors={voteColors} />
+
+    let voteChart: ReactElement;
+    if (n === 0 && info.isVoting && info.voting) {
+      voteChart = <VoteChart items={info.voting} topicId={topicId} colors={voteColors} />
+    }
+
+    let processedHtml = processText(html, topicId);
+    const componentsMap = {
+      link: (props: any) => <LinkToPost topicId={props['data-topicid']} number={props['data-number']} key={props.key} />,
+      code: (props: any) => <Code {...props} />,
+      a: (props: any) => <CustomLink {...props} parentText={processedHtml} />
+    };
+    const textComponent = activeHtml(processedHtml, componentsMap);
+
+    return (
+      <div className="message" style={style}>
+        {voteChart}
+        <div>
+          {textComponent}
+        </div>
+        {voteElement}
       </div>
-      {voteElement}
-    </div>
-  )
-}
+    )
+  }
 
 export default connector(MsgText);

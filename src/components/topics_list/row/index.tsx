@@ -63,7 +63,7 @@ const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data, topicId }): 
       <div className="cell-section">
         {data.section}
       </div>
-      <div className="cell-answ" onClick={countOnClick} onTouchEnd={countOnClick}>
+      <div className="cell-answ" onClick={countOnClick}>
         <i className="fa fa-comments-o" aria-hidden="true" style={{marginRight: "3px"}}></i>
         <span>{data.count}</span>
       </div>
