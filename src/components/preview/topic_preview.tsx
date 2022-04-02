@@ -7,7 +7,7 @@ import MsgText from 'src/components/topic/row/msg_text'
 import { ITopicMessage } from 'src/data/topic'
 import UserInfo from '../topic/row/user_info'
 
-import PreviewHeader from './preview_buttons'
+import PreviewBottons from './preview_buttons'
 import './topic_preview.css'
 
 type IProps = {
@@ -92,7 +92,7 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, you }): R
   return (
     <div className="preview-container">
       <div className="topic-preview">
-      <PreviewHeader
+      <PreviewBottons
           onFirst={onClickFirst}
           onLast={onClickLast}
           onNext={onClickNext}
