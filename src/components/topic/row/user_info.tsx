@@ -1,5 +1,5 @@
 //@flow
-import React, { FC, ReactElement } from 'react'
+import React, { FC, ReactElement, useEffect, useState } from 'react'
 import dateFormat from 'dateformat'
 import classNames from 'classnames'
 import { domain } from 'src/api'
@@ -19,6 +19,8 @@ const UserInfo: FC<IProps> = (props): ReactElement => {
 
   const dispatch = useAppDispatch();
 
+  const [imgDisplay, setImgDisplay] = useState('none');
+
   const onClick = () => {
     const { data } = props;
     dispatch(addMessageText(`(${data.n})`));
@@ -28,15 +30,19 @@ const UserInfo: FC<IProps> = (props): ReactElement => {
       window.scrollTo(0, elem.offsetTop);
   }
 
-  const onImageLoad = (event) => {
-    event.target.style.display = 'inline';
+  const onImageLoad = () => {
+    setImgDisplay('inline');
   }
 
-  const onImageError = (event) => {
-    event.target.style.display = 'none';
+  const onImageError = () => {
+    setImgDisplay('none');
   }
 
   const { data, isAuthor, isYou, isTooltip } = props;
+  useEffect(() => {
+    setImgDisplay('none');
+  }, [data.n]);
+
   const href = `${domain}/users.php?id=${data.userId}`;
   let dataStr;
   if (!data) {
@@ -62,7 +68,7 @@ const UserInfo: FC<IProps> = (props): ReactElement => {
       alt="user ico"
       onLoad={onImageLoad}
       onError={onImageError}
-      style={{ display: "none", marginBottom: "4px", marginRight: "1px" }} />
+      style={{ display: imgDisplay, marginBottom: "4px", marginRight: "1px" }} />
 
   let timeElem;
   if (isTooltip) {

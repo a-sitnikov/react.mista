@@ -95,10 +95,7 @@ const MsgText: FC<ConnectedProps<typeof connector> & IProps> =
       }
     }, [vote]);
 
-    let voteElement: ReactElement;
-    if (voteText)
-      voteElement = <Vote text={voteText} n={vote} colors={voteColors} />
-
+    const showVote = (vote !== 0) && (voteText !== null);
     let voteChart: ReactElement;
     if (n === 0 && info.isVoting && info.voting) {
       voteChart = <VoteChart items={info.voting} topicId={topicId} colors={voteColors} />
@@ -118,7 +115,7 @@ const MsgText: FC<ConnectedProps<typeof connector> & IProps> =
         <div>
           {textComponent}
         </div>
-        {voteElement}
+        {showVote && <Vote text={voteText} n={vote} colors={voteColors} />}
       </div>
     )
   }
