@@ -8,8 +8,7 @@ import { ITopicsListItem } from 'src/data/topicslist';
 import { RootState } from 'src/data/store';
 
 type IProps = {
-  data: ITopicsListItem,
-  pinned: boolean
+  data: ITopicsListItem
 };
 
 const mapState = (state: RootState) => {
@@ -19,13 +18,13 @@ const mapState = (state: RootState) => {
 }
 
 const connector = connect(mapState);
-const TopicNameCell: FC<ConnectedProps<typeof connector> & IProps> = ({ data, login, pinned }): ReactElement => {
+const TopicNameCell: FC<ConnectedProps<typeof connector> & IProps> = ({ data, login }): ReactElement => {
 
   let href = `/topic.php?id=${data.id}`;
   let classes = classNames('agb', 'mr5', {
     'bold': data.count >= 100,
     'mytopics': data.author === login.userName,
-    'pinned': pinned
+    'pinned': data.pinned
   });
 
   let isVoting;
@@ -65,7 +64,7 @@ const TopicNameCell: FC<ConnectedProps<typeof connector> & IProps> = ({ data, lo
 
   return (
     <div className="cell-title">
-      {pinned && <i className="fa fa-thumb-tack agh" aria-hidden="true" style={{marginRight: "5px"}}></i>}
+      {data.pinned && <i className="fa fa-thumb-tack agh" aria-hidden="true" style={{marginRight: "5px"}}></i>}
       <Link to={href} className={classes} dangerouslySetInnerHTML={{ __html: text }} style={{ overflowWrap: "anywhere" }}></Link>
       {isVoting}
       <Pages count={data.count} topicId={data.id} />

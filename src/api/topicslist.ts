@@ -72,6 +72,7 @@ function convertResponse(response: IAPIResponse): ITopicsListItem {
     text: response.text,
     closed: response.closed === 1,
     down: response.down === 1,
+    pinned: response.utime === 2147483648,
     isVoting: response.is_voting === 1,
     showPreview: false
   })

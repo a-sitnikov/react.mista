@@ -11,6 +11,7 @@ export interface ITopicsListItem {
   updated: number,
   closed: boolean,
   down: boolean,
+  pinned: boolean
   isVoting: boolean,
   showPreview: boolean
 }

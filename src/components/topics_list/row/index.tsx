@@ -35,12 +35,10 @@ const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data, topicId }): 
     setTime(msg.time);
   }, [])
   
-  const pinned = (data.updated === 2147483648000);
-
   useEffect(() => {
-    if (pinned)
+    if (data.pinned)
       updateTime();
-  }, [pinned, updateTime])
+  }, [data.pinned, updateTime])
 
   let date = new Date(time);
   let timeF: string;
@@ -64,7 +62,7 @@ const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data, topicId }): 
         <LinkToPost topicId={data.id} number={data.count} style={{ color: "inherit" }} isPreview />
       </div>
       <PreviewLink topicId={data.id} expanded={data.showPreview} />
-      <TopicNameCell data={data} pinned={pinned}/>
+      <TopicNameCell data={data}/>
       <div className="cell-author">
         <i aria-hidden="true" className="fa fa-user-circle" style={{marginRight: "3px"}}></i>
         {data.author}
