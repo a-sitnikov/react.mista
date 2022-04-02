@@ -8,9 +8,9 @@ import { ITopicsListItem } from 'src/data/topicslist';
 import { RootState } from 'src/data/store';
 
 type IProps = {
-  data: ITopicsListItem
+  data: ITopicsListItem,
+  pinned: boolean
 };
-
 
 const mapState = (state: RootState) => {
   return {
@@ -19,12 +19,13 @@ const mapState = (state: RootState) => {
 }
 
 const connector = connect(mapState);
-const TopicNameCell: FC<ConnectedProps<typeof connector> & IProps> = ({ data, login }): ReactElement => {
+const TopicNameCell: FC<ConnectedProps<typeof connector> & IProps> = ({ data, login, pinned }): ReactElement => {
 
   let href = `/topic.php?id=${data.id}`;
   let classes = classNames('agb', 'mr5', {
     'bold': data.count >= 100,
-    'mytopics': data.author === login.userName
+    'mytopics': data.author === login.userName,
+    'pinned': pinned
   });
 
   let isVoting;

@@ -1,5 +1,4 @@
-//@flow
-import React, { FC, ReactElement } from 'react'
+import { FC, ReactElement, useCallback, useEffect, useState } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { Link } from 'react-router-dom'
 import dateFormat from 'dateformat'
@@ -11,25 +10,43 @@ import PreviewLink from './preview_link'
 import { today } from 'src/utils'
 import { RootState } from 'src/data/store';
 import { ITopicsListItem } from 'src/data/topicslist';
+import { fetchTopicInfo } from 'src/api/topicinfo';
+import { fetchTopicMessage } from 'src/api/topicMessages';
 
 const mapState = (state: RootState) => {
 
   return {
-    login: state.login,
-    showTooltipOnTopicsList: state.options.items.showTooltipOnTopicsList
+    login: state.login
   }
 }
 const connector = connect(mapState);
 
 type IProps = {
-  data: ITopicsListItem
+  data: ITopicsListItem,
+  topicId: number
 }
 
-const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data }): ReactElement => {
+const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data, topicId }): ReactElement => {
 
-  let time = new Date(data.updated);
+  const [time, setTime] = useState(data.updated);
+  const updateTime = useCallback(async () => {
+    const info = await fetchTopicInfo(topicId);
+    const msg = await fetchTopicMessage(topicId, info.count);
+    setTime(msg.time);
+  }, [])
+  
+  const pinned = (data.updated === 2147483648000);
+
+  useEffect(() => {
+    if (pinned)
+      updateTime();
+  }, [pinned, updateTime])
+
+  let date = new Date(time);
   let timeF: string;
-  if (today(time)) {
+  if (time === 2147483648000) {
+    timeF = '';
+  } else if (today(date)) {
     timeF = dateFormat(time, 'HH:MM')
   } else {
     timeF = dateFormat(time, 'dd.mm.yy');
@@ -47,7 +64,7 @@ const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data }): ReactElem
         <LinkToPost topicId={data.id} number={data.count} style={{ color: "inherit" }} isPreview />
       </div>
       <PreviewLink topicId={data.id} expanded={data.showPreview} />
-      <TopicNameCell data={data} />
+      <TopicNameCell data={data} pinned={pinned}/>
       <div className="cell-author">
         <i aria-hidden="true" className="fa fa-user-circle" style={{marginRight: "3px"}}></i>
         {data.author}

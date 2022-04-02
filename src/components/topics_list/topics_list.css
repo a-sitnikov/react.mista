@@ -58,6 +58,11 @@
     color: inherit;
 }
 
+.pinned {
+    font-weight: bold;
+    color: purple;
+}
+
 .topics-list-row {
     display: grid;
     width: 100%;
