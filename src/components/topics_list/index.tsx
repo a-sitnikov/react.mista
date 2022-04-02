@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useEffect } from 'react'
+import React, { FC, ReactElement, useCallback, useEffect } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import queryString from 'query-string'
@@ -34,17 +34,18 @@ const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, sections
   const location = useLocation();
   const locationParams = queryString.parse(location.search);
 
-  const updateTopicsList = () => {
+  const updateTopicsList = useCallback((locationParams) => {
     dispatch(getTopicsListIfNeeded(locationParams));
-  }
+  }, [dispatch])
 
   useEffect(() => {
     document.title = 'React.Mista';
   }, []);
 
   useEffect(() => {
-    updateTopicsList();
-  }, [location.search]);
+    const locationParams = queryString.parse(location.search);
+    updateTopicsList(locationParams);
+  }, [location.search, updateTopicsList]);
 
   let rows = [];
   for (let item of topicsList.items) {

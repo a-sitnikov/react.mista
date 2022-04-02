@@ -1,5 +1,5 @@
 //@flow
-import React, { FC, ReactElement, useState, useEffect } from 'react'
+import React, { FC, ReactElement, useState, useEffect, useCallback } from 'react'
 import { fetchTopicInfo } from 'src/api/topicinfo'
 
 import { fetchTopicMessage } from 'src/api/topicMessages'
@@ -29,11 +29,7 @@ const TopicPreview: FC<IProps> = ({ topicId }): ReactElement => {
 
   const [ msgNumber, setMsgNumber ] = useState(0);
 
-  useEffect(() => {
-    fetchData(msgNumber);
-  }, [msgNumber]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  const fetchData = async (n: number) => {
+  const fetchData = useCallback(async (n: number) => {
     let data, error;
     try {
       data = await fetchTopicMessage(topicId, n);
@@ -48,7 +44,11 @@ const TopicPreview: FC<IProps> = ({ topicId }): ReactElement => {
       data,
       error
     })
-  }
+  }, [topicId]);
+
+  useEffect(() => {
+    fetchData(msgNumber);
+  }, [msgNumber, fetchData])
 
   const onClickFirst = () => {
     setMsgNumber(0);

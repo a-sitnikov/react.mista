@@ -44,26 +44,25 @@ const mapState = (state: RootState) => {
   }
 }
 
+const getPageNumber = (locationPage: string | string[]): number | "last20" => {
+  if (!locationPage) return 1;
+  if (locationPage === "last20") return "last20";
+  if (isNaN(+locationPage)) return 1;
+  return +locationPage;
+}
+
 const connector = connect(mapState);
-const Topic: FC<ConnectedProps<typeof connector>>  = (props): ReactElement => {
+const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info, error }): ReactElement => {
   
   const dispatch = useAppDispatch()
   const location = useLocation();
   let locationParams = queryString.parse(location.search);
-  let page: number | string | string[] = locationParams.page;
-  if (!page)
-    page = 1;
+  let page = getPageNumber(locationParams.page);
+  const maxPage = getMaxPage(info.count);
 
   const updateTopic = () => {
 
-    let { item0 } = props;
-
-    if (page !== 'last20') {
-      if (isNaN(+page))
-        page = 1;
-    }
-
-    if (locationParams.id !== String(props.info.id))
+    if (locationParams.id !== String(info.id))
       item0 = null;
 
     dispatch(getTopicIfNeeded(locationParams, item0));
@@ -71,9 +70,7 @@ const Topic: FC<ConnectedProps<typeof connector>>  = (props): ReactElement => {
 
   const onPostNewMessageSuccess = () => {
 
-    const { info } = props;
-
-    const isLastPage = (locationParams.page === 'last20' || page === getMaxPage(info.count));
+    const isLastPage = (page === 'last20' || page === maxPage);
 
     if (isLastPage)
       dispatch(getNewMessagesIfNeeded({
@@ -84,9 +81,6 @@ const Topic: FC<ConnectedProps<typeof connector>>  = (props): ReactElement => {
       dispatch(newMessageText(''));
   }
   
-  const { login, items, item0, info, error } = props;
-  const maxPage = getMaxPage(info.count);
-
   useEffect(() => {
     if (info.title)
       document.title = extractTextFromHTML(info.title);
@@ -94,7 +88,7 @@ const Topic: FC<ConnectedProps<typeof connector>>  = (props): ReactElement => {
 
   useEffect(() => {
     updateTopic();
-  }, [dispatch, locationParams.id, locationParams.page]);
+  }, [dispatch, locationParams.id, page]);
     
   useEffect(() => {
     
@@ -109,7 +103,7 @@ const Topic: FC<ConnectedProps<typeof connector>>  = (props): ReactElement => {
   useEffect(() => {
     if (!scrolledToHash &&
       location.hash &&
-      props.items.length > 0) {
+      items.length > 0) {
       let nodeHash = document.getElementById(location.hash.slice(1));
       if (nodeHash)
         setTimeout(() => window.scrollTo(0, nodeHash.offsetTop), 1);
@@ -127,7 +121,7 @@ const Topic: FC<ConnectedProps<typeof connector>>  = (props): ReactElement => {
         {items.map((item, i) => (
           <Row key={item.n} data={item} />
         ))}
-        {(maxPage > 1 || locationParams.page === "last20") &&
+        {(maxPage > 1 || page === "last20") &&
           <div className="tf">
             <Pages baseUrl='topic.php' locationParams={locationParams} maxPage={maxPage} last20 />
           </div>
