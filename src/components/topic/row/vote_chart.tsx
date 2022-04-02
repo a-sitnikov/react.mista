@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react'
+import { FC, ReactElement } from 'react'
 import VoteItem from './vote_item'
 import { IVotingItem } from 'src/data/topic'
 
@@ -10,7 +10,8 @@ type IProps = {
 
 const VoteChart: FC<IProps> = ({ items, topicId, colors }): ReactElement => {
 
-  let total = items.reduce((sum, item ) => sum + item.count, 0);
+  let total = Math.max(...items.map(item => item.count));
+  console.log(total);
 
   return (
     <div style={{ marginBottom: "10px" }}>
