@@ -1,4 +1,5 @@
 import { FC, ReactElement } from 'react'
+import { Link } from 'react-router-dom'
 import { useAppDispatch } from 'src/data/store'
 import { togglePreview } from 'src/data/topicslist/actions'
 
@@ -37,6 +38,11 @@ const PreviewButtons: FC<IProps> = ({ topicId, onFirst, onPrev, onNext, onLast }
         <i className="fa fa-angle-right" aria-hidden="true"></i>
         <i className="fa fa-angle-left" aria-hidden="true" style={{marginLeft: "-2px"}}></i>
       </div>
+      <div className="topic-preview-button edit-preview"> 
+        <Link to={`/topic.php?id=${topicId}&page=last20#F`}>
+          <i className="fa fa-pencil" aria-hidden="true"></i>
+        </Link>  
+      </div>      
     </div>
   )
 

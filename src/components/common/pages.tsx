@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react'
+import { FC, ReactElement } from 'react'
 import { Pagination } from 'react-bootstrap'
 
 import { paramsToString } from 'src/api'
@@ -26,7 +26,10 @@ const Pages: FC<IProps> = ({ locationParams, baseUrl, maxPage, last20 }): ReactE
     let params = { ...locationParams, page: i };
     let href = `#/${baseUrl}` + paramsToString('?', params);
 
-    pages.push(<Pagination.Item active={currentPage === i} key={i} href={href}>{i}</Pagination.Item>);
+    pages.push(
+      <Pagination.Item active={currentPage === i} key={i} href={href}>
+        {i}
+      </Pagination.Item>);
   }
 
   if (last20 === true) {

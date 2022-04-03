@@ -36,6 +36,10 @@
   flex: 0 0 30px;
 }
 
+.edit-preview {
+  flex: 0 0 30px;
+}
+
 @media (max-width: 768px) {
   .close-preview {
     display: none;

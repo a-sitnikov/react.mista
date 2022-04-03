@@ -1,4 +1,3 @@
-//@flow
 import React, { FC, ReactElement, useState } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { FormControl, Button } from 'react-bootstrap'
