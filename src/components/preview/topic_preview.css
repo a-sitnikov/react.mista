@@ -41,6 +41,11 @@
 }
 
 @media (max-width: 768px) {
+  
+  .edit-preview {
+    display: none;
+  }
+  
   .close-preview {
     display: none;
   }
