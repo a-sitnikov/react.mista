@@ -40,7 +40,7 @@ const PreviewButtons: FC<IProps> = ({ topicId, onFirst, onPrev, onNext, onLast }
       </div>
       <div className="topic-preview-button edit-preview"> 
         <Link to={`/topic.php?id=${topicId}&page=last20#F`}>
-          <i className="fa fa-pencil" aria-hidden="true"></i>
+          <i className="fa fa-pencil" aria-hidden="true" style={{color:"var(--font-color)"}}></i>
         </Link>  
       </div>      
     </div>
