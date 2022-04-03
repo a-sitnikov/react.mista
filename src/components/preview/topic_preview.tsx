@@ -92,7 +92,8 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, you }): R
   return (
     <div className="preview-container">
       <div className="topic-preview">
-      <PreviewBottons
+        <PreviewBottons
+          topicId={topicId}
           onFirst={onClickFirst}
           onLast={onClickLast}
           onNext={onClickNext}

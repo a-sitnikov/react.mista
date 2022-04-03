@@ -1,47 +1,57 @@
 .plus-minus {
-    color: gray;
-    font-family: "Courier New", monospace;
-    font-size: 80%;
-    cursor: pointer;
-    margin: 0 8px 0 4px;
+  color: gray;
+  font-family: "Courier New", monospace;
+  font-size: 80%;
+  cursor: pointer;
+  margin: 0 8px 0 4px;
 }
 
 .plus-nav {
-    cursor: pointer;
-    color: gray;
-    text-decoration: none;
-    margin-left: 5px;
-    margin-right: 5px;
+  cursor: pointer;
+  color: gray;
+  text-decoration: none;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .topic-preview {
-    background: var(--background);
+  background: var(--background);
 }
 
 .topic-preview-rewind {
-    display: flex;
-    margin-bottom: 5px;
-    flex-direction: row;
+  display: flex;
+  margin-bottom: 5px;
+  flex-direction: row;
 }
 
 .topic-preview-button {
-    text-align: center;
-    border-color: var(--border-color) !important;
-    border: 1px solid;
-    border-radius: 4px;
-    cursor: pointer;
+  text-align: center;
+  border-color: var(--border-color) !important;
+  border: 1px solid;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.close-preview {
+  flex: 0 0 30px;
+}
+
+@media (max-width: 768px) {
+  .close-preview {
+    display: none;
+  }
 }
 
 .flex-small {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
 .flex-large {
-    flex: 2 2 auto;
+  flex: 2 2 auto;
 }
 
 .topic-preview-userinfo {
-    margin-bottom: 5px;
-    border-bottom: 1px solid;
-    border-color: var(--border-color) !important;
+  margin-bottom: 5px;
+  border-bottom: 1px solid;
+  border-color: var(--border-color) !important;
 }
