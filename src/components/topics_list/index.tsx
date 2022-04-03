@@ -15,7 +15,6 @@ import Error from 'src/components/common/error'
 import TopicPreview from 'src/components/preview/topic_preview'
 
 import './topics_list.css'
-import login from '../login'
 
 const mapState = (state: RootState) => {
 
@@ -28,7 +27,6 @@ const mapState = (state: RootState) => {
 }
 
 const connector = connect(mapState);
-
 const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, sections, login }): ReactElement => {
 
   const dispatch = useAppDispatch()
@@ -84,10 +82,8 @@ const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, sections
       </div>
       <div id="F" className="newtopic" style={{ marginBottom: "10px", marginTop: "5px", position: 'relative' }}>
         <NewTopic 
-          sections={sections.items} 
-          locationParams={locationParams} 
           onSubmitSuccess={updateTopicsList}
-          />
+        />
       </div>
     </div>
   )

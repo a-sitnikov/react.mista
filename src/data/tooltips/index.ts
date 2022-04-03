@@ -1,5 +1,4 @@
 export interface ITooltipKeys {
-  type: string,
   topicId: number,
   number: number
 }

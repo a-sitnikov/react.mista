@@ -3,7 +3,6 @@ import { createAction } from '@reduxjs/toolkit'
 import { RootState } from '../store'
 
 export type TooltipKeys = {
-  type: 'TOPIC' | 'TOPIC_PREVIEW',
   topicId: string,
   number: number
 }
@@ -32,10 +31,7 @@ export const closeTooltip = createAction('CLOSE_TOOLTIP', keys => ({
 export const clearTooltips = createAction('CLEAR_TOOLTIPS');
 
 export const showTooltip = (keys: TooltipKeys, coords: Coords): any => async (dispatch: any) => {
-
-  if (keys.type === 'TOPIC' || keys.type === 'TOPIC_PREVIEW') {
-    dispatch(createTooltip(keys, coords));
-  }
+  dispatch(createTooltip(keys, coords));
 }
 
 export const clearTooltipsIfNeeded = (): any => (dispatch: any, getState: any) => {

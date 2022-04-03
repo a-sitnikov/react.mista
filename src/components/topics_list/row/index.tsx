@@ -4,13 +4,11 @@ import { Link } from 'react-router-dom'
 import dateFormat from 'dateformat'
 
 import TopicNameCell from './topic_name_cell';
-import LinkToPost from 'src/components/extensions/link_to_post'
 import PreviewLink from './preview_link'
 
 import { today } from 'src/utils'
 import { RootState, useAppDispatch } from 'src/data/store';
 import { ITopicsListItem } from 'src/data/topicslist';
-import { fetchTopicInfo } from 'src/api/topicinfo';
 import { fetchTopicMessage } from 'src/api/topicMessages';
 import { togglePreview } from 'src/data/topicslist/actions';
 
@@ -35,7 +33,7 @@ const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data, topicId }): 
   const updateTime = useCallback(async () => {
     const msg = await fetchTopicMessage(topicId, data.count);
     setTime(msg.time);
-  }, [])
+  }, [topicId, data.count])
   
   useEffect(() => {
     if (data.pinned)

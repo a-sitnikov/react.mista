@@ -6,14 +6,12 @@ import { getSectionsIfNeeded } from 'src/data/sections/actions'
 
 import { RootState, useAppDispatch } from 'src/data/store'
 
-import type { ISectionItem, ISectionsList, ISectionsTree } from 'src/data/sections'
+import type { ISectionItem } from 'src/data/sections'
 
 type IProps = {
   id: string,
-  items: ISectionsList,
-  tree?: ISectionsTree,
   defaultValue: string,
-  selected: string,
+  selected?: string,
   style?: {},
   size?: 'sm' | 'lg',
   onChange: (e: any, value: ISectionItem) => void
@@ -38,7 +36,7 @@ const Sections: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactEl
     dispatch(getSectionsIfNeeded());
   }, [dispatch]);
 
-  const onSelect: (e: any) => void = (e: any) => {
+  const onSelect: (e: React.ChangeEvent<HTMLSelectElement>) => void = (e: any) => {
 
     const { items, onChange } = props;
 

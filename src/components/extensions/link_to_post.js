@@ -14,7 +14,6 @@ import type { ResponseInfo, ResponseMessages } from 'src/api'
 type LinkToPostProps = {
   topicId: string,
   number: number,
-  isPreview: boolean,
   style: {}
 }
 
@@ -78,7 +77,7 @@ class LinkToPost extends Component<Props, { text: string }> {
   }
 
   showToolTip = (e) => {
-    const { topicId, number, dispatch, isPreview } = this.props;
+    const { topicId, number, dispatch } = this.props;
 
     const coords = {
       x: e.pageX,
@@ -86,7 +85,6 @@ class LinkToPost extends Component<Props, { text: string }> {
     }
 
     const keys = {
-      type: isPreview ? 'TOPIC_PREVIEW' : 'TOPIC',
       topicId,
       number: +number
     }

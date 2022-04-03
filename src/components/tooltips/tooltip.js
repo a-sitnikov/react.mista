@@ -83,17 +83,6 @@ class Tooltip extends Component<Props, State> {
     this.setState({ data, text, number });
   }
 
-  onScroll = (delta) => {
-
-    const { keys } = this.props.tooltip;
-    if (keys.type !== 'TOPIC_PREVIEW') return;
-    if (delta > 0) {
-      this.fetchData(this.state.number + 1)
-    } else {
-      this.fetchData(this.state.number - 1)
-    }
-  }
-
   componentDidMount() {
 
     if (!this.state.data)
@@ -111,27 +100,24 @@ class Tooltip extends Component<Props, State> {
     if (!this.state.data) {
       header = <b>Заголовок</b>
     } else {
-      header = <UserInfo data={this.state.data} isAuthor={false} isTooltip={true}/>
+      header = <UserInfo data={this.state.data} isAuthor={false} isTooltip={true} />
     }
 
-    if (keys.type === 'TOPIC' || keys.type === 'TOPIC_PREVIEW')
-      return (
-        <TooltipWindow tooltip={this.props.tooltip} onScroll={this.onScroll}>
-          <TooltipHeader>
-            {header}
-          </TooltipHeader>
-          <TooltipBody>
-            <MsgText
-              data={this.state.data}
-              html={this.state.text}
-              topicId={keys.topicId}
-              style={{ maxHeight: "min(550px, 80vh)", overflowY: "auto" }}
-            />
-          </TooltipBody>
-        </TooltipWindow>
-      )
-    else
-      return null;
+    return (
+      <TooltipWindow tooltip={this.props.tooltip}>
+        <TooltipHeader>
+          {header}
+        </TooltipHeader>
+        <TooltipBody>
+          <MsgText
+            data={this.state.data}
+            html={this.state.text}
+            topicId={keys.topicId}
+            style={{ maxHeight: "min(550px, 80vh)", overflowY: "auto" }}
+          />
+        </TooltipBody>
+      </TooltipWindow>
+    )  
   }
 }
 const mapStateToProps = (state) => {
@@ -149,4 +135,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default (connect(mapStateToProps)(Tooltip): any );
+export default connect(mapStateToProps)(Tooltip);
