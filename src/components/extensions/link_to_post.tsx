@@ -1,33 +1,36 @@
-//@flow
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { connect, ConnectedProps } from 'react-redux'
 
 import { showTooltip } from '../../data/tooltips/actions'
 
 import { getMaxPage, childrenToText } from 'src/utils';
 import { fetchTopicInfo } from 'src/api/topicinfo'
+import { RootState } from 'src/data/store';
+import { ITooltipKeys } from 'src/data/tooltips';
 
-import type { State } from 'src/reducers'
-import type { DefaultProps } from 'src/components'
-import type { ResponseInfo, ResponseMessages } from 'src/api'
-
-type LinkToPostProps = {
+type IProps = {
   topicId: string,
   number: number,
   style: {}
 }
 
-type StateProps = {
-  info: ResponseInfo,
-  items: ResponseMessages,
-  tooltipDelay: string
+const mapState = (state: RootState) => {
+
+  const {
+    items, info
+  } = state.topic;
+
+  return {
+    items,
+    info,
+    tooltipDelay: state.options.items['tooltipDelay']
+  }
 }
 
-type Props = LinkToPostProps & StateProps & DefaultProps;
+const connector = connect(mapState);
+class LinkToPost extends Component<ConnectedProps<typeof connector> & IProps, { text: string }> {
 
-class LinkToPost extends Component<Props, { text: string }> {
-
-  timer;
+  timer: number;
 
   constructor(props) {
     super(props);
@@ -50,33 +53,33 @@ class LinkToPost extends Component<Props, { text: string }> {
     if (this.state.text.startsWith("http")) {
 
       const { topicId } = this.props;
-      fetchTopicInfo(topicId)
+      fetchTopicInfo(+topicId)
         .then(response => {
           this.setState({
-            text: response.text
+            text: response.title
           })
         });
 
     }
   }
 
-  onMouseOver = (event) => {
-    event.persist();
+  onMouseOver = (e: React.MouseEvent<HTMLElement>) => {
+    e.persist();
     const { tooltipDelay } = this.props;
-    this.timer = setTimeout(() => this.showToolTip(event), +tooltipDelay);
+    this.timer = window.setTimeout(() => this.showToolTip(e), +tooltipDelay);
   }
 
-  onClick = (event) => {
-    event.stopPropagation();
+  onClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
     clearTimeout(this.timer);
-    this.showToolTip(event);
+    this.showToolTip(e);
   }
 
-  onMouseOut = (event) => {
+  onMouseOut = () => {
     clearTimeout(this.timer);
   }
 
-  showToolTip = (e) => {
+  showToolTip = (e: React.MouseEvent<HTMLElement>) => {
     const { topicId, number, dispatch } = this.props;
 
     const coords = {
@@ -84,7 +87,7 @@ class LinkToPost extends Component<Props, { text: string }> {
       y: e.pageY - 50 // remove navbar margin-top
     }
 
-    const keys = {
+    const keys: ITooltipKeys = {
       topicId: +topicId,
       number: +number
     }
@@ -104,7 +107,7 @@ class LinkToPost extends Component<Props, { text: string }> {
       pageParam = `&page=${page}`;
 
     let a;
-    if (info && topicId === info.id || !isNaN(this.state.text))
+    if ((info && (+topicId === info.id)) || !isNaN(+this.state.text))
       a = (
         <span
           onMouseOver={this.onMouseOver}
@@ -132,17 +135,4 @@ class LinkToPost extends Component<Props, { text: string }> {
   }
 }
 
-const mapStateToProps = (state: State) => {
-
-  const {
-    items, info
-  } = state.topic;
-
-  return {
-    items,
-    info,
-    tooltipDelay: state.options.items['tooltipDelay']
-  }
-}
-
-export default connect(mapStateToProps)(LinkToPost);
+export default connector(LinkToPost);

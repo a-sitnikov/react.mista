@@ -6,6 +6,9 @@ configure({ adapter: new Adapter() });
 expect.addSnapshotSerializer(createSerializer({mode: 'deep'}));
 
 class LocalStorageMock {
+
+  store;
+
   constructor() {
     this.store = {};
   }

@@ -7,8 +7,8 @@ import { newTopicShowVoting } from 'src/data/newtopic/actions'
 
 type IProps = {
   placeholder: string,
-  showVoting: boolean,
-  isVoting: boolean,
+  showVoting?: boolean,
+  isVoting?: boolean,
   text: string,
   isFetching: boolean,
   formName: string,

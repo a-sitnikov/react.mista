@@ -1,21 +1,6 @@
-//@flow
 import { createAction } from '@reduxjs/toolkit'
+import { ICoords, ITooltipKeys } from '.';
 import { RootState } from '../store'
-
-export type TooltipKeys = {
-  topicId: string,
-  number: number
-}
-
-export type Coords = {
-  x: number,
-  y: number
-}
-
-export type TooltipItem = {
-  keys: TooltipKeys,
-  coords: Coords
-}
 
 export const createTooltip = createAction('CREATE_TOOLTIP', (keys, coords) => ({
   payload: {
@@ -30,7 +15,7 @@ export const closeTooltip = createAction('CLOSE_TOOLTIP', keys => ({
 }));
 export const clearTooltips = createAction('CLEAR_TOOLTIPS');
 
-export const showTooltip = (keys: TooltipKeys, coords: Coords): any => async (dispatch: any) => {
+export const showTooltip = (keys: ITooltipKeys, coords: ICoords): any => async (dispatch: any) => {
   dispatch(createTooltip(keys, coords));
 }
 

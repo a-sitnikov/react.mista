@@ -22,7 +22,7 @@ const TooltipsList: FC<ConnectedProps<typeof connector>> = ({ items }): ReactEle
     <>
       {items.map((item) => {
         return (
-          <Tooltip key={item.hash} tooltip={item} keys={item.keys}>
+          <Tooltip key={item.hash} tooltip={item}>
           </Tooltip>
         )
       }
