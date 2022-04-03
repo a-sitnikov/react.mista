@@ -13,21 +13,15 @@ import { ITooltipItem } from 'src/data/tooltips';
 
 type IProps = {
   tooltip: ITooltipItem,
-  zIndex: number,
-  onScroll: (delta: any) => void
+  zIndex?: number,
 }
 
-const TooltipWindow: FC<IProps> = ({ tooltip, zIndex, onScroll, children }): ReactElement => {
+const TooltipWindow: FC<IProps> = ({ tooltip, zIndex, children }): ReactElement => {
 
   const dispatch = useAppDispatch();
 
   const onCloseClick = () => {
     dispatch(closeTooltip(tooltip.keys));
-  }
-
-  const onWheel = (e: React.WheelEvent<HTMLElement>) => {
-    e.preventDefault();
-    onScroll(-e.nativeEvent.deltaY);
   }
 
   const { coords } = tooltip;
@@ -55,11 +49,11 @@ const TooltipWindow: FC<IProps> = ({ tooltip, zIndex, onScroll, children }): Rea
       defaultClassNameDragging="dragging"
       key={zIndex}>
 
-      <div className="tooltip-window" style={{ ...position }} onWheelCapture={onWheel}>
+      <div className="tooltip-window" style={{ ...position }}>
         <TooltipHeader closeWindow={onCloseClick}>
           {(header as ReactElement).props.children}
         </TooltipHeader>
-        <TooltipBody onScroll={onScroll}>
+        <TooltipBody>
           {(body as ReactElement).props.children}
         </TooltipBody>
       </div>

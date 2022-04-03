@@ -85,7 +85,7 @@ class LinkToPost extends Component<Props, { text: string }> {
     }
 
     const keys = {
-      topicId,
+      topicId: +topicId,
       number: +number
     }
     dispatch(showTooltip(
