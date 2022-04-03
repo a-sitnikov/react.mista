@@ -1,6 +1,6 @@
 # React.Mista [![Build Status](https://api.travis-ci.org/a-sitnikov/react.mista.svg?branch=master)](https://travis-ci.org/a-sitnikov/react.mista)
 
-Клиент для форума [Миста](https://www.forum.mista.ru)<br>
+Клиент для форума [Миста](https://forum.mista.ru)<br>
 Для получения данных используется [API](https://wiki.mista.ru/doku.php?id=life:forum:ajax-api)<br>
 
 ## Дополнительные функции
