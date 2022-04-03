@@ -88,8 +88,8 @@ const CustomLink: FC<ConnectedProps<typeof connector> & IProps> = (props): React
 
   try {
     var url = new URL(href, true);
-  } catch (error) {
-    console.error(error.message, href);
+  } catch (e) {
+    console.error((e as Error).message, href);
     return <a href={href}>{href}</a>;
   }
 

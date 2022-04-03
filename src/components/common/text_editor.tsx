@@ -17,7 +17,7 @@ type IProps = {
 const TextEditor: FC<IProps> = ({ formName, placeholder, showVoting, isVoting, isFetching, text }): ReactElement => {
 
   const dispatch = useAppDispatch();
-  const textAreaRef = useRef(null);
+  const textAreaRef = useRef() as React.MutableRefObject<HTMLTextAreaElement>;
 
   const onButtonCode1c = (e: React.MouseEvent<HTMLButtonElement>) => {
 
@@ -26,7 +26,7 @@ const TextEditor: FC<IProps> = ({ formName, placeholder, showVoting, isVoting, i
     const openTag = '[1C]\n';
     const closeTag = '\n[/1C]';
 
-    const textAreaNode: HTMLTextAreaElement = textAreaRef.current;
+    const textAreaNode = textAreaRef.current;
 
     const start = textAreaNode.selectionStart;
     const end = textAreaNode.selectionEnd;

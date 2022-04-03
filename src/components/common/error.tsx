@@ -6,7 +6,7 @@ type IProps = {
   text: string
 }
 
-const ErrorElem: FC<IProps> = ({ text }): ReactElement => {
+const ErrorElem: FC<IProps> = ({ text }): ReactElement | null => {
   if (!text)
     return null;
 

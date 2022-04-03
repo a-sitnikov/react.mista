@@ -39,13 +39,13 @@ const mapState = (state: RootState) => {
 }
 
 const connector = connect(mapState);
-const Tooltip: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactElement => {
+const Tooltip: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactElement | null => {
 
   const { tooltip, info, items, item0 } = props;
   const { keys } = tooltip;
 
   let text = '';
-  let data: ITopicMessage;
+  let data: ITopicMessage | undefined;
   if (keys.topicId === info.id) {
     if (keys.number === 0)
       data = item0;
@@ -55,7 +55,6 @@ const Tooltip: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactEle
     if (data)
       text = data.text;
   }
-
 
   const [state, setState] = useState({
     data,
@@ -76,7 +75,7 @@ const Tooltip: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactEle
         text = `Сообщение не найдено ${keys.number}`;
 
     } catch (e) {
-      text = e.message;
+      text = (e as Error).message;
     }
 
     setState({ data, text });
@@ -108,7 +107,7 @@ const Tooltip: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactEle
         <MsgText
           data={state.data}
           n={state.data.n}
-          vote={state.data.vote}
+          vote={state.data?.vote}
           html={state.text}
           topicId={keys.topicId}
           style={{ maxHeight: "min(550px, 80vh)", overflowY: "auto" }}

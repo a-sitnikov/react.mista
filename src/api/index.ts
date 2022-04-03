@@ -31,18 +31,19 @@ export const postBookmark = async (params: RequestBookmark) => {
 }
 
 export const paramsToString = (paramsPrefix: string, params?: {}): string => {
-
   if (!params)
     return '';
 
-  let arr = [];
+  let searchParams = new URLSearchParams();
   for (let key in params) {
-    if (params[key] !== undefined)
-      arr.push(key + '=' + params[key]);
+    const value = Reflect.get(params, key)
+    if (value !== undefined)
+      searchParams.append(key, value)
   }
 
-  if (arr.length > 0)
-    return paramsPrefix + arr.join('&');
+  let str = searchParams.toString();
+  if (str.length > 0)
+    return paramsPrefix + str;
   else
     return '';
 }

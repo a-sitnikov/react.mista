@@ -29,10 +29,11 @@ const Code: FC = ({ children }): ReactElement => {
 
   const [hidden, setHidden] = useState(true);
 
+  let text: string = "";
   if (children) {
 
     const textArr = childrenToText(children);
-    var text = textArr.join('');
+    text = textArr.join('');
 
     text = prepareText(text);
   }
@@ -51,7 +52,7 @@ const Code: FC = ({ children }): ReactElement => {
   else
     buttonText = 'Скрыть';
 
-  let buttonShow: ReactElement;
+  let buttonShow: ReactElement | null = null;
   if (linesCount > 7)
     buttonShow = (
       <div className="expand-button-div">
