@@ -19,10 +19,10 @@
 * Сохранение всех настроек
 
 ## Используемые технологии:
+* Язык: TypeScript
 * Бойлерплейт:  [Create React App](https://github.com/facebookincubator/create-react-app)
 * Управление состоянием: [Redux / Thunk](https://github.com/reduxjs/redux-thunk)
-* Статическая типизация: TypeScript
 * Компоненты: [Bootstrap](https://react-bootstrap.github.io/)
 * Тестирование: Jest / [Enzyme](https://airbnb.io/enzyme/)
 
-Демо версию проекта можно посмотреть на [github.pages](https://a-sitnikov.github.io/react.mista/)
+Рабочую версию проекта можно посмотреть на [github.pages](https://a-sitnikov.github.io/react.mista/)
