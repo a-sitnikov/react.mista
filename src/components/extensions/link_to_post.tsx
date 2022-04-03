@@ -1,3 +1,4 @@
+//TODO: Refactor
 import React, { Component } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 

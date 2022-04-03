@@ -1,4 +1,3 @@
-//@flow
 import { createAction } from '@reduxjs/toolkit'
 
 import { fetchTopicInfo } from 'src/api/topicinfo'

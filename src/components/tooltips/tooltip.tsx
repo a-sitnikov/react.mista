@@ -1,4 +1,3 @@
-//@flow
 import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux'
 

@@ -1,4 +1,3 @@
-//@flow
 import { createReducer } from '@reduxjs/toolkit'
 
 import { postNewTopicStart, postNewTopicComplete, postNewTopicError, newTopicText, 

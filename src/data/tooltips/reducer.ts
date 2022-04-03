@@ -1,4 +1,3 @@
-//@flow
 import { createReducer } from '@reduxjs/toolkit'
 import { initialState } from '.';
 import { createTooltip, closeTooltip, clearTooltips } from './actions'

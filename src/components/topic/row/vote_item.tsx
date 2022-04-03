@@ -1,4 +1,3 @@
-//@flow
 import React, { FC, ReactElement } from 'react'
 import { domain } from 'src/api'
 

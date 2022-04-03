@@ -1,4 +1,3 @@
-//@flow
 import { createReducer } from '@reduxjs/toolkit'
 import { initialState } from '.';
 import { addMessageText, newMessageText, postNewMessageComplete, postNewMessageStart } from './actions'
