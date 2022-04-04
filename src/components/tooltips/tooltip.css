@@ -32,12 +32,10 @@
 .tooltip-close {
     width: 25px;
     height: 25px;
-    border-radius: 4px;
     cursor: pointer;
     margin-left: auto;
     font-weight: bold;
     margin-left: 5px;
-    border: 1px solid var(--border-color);
     text-align: center;
     position: relative;
     margin-left: auto;
