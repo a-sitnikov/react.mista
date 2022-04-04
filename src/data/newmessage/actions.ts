@@ -26,7 +26,7 @@ export const postNewMessage = (params: PostNewmessageParams): any => async (disp
   dispatch(postNewMessageStart());
 
   let fetchParams: IRequest = {
-    message_text: encodeURIComponent(params.text),
+    message_text: params.text,
     action: "new",
     topic_id: params.topicId,
     rnd: Math.round(Math.random() * 10000000000)

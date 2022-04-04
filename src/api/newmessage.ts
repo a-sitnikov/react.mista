@@ -11,20 +11,21 @@ export interface IRequest {
 }
 
 export const fetchNewMessage = async (params: IRequest): Promise<any> => {
+  
+  const url = urlNewMessage.replace(':id', params.topic_id);
 
-  let url = urlNewMessage.replace(':id', params.topic_id);
-
-  let result = await fetch(`${domain}/${url}`, {
+  const options: RequestInit = {
     method: 'POST',
     body: paramsToString('', params),
     mode: 'no-cors',
     credentials: 'include',
     headers: {
       'Accept': 'text/html,application/xhtml+xml,application/xml',
-      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/x-www-form-urlencoded'  
     },
     redirect: 'follow'
-  });
+  }
 
+  const result = await fetch(`${domain}/${url}`, options);
   return result;
 }

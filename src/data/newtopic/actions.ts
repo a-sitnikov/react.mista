@@ -67,8 +67,8 @@ const postNewTopic = (params: postNewTopicParams) => async (dispatch: any) => {
   dispatch(postNewTopicStart());
 
   let fetchParams: IRequest = {
-    message_text: encodeURIComponent(params.text),
-    topic_text: encodeURIComponent(params.subject),
+    message_text: params.text,
+    topic_text: params.subject,
     target_section: String(params.section),
     target_forum: params.forum.toLowerCase(),
     action: 'new',

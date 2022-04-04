@@ -86,8 +86,8 @@ export const doLogin = (username: string, password: string): any => async (dispa
   try {
 
     await fetchLogin({
-      username: encodeURIComponent(username),
-      password: encodeURIComponent(password)
+      username: username,
+      password: password
     })
 
     dispatch(checkLogin());
