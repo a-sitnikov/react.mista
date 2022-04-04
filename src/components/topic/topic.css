@@ -157,6 +157,7 @@
   .user-info {
     word-break: break-all;
     display: flex;
+    align-items: center;
   }
 
   .message-time {
