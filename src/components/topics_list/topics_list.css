@@ -29,14 +29,6 @@
   color: inherit;
 }
 
-.preview-container {
-  padding: 10px 20px 10px 85px;
-  background: var(--background);
-  border-top: 1px solid var(--inner-border-color);
-  border-right: 1px solid var(--border-color);
-  border-left: 1px solid var(--border-color);
-}
-
 .header-left {
   flex: 1 auto;
   vertical-align: top;
@@ -187,14 +179,6 @@
 
   [theme="dark"] .tf {
     border: none;
-  }
-
-  .preview-container {
-    padding: 10px 15px 10px 15px;
-    margin-top: -5px;
-    margin-bottom: 5px;
-    border: 1px solid var(--border-color);
-    border-top: none;
   }
 
   .header-right {
