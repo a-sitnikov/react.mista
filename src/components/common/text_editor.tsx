@@ -104,6 +104,7 @@ const TextEditor: FC<IProps> = ({ formName, placeholder, showVoting, isVoting, i
         </ButtonGroup>
         {showVoting &&
           <Form.Check
+            id="show_voting"
             type="checkbox"
             checked={isVoting}
             onChange={onVotingChange}
