@@ -64,6 +64,10 @@
   grid-template-areas: "forum pv-link title answ author lastuser";
 }
 
+.topics-list-row:hover {
+  background-color: var(--background-hover) !important 
+} 
+
 .cell-forum {
   padding: 6px;
   border-left: 1px solid var(--border-color);

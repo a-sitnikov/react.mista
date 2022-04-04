@@ -3,6 +3,7 @@
     --inner-border-color: #eee;
     --header-background: #eee;
     --background: white;
+    --background-hover: #f5f9fc;
     --font-color: black;
     --link-color: #00C;
     --link-hover-color: #D00;
@@ -15,6 +16,7 @@ body[theme="dark"] {
     --inner-border-color: rgb(100, 100, 100); 
     --header-background: black;      
     --background: black;
+    --background-hover: rgb(25, 25, 25);
     --font-color: white;
     --link-color: #00a2fd;
     --link-hover-color: #D00;
