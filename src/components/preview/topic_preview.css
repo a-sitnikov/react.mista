@@ -16,6 +16,7 @@
 
 .topic-preview {
   background: var(--background);
+  overflow-x: clip;
 }
 
 .topic-preview-rewind {

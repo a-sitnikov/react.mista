@@ -33,7 +33,8 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, you }): R
   const [msgNumber, setMsgNumber] = useState(initialMsgNumber);
 
   const fetchData = useCallback(async (n: number) => {
-    let data, error;
+    let data: ITopicMessage;
+    let error: string;
     try {
       data = await fetchTopicMessage(topicId, n);
       if (!data)
@@ -71,9 +72,21 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, you }): R
     setMsgNumber(info.count)
   }
 
+  const [deltaX, setDeltaX] = useState(0);
+
+  const onSwiping = (eventData: SwipeEventData) => {
+    setDeltaX(eventData.deltaX);
+  }
+
+  const onSwiped = (eventData: SwipeEventData) => {
+    setDeltaX(0);
+  }  
+
   const swipeable  = useSwipeable({
     onSwipedLeft: onClickNext,
     onSwipedRight: onClickPrev,
+    onSwiping,
+    onSwiped
   });
 
   const { data, error } = state;
@@ -90,7 +103,7 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, you }): R
           onNext={onClickNext}
           onPrev={onClickPrev}
         />
-        <div {...swipeable}>
+        <div {...swipeable} style={{padding: '0px', transform: `translate3d(${deltaX}px, 0px, 0px)`}}>
           {data &&
             <>
               <div className='topic-preview-userinfo'>
