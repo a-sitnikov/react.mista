@@ -1,4 +1,5 @@
 import React, { FC, ReactElement, useState, useEffect, useCallback } from 'react'
+import { SwipeEventData, useSwipeable } from 'react-swipeable'
 import { fetchTopicInfo } from 'src/api/topicinfo'
 
 import { fetchTopicMessage } from 'src/api/topicMessages'
@@ -70,20 +71,10 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, you }): R
     setMsgNumber(info.count)
   }
 
-  let startX = 0;
-
-  const onTouchStart = (e: React.TouchEvent<HTMLElement>) => {
-    startX = e.nativeEvent.changedTouches[0].clientX;
-  }
-
-  const onTouchEnd = (e: React.TouchEvent<HTMLElement>) => {
-    let endX = e.nativeEvent.changedTouches[0].clientX;
-    if (Math.abs(endX - startX) > 100)
-      if (endX < startX)
-        onClickNext()
-      else
-        onClickPrev()
-  }
+  const swipeable  = useSwipeable({
+    onSwipedLeft: onClickNext,
+    onSwipedRight: onClickPrev,
+  });
 
   const { data, error } = state;
   if (!data && !error)
@@ -99,7 +90,7 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, you }): R
           onNext={onClickNext}
           onPrev={onClickPrev}
         />
-        <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+        <div {...swipeable}>
           {data &&
             <>
               <div className='topic-preview-userinfo'>
