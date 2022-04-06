@@ -103,7 +103,7 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, you }): R
           onNext={onClickNext}
           onPrev={onClickPrev}
         />
-        <div {...swipeable} style={{padding: '0px', transform: `translate3d(${deltaX}px, 0px, 0px)`}}>
+        <div {...swipeable} style={{transform: `translate3d(${deltaX}px, 0px, 0px)`}}>
           {data &&
             <>
               <div className='topic-preview-userinfo'>
