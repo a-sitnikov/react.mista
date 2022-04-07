@@ -1,12 +1,6 @@
-import React, { FC, ReactElement, useState, useEffect, useCallback } from 'react'
+import React, { FC, ReactElement, useState } from 'react'
 import { SwipeEventData, useSwipeable } from 'react-swipeable'
 import { fetchTopicInfo } from 'src/api/topicinfo'
-
-import { fetchTopicMessage } from 'src/api/topicMessages'
-
-import MsgText from 'src/components/topic/row/msg_text'
-import { ITopicMessage } from 'src/data/topic'
-import UserInfo from '../topic/row/user_info'
 
 import PreviewButtons from './preview_buttons'
 import PreviewContent from './preview_content'
@@ -43,11 +37,14 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, loggedUse
   }
 
   const onSwiping = (eventData: SwipeEventData) => {
-    console.log(eventData);
-    setDeltaX(eventData.deltaX);
+    if (Math.abs(eventData.deltaY) > 10)
+      setDeltaX(0);
+    else  
+      setDeltaX(eventData.deltaX);
   }
 
   const onSwiped = (eventData: SwipeEventData) => {
+    
     if (Math.abs(eventData.deltaX) > 150) {
       if (eventData.dir === "Left")
         setMsgNumber(msgNumber + 1);
@@ -59,7 +56,8 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, loggedUse
 
   const swipeable = useSwipeable({
     onSwiping,
-    onSwiped
+    onSwiped,
+    delta: 15
   });
 
   let items = [];
