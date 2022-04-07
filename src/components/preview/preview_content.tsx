@@ -14,10 +14,11 @@ type IProps = {
   topicId: number,
   n: number,
   author: string,
-  loggedUserId: number
+  loggedUserId: number,
+  onDataLoaded?: () => void
 }
 
-const PreviewContent: FC<IProps> = ({ topicId, n, author, loggedUserId }): ReactElement => {
+const PreviewContent: FC<IProps> = ({ topicId, n, author, loggedUserId, onDataLoaded }): ReactElement => {
 
   const [data, setData] = useState<ITopicMessage | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -30,6 +31,7 @@ const PreviewContent: FC<IProps> = ({ topicId, n, author, loggedUserId }): React
         if (_data) {
           setData(_data);
           setError(null);
+          if (onDataLoaded) onDataLoaded();
         } else {
           setData(null);
           setError(`Не найдено сообщение ${n}`);

@@ -17,6 +17,7 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, loggedUse
 
   const [msgNumber, setMsgNumber] = useState(initialMsgNumber);
   const [deltaX, setDeltaX] = useState(0);
+  const [display, setDispaly] = useState('none');
 
   const onClickFirst = () => {
     setMsgNumber(0);
@@ -60,6 +61,10 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, loggedUse
     delta: 15
   });
 
+  const onContentLoaded = () => {
+    setDispaly('block');
+  }
+
   let items = [];
   if (deltaX > 0 && msgNumber > 0)
     items.push({msgNumber: msgNumber - 1, order: 1});
@@ -74,7 +79,7 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, loggedUse
   }
 
   return (
-    <div className="preview-container">
+    <div className="preview-container" style={{display}}>
       <div className="topic-preview">
         <PreviewButtons
           topicId={topicId}
@@ -91,6 +96,7 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, loggedUse
                 n={item.msgNumber}
                 loggedUserId={loggedUserId}
                 author={author}
+                onDataLoaded={onContentLoaded}
               />
             </div>)}
         </div>
