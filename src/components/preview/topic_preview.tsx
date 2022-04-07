@@ -15,26 +15,41 @@ type IProps = {
 
 const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, loggedUserId }): ReactElement => {
 
-  const [msgNumber, setMsgNumber] = useState(initialMsgNumber);
   const [deltaX, setDeltaX] = useState(0);
   const [display, setDispaly] = useState('none');
+  const [state, setState] = useState({
+    msgNumber: initialMsgNumber,
+    key: 0
+  })
 
   const onClickFirst = () => {
-    setMsgNumber(0);
+    setState({
+      msgNumber: 0,
+      key: state.key
+    });
   }
 
   const onClickNext = () => {
-    setMsgNumber(msgNumber + 1);
+    setState({
+      msgNumber: state.msgNumber + 1,
+      key: state.key
+    });
   }
 
   const onClickPrev = () => {
-    if (msgNumber > 0)
-      setMsgNumber(msgNumber - 1);
+    if (state.msgNumber > 0)
+      setState({
+        msgNumber: state.msgNumber - 1,
+        key: state.key
+      });
   }
 
   const onClickLast = async () => {
     const info = await fetchTopicInfo(topicId);
-    setMsgNumber(info.count)
+    setState({
+      msgNumber: info.count,
+      key: state.key
+    });    
   }
 
   const onSwiping = (eventData: SwipeEventData) => {
@@ -42,13 +57,20 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, loggedUse
   }
 
   const onSwiped = (eventData: SwipeEventData) => {
-    
+
     if (Math.abs(eventData.deltaX) > 150) {
-      if (eventData.dir === "Left")
-        setMsgNumber(msgNumber + 1);
-      else if (eventData.dir === "Right" && msgNumber > 0)  
-        setMsgNumber(msgNumber - 1);
-    }  
+      if (eventData.dir === "Left") {
+        setState({
+          msgNumber: state.msgNumber + 1,
+          key: state.key + 1
+        });         
+      } else if (eventData.dir === "Right" && state.msgNumber > 0) {
+        setState({
+          msgNumber: state.msgNumber - 1,
+          key: state.key + 1
+        });           
+      }
+    }
     setDeltaX(0);
   }
 
@@ -62,13 +84,12 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, loggedUse
     setDispaly('block');
   }
 
-  let items = [];
-  if (deltaX > 0 && msgNumber > 0)
-    items.push({msgNumber: msgNumber - 1, order: 1});
+  let items = [state.msgNumber];
 
-  items.push({msgNumber, order: 0});
   if (deltaX < 0)
-    items.push({msgNumber: msgNumber + 1, order: 1});
+    items.push(state.msgNumber + 1);
+  else if (deltaX > 0 && state.msgNumber > 0)
+    items.push(state.msgNumber - 1);
 
   const style: React.CSSProperties = {
     transform: `translate3d(${deltaX}px, 0px, 0px)`,
@@ -76,7 +97,7 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, loggedUse
   }
 
   return (
-    <div className="preview-container" style={{display}}>
+    <div className="preview-container" style={{ display }}>
       <div className="topic-preview">
         <PreviewButtons
           topicId={topicId}
@@ -86,16 +107,24 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, loggedUse
           onPrev={onClickPrev}
         />
         <div className='preview-carousel' {...swipeable} style={style}>
-          {items.map(item =>
-            <div className='preview-carousel-item' key={item.order} style={{order: item.order}}>
+          <div className='preview-carousel-item' key={state.key} style={{ order: 0 }}>
+            <PreviewContent
+              topicId={topicId}
+              n={items[0]}
+              loggedUserId={loggedUserId}
+              author={author}
+              onDataLoaded={onContentLoaded}
+            />
+          </div>
+          {items.length > 1 &&
+            <div className='preview-carousel-item' key={state.key + 1} style={{ order: 1 }}>
               <PreviewContent
                 topicId={topicId}
-                n={item.msgNumber}
+                n={items[1]}
                 loggedUserId={loggedUserId}
                 author={author}
-                onDataLoaded={onContentLoaded}
               />
-            </div>)}
+            </div>}
         </div>
       </div>
     </div>
