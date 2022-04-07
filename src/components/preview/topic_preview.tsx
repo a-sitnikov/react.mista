@@ -87,7 +87,7 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, loggedUse
         />
         <div className='preview-carousel' {...swipeable} style={style}>
           {items.map(item =>
-            <div className='preview-carousel-item' key={item.msgNumber} style={{order: item.order}}>
+            <div className='preview-carousel-item' key={item.order} style={{order: item.order}}>
               <PreviewContent
                 topicId={topicId}
                 n={item.msgNumber}
