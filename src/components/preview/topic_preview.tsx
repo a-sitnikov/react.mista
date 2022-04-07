@@ -53,7 +53,10 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, loggedUse
   }
 
   const onSwiping = (eventData: SwipeEventData) => {
-    setDeltaX(eventData.deltaX);
+    if (Math.abs(eventData.deltaX) < 30)
+      setDeltaX(0);
+    else
+      setDeltaX(eventData.deltaX);
   }
 
   const onSwiped = (eventData: SwipeEventData) => {
