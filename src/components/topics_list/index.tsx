@@ -57,7 +57,7 @@ const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, sections
           topicId={item.id} 
           initialMsgNumber={item.previewMsgNumber}
           author={item.author}
-          you={login.userId}
+          loggedUserId={login.userId}
           />
       )
   }

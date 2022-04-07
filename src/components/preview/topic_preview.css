@@ -57,6 +57,24 @@
   flex: 2 2 auto;
 }
 
+.preview-carousel {
+  display: flex;
+  flex-direction: row;
+  align-self: stretch;
+}
+
+.preview-carousel-item {
+  flex-shrink: 0;
+  width: 100%;
+  margin-right: 10px;
+}
+
+.preview-content {
+  display: flex;
+  flex-direction: column;
+  margin-right: 5px;
+}
+
 .topic-preview-userinfo {
   margin-bottom: 5px;
   border-bottom: 1px solid;

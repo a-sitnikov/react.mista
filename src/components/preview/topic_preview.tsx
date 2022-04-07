@@ -9,50 +9,20 @@ import { ITopicMessage } from 'src/data/topic'
 import UserInfo from '../topic/row/user_info'
 
 import PreviewButtons from './preview_buttons'
+import PreviewContent from './preview_content'
 import './topic_preview.css'
 
 type IProps = {
   topicId: number,
   initialMsgNumber: number,
   author: string,
-  you: number
+  loggedUserId: number
 }
 
-type IState = {
-  data?: ITopicMessage,
-  error?: string
-}
-
-const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, you }): ReactElement => {
-
-  const [state, setState] = useState<IState>({
-    data: null,
-    error: null
-  })
+const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, loggedUserId }): ReactElement => {
 
   const [msgNumber, setMsgNumber] = useState(initialMsgNumber);
-
-  const fetchData = useCallback(async (n: number) => {
-    let data: ITopicMessage;
-    let error: string;
-    try {
-      data = await fetchTopicMessage(topicId, n);
-      if (!data)
-        error = `Сообщение не найдено ${n}`;
-
-    } catch (e) {
-      error = e.message
-    };
-
-    setState({
-      data,
-      error
-    })
-  }, [topicId]);
-
-  useEffect(() => {
-    fetchData(msgNumber);
-  }, [msgNumber, fetchData])
+  const [deltaX, setDeltaX] = useState(0);
 
   const onClickFirst = () => {
     setMsgNumber(0);
@@ -72,26 +42,38 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, you }): R
     setMsgNumber(info.count)
   }
 
-  const [deltaX, setDeltaX] = useState(0);
-
   const onSwiping = (eventData: SwipeEventData) => {
+    console.log(eventData);
     setDeltaX(eventData.deltaX);
   }
 
   const onSwiped = (eventData: SwipeEventData) => {
+    if (Math.abs(eventData.deltaX) > 150) {
+      if (eventData.dir === "Left")
+        setMsgNumber(msgNumber + 1);
+      else if (eventData.dir === "Right" && msgNumber > 0)  
+        setMsgNumber(msgNumber - 1);
+    }  
     setDeltaX(0);
-  }  
+  }
 
-  const swipeable  = useSwipeable({
-    onSwipedLeft: onClickNext,
-    onSwipedRight: onClickPrev,
+  const swipeable = useSwipeable({
     onSwiping,
     onSwiped
   });
 
-  const { data, error } = state;
-  if (!data && !error)
-    return null;
+  let items = [];
+  if (deltaX > 0 && msgNumber > 0)
+    items.push({msgNumber: msgNumber - 1, order: 1});
+
+  items.push({msgNumber, order: 0});
+  if (deltaX < 0)
+    items.push({msgNumber: msgNumber + 1, order: 1});
+
+  const style: React.CSSProperties = {
+    transform: `translate3d(${deltaX}px, 0px, 0px)`,
+    flexDirection: deltaX > 0 ? 'row-reverse' : 'row'
+  }
 
   return (
     <div className="preview-container">
@@ -103,22 +85,16 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, you }): R
           onNext={onClickNext}
           onPrev={onClickPrev}
         />
-        <div {...swipeable} style={{transform: `translate3d(${deltaX}px, 0px, 0px)`}}>
-          {data &&
-            <>
-              <div className='topic-preview-userinfo'>
-                <UserInfo data={data} isAuthor={data.user === author} isYou={data.userId === you} isTooltip />
-              </div>
-              <MsgText
+        <div className='preview-carousel' {...swipeable} style={style}>
+          {items.map(item =>
+            <div className='preview-carousel-item' key={item.msgNumber} style={{order: item.order}}>
+              <PreviewContent
                 topicId={topicId}
-                n={msgNumber}
-                data={data}
-                html={data.text}
-                vote={data.vote}
-                style={{ overflowY: "auto", overflowWrap: "break-word" }}
+                n={item.msgNumber}
+                loggedUserId={loggedUserId}
+                author={author}
               />
-            </>}
-          {error && <span>{error}</span>}
+            </div>)}
         </div>
       </div>
     </div>
