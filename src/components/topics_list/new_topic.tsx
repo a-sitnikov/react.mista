@@ -137,15 +137,15 @@ const NewTopic: FC<ConnectedProps<typeof connector> & IProps> = ({ sections, new
         <div><b>Новая тема:</b></div>
         {newTopic.error && <ErrorElem text={newTopic.error} />}
         <div className="flex-row" style={{ marginBottom: "3px" }}>
-          <FormControl as="select"
+          <Form.Select
+            disabled
             size="sm"
-            readOnly={true}
             value={newTopic.forum}
             style={{ flex: "0 1 90px" }}
             className='input'
           >
             {groupsElem}
-          </FormControl>
+          </Form.Select>
           <Sections
             id="target_section"
             defaultValue="Секция"

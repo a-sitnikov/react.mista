@@ -3,9 +3,7 @@ import { connect, ConnectedProps } from 'react-redux'
 import Form from 'react-bootstrap/Form'
 
 import { getSectionsIfNeeded } from 'src/data/sections/actions'
-
 import { RootState, useAppDispatch } from 'src/data/store'
-
 import type { ISectionItem } from 'src/data/sections'
 
 type IProps = {
@@ -68,7 +66,7 @@ const Sections: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactEl
   }
 
   return (
-    <Form.Control as="select"
+    <Form.Select
       onChange={onSelect}
       value={selected}
       style={style}
@@ -78,7 +76,7 @@ const Sections: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactEl
     >
       <option value="">{defaultValue}</option>
       {sectionsElem}
-    </Form.Control>
+    </Form.Select>
   )
 }
 
