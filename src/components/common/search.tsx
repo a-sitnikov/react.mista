@@ -19,28 +19,31 @@ const Search = (): ReactElement => {
 
   const doSearch = () => {
 
-    let url;
-    if (searchEngine === 'Яндекс') {
+    let url: string;
+    if (searchEngine === 'Яндекс') 
       url = `https://www.yandex.ru/search/?text=${text}&site=forum.mista.ru`;
 
-    } else if (searchEngine === 'Google') {
+    else if (searchEngine === 'Google') 
       url = `https://www.google.ru/search?q=${text}+site:forum.mista.ru`
-    }
 
     window.open(url);
-
     setText('');
-
   }
 
   return (
     <InputGroup size="sm">
-      <InputGroup.Prepend>
-        <DropdownButton id="search-engine" title="" size="sm" style={{ marginRight: "2px" }} className='button' variant="light">
-          <Dropdown.Item eventKey="Яндекс" onSelect={() => setSearchEngine("Яндекс")}>Яндекс</Dropdown.Item>
-          <Dropdown.Item eventKey="Google" onSelect={() => setSearchEngine("Google")}>Google</Dropdown.Item>
-        </DropdownButton>
-      </InputGroup.Prepend>
+      <DropdownButton 
+        id="search-engine" 
+        title="" 
+        size="sm" 
+        style={{ marginRight: "2px" }} 
+        className='button' 
+        variant="light"
+        onSelect={eventKey => setSearchEngine(eventKey)}
+        >
+        <Dropdown.Item eventKey="Яндекс">Яндекс</Dropdown.Item>
+        <Dropdown.Item eventKey="Google">Google</Dropdown.Item>
+      </DropdownButton>
       <FormControl
         type="text"
         placeholder={`${searchEngine}: поиск`}
@@ -50,9 +53,9 @@ const Search = (): ReactElement => {
         onChange={e => setText(e.target.value)}
         value={text}
       />
-      <InputGroup.Append style={{ marginLeft: "-25px", marginTop: "auto", marginBottom: "auto", cursor: "pointer" }} onClick={doSearch}>
+      <InputGroup.Text style={{ marginLeft: "-35px", marginTop: "auto", marginBottom: "auto", cursor: "pointer" }} onClick={doSearch}>
         <i className="fa fa-search input" style={{ zIndex: 1000 }} />
-      </InputGroup.Append>
+      </InputGroup.Text>
     </InputGroup>
   )
 

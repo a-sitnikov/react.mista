@@ -2,7 +2,7 @@ import React, { FC, ReactElement, useState } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
-import { FormGroup } from 'react-bootstrap'
+import { FormControl, FormGroup } from 'react-bootstrap'
 
 import { RootState, useAppDispatch } from 'src/data/store'
 import { newTopicClear, newTopicSection, newTopicSubject, postNewTopicError, postNewTopicIfNeeded } from 'src/data/newtopic/actions'
@@ -39,7 +39,7 @@ const NewTopic: FC<ConnectedProps<typeof connector> & IProps> = ({ sections, new
     dispatch(newTopicSection(section));
   }
 
-  const onVoteTextChange = (i: number) => (e: React.ChangeEvent<HTMLInputElement >) => {
+  const onVoteTextChange = (i: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
     let votesCopy = votes.slice();
     votesCopy[i] = e.target.value;
     setVotes(votesCopy);
@@ -79,7 +79,7 @@ const NewTopic: FC<ConnectedProps<typeof connector> & IProps> = ({ sections, new
     if (newTopic.isVoting) {
       params.votingItems = [];
       for (let i = 1; i <= 10; i++) {
-        let val = votes[i-1];
+        let val = votes[i - 1];
         if (val) {
           params.votingItems.push(val);
         }
@@ -113,18 +113,18 @@ const NewTopic: FC<ConnectedProps<typeof connector> & IProps> = ({ sections, new
     for (let i = 1; i <= 10; i++) {
       votingOptions.push(
         <InputGroup key={i} size="sm" style={{ marginBottom: "3px", width: "100%" }}>
-          <InputGroup.Prepend>
-            <InputGroup.Text
-              style={{ width: "40px" }} className='input'>
-              {`${i}.`}
-            </InputGroup.Text>
-          </InputGroup.Prepend>
+          <InputGroup.Text
+            style={{ width: "40px" }}
+            className='input'
+          >
+            {`${i}.`}
+          </InputGroup.Text>
           <Form.Control
             type="text"
             maxLength={50}
             className='input'
-            value={votes[i-1]}
-            onChange={onVoteTextChange(i-1)}
+            value={votes[i - 1]}
+            onChange={onVoteTextChange(i - 1)}
           />
         </InputGroup>
       );
@@ -137,7 +137,7 @@ const NewTopic: FC<ConnectedProps<typeof connector> & IProps> = ({ sections, new
         <div><b>Новая тема:</b></div>
         {newTopic.error && <ErrorElem text={newTopic.error} />}
         <div className="flex-row" style={{ marginBottom: "3px" }}>
-          <Form.Control as="select"
+          <FormControl as="select"
             size="sm"
             readOnly={true}
             value={newTopic.forum}
@@ -145,7 +145,7 @@ const NewTopic: FC<ConnectedProps<typeof connector> & IProps> = ({ sections, new
             className='input'
           >
             {groupsElem}
-          </Form.Control>
+          </FormControl>
           <Sections
             id="target_section"
             defaultValue="Секция"

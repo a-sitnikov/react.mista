@@ -10,6 +10,7 @@ import Search from 'src/components/common/search'
 import { getTopicsListIfNeeded } from 'src/data/topicslist/actions'
 
 import './nav_bar.css'
+import { Container } from 'react-bootstrap';
 
 const NavBar = (): ReactElement => {
 
@@ -51,11 +52,11 @@ const NavBar = (): ReactElement => {
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse>
-        <Nav className="mr-auto">
+        <Nav className="me-auto">
           {menuItems}
         </Nav>
-        <Form inline>
-          <Search />
+        <Form className="d-flex">
+        <Search />
         </Form>
       </Navbar.Collapse>
     </Navbar>

@@ -36,7 +36,7 @@ const Sections: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactEl
     dispatch(getSectionsIfNeeded());
   }, [dispatch]);
 
-  const onSelect: (e: React.ChangeEvent<HTMLSelectElement>) => void = (e: any) => {
+  const onSelect: (e: React.ChangeEvent<HTMLElement>) => void = (e: any) => {
 
     const { items, onChange } = props;
 

@@ -39,13 +39,13 @@
   margin-left: auto;
 }
 
-.table {
+.topic-list-table {
   box-sizing: border-box;
   opacity: 1;
   margin-top: 5px;
 }
 
-[theme="dark"] .table {
+[theme="dark"] .topic-list-table {
   color: inherit;
 }
 
@@ -189,7 +189,7 @@
     display: none;
   }
 
-  .table {
+  .topic-list-table {
     border: none;
   }
 

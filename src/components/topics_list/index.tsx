@@ -66,7 +66,7 @@ const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, sections
     <div>
       <Header />
       {topicsList.error && (<Error text={topicsList.error} />)}
-      <div className="table">
+      <div className="topic-list-table">
         <div className="th" style={{ position: "sticky", top: "39px" }}>
           <div style={{ letterSpacing: "-1px" }}>Раздел</div>
           <div></div>
