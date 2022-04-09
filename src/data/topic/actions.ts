@@ -168,9 +168,9 @@ export const getNewMessages = (params: any): any => async (dispatch: any) => {
     });
     dispatch(receiveNewMessages(list));
 
-  } catch (error) {
-    console.error('Failed to fetch new messages:', error);
-    dispatch(receiveNewMessagesFailed(error));
+  } catch (e) {
+    console.error('Failed to fetch new messages:', (e as Error).message);
+    dispatch(receiveNewMessagesFailed((e as Error).message));
   }
 
 }
