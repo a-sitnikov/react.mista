@@ -36,12 +36,7 @@ const Footer: FC<ConnectedProps<typeof connector> & IProps> = ({ info, isFetchin
   }
 
   const onRefreshClick = () => {
-
-    dispatch(getNewMessagesIfNeeded({
-      id: info.id,
-      last: info.count
-    }));
-
+    dispatch(getNewMessagesIfNeeded());
   }
 
   const maxPage = getMaxPage(info.count);

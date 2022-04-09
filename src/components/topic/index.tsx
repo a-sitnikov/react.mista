@@ -20,7 +20,6 @@ import { RootState, useAppDispatch } from 'src/data/store';
 import { time } from 'console';
 
 var scrolledToHash: boolean;
-var timer: number;
 
 const mapState = (state: RootState) => {
 
@@ -73,12 +72,8 @@ const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info
   }
 
   const updateNewMessages = () => {
-    console.log(topicId, info)
     if (isLastPage)
-      dispatch(getNewMessagesIfNeeded({
-        id: topicId,
-        last: info.count
-      }));
+      dispatch(getNewMessagesIfNeeded());
   }
 
   const onPostNewMessageSuccess = () => {
@@ -97,7 +92,7 @@ const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info
 
   useEffect(() => {
 
-    //timer = window.setInterval(updateNewMessages, 15 * 1000);
+    const timer = window.setInterval(updateNewMessages, 60 * 1000);
 
     const clearStore = () => {
       dispatch(clearTopicMessages());

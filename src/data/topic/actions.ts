@@ -156,15 +156,15 @@ export type FetchNewMessageseParams = {
   last: number
 }
 
-export const getNewMessages = (params: any): any => async (dispatch: any) => {
+export const getNewMessages = (id: number, count: number) => async (dispatch: any) => {
 
   dispatch(requestNewMessages());
 
   try {
     const list = await fetchTopicMessages({
-      id: params.id,
-      from: +params.last + 1,
-      to: 1010
+      id: id,
+      from: count + 1,
+      to: 1050
     });
     dispatch(receiveNewMessages(list));
 
@@ -175,8 +175,10 @@ export const getNewMessages = (params: any): any => async (dispatch: any) => {
 
 }
 
-export const getNewMessagesIfNeeded = (params: FetchNewMessageseParams): any => (dispatch: any, getState: any) => {
-  if (shouldFetch(getState())) {
-    return dispatch(getNewMessages(params));
+export const getNewMessagesIfNeeded = () => (dispatch: any, getState: any) => {
+  const state = getState();
+  const { id, count } = state.topic.info;
+  if (shouldFetch(state)) {
+    return dispatch(getNewMessages(id, count));
   }
 }
