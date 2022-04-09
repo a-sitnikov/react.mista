@@ -4,13 +4,12 @@ import { useDispatch } from 'react-redux'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Form from 'react-bootstrap/Form'
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import Search from 'src/components/common/search'
 import { getTopicsListIfNeeded } from 'src/data/topicslist/actions'
 
 import './nav_bar.css'
-import { Container } from 'react-bootstrap';
 
 const NavBar = (): ReactElement => {
 
@@ -25,10 +24,10 @@ const NavBar = (): ReactElement => {
   }
 
   const menu = [
-    { name: '1C', link: `#/index.php?forum=1C` },
-    { name: 'IT', link: `#/index.php?forum=IT` },
-    { name: 'JOB', link: `#/index.php?forum=JOB` },
-    { name: 'LIFE', link: `#/index.php?forum=LIFE` },
+    { name: '1C', link: `/index.php?forum=1C` },
+    { name: 'IT', link: `/index.php?forum=IT` },
+    { name: 'JOB', link: `/index.php?forum=JOB` },
+    { name: 'LIFE', link: `/index.php?forum=LIFE` },
     { name: 'Wiki', link: 'https://wiki.mista.ru' },
     { name: 'Книга знаний', link: 'https://kb.mista.ru' },
   ];
@@ -36,7 +35,7 @@ const NavBar = (): ReactElement => {
   const menuItems = menu.map((item, i) => {
     return (
       <Nav.Item key={i}>
-        <Nav.Link href={item.link} active={item.name === forum}>
+        <Nav.Link to={item.link} active={item.name === forum} as={Link}>
           {item.name}
         </Nav.Link>
       </Nav.Item>
@@ -46,7 +45,8 @@ const NavBar = (): ReactElement => {
   return (
     <Navbar bg="dark" variant="dark" expand="md" fixed="top">
       <Navbar.Brand
-        href={`#`}
+        as={Link}
+        to={`/`}
         onClick={onClick}>
         React.Mista
       </Navbar.Brand>

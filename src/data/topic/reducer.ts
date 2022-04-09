@@ -35,9 +35,10 @@ const reducer = createReducer(initialState, (builder) => {
         state.error = action.payload.toString();
       } else {
         state.isFetching = false;
-        state.items = state.items.concat(action.payload.list);
-        if (state.items.length > 0)
+        if (action.payload.list.length > 0) {
+          state.items = state.items.concat(action.payload.list);
           state.info.count = state.items[state.items.length - 1].n;
+        }  
       }
     })
 })

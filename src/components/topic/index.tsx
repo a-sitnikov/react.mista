@@ -17,9 +17,10 @@ import { getMaxPage, extractTextFromHTML } from 'src/utils';
 
 import './topic.css'
 import { RootState, useAppDispatch } from 'src/data/store';
+import { time } from 'console';
 
-var scrolledToHash;
-var timer;
+var scrolledToHash: boolean;
+var timer: number;
 
 const mapState = (state: RootState) => {
 
@@ -53,35 +54,37 @@ const getPageNumber = (locationPage: string | string[]): number | "last20" => {
 
 const connector = connect(mapState);
 const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info, error }): ReactElement => {
-  
+
   const dispatch = useAppDispatch()
   const location = useLocation();
-  
+
   let locationParams = queryString.parse(location.search);
-  let page = getPageNumber(locationParams.page);
+  const topicId = +locationParams.id;
+  const page = getPageNumber(locationParams.page);
   const maxPage = getMaxPage(info.count);
+  const isLastPage = (page === 'last20' || page === maxPage);
 
   const updateTopic = () => {
 
-    if (locationParams.id !== String(info.id))
+    if (topicId !== info.id)
       item0 = null;
 
-    dispatch(getTopicIfNeeded(locationParams, item0));
+    dispatch(getTopicIfNeeded({id: topicId, page}, item0));
+  }
+
+  const updateNewMessages = () => {
+    if (isLastPage)
+      dispatch(getNewMessagesIfNeeded({
+        id: topicId,
+        last: info.count
+      }));
   }
 
   const onPostNewMessageSuccess = () => {
-
-    const isLastPage = (page === 'last20' || page === maxPage);
-
-    if (isLastPage)
-      dispatch(getNewMessagesIfNeeded({
-        id: info.id,
-        last: info.count
-      }));
-
-      dispatch(newMessageText(''));
+    updateNewMessages();
+    dispatch(newMessageText(''));
   }
-  
+
   useEffect(() => {
     if (info.title)
       document.title = extractTextFromHTML(info.title);
@@ -89,13 +92,16 @@ const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info
 
   useEffect(() => {
     updateTopic();
-  }, [dispatch, locationParams.id, page]);
-    
+  }, [dispatch, topicId, page]);
+
   useEffect(() => {
-    
+
+    timer = window.setInterval(updateNewMessages, 60 * 1000);
+
     const clearStore = () => {
       dispatch(clearTopicMessages());
       scrolledToHash = undefined;
+      if (timer) clearInterval(timer);
     }
     return clearStore;
 
@@ -109,13 +115,13 @@ const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info
       if (nodeHash)
         setTimeout(() => window.scrollTo(0, nodeHash.offsetTop), 1);
       scrolledToHash = true;
-    }  
-  });  
+    }
+  });
 
   return (
     <div style={{ marginBottom: "5px" }}>
       {error && <Error text={error} />}
-      <Header/>
+      <Header />
       <div className="topic-table">
         <TopicInfo />
         <Row key='0' data={item0} />

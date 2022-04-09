@@ -2,7 +2,7 @@ import { createAction } from '@reduxjs/toolkit'
 
 import { fetchTopicInfo } from 'src/api/topicinfo'
 import { fetchTopicMessage, fetchTopicMessages } from 'src/api/topicMessages'
-import { ITopicInfo } from '.';
+import { ITopicInfo, ITopicMessage } from '.';
 
 export const requestTopic = createAction('REQUEST_TOPIC');
 export const receiveTopic = createAction('RECEIVE_TOPIC', (info, item0, list) => ({
@@ -31,7 +31,7 @@ export const receiveNewMessagesFailed = createAction('RECEIVE_NEW_MESSAGES', err
   error: true
 }));
 
-export const getTopic = (params: any, item0: any): any => async (dispatch: any) => {
+export const getTopic = (params: any, item0: ITopicMessage) => async (dispatch: any) => {
 
   dispatch(requestTopic())
 

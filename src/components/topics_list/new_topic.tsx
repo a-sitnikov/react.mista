@@ -2,7 +2,7 @@ import React, { FC, ReactElement, useState } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
-import { FormControl, FormGroup } from 'react-bootstrap'
+import { FormGroup } from 'react-bootstrap'
 
 import { RootState, useAppDispatch } from 'src/data/store'
 import { newTopicClear, newTopicSection, newTopicSubject, postNewTopicError, postNewTopicIfNeeded } from 'src/data/newtopic/actions'
