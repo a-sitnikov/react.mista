@@ -14,10 +14,9 @@ import Row from './row'
 import Footer from './footer'
 import NewMessage from './new_message';
 import { getMaxPage, extractTextFromHTML } from 'src/utils';
+import { RootState, useAppDispatch } from 'src/data/store';
 
 import './topic.css'
-import { RootState, useAppDispatch } from 'src/data/store';
-import { time } from 'console';
 
 var scrolledToHash: boolean;
 

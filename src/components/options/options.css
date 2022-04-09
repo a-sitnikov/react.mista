@@ -1,62 +1,70 @@
-
 .options-form {
-    border: 1px solid var(--border-color);
-    font-weight: normal;
-    border: 1px solid silver;
-    box-sizing: border-box;
+  border: 1px solid var(--border-color);
+  font-weight: normal;
+  border: 1px solid silver;
+  box-sizing: border-box;
 }
 
 .options-header {
-    cursor: move;
-    background: white;
-    padding: 4px;
+  cursor: move;
+  background: white;
+  padding: 4px;
 }
 
 [theme='dark'] .options-header {
-    background: inherit;
+  background: inherit;
 }
 
 .close-button {
-    display: block;
-    position: absolute;
-    right: 6px;
-    top: 3px;
-    cursor: pointer;
+  display: block;
+  position: absolute;
+  right: 6px;
+  top: 3px;
+  cursor: pointer;
 }
 
 .button-row {
-    padding: 5px;
-    border-top: 1px solid silver;
-    background-color: var(--header-background);
-    width: 100%;
-    box-sizing: border-box;
+  padding: 5px;
+  border-top: 1px solid silver;
+  background-color: var(--header-background);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 [theme='dark'] .button-row {
-    background: inherit;
+  background: inherit;
 }
 
 .tab-header {
-    width: 100%;
-    background-color: var(--header-background);
-    padding: 5px 10px;
-    font-weight: bold;
-    border-top: 1px solid silver;
-    border-bottom: 1px solid silver;
+  width: 100%;
+  background-color: var(--header-background);
+  padding: 5px 10px;
+  font-weight: bold;
+  border-top: 1px solid silver;
+  border-bottom: 1px solid silver;
 }
+
 /*
 [theme='dark'] .tab-header {
     background: inherit;
 }
 */
 .tab-content {
-    padding: 10px;
-}    
+  padding: 10px;
+}
 
 .options-row {
-    margin-bottom: 10px;
-    display: flex;
-    flex-flow: row;
-    flex-wrap: wrap;
-    align-items: center;
+  margin-bottom: 10px;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.options-number {
+  flex: 0 0 100px;
+  margin-left: 5px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
 }

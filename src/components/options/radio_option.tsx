@@ -1,4 +1,5 @@
 import { FC, ReactElement } from 'react'
+import { Form } from 'react-bootstrap'
 
 type IProps = {
   name: string,
@@ -9,33 +10,31 @@ type IProps = {
   oneLine: boolean
 }
 
-const RadioOption: FC<IProps> = (props): ReactElement => {
+const RadioOption: FC<IProps> = ({ name, label, value, values, oneLine, onChange }): ReactElement => {
 
-  const onChange = (e: any) => {
-    const { name } = props;
-    props.onChange(e, name, e.target.value);
+  const onChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e, name, e.target.value);
   }
 
-  const { name, label, values, oneLine } = props;
-
-  let valuesElem = [];
-  for (let i = 0; i < values.length; i++) {
-    let item = values[i];
-    valuesElem.push(
-      <label key={ i } htmlFor = { item.name } style = {{ marginRight: "5px" }}>
-        <input type="radio" name = { name } value = { item.name } checked = { item.name === props.value } onChange = {onChange } />
-          { item.descr }
-      </label>
-      );
-    }
-
-return (
-  <span>
-    <span style= {{ marginRight: "5px" }}> { label } </span>
-    {oneLine ? null : <br />}
-    { valuesElem }
-  </span>
-    );
+  return (
+    <span>
+      <span style={{ marginRight: "5px" }}> {label} </span>
+      {oneLine && <br/>}
+      {values.map((item, i) =>
+        <Form.Check key={i}
+          type="radio"
+          id={item.name}
+          label={item.descr}
+          name={label}
+          checked={item.name === value}
+          value={item.name}
+          inline={oneLine}
+          onChange={onChangeValue}
+        >
+        </Form.Check>
+      )}
+    </span>
+  );
 }
 
 export default RadioOption;

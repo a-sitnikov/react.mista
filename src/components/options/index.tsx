@@ -98,25 +98,22 @@ const Options: FC<ConnectedProps<typeof connector>> = (props): ReactElement => {
             );
 
           rowElem.push(
-            <FormControl
-              key={name}
-              type="number"
-              min={item.min}
-              max={item.max}
-              value={value}
-              onChange={(e) => onChange(e, name, e.target.value)}
-              style={{ flex: "0 0 100px", marginLeft: "5px" }}
-              className='input'
-              size="sm"
-            >
-            </FormControl>
+            <div className='options-number' key={name}>
+              <FormControl
+                type="number"
+                min={item.min}
+                max={item.max}
+                value={value}
+                onChange={(e) => onChange(e, name, e.target.value)}
+                
+                className='input'
+                size="sm"
+              >
+              </FormControl>
+              {item.postfix &&
+                <span key={name + '_postfix'} style={{ marginLeft: "5px", flex: "0 0 auto", }}>{item.postfix}</span>}
+            </div>
           );
-
-          if (item.postfix) {
-            rowElem.push(
-              <span key={name + '_postfix'} style={{ marginLeft: "5px", flex: "0 0 auto", }}>{item.postfix}</span>
-            )
-          };
 
         } else if (item.type === 'string') {
           rowElem.push(
@@ -132,13 +129,14 @@ const Options: FC<ConnectedProps<typeof connector>> = (props): ReactElement => {
         } else if (item.type === 'checkbox') {
           rowElem.push(
             <Form.Check
+              id={name}
               type="checkbox"
               label={item.label}
               key={name}
               name={name}
               checked={String(value) === 'true'}
               onChange={(e) => onChange(e, name, e.target.checked)}
-              style={{ flex: "0 0 auto", margin: "0px", width: "100%" }}
+              style={{ flex: "0 0 auto", margin: "0px" }}
             />
           );
         }

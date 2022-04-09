@@ -12,7 +12,6 @@ export const formTabs = [
     tabName: 'Тултипы',
     rows: [
       ['showTooltips', 'tooltipDelay'],
-      ['showTooltipOnTopicsList'],
       ['showTooltipOnPostLink']
     ]
   },
@@ -75,10 +74,6 @@ export const formParams = {
     max: 1000000,
     label: '',
     postfix: 'мс'
-  },
-  'showTooltipOnTopicsList': {
-    type: 'checkbox',
-    label: 'Показывать тултипы на главной странице, при наведении на кол-во ответов'
   },
   'showTooltipOnPostLink': {
     type: 'checkbox',
