@@ -69,10 +69,11 @@ const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info
     if (topicId !== info.id)
       item0 = null;
 
-    dispatch(getTopicIfNeeded({id: topicId, page}, item0));
+    dispatch(getTopicIfNeeded(locationParams, item0));
   }
 
   const updateNewMessages = () => {
+    console.log(topicId, info)
     if (isLastPage)
       dispatch(getNewMessagesIfNeeded({
         id: topicId,
@@ -96,7 +97,7 @@ const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info
 
   useEffect(() => {
 
-    timer = window.setInterval(updateNewMessages, 60 * 1000);
+    //timer = window.setInterval(updateNewMessages, 15 * 1000);
 
     const clearStore = () => {
       dispatch(clearTopicMessages());
