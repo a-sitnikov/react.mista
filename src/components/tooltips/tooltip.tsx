@@ -62,7 +62,7 @@ const Tooltip: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactEle
 
   const fetchData = async () => {
 
-    let data;
+    let data: ITopicMessage;
     let text = '';
     const topicId = props.tooltip.keys.topicId;
 
@@ -105,7 +105,7 @@ const Tooltip: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactEle
       <TooltipBody>
         <MsgText
           data={state.data}
-          n={state.data.n}
+          n={state.data?.n}
           vote={state.data?.vote}
           html={state.text}
           topicId={keys.topicId}
