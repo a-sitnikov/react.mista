@@ -12,15 +12,6 @@ export interface IRequest {
   myTopics?: string | null
 }
 
-interface IAPIRequest {
-  topics?: number | null,
-  utime?: string | null,
-  forum?: string | null,
-  section_short_name?: string | null,
-  user_id?: string | null,
-  mytopics?: string | null
-}
-
 interface IAPIResponse {
   id: number,
   forum: string,
@@ -38,23 +29,6 @@ interface IAPIResponse {
   user0: string,
   is_voting: number,
   answ: number
-}
-
-function convertRequest(request?: IRequest): IAPIRequest {
-
-  const itemsPerPage: number = request?.itemsPerPage ?? 20;
-  const page: number = request?.page ?? 1;
-  const count = itemsPerPage * page;
-
-  return ({
-    topics: count,
-    utime: request?.beforeTime,
-    forum: request?.forum,
-    section_short_name: request?.section,
-    user_id: request?.user_id,
-    mytopics: request?.myTopics
-  })
-
 }
 
 function convertResponse(response: IAPIResponse): ITopicsListItem {

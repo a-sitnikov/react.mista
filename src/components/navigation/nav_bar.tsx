@@ -23,24 +23,17 @@ const NavBar = (): ReactElement => {
     dispatch(getTopicsListIfNeeded({}));
   }
 
-  const menu = [
+  const internalLinks = [
     { name: '1C', link: `/index.php?forum=1C` },
     { name: 'IT', link: `/index.php?forum=IT` },
     { name: 'JOB', link: `/index.php?forum=JOB` },
     { name: 'LIFE', link: `/index.php?forum=LIFE` },
+  ];
+
+  const externalLinks = [
     { name: 'Wiki', link: 'https://wiki.mista.ru' },
     { name: 'Книга знаний', link: 'https://kb.mista.ru' },
   ];
-
-  const menuItems = menu.map((item, i) => {
-    return (
-      <Nav.Item key={i}>
-        <Nav.Link to={item.link} active={item.name === forum} as={Link}>
-          {item.name}
-        </Nav.Link>
-      </Nav.Item>
-    )
-  });
 
   return (
     <Navbar bg="dark" variant="dark" expand="md" fixed="top">
@@ -53,10 +46,23 @@ const NavBar = (): ReactElement => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse>
         <Nav className="me-auto">
-          {menuItems}
+          {internalLinks.map((item, i) =>
+            <Nav.Item key={'i'+ i}>
+              <Nav.Link to={item.link} active={item.name === forum} as={Link}>
+                {item.name}
+              </Nav.Link>
+            </Nav.Item>
+          )}
+          {externalLinks.map((item, i) =>
+            <Nav.Item key={'e'+ i}>
+              <Nav.Link href={item.link}>
+                {item.name}
+              </Nav.Link>
+            </Nav.Item>
+          )}          
         </Nav>
         <Form className="d-flex">
-        <Search />
+          <Search />
         </Form>
       </Navbar.Collapse>
     </Navbar>
