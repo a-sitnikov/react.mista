@@ -31,7 +31,7 @@ const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, sections
 
   const dispatch = useAppDispatch()
   const location = useLocation();
-  const locationParams = queryString.parse(location.search);
+  const locationParams = new URLSearchParams(location.search);
 
   const updateTopicsList = useCallback((locationParams) => {
     dispatch(getTopicsListIfNeeded(locationParams));

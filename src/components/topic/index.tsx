@@ -1,8 +1,7 @@
-import React, { FC, ReactElement, useEffect } from 'react'
+import React, { FC, ReactElement, useCallback, useEffect } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 
 import { useLocation } from "react-router-dom";
-import queryString from 'query-string'
 import { getTopicIfNeeded, getNewMessagesIfNeeded, clearTopicMessages } from 'src/data/topic/actions'
 import { newMessageText } from 'src/data/newmessage/actions'
 
@@ -56,24 +55,25 @@ const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info
   const dispatch = useAppDispatch()
   const location = useLocation();
 
-  let locationParams = queryString.parse(location.search);
-  const topicId = +locationParams.id;
-  const page = getPageNumber(locationParams.page);
+  let locationParams = new URLSearchParams(location.search);
+  const topicId = +locationParams.get('id');
+  const page = getPageNumber(locationParams.get('page'));
   const maxPage = getMaxPage(info.count);
-  const isLastPage = (page === 'last20' || page === maxPage);
 
-  const updateTopic = () => {
-
+  const updateTopic = useCallback(() => {
+    let _item0 = item0;
     if (topicId !== info.id)
-      item0 = null;
+      _item0 = null
 
-    dispatch(getTopicIfNeeded(locationParams, item0));
-  }
+    dispatch(getTopicIfNeeded(topicId, page, _item0));
+  }, [dispatch, topicId, page])
 
-  const updateNewMessages = () => {
+
+  const updateNewMessages = useCallback(() => {
+    const isLastPage = (page === 'last20' || page === maxPage);
     if (isLastPage)
       dispatch(getNewMessagesIfNeeded());
-  }
+  }, [dispatch, page])
 
   const onPostNewMessageSuccess = () => {
     updateNewMessages();
@@ -87,7 +87,7 @@ const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info
 
   useEffect(() => {
     updateTopic();
-  }, [dispatch, topicId, page]);
+  }, [updateTopic, topicId, page]);
 
   useEffect(() => {
 
@@ -100,7 +100,7 @@ const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info
     }
     return clearStore;
 
-  }, [dispatch]);
+  }, [dispatch, updateNewMessages]);
 
   useEffect(() => {
     if (!scrolledToHash &&

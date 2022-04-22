@@ -1,11 +1,10 @@
 import { FC, ReactElement } from 'react'
 import { Pagination } from 'react-bootstrap'
 
-import { paramsToString } from 'src/api'
 import './pages.css'
 
 type IProps = {
-  locationParams: { page?: string },
+  locationParams: URLSearchParams,
   baseUrl: string,
   maxPage: number,
   last20?: boolean
@@ -14,17 +13,18 @@ type IProps = {
 const Pages: FC<IProps> = ({ locationParams, baseUrl, maxPage, last20 }): ReactElement => {
 
   let currentPage: number | string;
-  if (!locationParams.page)
+  const page = locationParams.get('page');
+  if (!page)
     currentPage = 1;
-  else if (locationParams.page === "last20")
+  else if (page === "last20")
     currentPage = "last20";
   else
-    currentPage = parseInt(locationParams.page, 10) || 1;
+    currentPage = parseInt(page, 10) || 1;
 
   let pages = [];
   for (let i = 1; i <= maxPage; i++) {
-    let params = { ...locationParams, page: i };
-    let href = `#/${baseUrl}` + paramsToString('?', params);
+    locationParams.set('page', String(i));
+    let href = '#/' + baseUrl + '?' + locationParams.toString();
 
     pages.push(
       <Pagination.Item active={currentPage === i} key={i} href={href}>
@@ -33,8 +33,8 @@ const Pages: FC<IProps> = ({ locationParams, baseUrl, maxPage, last20 }): ReactE
   }
 
   if (last20 === true) {
-    let params = { ...locationParams, page: "last20" };
-    let href = `#/${baseUrl}` + paramsToString('?', params);
+    locationParams.set("page", "last20");
+    let href = '#/' + baseUrl + '?' + locationParams.toString();
     pages.push(<Pagination.Item active={currentPage === "last20"} key="last20" href={href}>»</Pagination.Item>);
   }
 

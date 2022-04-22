@@ -20,15 +20,17 @@ interface IAPIResponse {
     select: string,
     result: number
   }[]
-}  
+}
 
 function convertResponse(response: IAPIResponse): ITopicInfo {
 
-  let voting = response.voting.map(x => ({
-    text: x.select,
-    count: x.result
-  }));
-
+  let voting = [];
+  if (response.voting)
+    voting = response.voting.map(x => ({
+      text: x.select,
+      count: x.result
+    }));
+    
   return ({
     id: parseInt(response.id),
     title: response.text,

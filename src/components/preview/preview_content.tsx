@@ -43,7 +43,7 @@ const PreviewContent: FC<IProps> = ({ topicId, n, author, loggedUserId, onDataLo
 
     getData();
 
-  }, [topicId, n])
+  }, [topicId, n, onDataLoaded])
 
   if (!data && !error)
     return null;

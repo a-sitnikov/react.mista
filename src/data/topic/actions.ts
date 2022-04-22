@@ -31,24 +31,22 @@ export const receiveNewMessagesFailed = createAction('RECEIVE_NEW_MESSAGES', err
   error: true
 }));
 
-export const getTopic = (params: any, item0: ITopicMessage) => async (dispatch: any) => {
+export const getTopic = (topicId: number, page: number | string, item0: ITopicMessage) => async (dispatch: any) => {
 
   dispatch(requestTopic())
 
   let info: ITopicInfo;
   try {
-    info = await fetchTopicInfo(params.id);
+    info = await fetchTopicInfo(topicId);
   } catch (e) {
     console.error(e);
     info = {
-      id: params.id,
+      id: topicId,
       title: '',
       count: 0
     };
   }
   try {
-    let page = params.page || 1;
-
     let _item0 = item0;
     let _items;
     if (page === 'last20') {
@@ -56,19 +54,19 @@ export const getTopic = (params: any, item0: ITopicMessage) => async (dispatch: 
       if (info.count > 21) {
 
         if (!_item0) {
-          _item0 = await fetchTopicMessage(params.id, 0);
+          _item0 = await fetchTopicMessage(topicId, 0);
         }
 
         let first = info.count - 20;
         _items = await fetchTopicMessages({
-          id: params.id,
+          id: topicId,
           from: first,
           to: 1010
         });
 
       } else {
         let items = await fetchTopicMessages({
-          id: params.id,
+          id: topicId,
           from: 0,
           to: 1010
         });
@@ -86,11 +84,11 @@ export const getTopic = (params: any, item0: ITopicMessage) => async (dispatch: 
 
         first = (page - 1) * 100;
         if (!_item0) {
-          _item0 = await fetchTopicMessage(params.id, 0);
+          _item0 = await fetchTopicMessage(topicId, 0);
         }
 
         _items = await fetchTopicMessages({
-          id: params.id,
+          id: topicId,
           from: first,
           to: last
         });
@@ -102,7 +100,7 @@ export const getTopic = (params: any, item0: ITopicMessage) => async (dispatch: 
           first = 0;
 
         let items = await fetchTopicMessages({
-          id: params.id,
+          id: topicId,
           from: first,
           to: last
         });
@@ -145,9 +143,9 @@ const shouldFetch = (state) => {
   return true
 }
 
-export const getTopicIfNeeded = (params: any, item0: any): any => (dispatch: any, getState: any) => {
+export const getTopicIfNeeded = (topicId: number, page: number |string, item0: any): any => (dispatch: any, getState: any) => {
   if (shouldFetch(getState())) {
-    return dispatch(getTopic(params, item0));
+    return dispatch(getTopic(topicId, page, item0));
   }
 }
 

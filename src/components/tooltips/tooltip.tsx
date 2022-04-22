@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useEffect, useState } from 'react';
+import React, { FC, ReactElement, useCallback, useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux'
 
 import { fetchTopicMessage } from 'src/api/topicMessages';
@@ -60,14 +60,15 @@ const Tooltip: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactEle
     text
   })
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
+
+    if (state.data) return;
 
     let data: ITopicMessage;
     let text = '';
-    const topicId = props.tooltip.keys.topicId;
 
     try {
-      data = await fetchTopicMessage(topicId, keys.number);
+      data = await fetchTopicMessage(keys.topicId, keys.number);
       if (data)
         text = data.text;
       else
@@ -78,14 +79,11 @@ const Tooltip: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactEle
     }
 
     setState({ data, text });
-  }
+  }, [keys.topicId, keys.number, state.data])
 
   useEffect(() => {
-
-    if (!state.data)
       fetchData();
-
-  }, [])
+  }, [fetchData])
 
   if (!state.text)
     return null;
