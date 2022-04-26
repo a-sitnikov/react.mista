@@ -25,7 +25,7 @@ const mapState = (state: RootState) => {
   }
 }
 const connector = connect(mapState);
-type IProps = { page?: number | string};
+type IProps = { page?: number | string };
 
 const Footer: FC<ConnectedProps<typeof connector> & IProps> = ({ info, isFetching, page }): ReactElement => {
 
@@ -41,17 +41,9 @@ const Footer: FC<ConnectedProps<typeof connector> & IProps> = ({ info, isFetchin
 
   const maxPage = getMaxPage(info.count);
 
-  let updateButton;
+  let showUpdateButton = false;
   if (page === 'last20' || page === maxPage)
-    updateButton =
-      <Button
-        onClick={onRefreshClick}
-        disabled={false}
-        size="sm"
-        className='button'
-        variant="light">
-        {isFetching ? 'Обновляется' : 'Обновить ветку'}
-      </Button>
+    showUpdateButton = true;
 
   return (
     <div className="flex-row" id="F">
@@ -66,7 +58,16 @@ const Footer: FC<ConnectedProps<typeof connector> & IProps> = ({ info, isFetchin
         </Button>
       </div>
       <div className="ta-right va-middle" style={{ marginLeft: "auto" }}>
-        {updateButton}
+        {showUpdateButton &&
+          <Button
+            onClick={onRefreshClick}
+            disabled={isFetching}
+            size="sm"
+            className='button'
+            variant="light">
+            {isFetching ? 'Обновляется' : 'Обновить ветку'}
+          </Button>
+        }
       </div>
     </div>
   )
