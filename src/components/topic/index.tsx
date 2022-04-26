@@ -129,7 +129,7 @@ const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info
           </div>
         }
       </div>
-      <Footer locationParams={locationParams} />
+      <Footer page={page} />
       {login.logged &&
         <NewMessage onSubmitSuccess={onPostNewMessageSuccess} />
       }

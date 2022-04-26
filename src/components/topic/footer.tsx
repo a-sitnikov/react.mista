@@ -25,9 +25,9 @@ const mapState = (state: RootState) => {
   }
 }
 const connector = connect(mapState);
-type IProps = { locationParams?: any};
+type IProps = { page?: number | string};
 
-const Footer: FC<ConnectedProps<typeof connector> & IProps> = ({ info, isFetching, locationParams }): ReactElement => {
+const Footer: FC<ConnectedProps<typeof connector> & IProps> = ({ info, isFetching, page }): ReactElement => {
 
   const dispatch = useAppDispatch();
 
@@ -42,7 +42,6 @@ const Footer: FC<ConnectedProps<typeof connector> & IProps> = ({ info, isFetchin
   const maxPage = getMaxPage(info.count);
 
   let updateButton;
-  let page = locationParams.page || 1;
   if (page === 'last20' || page === maxPage)
     updateButton =
       <Button
