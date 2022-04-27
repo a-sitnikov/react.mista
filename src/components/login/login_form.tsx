@@ -31,6 +31,7 @@ const LoginForm: FC<ConnectedProps<typeof connector>> = (props): ReactElement =>
           value={username}
           onChange={e => setUsername(e.target.value)}
           size="sm"
+          className='input'
           style={{ marginRight: "5px", flex: "0 1 300px" }}
         />
         <FormControl
@@ -41,11 +42,13 @@ const LoginForm: FC<ConnectedProps<typeof connector>> = (props): ReactElement =>
           value={password}
           onChange={e => setPassword(e.target.value)}
           size="sm"
+          className='input'
           style={{ marginRight: "5px", flex: "0 1 300px" }}
         />
         <Button
           size="sm"
           variant="light"
+          className='button'          
           onClick={onLogin}
         >Войти</Button>
       </form>
