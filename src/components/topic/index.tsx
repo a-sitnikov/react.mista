@@ -125,7 +125,7 @@ const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info
         ))}
         {(maxPage > 1 || page === "last20") &&
           <div className="tf">
-            <Pages baseUrl='topic.php' locationParams={locationParams} maxPage={maxPage} last20 />
+            <Pages maxPage={maxPage} last20 />
           </div>
         }
       </div>

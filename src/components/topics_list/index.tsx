@@ -31,7 +31,6 @@ const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, sections
 
   const dispatch = useAppDispatch()
   const location = useLocation();
-  const locationParams = new URLSearchParams(location.search);
 
   const updateTopicsList = useCallback((locationParams) => {
     dispatch(getTopicsListIfNeeded(locationParams));
@@ -77,7 +76,7 @@ const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, sections
         </div>
         {rows}
         <div className="tf">
-          <Pages baseUrl='index.php' locationParams={locationParams} maxPage={10} />
+          <Pages maxPage={10} />
         </div>
       </div>
       <div id="F" className="newtopic" style={{ marginBottom: "10px", marginTop: "5px", position: 'relative' }}>
