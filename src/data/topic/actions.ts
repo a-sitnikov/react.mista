@@ -1,4 +1,5 @@
 import { createAction } from '@reduxjs/toolkit'
+import { urlTopicMessages } from 'src/api';
 
 import { fetchTopicInfo } from 'src/api/topicinfo'
 import { fetchTopicMessage, fetchTopicMessages } from 'src/api/topicMessages'
@@ -127,7 +128,7 @@ export const getTopic = (topicId: number, page: number | string, item0: ITopicMe
   } catch (error) {
 
     console.error('Failed to fetch topic:', error);
-    dispatch(receiveTopicFailed(error));
+    dispatch(receiveTopicFailed(error.message));
 
   }
 }

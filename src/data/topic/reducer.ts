@@ -11,7 +11,7 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(receiveTopic, (state, action) => {
 
       if (action.error) {
-        state.error = action.error.toString();
+        state.error = action.payload.toString();
       } else {
         state.items = action.payload.list;
         state.item0 = action.payload.item0;

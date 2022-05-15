@@ -42,7 +42,7 @@ export const checkLogin = () => async (dispatch: any) => {
   try {
     json = await fetchCookies();
   } catch (e) {
-    dispatch(loginFailed(e));
+    dispatch(loginFailed(e.message));
     return;
   }
  

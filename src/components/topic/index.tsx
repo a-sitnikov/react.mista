@@ -115,8 +115,8 @@ const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info
 
   return (
     <div style={{ marginBottom: "5px" }}>
-      {error && <Error text={error} />}
       <Header />
+      {error && <Error text={error} />}
       <div className="topic-table">
         <TopicInfo />
         <Row key='0' data={item0} />

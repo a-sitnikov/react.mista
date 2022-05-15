@@ -48,7 +48,7 @@ export const paramsToString = (paramsPrefix: string, params?: {}): string => {
     return '';
 }
 
-export const fetchJsonpAndGetJson = async (url: string, params?: {}): Promise<any> => {
+export const fetchJsonpAndGetJson = async (url: string, params?: {}, options?: {}): Promise<any> => {
 
   let fullUrl = `${domain}/${url}${paramsToString('?', params)}`;
   const response = await fetchJsonp(fullUrl);
@@ -67,10 +67,17 @@ export const fetchJsonpAndGetJson = async (url: string, params?: {}): Promise<an
   return json;
 }
 
-export const fetchAndGetJson = async (url: string, params?: {}, options?: {}): Promise<any> => {
+export const fetchAndGetJson = async (url: string, params?: {}, init?: RequestInit): Promise<any> => {
 
   let fullUrl = `${domain}/${url}${paramsToString('?', params)}`;
-  const response = await fetch(fullUrl, options);
+
+  if (!init)
+    init = {
+      mode: 'cors',
+      credentials: 'include'  
+    }
+
+  const response = await fetch(fullUrl, init);
   return await response.json();
   
 }
