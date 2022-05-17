@@ -74,7 +74,7 @@ export const fetchAndGetJson = async (url: string, params?: {}, init?: RequestIn
   if (!init)
     init = {
       mode: 'cors',
-      credentials: 'include'  
+      credentials: 'same-origin'  
     }
 
   const response = await fetch(fullUrl, init);
