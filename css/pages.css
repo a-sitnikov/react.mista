@@ -1,9 +1,0 @@
-.page-item a {
-    background-color: var(--background);
-    border-color: var(--border-color);
-    color: var(--link-color)
-}
-
-[theme='dark'] .page-item.active span {
-    background-color: darkblue;
-}
