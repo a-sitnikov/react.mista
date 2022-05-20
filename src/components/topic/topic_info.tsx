@@ -18,7 +18,7 @@ const mapState = (state: RootState) => {
 const connector = connect(mapState);
 const TopicInfo: FC<ConnectedProps<typeof connector>> = ({ info }): ReactElement => {
 
-  let yandexUrl = "https://www.yandex.ru/yandsearch?rpt=rad&text=" + encodeURIComponent(info.title);
+  let yandexUrl = "https://www.yandex.ru/search/?text=" + encodeURIComponent(info.title);
 
   return (
     <div className="topic-row">

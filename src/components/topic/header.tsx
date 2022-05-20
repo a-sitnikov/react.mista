@@ -3,6 +3,7 @@ import { connect, ConnectedProps } from 'react-redux'
 
 import { RootState } from 'src/data/store'
 import Login from 'src/components/login'
+import { Link } from 'react-router-dom';
 
 const mapState = (state: RootState) => {
   return {
@@ -29,7 +30,7 @@ const Header: FC<ConnectedProps<typeof connector>> =  ({ info, login }): ReactEl
       </div>
       <div className="header-right">
         <span id="forum_string" className="bold120">
-          <a rel="nofollow" href={`#/index.php?forum=${info.forum}`} style={{ textDecoration: "none" }}>{forums[info.forum]}</a>
+          <Link to={`/index.php?forum=${info.forum}`} style={{ textDecoration: "none" }}>{forums[info.forum]}</Link>
         </span>
       </div>
     </div>
