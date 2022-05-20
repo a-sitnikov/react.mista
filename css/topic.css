@@ -1,0 +1,275 @@
+.topic-table {
+  /*border-bottom: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    border-left: 1px solid var(--border-color);
+    box-sizing: border-box;*/
+  opacity: 1;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.topic-row {
+  display: grid;
+  width: 100%;
+  background-color: white;
+  border-top: 1px solid var(--inner-border-color);
+  box-sizing: border-box;
+  grid-template-columns: 165px 1fr;
+  grid-template-areas: "user message";
+}
+
+[theme='dark'] .topic-row {
+  background-color: inherit;
+}
+
+.topic-tools {
+  display: block;
+  text-align: left;
+}
+
+.cell-userinfo {
+  grid-area: user;
+  border-right: 1px solid var(--inner-border-color);
+  border-left: 1px solid var(--border-color);
+  padding: 6px;
+  width: 100%;
+  text-align: right;
+}
+
+.cell-message {
+  border-right: 1px solid var(--border-color);
+  grid-area: message;
+  padding: 10px;
+  min-width: 0px;
+}
+
+.user-info {
+  word-break: break-all;
+  width: 100%;
+}
+
+.is-author {
+  background-color: rgb(255, 215, 132);
+}
+
+[theme='dark'] .is-author {
+  background-color: rgb(99, 74, 23);
+}
+
+.is-you {
+  background-color: rgb(155, 197, 239);
+}
+
+[theme='dark'] .is-you {
+  background-color: rgb(38, 78, 117);
+}
+
+.message {
+  min-height: 45px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+
+}
+
+.message-time>span {
+  display: none;
+  padding-right: 4px;
+}
+
+.registered-user {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0px;
+}
+
+[theme='dark'] .registered-user {
+  color: inherit;
+}
+
+.voting-item {
+  display: grid;
+  grid-template-columns: 3fr 100px 3fr;
+  grid-template-rows: auto;
+  grid-template-areas: "title percentage bar";
+}
+
+.voting-title {
+  grid-area: title;
+}
+
+.voting-percentage {
+  grid-area: percentage;
+  justify-self: right;
+  padding-right: 10px;
+}
+
+.voting-bar {
+  grid-area: bar;
+}
+
+.voting-bar>div {
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+
+  .topic-table {
+    border: none;
+  }
+
+  .topic-row {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "user"
+      "message";
+    border: 1px solid var(--border-color);
+    margin-bottom: 5px;
+  }
+
+  .topic-row:last-child {
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .topic-tools {
+    display: none;
+  }
+
+  .topic-title {
+    margin: 0px;
+    overflow-wrap: anywhere
+  }
+
+  .cell-userinfo {
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px dotted var(--border-color);
+    background: var(--header-background);
+    padding: 0px;
+  }
+
+  [theme='dark'] .cell-userinfo {
+    background: inherit;
+  }
+
+  .user-info {
+    word-break: break-all;
+    display: flex;
+    align-items: center;
+  }
+
+  .message-time {
+    margin-left: auto;
+    padding: 0px;
+  }
+
+  .message-time>button {
+    display: none;
+  }
+
+  .message-time>span {
+    display: block;
+  }
+
+  .message {
+    min-height: 0px;
+  }
+
+  .registered-user {
+    padding: 0px 4px;
+    font-size: 80%;
+  }
+
+  .voting-percentage {
+    padding-right: 0px;
+  }
+
+  .voting-item {
+    grid-template-columns: 3fr 100px;
+    grid-template-areas:
+      "title percentage"
+      "bar bar";
+  }
+
+  .cell-message {
+    border-right: none;
+  }
+
+  .user-info {
+    border-left: none;
+  }
+
+}
+
+/* header */
+.topic-header {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+
+  .topic-header {
+    display: none;
+  }
+
+}
+
+/* new-message*/
+.new-message-container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas: "text vowting";
+  grid-column-gap: 10px;
+}
+
+.new-message-text {
+  grid-area: text;
+}
+
+.new-message-voting {
+  grid-area: vowting;
+}
+
+.message-number {
+  font-weight: normal
+}
+
+@media (max-width: 768px) {
+
+  .new-message-container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "text"
+      "vowting";
+  }
+
+  .message-number {
+    font-weight: bold
+  }
+
+}
+
+/*topic-info*/
+.topic-title {
+  font-size: 150%;
+  font-weight: bold;
+}
+
+.yandex {
+  color: red !important;
+  font-size: 120%;
+  text-decoration: none;
+}
+
+/*pages*/
+.curpage {
+  margin: 5px;
+  font-weight: bold
+}
+
+.page {
+  margin: 5px
+}

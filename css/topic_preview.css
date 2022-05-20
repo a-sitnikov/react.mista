@@ -1,0 +1,109 @@
+.plus-minus {
+  color: gray;
+  font-family: "Courier New", monospace;
+  font-size: 80%;
+  cursor: pointer;
+  margin: 0 8px 0 4px;
+}
+
+.plus-nav {
+  cursor: pointer;
+  color: gray;
+  text-decoration: none;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.topic-preview {
+  background: var(--background);
+  overflow-x: clip;
+}
+
+.topic-preview-rewind {
+  display: flex;
+  margin-bottom: 5px;
+  flex-direction: row;
+}
+
+.topic-preview-button {
+  text-align: center;
+  border-color: var(--border-color) !important;
+  border: 1px solid;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.close-preview {
+  flex: 0 0 30px;
+}
+
+.edit-preview {
+  flex: 0 0 30px;
+}
+
+@media (max-width: 768px) {
+  
+  .edit-preview {
+    display: none;
+  }
+  
+}
+
+.flex-small {
+  flex: 1 1 auto;
+}
+
+.flex-large {
+  flex: 2 2 auto;
+}
+
+.preview-carousel {
+  display: flex;
+  flex-direction: row;
+  align-self: stretch;
+}
+
+.preview-carousel-item {
+  flex-shrink: 0;
+  width: 100%;
+  margin-right: 10px;
+}
+
+.preview-content {
+  display: flex;
+  flex-direction: column;
+  margin-right: 5px;
+}
+
+.topic-preview-userinfo {
+  margin-bottom: 5px;
+  border-bottom: 1px solid;
+  border-color: var(--border-color) !important;
+}
+
+.preview-container {
+  padding: 10px 245px 10px 85px;
+  background: var(--background);
+  border-top: 1px solid var(--inner-border-color);
+  border-right: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
+}
+
+@media (min-width: 769px) and (max-width: 991px) {
+
+    .preview-container {
+      padding: 10px 15px 10px 85px;
+    }
+}  
+
+@media (max-width: 768px) {
+
+  .preview-container {
+    padding: 10px 15px 10px 15px;
+    margin-top: -5px;
+    margin-bottom: 5px;
+    border: 1px solid var(--border-color);
+    border-top: none;
+  }
+
+}  

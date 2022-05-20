@@ -1,0 +1,63 @@
+.bg
+{color: blue;}
+.num
+{color: black;}
+.str
+{color: black;}
+.par
+{color: brown;}
+.com
+{color: green;}
+.sp
+{color: red;}
+.pr
+{color: brown;}
+.key
+{color: red;}
+
+.expand-button-div {
+    text-align: center;
+    margin-top: -16px;
+    font-size: 11px;
+    pointer-events: none;
+}
+
+.expand-button-span{
+   border: 1px dashed rgb(221, 221, 221);
+   cursor: pointer;
+   color: #999;
+   padding: 2px 5px;
+   background-color: white;
+   pointer-events: all;
+}
+
+.code-pre {
+    text-align: left;
+    font-family: courier new,courier;
+    color: blue;
+    margin: 5px auto;
+    border: 1px dashed rgb(221, 221, 221);
+    padding-bottom: 10px;
+    width: 100%;
+    overflow-x: auto;
+}
+
+[theme='dark'] .code-pre {
+    border-color: rgb(100, 100, 100);
+}
+
+[theme='dark'] .str {
+    color: white;
+}
+
+[theme='dark'] .num {
+    color: white;
+}
+
+[theme='dark'] .bg {
+    color: rgb(50, 150, 255);
+}
+
+[theme='dark'] .com {
+    color: rgb(91, 236, 161);
+}
