@@ -1,5 +1,4 @@
 import { createAction } from '@reduxjs/toolkit'
-import { urlTopicMessages } from 'src/api';
 
 import { fetchTopicInfo } from 'src/api/topicinfo'
 import { fetchTopicMessage, fetchTopicMessages } from 'src/api/topicMessages'
