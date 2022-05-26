@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/react.mista/static/css/main.48c97b90.chunk.css",
-    "main.js": "/react.mista/static/js/main.58c5f4fa.chunk.js",
-    "main.js.map": "/react.mista/static/js/main.58c5f4fa.chunk.js.map",
+    "main.js": "/react.mista/static/js/main.9f317f78.chunk.js",
+    "main.js.map": "/react.mista/static/js/main.9f317f78.chunk.js.map",
     "runtime-main.js": "/react.mista/static/js/runtime-main.97a40c8a.js",
     "runtime-main.js.map": "/react.mista/static/js/runtime-main.97a40c8a.js.map",
     "static/js/2.497c5898.chunk.js": "/react.mista/static/js/2.497c5898.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.97a40c8a.js",
     "static/js/2.497c5898.chunk.js",
     "static/css/main.48c97b90.chunk.css",
-    "static/js/main.58c5f4fa.chunk.js"
+    "static/js/main.9f317f78.chunk.js"
   ]
 }
