@@ -5,6 +5,7 @@
   grid-template-columns: 50px 30px auto 30px 120px 155px;
   border: 1px solid var(--border-color);
   text-align: center;
+  z-index: 1;
 }
 
 [theme="dark"] .th {
