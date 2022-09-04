@@ -22,14 +22,15 @@ const connector = connect(mapState);
 
 type IProps = {
   data: ITopicsListItem,
+  updated: number,
   topicId: number
 }
 
-const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data, topicId }): ReactElement => {
+const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data, updated, topicId }): ReactElement => {
 
   const dispatch = useAppDispatch();
 
-  const [time, setTime] = useState(data.updated);
+  const [time, setTime] = useState(updated);
   const updateTime = useCallback(async () => {
     const msg = await fetchTopicMessage(topicId, data.count);
     setTime(msg.time);

@@ -48,7 +48,7 @@ const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, sections
   let rows = [];
   for (let item of topicsList.items) {
 
-    rows.push(<Row key={item.id} data={item} topicId={item.id}/>);
+    rows.push(<Row key={item.id} data={item} updated={item.updated} topicId={item.id}/>);
     if (item.showPreview)
       rows.push(
         <TopicPreview 
