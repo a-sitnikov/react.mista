@@ -40,6 +40,10 @@ const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data, updated, top
     if (data.pinned)
       updateTime();
   }, [data.pinned, updateTime])
+  
+  useEffect(() => {
+    setTime(updated);
+  }, [updated])
 
   const countOnClick = () => {
     dispatch(togglePreview(topicId, data.count));
