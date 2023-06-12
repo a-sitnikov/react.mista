@@ -5,20 +5,11 @@ import { Container } from 'react-bootstrap';
 import TopicsList from './topics_list'
 import Topic from './topic'
 import Options from './options'
-import { clearTooltipsIfNeeded } from 'src/data/tooltips/actions'
-
-import { useAppDispatch } from 'src/data/store';
 
 const AppRoutes = (): ReactElement => {
 
-  const dispatch = useAppDispatch();
-
-  const onClick = () => {
-    dispatch(clearTooltipsIfNeeded());
-  }
-
   return (
-    <div onClick={onClick} style={{ flex: "auto" }}>
+    <div style={{ flex: "auto" }}>
       <Container>
         <Routes>
           <Route path='/' element={<TopicsList />} />

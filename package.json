@@ -21,7 +21,8 @@
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
     "typescript": "^4.6.4",
-    "url-parse": "^1.5.10"
+    "url-parse": "^1.5.10",
+    "usehooks-ts": "^2.9.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.4",
@@ -37,7 +38,7 @@
     "enzyme": "^3.11.0",
     "enzyme-to-json": "^3.6.2",
     "gh-pages": "^3.2.3",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "^5.0.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6",
     "redux-mock-store": "^1.5.4"

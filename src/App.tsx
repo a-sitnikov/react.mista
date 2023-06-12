@@ -1,11 +1,11 @@
-import React, { FC, ReactElement, useEffect } from 'react';
+import React, { FC, ReactElement, useLayoutEffect } from 'react';
 import { HashRouter } from 'react-router-dom'
 
 import { connect, ConnectedProps } from 'react-redux'
 import NavBar from './components/navigation/nav_bar';
 import AppRoutes from './components/approutes';
 import NavBarFooter from './components/navigation/nav_bar_footer';
-import TooltipsList from './components/tooltips/tooltips_list';
+import TooltipsContainer from './components/tooltips/tooltips_container';
 import { RootState } from './data/store';
 
 const mapState = (state: RootState) => {
@@ -18,7 +18,7 @@ const mapState = (state: RootState) => {
 const connector = connect(mapState);
 const App: FC<ConnectedProps<typeof connector>> = ({theme}): ReactElement => {
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.body.setAttribute('theme', theme);
   }, [theme])
 
@@ -27,7 +27,7 @@ const App: FC<ConnectedProps<typeof connector>> = ({theme}): ReactElement => {
       <NavBar />
       <AppRoutes />
       <NavBarFooter />
-      <TooltipsList />
+      <TooltipsContainer />
     </HashRouter>
   );
 }
