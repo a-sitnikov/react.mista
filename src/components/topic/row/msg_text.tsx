@@ -1,4 +1,4 @@
-import { FC, ReactElement, useEffect, useState } from 'react'
+import { FC, ReactElement, useEffect, useState, useCallback } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import activeHtml from 'react-active-html';
 
@@ -69,31 +69,26 @@ const connector = connect(mapState);
 const MsgText: FC<ConnectedProps<typeof connector> & IProps> =
   ({ topicId, n, html, vote, info, style, voteColors }): ReactElement => {
 
+    let initialVoteText: string = null;
     if (vote && info.voting && topicId === info.id)
-      var _voteText = info.voting[vote - 1].text;
-    else
-      _voteText = null;
+      initialVoteText = info.voting[vote - 1].text;
 
-    const [voteText, setVoteText] = useState(_voteText);
+    const [voteText, setVoteText] = useState(initialVoteText);
 
-    const getVoteText = async () => {
+    const getVoteText = useCallback(async () => {
       try {
         const _info = await fetchTopicInfo(topicId);
         setVoteText(_info.voting[vote - 1].text);
       } catch (e) {
         console.error(e.message);
       }
-    }
+    }, [topicId, vote]);
 
     useEffect(() => {
-      if (vote) {
-        if (!(_voteText))
-          getVoteText();
-      } else {
-        if (voteText)
-          setVoteText(null)
-      }
-    }, [vote]);
+      if (vote && !initialVoteText) {
+        getVoteText();
+      } 
+    }, [vote, getVoteText, initialVoteText]);
 
     const showVote = (vote !== 0) && (voteText !== null);
     let voteChart: ReactElement;

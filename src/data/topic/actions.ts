@@ -43,7 +43,7 @@ export const getTopic = (topicId: number, page: number | string, item0: ITopicMe
     info = {
       id: topicId,
       title: '',
-      count: 0
+      count: -1
     };
   }
   try {
@@ -143,8 +143,13 @@ const shouldFetch = (state) => {
   return true
 }
 
-export const getTopicIfNeeded = (topicId: number, page: number |string, item0: any): any => (dispatch: any, getState: any) => {
-  if (shouldFetch(getState())) {
+export const getTopicIfNeeded = (topicId: number, page: number |string): any => (dispatch: any, getState: any) => {
+ 
+  const state = getState();
+  if (shouldFetch(state)) {
+    let item0: ITopicMessage = null;
+    if (topicId === state.topic.info.id)
+      item0 = state.topic.item0;  
     return dispatch(getTopic(topicId, page, item0));
   }
 }

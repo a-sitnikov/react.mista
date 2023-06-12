@@ -45,7 +45,7 @@ export interface ITopicState {
 export const defaultInfo: ITopicInfo = {
   id: 0,
   title: "",
-  count: 0
+  count: -1
 }
 
 export const initialState: ITopicState = {

@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useCallback, useEffect } from 'react'
+import React, { FC, ReactElement, useCallback, useEffect, useRef } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 
 import { useLocation } from "react-router-dom";
@@ -59,21 +59,14 @@ const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info
   const topicId = +locationParams.get('id');
   const page = getPageNumber(locationParams.get('page'));
   const maxPage = getMaxPage(info.count);
-
-  const updateTopic = useCallback(() => {
-    let _item0 = item0;
-    if (topicId !== info.id)
-      _item0 = null
-
-    dispatch(getTopicIfNeeded(topicId, page, _item0));
-  }, [dispatch, topicId, page])
-
+  
+  const isLastPageRef = useRef(false);
+  isLastPageRef.current = (page === 'last20' || page === maxPage);
 
   const updateNewMessages = useCallback(() => {
-    const isLastPage = (page === 'last20' || page === maxPage);
-    if (isLastPage)
+    if (isLastPageRef.current)
       dispatch(getNewMessagesIfNeeded());
-  }, [dispatch, page])
+  }, [dispatch])
 
   const onPostNewMessageSuccess = () => {
     updateNewMessages();
@@ -86,8 +79,8 @@ const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info
   }, [info.title]);
 
   useEffect(() => {
-    updateTopic();
-  }, [updateTopic, topicId, page]);
+    dispatch(getTopicIfNeeded(topicId, page));
+  }, [dispatch, topicId, page]);
 
   useEffect(() => {
 
@@ -106,7 +99,7 @@ const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info
     if (!scrolledToHash &&
       location.hash &&
       items.length > 0) {
-      let nodeHash = document.getElementById(location.hash.slice(1));
+      const nodeHash = document.getElementById(location.hash.slice(1));
       if (nodeHash)
         setTimeout(() => window.scrollTo(0, nodeHash.offsetTop), 1);
       scrolledToHash = true;

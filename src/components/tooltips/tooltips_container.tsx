@@ -24,7 +24,7 @@ const TooltipsContainer: FC<ConnectedProps<typeof connector>> = ({ items }): Rea
 
   const handleClickOutside = useCallback(() => {
     dispatch(clearTooltipsIfNeeded());
-  }, []);
+  }, [dispatch]);
 
   useOnClickOutside(ref, handleClickOutside);
   

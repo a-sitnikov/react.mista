@@ -46,13 +46,12 @@ const getVideoParams = async (videoId: string): Promise<{ hrefName: string, titl
 
 const YoutubeLink: FC<IProps> = ({ href }): ReactElement => {
 
-  let [state, setState] = useState({
-    hrefName: href,
-    title: ''
-  });
+  let [hrefName, setHrefName] = useState(href);
+  let [title, setTitle] = useState('');
 
   useEffect(() => {
 
+    let isMounted = true;
     const run = async () => {
 
       const videoId = getVideoId(href);
@@ -61,9 +60,10 @@ const YoutubeLink: FC<IProps> = ({ href }): ReactElement => {
 
       try {
         const params = await getVideoParams(videoId);
-        setState({
-          ...params
-        });
+        if (isMounted) {
+          setHrefName(params.hrefName);
+          setTitle(params.title);
+        }  
 
       } catch (e) {
         console.error('youtube', e.message);
@@ -71,11 +71,14 @@ const YoutubeLink: FC<IProps> = ({ href }): ReactElement => {
     }
 
     run();
+
+    return () => {isMounted = false};
+
   }, [href])
 
   const prefix = 'youtube';
   return (
-    <a href={href} title={state.title}>{`${prefix}: ${state.hrefName}`}</a>
+    <a href={href} title={title}>{`${prefix}: ${hrefName}`}</a>
   )
 }
 
