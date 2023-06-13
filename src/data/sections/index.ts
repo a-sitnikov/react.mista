@@ -12,7 +12,7 @@ export interface ISectionsTree{
 }
 
 export interface ISectionsListState {
-  isFetching: boolean;
+  status: "init" | "loading" | "success" | "error";
   items: ISectionsList,
   tree?: {},
   error?: string,
@@ -20,7 +20,7 @@ export interface ISectionsListState {
 }
 
 export const initialState: ISectionsListState = {
-  isFetching: false,
+  status: "init",
   items: [],
   tree: {}
 }

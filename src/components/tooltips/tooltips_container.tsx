@@ -4,7 +4,8 @@ import { useOnClickOutside } from 'usehooks-ts'
 
 import { useAppDispatch } from 'src/data/store';
 import { RootState } from 'src/data/store'
-import { clearTooltipsIfNeeded } from 'src/data/tooltips/actions'
+import tooltipsSlice from 'src/data/tooltips/reducer'
+
 import Tooltip from './tooltip'
 
 const mapState = (state: RootState) => {
@@ -23,7 +24,7 @@ const TooltipsContainer: FC<ConnectedProps<typeof connector>> = ({ items }): Rea
   const ref = useRef(null);
 
   const handleClickOutside = useCallback(() => {
-    dispatch(clearTooltipsIfNeeded());
+    dispatch(tooltipsSlice.actions.closeAll());
   }, [dispatch]);
 
   useOnClickOutside(ref, handleClickOutside);

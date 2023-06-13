@@ -7,7 +7,8 @@ import TooltipBody from './tooltip_body'
 
 import './tooltip.css'
 
-import { closeTooltip } from 'src/data/tooltips/actions'
+import tooltipsSlice from 'src/data/tooltips/reducer'
+
 import { useAppDispatch } from 'src/data/store';
 import { ITooltipItem } from 'src/data/tooltips';
 
@@ -21,7 +22,7 @@ const TooltipWindow: FC<IProps> = ({ tooltip, zIndex, children }): ReactElement 
   const dispatch = useAppDispatch();
 
   const onCloseClick = () => {
-    dispatch(closeTooltip(tooltip.keys));
+    dispatch(tooltipsSlice.actions.close(tooltip.keys));
   }
 
   const { coords } = tooltip;

@@ -2,7 +2,7 @@ import React, { FC, ReactElement, useEffect } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import Form from 'react-bootstrap/Form'
 
-import { getSectionsIfNeeded } from 'src/data/sections/actions'
+import { getSectionsIfNeeded } from 'src/data/sections/reducer'
 import { RootState, useAppDispatch } from 'src/data/store'
 import type { ISectionItem } from 'src/data/sections'
 

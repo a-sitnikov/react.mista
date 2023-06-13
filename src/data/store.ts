@@ -14,17 +14,17 @@ import newMessage from './newmessage/reducer'
 const reducer = {
   topicsList,
   topic,
-  sections,
+  sections: sections.reducer,
   options,
   login,
-  tooltips,
+  tooltips: tooltips.reducer,
   newTopic,
   newMessage
 }
 
 const store = configureStore({
   reducer,
-  //middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   // middleware: (getDefaultMiddleware) => getDefaultMiddleware({
   //   immutableCheck: { warnAfter: 128 },
   //   serializableCheck: { warnAfter: 128 },
