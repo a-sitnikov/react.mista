@@ -20,13 +20,13 @@ export interface ITopicsListItem {
 export interface ITopicsList extends Array<ITopicsListItem> { }
 
 export interface ITopicsListState {
-  isFetching: boolean;
+  status: "init" | "loading" | "success" | "error";
   items: ITopicsList,
   error?: string,
   lastUpdated?: number
 }
 
 export const initialState: ITopicsListState = {
-  isFetching: false,
+  status: "init",
   items: []
 }

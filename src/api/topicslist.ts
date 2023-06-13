@@ -8,8 +8,16 @@ export interface IRequest {
   beforeTime?: string | null,
   forum?: string | null,
   section?: string | null,
-  user_id?: string | null,
+  userId?: string | null,
   myTopics?: string | null
+}
+
+interface IAPIRequest {
+  topics?: string,
+  section_short_name?: string,
+  forum?: string,
+  user_id?: string,
+  mytopics?: string
 }
 
 interface IAPIResponse {
@@ -29,6 +37,20 @@ interface IAPIResponse {
   user0: string,
   is_voting: number,
   answ: number
+}
+
+function convertRequest(request: IRequest): IAPIRequest {
+
+  const page = request.page || 1;
+  const itemsCount = request.itemsPerPage * page;
+
+  return {
+    topics: String(itemsCount),
+    section_short_name: request.section,
+    forum: request.forum,
+    user_id: request.userId,
+    mytopics: request.myTopics,
+  }
 }
 
 function convertResponse(response: IAPIResponse): ITopicsListItem {
@@ -55,9 +77,9 @@ function convertResponse(response: IAPIResponse): ITopicsListItem {
 
 async function fetchTopicsList(params?: IRequest): Promise<ITopicsList> {
 
-  //const request = convertRequest(params);
+  const request = convertRequest(params);
 
-  const list = await fetchAndGetJson(urlTopicsList, params);
+  const list = await fetchAndGetJson(urlTopicsList, request);
   return list.map(convertResponse);
 
 }

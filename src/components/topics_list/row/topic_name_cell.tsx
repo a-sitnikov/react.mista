@@ -44,8 +44,8 @@ const TopicNameCell: FC<ConnectedProps<typeof connector> & IProps> = ({ data, lo
     )
   }
 
-  let closed;
-  let down;
+  let closed: ReactElement;
+  let down: ReactElement;
   let text = data.text;
   if (data.closed)
     closed = <span className="agh">Ø</span>

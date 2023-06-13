@@ -1,39 +1,81 @@
-import { createReducer } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { initialState } from '.'
-import { requestTopicsList, receiveTopicsList, clearTopicsList, togglePreview } from './actions'
 
-const reducer = createReducer(initialState, (builder) => {
-  builder
-    .addCase(requestTopicsList, (state) => {
-      state.isFetching = true
-    })
-    .addCase(receiveTopicsList, (state, action) => {
+import * as API from 'src/api/topicslist'
+import { domain, urlTopicsList } from 'src/api/index';
+import { RootState } from '../store';
 
-      if (action.error) {
-        state.error = action.payload.toString();
-      } else {
-        state.items = action.payload.list;
-        delete state.error;
-      }
-      state.lastUpdated = new Date().getTime();
-      state.isFetching = false;
-    })
-    .addCase(clearTopicsList, (state) => {
+export const getTopicsList = createAsyncThunk(
+  'topicsList/fetch',
+  async (params: API.IRequest, { dispatch, getState, rejectWithValue }) => {
+
+    const state = getState() as RootState;
+
+    let itemsPerPage = +state.options.items.topicsPerPage;
+    if (itemsPerPage > 99) itemsPerPage = 99;
+    params.itemsPerPage = itemsPerPage;
+
+    try {
+      const json = await API.fetchTopicsList(params);
+      return json.slice(-itemsPerPage);
+
+    } catch (e) {
+
+      console.error(e.message);
+
+      const err = new Error(`${e.message} ${domain}/${urlTopicsList}`)
+      return rejectWithValue(err);
+
+    }
+  }
+)
+
+const shouldGetTopicsList = (state: RootState) => {
+  
+  const topicsList = state.topicsList;
+  if (!topicsList) return true
+  if (topicsList.status === "loading") return false
+  
+  return true
+}
+
+export const getTopicsListIfNeeded = (params: any): any => (dispatch: any, getState: any) => {
+  if (shouldGetTopicsList(getState())) {
+    return dispatch(getTopicsList(params));
+  }
+}
+
+const topicsListSlice = createSlice({
+  name: 'topicsList',
+  initialState,
+  reducers: {
+    clear: (state) => {
       state.items = [];
-      state.isFetching = false;
-      delete state.error;
-      delete state.lastUpdated;
-    })
-    .addCase(togglePreview, (state, action) => {
-      let items = state.items.slice();
-      const ind = items.findIndex(item => item.id === action.payload.id);
-
-      let item = Object.assign({}, items[ind]);
-      item.showPreview = !item.showPreview;
+      state.status = "init"; 
+    },
+    togglePreview: (state, action) => {
+      const item = state.items.find(item => item.id === action.payload.topicId); 
+      item.showPreview = !item.showPreview; 
       item.previewMsgNumber = action.payload.msgNumber;
-      items[ind] = item;
-      state.items = items;
-    })    
+    }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getTopicsList.pending, (state) => {
+        state.status = "loading";
+        delete state.error;
+      })
+      .addCase(getTopicsList.fulfilled, (state, action) => {
+        state.status = "success";
+        state.items = action.payload;
+
+        delete state.error;
+      })
+      .addCase(getTopicsList.rejected, (state, action) => {
+        state.status = "error";
+        state.error = action.error?.message;
+      })
+  }
 })
 
-export default reducer;
+export default topicsListSlice;

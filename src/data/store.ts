@@ -12,7 +12,7 @@ import newTopic from './newtopic/reducer'
 import newMessage from './newmessage/reducer'
 
 const reducer = {
-  topicsList,
+  topicsList: topicsList.reducer,
   topic,
   sections: sections.reducer,
   options,
@@ -24,7 +24,7 @@ const reducer = {
 
 const store = configureStore({
   reducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  //middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   // middleware: (getDefaultMiddleware) => getDefaultMiddleware({
   //   immutableCheck: { warnAfter: 128 },
   //   serializableCheck: { warnAfter: 128 },

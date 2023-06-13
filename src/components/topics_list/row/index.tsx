@@ -10,7 +10,7 @@ import { today } from 'src/utils'
 import { RootState, useAppDispatch } from 'src/data/store';
 import { ITopicsListItem } from 'src/data/topicslist';
 import { fetchTopicMessage } from 'src/api/topicMessages';
-import { togglePreview } from 'src/data/topicslist/actions';
+import  topicListSlice  from 'src/data/topicslist/reducer';
 
 const mapState = (state: RootState) => {
 
@@ -24,6 +24,18 @@ type IProps = {
   data: ITopicsListItem,
   updated: number,
   topicId: number
+}
+
+const formatTime = (time: number): string => {
+  
+  if (time === 2147483648000) return '';
+  
+  let date = new Date(time);
+  if (today(date)) {
+    return dateFormat(time, 'HH:MM')
+  } else {
+    return dateFormat(time, 'dd.mm.yy');
+  }  
 }
 
 const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data, updated, topicId }): ReactElement => {
@@ -45,19 +57,10 @@ const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data, updated, top
     setTime(updated);
   }, [updated])
 
-  const countOnClick = () => {
-    dispatch(togglePreview(topicId, data.count));
-  }
-
-  let date = new Date(time);
-  let timeF: string;
-  if (time === 2147483648000) {
-    timeF = '';
-  } else if (today(date)) {
-    timeF = dateFormat(time, 'HH:MM')
-  } else {
-    timeF = dateFormat(time, 'dd.mm.yy');
-  }
+  const countOnClick = useCallback(() => {
+    dispatch(topicListSlice.actions.togglePreview({topicId, msgNumber: data.count}));
+  }, [dispatch, topicId, data.count]);
+  
   return (
     <div className="topics-list-row">
       <div className="cell-forum">
@@ -78,12 +81,12 @@ const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data, updated, top
       </div>
       <div className="cell-lastuser">
         <div style={{ display: "flex" }}>
-          <span className="cell-lastuser-time">{timeF}</span>
+          <span className="cell-lastuser-time">{formatTime(time)}</span>
           <span className="cell-lastuser-user">{data.lastUser}</span>
         </div>
       </div>
       <div className="cell-last20">
-        <Link to={`/topic.php?id=${String(data.id)}&page=last20#F`} style={{ color: "inherit", display: "block", width: "100%", textAlign: "center" }}>
+        <Link to={`/topic.php?id=${data.id}&page=last20#F`} style={{ color: "inherit", display: "block", width: "100%", textAlign: "center" }}>
           <i className="fa fa-angle-right" aria-hidden="true"></i>
         </Link>
       </div>

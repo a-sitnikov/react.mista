@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 import queryString from 'query-string'
 
 import { RootState, useAppDispatch } from 'src/data/store'
-import { getTopicsListIfNeeded } from 'src/data/topicslist/actions'
+import { getTopicsListIfNeeded } from 'src/data/topicslist/reducer'
 
 import Header from './header'
 import Row from './row'
@@ -72,7 +72,7 @@ const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, sections
           <div>Тема</div>
           <div>Re</div>
           <div>Автор</div>
-          <div><span style={{ cursor: "pointer" }} title="Обновить список" onClick={updateTopicsList}>{topicsList.isFetching ? "Обновляется" : "Обновлено"}</span></div>
+          <div><span style={{ cursor: "pointer" }} title="Обновить список" onClick={updateTopicsList}>{topicsList.status === "loading" ? "Обновляется" : "Обновлено"}</span></div>
         </div>
         {rows}
         <div className="tf">
