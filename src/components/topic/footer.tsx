@@ -2,7 +2,7 @@ import React, { FC, ReactElement } from 'react';
 import { connect, ConnectedProps } from 'react-redux'
 import { Button } from 'react-bootstrap'
 
-import { getNewMessagesIfNeeded } from 'src/data/topic/actions'
+import { getNewMessagesIfNeeded } from 'src/data/topic/reducer'
 import { getMaxPage } from 'src/utils'
 import { RootState, useAppDispatch } from 'src/data/store'
 import { defaultInfo } from 'src/data/topic';

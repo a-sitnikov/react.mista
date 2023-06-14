@@ -2,7 +2,7 @@ import React, { FC, ReactElement, useCallback, useEffect, useRef } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 
 import { useLocation } from "react-router-dom";
-import { getTopicIfNeeded, getNewMessagesIfNeeded, clearTopicMessages } from 'src/data/topic/actions'
+import topicSlice, { getTopicIfNeeded, getNewMessagesIfNeeded } from 'src/data/topic/reducer'
 import { newMessageText } from 'src/data/newmessage/actions'
 
 import Error from 'src/components/common/error'
@@ -87,7 +87,7 @@ const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info
     const timer = window.setInterval(updateNewMessages, 60 * 1000);
 
     const clearStore = () => {
-      dispatch(clearTopicMessages());
+      dispatch(topicSlice.actions.clear());
       scrolledToHash = undefined;
       if (timer) clearInterval(timer);
     }

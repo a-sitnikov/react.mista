@@ -7,7 +7,7 @@ import { RootState } from '../store';
 
 export const getTopicsList = createAsyncThunk(
   'topicsList/fetch',
-  async (params: API.IRequest, { dispatch, getState, rejectWithValue }) => {
+  async (params: API.IRequest, { getState, rejectWithValue }) => {
 
     const state = getState() as RootState;
 
@@ -30,7 +30,7 @@ export const getTopicsList = createAsyncThunk(
   }
 )
 
-const shouldGetTopicsList = (state: RootState) => {
+const shouldFetch = (state: RootState) => {
   
   const topicsList = state.topicsList;
   if (!topicsList) return true
@@ -40,7 +40,7 @@ const shouldGetTopicsList = (state: RootState) => {
 }
 
 export const getTopicsListIfNeeded = (params: any): any => (dispatch: any, getState: any) => {
-  if (shouldGetTopicsList(getState())) {
+  if (shouldFetch(getState())) {
     return dispatch(getTopicsList(params));
   }
 }

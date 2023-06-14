@@ -1,6 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit'
 import { initialState } from '.';
-import { clearTopicMessages } from '../topic/actions';
 import { addMessageText, newMessageText, postNewMessageComplete, postNewMessageStart } from './actions'
 
 const reducer = createReducer(initialState, (builder) => {
@@ -17,9 +16,9 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(addMessageText, (state, action) => {
       state.text += action.payload.text;
     })  
-    .addCase(clearTopicMessages, (state) => {
-      state.text = '';
-    })              
+    // .addCase(clearTopicMessages, (state) => {
+    //   state.text = '';
+    // })              
   })
 
 export default reducer;

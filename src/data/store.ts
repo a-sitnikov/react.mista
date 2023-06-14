@@ -13,7 +13,7 @@ import newMessage from './newmessage/reducer'
 
 const reducer = {
   topicsList: topicsList.reducer,
-  topic,
+  topic: topic.reducer,
   sections: sections.reducer,
   options,
   login,

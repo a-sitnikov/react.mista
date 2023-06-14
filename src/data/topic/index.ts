@@ -34,6 +34,7 @@ export interface ITopicMessage {
 export interface ITopicMessagesList extends Array<ITopicMessage> {}
 
 export interface ITopicState {
+  status: "init" | "loading" | "success" | "error",
   isFetching: boolean;
   items: ITopicMessagesList,
   item0?: ITopicMessage,
@@ -49,6 +50,7 @@ export const defaultInfo: ITopicInfo = {
 }
 
 export const initialState: ITopicState = {
+  status: "init",
   isFetching: false,
   items: [],
   info: defaultInfo

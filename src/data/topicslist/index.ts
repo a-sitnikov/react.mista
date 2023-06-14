@@ -20,7 +20,7 @@ export interface ITopicsListItem {
 export interface ITopicsList extends Array<ITopicsListItem> { }
 
 export interface ITopicsListState {
-  status: "init" | "loading" | "success" | "error";
+  status: "init" | "loading" | "success" | "error",
   items: ITopicsList,
   error?: string,
   lastUpdated?: number
