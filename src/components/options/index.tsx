@@ -104,6 +104,7 @@ const Options: FC<ConnectedProps<typeof connector>> = (props): ReactElement => {
                 min={item.min}
                 max={item.max}
                 value={value}
+                disabled={item.disabled}
                 onChange={(e) => onChange(e, name, e.target.value)}
                 
                 className='input'
@@ -135,6 +136,7 @@ const Options: FC<ConnectedProps<typeof connector>> = (props): ReactElement => {
               key={name}
               name={name}
               checked={String(value) === 'true'}
+              disabled={item.disabled}              
               onChange={(e) => onChange(e, name, e.target.checked)}
               style={{ flex: "0 0 auto", margin: "0px" }}
             />

@@ -7,6 +7,7 @@ export interface IOptionsItems {
   autoRefreshTopicInterval: string,
   tooltipDelay: string,
   showTooltips: string,
+  showTooltipOnPostLink: string,
   showYoutubeVideoTitle: string,
   replaceCatalogMista: string,
   fixBrokenLinks: string
@@ -41,6 +42,7 @@ export const defaultOptionsState: IOptionsState = {
     //tooltips
     showTooltips: 'true',
     tooltipDelay: '500',
+    showTooltipOnPostLink: 'true',
     //links
     showYoutubeVideoTitle: 'true',
     replaceCatalogMista: 'true',

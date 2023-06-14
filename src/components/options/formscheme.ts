@@ -67,17 +67,20 @@ export const formParams = {
   //Tooltips   
   'showTooltips': {
     type: 'checkbox',
-    label: 'Показывать тултипы, задержка'
+    label: 'Показывать тултипы, задержка',
+    disabled: true
   },
   'tooltipDelay': {
     type: 'number',
     max: 1000000,
     label: '',
-    postfix: 'мс'
+    postfix: 'мс',
+    disabled: true
   },
   'showTooltipOnPostLink': {
     type: 'checkbox',
-    label: 'Показывать тултип ссыки на другую ветку'
+    label: 'Показывать тултип ссыки на другую ветку',
+    disabled: true    
   },
   //links   
   'showYoutubeVideoTitle': {
