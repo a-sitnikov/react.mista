@@ -1,6 +1,5 @@
-import { createReducer } from '@reduxjs/toolkit'
-import { defaultOptionsState, IOptionsState } from '.';
-import { readOptions, saveOptions } from './actions'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { defaultOptionsState, IOptionsState, IOptionsItems } from '.';
 
 
 const readOption = (name: string, defaultValue: string): string => {
@@ -17,22 +16,25 @@ const readAllOptions = (): IOptionsState => {
   return state;
 }
 
-const reducer = createReducer(readAllOptions(), (builder) => {
-  builder
-    .addCase(readOptions, (state) => {
+const optionsSlice = createSlice({
+  name: 'options',
+  initialState: readAllOptions(),
+  reducers: {
+    read: (state) => {
       let items = Object.assign({}, defaultOptionsState.items);
       for (let key in items) {
         items[key] = readOption(key, defaultOptionsState.items[key]);
       }
       state.items = items;
-    })
-    .addCase(saveOptions, (state, action) => {
-      for (let key in action.payload.options) {
-        const value = String(action.payload.options[key]); 
+    },
+    save: (state, action: PayloadAction<IOptionsItems>) => {
+      for (let key in action.payload) {
+        const value = String(action.payload[key]); 
         window.localStorage.setItem(key, value);
         state.items[key] = value;
       }
-    })
-  })
+    }
+  }
+});
 
-export default reducer;
+export default optionsSlice;

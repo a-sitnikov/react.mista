@@ -10,7 +10,7 @@ import { getSectionsIfNeeded } from 'src/data/sections/reducer'
 const Header = (): ReactElement => {
 
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const location = useLocation();
   const params = queryString.parse(location.search);
 

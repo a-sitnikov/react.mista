@@ -15,7 +15,7 @@ const reducer = {
   topicsList: topicsList.reducer,
   topic: topic.reducer,
   sections: sections.reducer,
-  options,
+  options: options.reducer,
   login,
   tooltips: tooltips.reducer,
   newTopic,

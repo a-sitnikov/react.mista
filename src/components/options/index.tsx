@@ -6,7 +6,7 @@ import { Form, FormControl, Button } from 'react-bootstrap'
 import RadioOption from './radio_option'
 import StringOption from './string_option'
 
-import { saveOptions } from 'src/data/options/actions'
+import optionsSlice from 'src/data/options/reducer'
 
 import { defaultOptionsState } from 'src/data/options'
 import { formTabs, formParams } from './formscheme'
@@ -44,11 +44,11 @@ const Options: FC<ConnectedProps<typeof connector>> = (props): ReactElement => {
 
   const applyOptions = () => {
 
-    dispatch(saveOptions(state.items));
+    dispatch(optionsSlice.actions.save(state.items));
     closeForm();
   }
 
-  const onChange = (e, name, value) => {
+  const onChange = (e: React.FormEvent<HTMLElement>, name: string, value) => {
 
     let items = Object.assign({}, state.items);
     items[name] = value;

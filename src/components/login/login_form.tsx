@@ -1,5 +1,6 @@
 import React, { FC, ReactElement, useState } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { FormControl, Button } from 'react-bootstrap'
 
 import { doLoginIfNeeded } from 'src/data/login/actions'
@@ -13,6 +14,7 @@ const connector = connect(mapState);
 const LoginForm: FC<ConnectedProps<typeof connector>> = (props): ReactElement => {
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -48,9 +50,16 @@ const LoginForm: FC<ConnectedProps<typeof connector>> = (props): ReactElement =>
         <Button
           size="sm"
           variant="light"
-          className='button'          
+          className='button'
           onClick={onLogin}
         >Войти</Button>
+        <Button
+          size="sm"
+          variant="light"
+          className='button'
+          onClick={() => navigate('/options.php')}
+        ><i className="fa fa-cog" aria-hidden="true" style={{ zIndex: 1000 }} />
+        </Button>
       </form>
       <p style={{ margin: "0px" }}>Войти можно на сайте <a href="https://forum.mista.ru/">forum.mista.ru</a></p>
       <a rel="nofollow" href="https://forum.mista.ru/user_registration.php">Регистрация</a>
