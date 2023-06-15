@@ -22,7 +22,7 @@ const show = (state: ITooltipsState, action: PayloadAction<{ keys: ITooltipKeys;
   }
 }
 
-const tooltipsSlice = createSlice({
+const slice = createSlice({
   name: 'tooltips',
   initialState,
   reducers: {
@@ -37,4 +37,4 @@ const tooltipsSlice = createSlice({
   }
 });
 
-export default tooltipsSlice;
+export default slice;

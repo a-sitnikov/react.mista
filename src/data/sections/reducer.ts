@@ -30,7 +30,7 @@ export const getSectionsIfNeeded = (): any => (dispatch: any, getState: any) => 
   }
 }
 
-const sectionsSlice = createSlice({
+const slice = createSlice({
   name: 'sections',
   initialState,
   reducers: {
@@ -54,4 +54,4 @@ const sectionsSlice = createSlice({
   }
 });
 
-export default sectionsSlice;
+export default slice;

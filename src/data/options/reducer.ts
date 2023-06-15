@@ -16,7 +16,7 @@ const readAllOptions = (): IOptionsState => {
   return state;
 }
 
-const optionsSlice = createSlice({
+const slice = createSlice({
   name: 'options',
   initialState: readAllOptions(),
   reducers: {
@@ -37,4 +37,4 @@ const optionsSlice = createSlice({
   }
 });
 
-export default optionsSlice;
+export default slice;

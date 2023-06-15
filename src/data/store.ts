@@ -16,7 +16,7 @@ const reducer = {
   topic: topic.reducer,
   sections: sections.reducer,
   options: options.reducer,
-  login,
+  login: login.reducer,
   tooltips: tooltips.reducer,
   newTopic,
   newMessage
@@ -25,11 +25,6 @@ const reducer = {
 const store = configureStore({
   reducer,
   //middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
-  // middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-  //   immutableCheck: { warnAfter: 128 },
-  //   serializableCheck: { warnAfter: 128 },
-  // })
-  // .concat(logger)
   devTools: process.env.NODE_ENV !== 'production'
 })
 

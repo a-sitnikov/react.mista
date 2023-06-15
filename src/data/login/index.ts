@@ -6,16 +6,18 @@ export interface ILogin {
 }
 
 export interface ILoginState {
-  logged?: boolean,
+  status: "init" | "loading" | "success" | "error",
+  logged: boolean,
   userId?: number,
   userName?: string,
   userHash?: string,
   lastError?: string,
   error?: string,
   lastUpdated?: number,
-  isFetching: boolean,
+  isFetching?: boolean,
 }
 
 export const initialState: ILoginState = {
-  isFetching: false
+  status: "init",
+  logged: false
 }

@@ -7,7 +7,7 @@ import { RootState } from '../store';
 
 export const getTopicsList = createAsyncThunk(
   'topicsList/fetch',
-  async (params: API.IRequest, { getState, rejectWithValue }) => {
+  async (params: API.IRequest, { getState }) => {
 
     const state = getState() as RootState;
 
@@ -15,18 +15,9 @@ export const getTopicsList = createAsyncThunk(
     if (itemsPerPage > 99) itemsPerPage = 99;
     params.itemsPerPage = itemsPerPage;
 
-    try {
-      const json = await API.fetchTopicsList(params);
-      return json.slice(-itemsPerPage);
+    const json = await API.fetchTopicsList(params);
+    return json.slice(-itemsPerPage);
 
-    } catch (e) {
-
-      console.error(e.message);
-
-      const err = new Error(`${e.message} ${domain}/${urlTopicsList}`)
-      return rejectWithValue(err);
-
-    }
   }
 )
 
@@ -39,13 +30,13 @@ const shouldFetch = (state: RootState) => {
   return true
 }
 
-export const getTopicsListIfNeeded = (params: any): any => (dispatch: any, getState: any) => {
+export const getTopicsListIfNeeded = (params: API.IRequest): any => (dispatch: any, getState: any) => {
   if (shouldFetch(getState())) {
     return dispatch(getTopicsList(params));
   }
 }
 
-const topicsListSlice = createSlice({
+const slice = createSlice({
   name: 'topicsList',
   initialState,
   reducers: {
@@ -73,9 +64,9 @@ const topicsListSlice = createSlice({
       })
       .addCase(getTopicsList.rejected, (state, action) => {
         state.status = "error";
-        state.error = action.error?.message;
+        state.error = `${action.error?.message} ${domain}/${urlTopicsList}`;
       })
   }
 })
 
-export default topicsListSlice;
+export default slice;

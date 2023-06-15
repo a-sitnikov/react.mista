@@ -10,7 +10,7 @@ import { defaultInfo } from 'src/data/topic';
 const mapState = (state: RootState) => {
 
   const {
-    isFetching,
+    status,
     lastUpdated,
     info,
   } = state.topic || {
@@ -20,14 +20,14 @@ const mapState = (state: RootState) => {
 
   return {
     info,
-    isFetching,
+    status,
     lastUpdated
   }
 }
 const connector = connect(mapState);
 type IProps = { page?: number | string };
 
-const Footer: FC<ConnectedProps<typeof connector> & IProps> = ({ info, isFetching, page }): ReactElement => {
+const Footer: FC<ConnectedProps<typeof connector> & IProps> = ({ info, status, page }): ReactElement => {
 
   const dispatch = useAppDispatch();
 
@@ -61,11 +61,11 @@ const Footer: FC<ConnectedProps<typeof connector> & IProps> = ({ info, isFetchin
         {showUpdateButton &&
           <Button
             onClick={onRefreshClick}
-            disabled={isFetching}
+            disabled={status === "loading"}
             size="sm"
             className='button'
             variant="light">
-            {isFetching ? 'Обновляется' : 'Обновить ветку'}
+            {status === "loading" ? 'Обновляется' : 'Обновить ветку'}
           </Button>
         }
       </div>

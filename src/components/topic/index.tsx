@@ -22,7 +22,7 @@ var scrolledToHash: boolean;
 const mapState = (state: RootState) => {
 
   const {
-    isFetching,
+    status,
     lastUpdated,
     info,
     item0,
@@ -35,7 +35,7 @@ const mapState = (state: RootState) => {
     info,
     item0,
     items,
-    isFetching,
+    status,
     lastUpdated,
     error,
     options: state.options.items

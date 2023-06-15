@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from 'react'
 import { Dropdown } from 'react-bootstrap'
 
-import { doLogout } from 'src/data/login/actions'
+import { doLogout } from 'src/data/login/reducer'
 import { domain } from 'src/api'
 
 import { useAppDispatch } from 'src/data/store'

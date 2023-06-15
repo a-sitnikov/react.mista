@@ -159,13 +159,16 @@ export const getNewMessagesIfNeeded = () => (dispatch: any, getState: any) => {
   }
 }
 
-const topicSlice = createSlice({
+const slice = createSlice({
   name: 'topic',
   initialState,
   reducers: {
     clear: (state) => {
-      state.items = [];
-      state.status = "init";
+      state.info = initialState.info;
+      state.item0 = initialState.item0;
+      state.items = initialState.items;
+      state.status = initialState.status;
+      delete state.error;
     },
   },
   extraReducers: (builder) => {
@@ -207,4 +210,4 @@ const topicSlice = createSlice({
   }
 })
 
-export default topicSlice;
+export default slice;

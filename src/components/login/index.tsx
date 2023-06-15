@@ -4,7 +4,7 @@ import LoggedUser from './logged_user'
 import LoginForm from './login_form'
 import ErrorElem from '../common/error'
 
-import { checkLoginIfNeeded } from 'src/data/login/actions'
+import { checkLoginIfNeeded } from 'src/data/login/reducer'
 import { RootState, useAppDispatch } from 'src/data/store'
 
 const mapState = (state: RootState) => {
