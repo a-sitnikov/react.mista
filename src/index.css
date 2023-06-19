@@ -51,9 +51,11 @@ body[theme="dark"] {
 }
 
 #root {
-  height: 100vh;
+  min-height: 100vh;
+  position: relative;
   display: flex;
   flex-direction: column;
+  padding-bottom: 2rem;
 }
 
 .flex-row {

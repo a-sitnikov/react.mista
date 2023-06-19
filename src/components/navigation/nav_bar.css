@@ -21,6 +21,8 @@
     display: flex;
     flex-wrap: wrap;
     font-size: 80%;
+    position: absolute;
+    bottom: 0;
 }
 
 @media (max-width: 768px) {

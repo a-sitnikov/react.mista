@@ -96,9 +96,9 @@ const slice = createSlice({
         state.logged = true;
         delete state.error;
       })   
-      .addCase(doLogin.rejected, (state) => {
+      .addCase(doLogin.rejected, (state, { error }) => {
         state.status = "error";
-        delete state.error;
+        state.error = error?.message;
       })   
       // logout
       .addCase(doLogout.pending, (state) => {
@@ -114,11 +114,11 @@ const slice = createSlice({
         delete state.userHash;
         delete state.error;
       })   
-      .addCase(doLogout.rejected, (state) => {
+      .addCase(doLogout.rejected, (state, { error }) => {
         state.status = "error";
-        delete state.error;
+        state.error = error?.message;
       }) 
   }
 })  
 
-export default slice;
+export const { actions: loginActions, reducer: login } = slice;

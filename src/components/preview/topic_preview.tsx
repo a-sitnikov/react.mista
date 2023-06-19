@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useState } from 'react'
+import React, { FC, ReactElement, useCallback, useState } from 'react'
 import { SwipeEventData, useSwipeable } from 'react-swipeable'
 import { fetchTopicInfo } from 'src/api/topicinfo'
 
@@ -83,9 +83,9 @@ const TopicPreview: FC<IProps> = ({ topicId, initialMsgNumber, author, loggedUse
     delta: 15
   });
 
-  const onContentLoaded = () => {
+  const onContentLoaded = useCallback(() => {
     setDispaly('block');
-  }
+  }, []);
 
   let items = [state.msgNumber];
 

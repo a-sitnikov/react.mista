@@ -50,7 +50,7 @@ export const shouldPostNewTopic = (state: RootState): boolean => {
   if (!newTopic) {
     return false
   }
-  if (newTopic.isFetching) {
+  if (newTopic.status === "loading") {
     return false
   }
   return true

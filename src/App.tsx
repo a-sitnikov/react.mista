@@ -1,22 +1,17 @@
-import React, { FC, ReactElement, useLayoutEffect } from 'react';
+import { ReactElement, useLayoutEffect } from 'react';
 import { HashRouter } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
-import { connect, ConnectedProps } from 'react-redux'
 import NavBar from './components/navigation/nav_bar';
 import AppRoutes from './pages/approutes';
 import NavBarFooter from './components/navigation/nav_bar_footer';
 import TooltipsContainer from './components/tooltips/tooltips_container';
 import { RootState } from './store/store';
 
-const mapState = (state: RootState) => {
 
-  return {
-    theme: state.options.items.theme
-  }
-}
+const App = (): ReactElement => {
 
-const connector = connect(mapState);
-const App: FC<ConnectedProps<typeof connector>> = ({theme}): ReactElement => {
+  const theme = useSelector((state: RootState) => state.options.items.theme);
 
   useLayoutEffect(() => {
     document.body.setAttribute('theme', theme);
@@ -32,4 +27,4 @@ const App: FC<ConnectedProps<typeof connector>> = ({theme}): ReactElement => {
   );
 }
 
-export default connector(App);
+export default App;

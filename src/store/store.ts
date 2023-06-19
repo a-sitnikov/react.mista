@@ -6,9 +6,9 @@ import { topicsList } from './topics_list'
 import { topic } from './topic'
 import { sections } from './sections'
 import { options } from './options'
-import login from './login'
+import { login } from './login'
 import { tooltips } from './tooltips'
-import newTopic from '../data/newtopic/reducer'
+import { newTopic } from './new_topic'
 import newMessage from '../data/newmessage/reducer'
 
 const reducer = {
@@ -16,7 +16,7 @@ const reducer = {
   topic,
   sections,
   options,
-  login: login.reducer,
+  login,
   tooltips,
   newTopic,
   newMessage

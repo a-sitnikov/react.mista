@@ -5,7 +5,7 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import { FormGroup } from 'react-bootstrap'
 
 import { RootState, useAppDispatch } from 'src/store/store'
-import { newTopicClear, newTopicSection, newTopicSubject, postNewTopicError, postNewTopicIfNeeded } from 'src/data/newtopic/actions'
+import { newTopicClear, postNewTopicError, postNewTopicIfNeeded } from 'src/data/newtopic/actions'
 
 import Sections from './sections'
 import TextEditor from 'src/components/common/text_editor'
@@ -13,6 +13,7 @@ import ErrorElem from 'src/components/common/error'
 
 import './new_topic.css'
 import { ISectionItem } from 'src/store/sections'
+import { newTopicActions } from 'src/store/new_topic'
 
 type IProps = {
   onSubmitSuccess?: any
@@ -36,7 +37,7 @@ const NewTopic: FC<ConnectedProps<typeof connector> & IProps> = ({ sections, new
 
   const onSectionChange = (e: any, section: ISectionItem) => {
     setSection(section);
-    dispatch(newTopicSection(section));
+    dispatch(newTopicActions.changeSection(section));
   }
 
   const onVoteTextChange = (i: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,7 +91,7 @@ const NewTopic: FC<ConnectedProps<typeof connector> & IProps> = ({ sections, new
   }
 
   const onSubjectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(newTopicSubject(e.target.value));
+    dispatch(newTopicActions.changeSubject(e.target.value));
   }
 
   const this_onSubmitSuccess = () => {
@@ -170,7 +171,7 @@ const NewTopic: FC<ConnectedProps<typeof connector> & IProps> = ({ sections, new
           showVoting={true}
           isVoting={newTopic.isVoting}
           text={newTopic.text}
-          isFetching={newTopic.isFetching}
+          isFetching={newTopic.status === "loading"}
           formName="NEW_TOPIC"
         />
       </div>

@@ -3,7 +3,7 @@ import { FormControl, Button, ButtonGroup, Form } from 'react-bootstrap'
 
 import './text_editor.css'
 import { useAppDispatch } from 'src/store/store'
-import { newTopicShowVoting } from 'src/data/newtopic/actions'
+import { newTopicActions } from 'src/store/new_topic'
 
 type IProps = {
   placeholder: string,
@@ -47,7 +47,7 @@ const TextEditor: FC<IProps> = ({ formName, placeholder, showVoting, isVoting, i
   }
 
   const onVotingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(newTopicShowVoting(e.currentTarget.checked))
+    dispatch(newTopicActions.showVoting(e.currentTarget.checked))
   }
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

@@ -28,6 +28,7 @@ const NavBar = (): ReactElement => {
     { name: 'IT', link: `/index.php?forum=IT` },
     { name: 'JOB', link: `/index.php?forum=JOB` },
     { name: 'LIFE', link: `/index.php?forum=LIFE` },
+    { name: 'Настройки', link: '/options.php' },    
   ];
 
   const externalLinks = [

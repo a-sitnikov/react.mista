@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { groupBy } from 'src/utils'
 
 import { fetchSections } from 'src/api/sections'
-import type { RootState } from 'src/store/store'
+import type { RootState } from './store'
 
 export interface ISectionItem {
   id: number;
