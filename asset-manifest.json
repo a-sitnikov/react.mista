@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/react.mista/static/css/main.c18dfd72.css",
-    "main.js": "/react.mista/static/js/main.fc7fd394.js",
+    "main.js": "/react.mista/static/js/main.8183dbfa.js",
     "index.html": "/react.mista/index.html",
     "main.c18dfd72.css.map": "/react.mista/static/css/main.c18dfd72.css.map",
-    "main.fc7fd394.js.map": "/react.mista/static/js/main.fc7fd394.js.map"
+    "main.8183dbfa.js.map": "/react.mista/static/js/main.8183dbfa.js.map"
   },
   "entrypoints": [
     "static/css/main.c18dfd72.css",
-    "static/js/main.fc7fd394.js"
+    "static/js/main.8183dbfa.js"
   ]
 }
