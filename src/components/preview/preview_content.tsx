@@ -2,9 +2,10 @@ import { FC, ReactElement, useState, useEffect } from 'react'
 
 import { fetchTopicMessage } from 'src/api/topicMessages'
 
-import MsgText from 'src/components/topic/row/msg_text'
+import MsgText from 'src/pages/topic/row/msg_text'
+import UserInfo from 'src/pages/topic/row/user_info'
+
 import { ITopicMessage } from 'src/store/topic'
-import UserInfo from '../topic/row/user_info'
 
 import './topic_preview.css'
 

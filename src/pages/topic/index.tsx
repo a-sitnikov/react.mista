@@ -9,7 +9,7 @@ import Error from 'src/components/common/error'
 import Pages from 'src/components/common/pages'
 import Header from './header'
 import TopicInfo from './topic_info'
-import Row from './row'
+import Row from '../../pages/topic/row'
 import Footer from './footer'
 import NewMessage from './new_message';
 import { getMaxPage, extractTextFromHTML } from 'src/utils';

@@ -3,8 +3,8 @@ import { connect, ConnectedProps } from 'react-redux'
 
 import { fetchTopicMessage } from 'src/api/topicMessages';
 
-import MsgText from '../topic/row/msg_text'
-import UserInfo from '../topic/row/user_info';
+import MsgText from 'src/pages/topic/row/msg_text'
+import UserInfo from 'src/pages/topic/row/user_info';
 
 import TooltipWindow from './tooltip_window'
 import TooltipHeader from './tooltip_header'

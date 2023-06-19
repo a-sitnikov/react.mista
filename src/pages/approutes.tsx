@@ -3,8 +3,8 @@ import { Routes, Route } from 'react-router-dom'
 import { Container } from 'react-bootstrap';
 
 import TopicsList from './topics_list'
-import Topic from '../components/topic'
-import Options from '../components/options'
+import Topic from './topic'
+import Options from './options'
 
 const AppRoutes = (): ReactElement => {
 
