@@ -9,11 +9,11 @@ import UserInfo from '../topic/row/user_info';
 import TooltipWindow from './tooltip_window'
 import TooltipHeader from './tooltip_header'
 import TooltipBody from './tooltip_body'
-import { ITooltipItem } from 'src/data/tooltips';
 
 import './tooltip.css'
-import { RootState } from 'src/data/store';
-import { ITopicMessage } from 'src/data/topic';
+import { RootState } from 'src/store/store';
+import { ITopicMessage } from 'src/store/topic';
+import { ITooltipItem } from 'src/store/tooltips';
 
 type IProps = {
   tooltip: ITooltipItem,

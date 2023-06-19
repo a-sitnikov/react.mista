@@ -1,9 +1,41 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { initialState } from '.'
 
 import * as API from 'src/api/topicslist'
 import { domain, urlTopicsList } from 'src/api/index';
-import { RootState } from '../store';
+import { RootState } from './store';
+
+export interface ITopicsListItem {
+  id: number,
+  author: string,
+  lastUser: string,
+  forum: string,
+  sectionCode: string,
+  section: string,
+  count: number,
+  text: string,
+  created: number,
+  updated: number,
+  closed: boolean,
+  down: boolean,
+  pinned: boolean
+  isVoting: boolean,
+  showPreview: boolean,
+  previewMsgNumber?: number
+}
+
+export interface ITopicsList extends Array<ITopicsListItem> { }
+
+export interface ITopicsListState {
+  status: "init" | "loading" | "success" | "error",
+  items: ITopicsList,
+  error?: string,
+  lastUpdated?: number
+}
+
+export const initialState: ITopicsListState = {
+  status: "init",
+  items: []
+}
 
 export const getTopicsList = createAsyncThunk(
   'topicsList/fetch',
@@ -21,9 +53,8 @@ export const getTopicsList = createAsyncThunk(
   }
 )
 
-const shouldFetch = (state: RootState) => {
+const shouldFetch = ({ topicsList }: RootState) => {
   
-  const topicsList = state.topicsList;
   if (!topicsList) return true
   if (topicsList.status === "loading") return false
   
@@ -44,10 +75,10 @@ const slice = createSlice({
       state.items = [];
       state.status = "init"; 
     },
-    togglePreview: (state, action) => {
-      const item = state.items.find(item => item.id === action.payload.topicId); 
+    togglePreview: (state, { payload }) => {
+      const item = state.items.find(item => item.id === payload.topicId); 
       item.showPreview = !item.showPreview; 
-      item.previewMsgNumber = action.payload.msgNumber;
+      item.previewMsgNumber = payload.msgNumber;
     }
   },
   extraReducers: (builder) => {
@@ -56,17 +87,17 @@ const slice = createSlice({
         state.status = "loading";
         delete state.error;
       })
-      .addCase(getTopicsList.fulfilled, (state, action) => {
+      .addCase(getTopicsList.fulfilled, (state, { payload }) => {
         state.status = "success";
-        state.items = action.payload;
+        state.items = payload;
 
         delete state.error;
       })
-      .addCase(getTopicsList.rejected, (state, action) => {
+      .addCase(getTopicsList.rejected, (state, { error }) => {
         state.status = "error";
-        state.error = `${action.error?.message} ${domain}/${urlTopicsList}`;
+        state.error = `${error?.message} ${domain}/${urlTopicsList}`;
       })
   }
 })
 
-export default slice;
+export const { actions: topicsListActions, reducer: topicsList } = slice;

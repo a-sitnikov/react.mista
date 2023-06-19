@@ -1,3 +1,5 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
 export interface IOptionsItems {
   theme: 'yellow' | 'lightgray' | 'dark',
   topicsPerPage: string,
@@ -49,3 +51,38 @@ export const defaultOptionsState: IOptionsState = {
     fixBrokenLinks: 'true',
   }
 }
+
+const readOption = (name: string, defaultValue: string): string => {
+  return window.localStorage.getItem(name) || defaultValue;
+}
+
+const readAllOptions = (): IOptionsState => {
+  
+  let state: IOptionsState = defaultOptionsState;
+  for (let key in state.items) {
+    state.items[key] = readOption(key, state.items[key]);
+  }
+
+  return state;
+}
+
+const slice = createSlice({
+  name: 'options',
+  initialState: readAllOptions(),
+  reducers: {
+    read: (state) => {
+      for (let key in defaultOptionsState.items) {
+        state.items[key] = readOption(key, defaultOptionsState.items[key]);
+      }
+    },
+    save: (state, { payload }: PayloadAction<IOptionsItems>) => {
+      for (let key in payload) {
+        const value = String(payload[key]); 
+        state.items[key] = value;
+        window.localStorage.setItem(key, value);
+      }
+    }
+  }
+});
+
+export const { actions: optionsActions, reducer: options } = slice;

@@ -1,7 +1,7 @@
 import { createAction } from '@reduxjs/toolkit'
 
 import { fetchNewTopic, IRequest } from 'src/api/newtopic';
-import { RootState } from '../store';
+import { RootState } from '../../store/store';
 
 export type postNewTopicParams = {
   subject: string,

@@ -4,10 +4,8 @@ import { connect, ConnectedProps } from 'react-redux'
 
 import { getMaxPage, childrenToText } from 'src/utils';
 import { fetchTopicInfo } from 'src/api/topicinfo'
-import { RootState } from 'src/data/store';
-import { ITooltipKeys } from 'src/data/tooltips';
-
-import tooltipsSlice from 'src/data/tooltips/reducer'
+import { RootState } from 'src/store/store';
+import { ITooltipKeys, tooltipsActions } from 'src/store/tooltips';
 
 type IProps = {
   topicId: string,
@@ -92,7 +90,7 @@ class LinkToPost extends Component<ConnectedProps<typeof connector> & IProps, { 
       topicId: +topicId,
       number: +number
     }
-    dispatch(tooltipsSlice.actions.show({keys, coords}));    
+    dispatch(tooltipsActions.show({keys, coords}));    
     // dispatch(showTooltip(
     //   keys,
     //   coords

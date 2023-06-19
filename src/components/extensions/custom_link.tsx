@@ -7,7 +7,7 @@ import LinkToUser from './link_to_user'
 import YoutubeLink from './youtube_link'
 
 import { childrenToText } from 'src/utils'
-import { RootState } from 'src/data/store'
+import { RootState } from 'src/store/store'
 
 type IProps = {
   href: string,

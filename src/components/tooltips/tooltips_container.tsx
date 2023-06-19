@@ -1,10 +1,9 @@
-import React, { FC, ReactElement, useCallback, useRef } from 'react'
+import { FC, ReactElement, useRef } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { useOnClickOutside } from 'usehooks-ts'
 
-import { useAppDispatch } from 'src/data/store';
-import { RootState } from 'src/data/store'
-import tooltipsSlice from 'src/data/tooltips/reducer'
+import { useAppDispatch, RootState } from 'src/store/store';
+import { tooltipsActions } from 'src/store/tooltips'
 
 import Tooltip from './tooltip'
 
@@ -23,9 +22,9 @@ const TooltipsContainer: FC<ConnectedProps<typeof connector>> = ({ items }): Rea
   const dispatch = useAppDispatch();
   const ref = useRef(null);
 
-  const handleClickOutside = useCallback(() => {
-    dispatch(tooltipsSlice.actions.closeAll());
-  }, [dispatch]);
+  const handleClickOutside = () => {
+    dispatch(tooltipsActions.closeAll());
+  };
 
   useOnClickOutside(ref, handleClickOutside);
   

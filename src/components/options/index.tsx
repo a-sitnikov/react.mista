@@ -6,14 +6,12 @@ import { Form, FormControl, Button } from 'react-bootstrap'
 import RadioOption from './radio_option'
 import StringOption from './string_option'
 
-import optionsSlice from 'src/data/options/reducer'
-
-import { defaultOptionsState } from 'src/data/options'
+import { defaultOptionsState, optionsActions } from 'src/store/options'
 import { formTabs, formParams } from './formscheme'
 import Tab from './tab'
 
 import './options.css'
-import { RootState, useAppDispatch } from 'src/data/store'
+import { RootState, useAppDispatch } from 'src/store/store'
 
 const mapState = (state: RootState) => {
   return {
@@ -44,7 +42,7 @@ const Options: FC<ConnectedProps<typeof connector>> = (props): ReactElement => {
 
   const applyOptions = () => {
 
-    dispatch(optionsSlice.actions.save(state.items));
+    dispatch(optionsActions.save(state.items));
     closeForm();
   }
 

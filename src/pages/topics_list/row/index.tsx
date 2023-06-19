@@ -7,10 +7,9 @@ import TopicNameCell from './topic_name_cell';
 import PreviewLink from './preview_link'
 
 import { today } from 'src/utils'
-import { RootState, useAppDispatch } from 'src/data/store';
-import { ITopicsListItem } from 'src/data/topicslist';
+import { RootState, useAppDispatch } from 'src/store/store';
+import { ITopicsListItem, topicsListActions } from 'src/store/topics_list';
 import { fetchTopicMessage } from 'src/api/topicMessages';
-import  topicListSlice  from 'src/data/topicslist/reducer';
 
 const mapState = (state: RootState) => {
 
@@ -58,7 +57,7 @@ const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data, updated, top
   }, [updated])
 
   const countOnClick = useCallback(() => {
-    dispatch(topicListSlice.actions.togglePreview({topicId, msgNumber: data.count}));
+    dispatch(topicsListActions.togglePreview({topicId, msgNumber: data.count}));
   }, [dispatch, topicId, data.count]);
   
   return (

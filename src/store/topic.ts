@@ -1,9 +1,64 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { ITopicInfo, ITopicMessage, initialState } from '.';
 
 import { fetchTopicMessage, fetchTopicMessages } from 'src/api/topicMessages'
 import { fetchTopicInfo } from 'src/api/topicinfo'
-import { RootState } from '../store';
+import { RootState } from './store';
+
+export interface IVotingItem {
+  text: string,
+  count: number
+}
+
+export interface ITopicInfo {
+    id: number,
+    title: string,
+    forum?: string,
+    sectionId?: string,
+    created?: number,
+    authorId?: string,
+    author?: string,
+    updated?: number,
+    lastUser?: string,
+    count?: number,
+    down?: number,
+    closed?: number,
+    deleted?: number,
+    isVoting?: number,
+    voting?: IVotingItem[]
+  }
+
+export interface ITopicMessage {
+  id: number,
+  n: number,
+  user: string,
+  userId: number,
+  text: string,
+  time: number,
+  vote: number
+}
+
+export interface ITopicMessagesList extends Array<ITopicMessage> {}
+
+export interface ITopicState {
+  status: "init" | "loading" | "success" | "error",
+  items: ITopicMessagesList,
+  item0?: ITopicMessage,
+  info?: ITopicInfo,
+  error?: string,
+  lastUpdated?: number
+}
+
+export const defaultInfo: ITopicInfo = {
+  id: 0,
+  title: "",
+  count: -1
+}
+
+export const initialState: ITopicState = {
+  status: "init",
+  items: [],
+  info: defaultInfo
+}
 
 export const getTopic = createAsyncThunk(
   'topics/fetch',
@@ -185,9 +240,9 @@ const slice = createSlice({
 
         delete state.error;
       })
-      .addCase(getTopic.rejected, (state, action) => {
+      .addCase(getTopic.rejected, (state, { error }) => {
         state.status = "error";
-        state.error = action.error?.message;
+        state.error = error?.message;
       })
       // getNewMessages
       .addCase(getNewMessages.pending, (state) => {
@@ -203,11 +258,11 @@ const slice = createSlice({
 
         delete state.error;
       })
-      .addCase(getNewMessages.rejected, (state, action) => {
+      .addCase(getNewMessages.rejected, (state, { error }) => {
         state.status = "error";
-        state.error = action.error?.message;
+        state.error = error?.message;
       })
   }
 })
 
-export default slice;
+export const { actions: topicActions, reducer: topic } = slice;

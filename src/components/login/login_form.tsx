@@ -3,8 +3,8 @@ import { connect, ConnectedProps } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { FormControl, Button } from 'react-bootstrap'
 
-import { doLoginIfNeeded } from 'src/data/login/reducer'
-import { RootState, useAppDispatch } from 'src/data/store'
+import { doLoginIfNeeded } from 'src/store/login'
+import { RootState, useAppDispatch } from 'src/store/store'
 
 const mapState = (state: RootState) => {
   return state.login;

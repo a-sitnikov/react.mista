@@ -4,15 +4,15 @@ import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
 import { FormGroup } from 'react-bootstrap'
 
-import { RootState, useAppDispatch } from 'src/data/store'
+import { RootState, useAppDispatch } from 'src/store/store'
 import { newTopicClear, newTopicSection, newTopicSubject, postNewTopicError, postNewTopicIfNeeded } from 'src/data/newtopic/actions'
 
 import Sections from './sections'
-import TextEditor from '../common/text_editor'
-import ErrorElem from '../common/error'
+import TextEditor from 'src/components/common/text_editor'
+import ErrorElem from 'src/components/common/error'
 
 import './new_topic.css'
-import { ISectionItem } from 'src/data/sections'
+import { ISectionItem } from 'src/store/sections'
 
 type IProps = {
   onSubmitSuccess?: any

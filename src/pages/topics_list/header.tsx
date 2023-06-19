@@ -3,9 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import queryString from 'query-string'
 
-import Login from '../login'
+import Login from '../../components/login'
 import Sections from './sections'
-import { getSectionsIfNeeded } from 'src/data/sections/reducer'
+import { ISectionItem, getSectionsIfNeeded } from 'src/store/sections'
 
 const Header = (): ReactElement => {
 
@@ -18,7 +18,7 @@ const Header = (): ReactElement => {
     dispatch(getSectionsIfNeeded());
   }, [dispatch]);  
 
-  const onSectionChange = (e, value) => {
+  const onSectionChange = (e, value: ISectionItem) => {
     if (value)
       navigate(`/index.php?section=${value.code}`);
     else

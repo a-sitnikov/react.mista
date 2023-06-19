@@ -2,7 +2,7 @@ import React, { FC, ReactElement, useRef } from 'react'
 import { FormControl, Button, ButtonGroup, Form } from 'react-bootstrap'
 
 import './text_editor.css'
-import { useAppDispatch } from 'src/data/store'
+import { useAppDispatch } from 'src/store/store'
 import { newTopicShowVoting } from 'src/data/newtopic/actions'
 
 type IProps = {

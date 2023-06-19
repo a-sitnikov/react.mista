@@ -1,6 +1,6 @@
 import { fetchAndGetJson, urlTopicsList } from '.'
 
-import type { ITopicsList, ITopicsListItem } from 'src/data/topicslist'
+import type { ITopicsList, ITopicsListItem } from 'src/store/topics_list'
 
 export interface IRequest {
   itemsPerPage?: number | null,

@@ -8,8 +8,8 @@ import CustomLink from 'src/components/extensions/custom_link'
 
 import VoteChart from './vote_chart'
 import Vote from './vote'
-import { ITopicMessage } from 'src/data/topic';
-import { RootState } from 'src/data/store';
+import { ITopicMessage } from 'src/store/topic';
+import { RootState } from 'src/store/store';
 import { fetchTopicInfo } from 'src/api/topicinfo';
 
 type IProps = {

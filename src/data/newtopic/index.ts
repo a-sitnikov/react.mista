@@ -1,4 +1,4 @@
-import { ISectionItem } from "../sections";
+import { ISectionItem } from "src/store/sections";
 
 export type NewTopicState = {
   isFetching: boolean,

@@ -3,8 +3,8 @@ import { connect, ConnectedProps } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import queryString from 'query-string'
 
-import { RootState, useAppDispatch } from 'src/data/store'
-import { getTopicsListIfNeeded } from 'src/data/topicslist/reducer'
+import { RootState, useAppDispatch } from 'src/store/store'
+import { getTopicsListIfNeeded } from 'src/store/topics_list'
 
 import Header from './header'
 import Row from './row'
@@ -34,7 +34,7 @@ const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, sections
 
   const updateTopicsList = useCallback((locationParams) => {
     dispatch(getTopicsListIfNeeded(locationParams));
-  }, [dispatch])
+  }, [dispatch]);
 
   useEffect(() => {
     document.title = 'React.Mista';

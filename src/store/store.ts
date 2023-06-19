@@ -2,22 +2,22 @@ import { configureStore  } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import logger from 'redux-logger' // eslint-disable-line @typescript-eslint/no-unused-vars
 
-import topicsList from './topicslist/reducer'
-import topic from './topic/reducer'
-import sections from './sections/reducer'
-import options from './options/reducer'
-import login from './login/reducer'
-import tooltips from './tooltips/reducer'
-import newTopic from './newtopic/reducer'
-import newMessage from './newmessage/reducer'
+import { topicsList } from './topics_list'
+import { topic } from './topic'
+import { sections } from './sections'
+import { options } from './options'
+import login from './login'
+import { tooltips } from './tooltips'
+import newTopic from '../data/newtopic/reducer'
+import newMessage from '../data/newmessage/reducer'
 
 const reducer = {
-  topicsList: topicsList.reducer,
-  topic: topic.reducer,
-  sections: sections.reducer,
-  options: options.reducer,
+  topicsList,
+  topic,
+  sections,
+  options,
   login: login.reducer,
-  tooltips: tooltips.reducer,
+  tooltips,
   newTopic,
   newMessage
 }

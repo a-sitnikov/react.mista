@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from 'react'
 import { domain } from 'src/api'
 
-import { IVotingItem } from 'src/data/topic'
+import { IVotingItem } from 'src/store/topic'
 
 type IProps = {
   topicId: number,

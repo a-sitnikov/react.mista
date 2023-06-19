@@ -1,10 +1,10 @@
-import React, { FC, ReactElement } from 'react'
+import { FC, ReactElement } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 
 import UserInfo from './user_info'
 import MsgText from './msg_text'
-import { RootState } from 'src/data/store'
-import { ITopicMessage } from 'src/data/topic'
+import { RootState } from 'src/store/store'
+import { ITopicMessage } from 'src/store/topic'
 
 type IProps = {
   data: ITopicMessage

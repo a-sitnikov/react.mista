@@ -1,7 +1,7 @@
-import React, { FC, ReactElement, useCallback } from 'react'
+import React, { FC, ReactElement } from 'react'
 
-import { useAppDispatch } from 'src/data/store';
-import  topicListSlice  from 'src/data/topicslist/reducer';
+import { useAppDispatch } from 'src/store/store';
+import { topicsListActions } from 'src/store/topics_list';
 
 type IProps = {
   topicId: number,
@@ -12,9 +12,9 @@ const PreviewLink: FC<IProps> = ({ topicId, expanded }): ReactElement => {
 
   const dispatch = useAppDispatch();
 
-  const onClick = useCallback(() => {
-    dispatch(topicListSlice.actions.togglePreview({topicId, msgNumber: 0}));
-  }, [dispatch, topicId]);
+  const onClick = () => {
+    dispatch(topicsListActions.togglePreview({topicId, msgNumber: 0}));
+  };
 
   const text = expanded 
     ? <i className="fa fa-minus-square-o agh" aria-hidden="true"></i> 

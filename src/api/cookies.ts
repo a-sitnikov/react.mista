@@ -1,5 +1,5 @@
 import { fetchJsonpAndGetJson, urlCookies } from '.'
-import { ILogin } from 'src/data/login';
+import { ILogin } from 'src/store/login';
 
 export type IAPIResponse = {
   cookie: {

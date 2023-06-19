@@ -12,7 +12,7 @@ import { configure , mount, shallow } from 'enzyme'
 import { act } from "react-dom/test-utils"
 
 import * as API from '../../api'
-import ConnectedSectionSelect, {SectionSelect} from '../components/topics_list/sections'
+import ConnectedSectionSelect, {SectionSelect} from '../pages/topics_list/sections'
 import rootReducer from '../../reducers'
 
 const data = [

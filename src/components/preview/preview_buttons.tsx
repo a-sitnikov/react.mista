@@ -1,7 +1,7 @@
 import { FC, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import { useAppDispatch } from 'src/data/store'
-import topicsLstSlice from 'src/data/topicslist/reducer'
+import { useAppDispatch } from 'src/store/store'
+import { topicsListActions } from 'src/store/topics_list'
 
 import './topic_preview.css'
 
@@ -17,7 +17,7 @@ const PreviewButtons: FC<IProps> = ({ topicId, onFirst, onPrev, onNext, onLast }
  
   const dispatch = useAppDispatch()
   const closePreview = () => {
-    dispatch(topicsLstSlice.actions.togglePreview({topicId, msgNumber: 0}));
+    dispatch(topicsListActions.togglePreview({topicId, msgNumber: 0}));
   }
 
   return (

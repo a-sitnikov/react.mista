@@ -4,8 +4,8 @@ import classNames from 'classnames'
 import { Link } from 'react-router-dom'
 
 import Pages from './pages';
-import { ITopicsListItem } from 'src/data/topicslist';
-import { RootState } from 'src/data/store';
+import { ITopicsListItem } from 'src/store/topics_list';
+import { RootState } from 'src/store/store';
 
 type IProps = {
   data: ITopicsListItem

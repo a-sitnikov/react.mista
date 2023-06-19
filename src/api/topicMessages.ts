@@ -1,6 +1,6 @@
 
 import { fetchAndGetJson, urlTopicMessages } from '.'
-import type { ITopicMessage, ITopicMessagesList } from 'src/data/topic'
+import type { ITopicMessage, ITopicMessagesList } from 'src/store/topic'
 
 interface IAPIRequest {
   id: number,

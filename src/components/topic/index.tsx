@@ -2,7 +2,7 @@ import React, { FC, ReactElement, useCallback, useEffect, useRef } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 
 import { useLocation } from "react-router-dom";
-import topicSlice, { getTopicIfNeeded, getNewMessagesIfNeeded } from 'src/data/topic/reducer'
+import { topicActions, getTopicIfNeeded, getNewMessagesIfNeeded } from 'src/store/topic'
 import { newMessageText } from 'src/data/newmessage/actions'
 
 import Error from 'src/components/common/error'
@@ -13,7 +13,7 @@ import Row from './row'
 import Footer from './footer'
 import NewMessage from './new_message';
 import { getMaxPage, extractTextFromHTML } from 'src/utils';
-import { RootState, useAppDispatch } from 'src/data/store';
+import { RootState, useAppDispatch } from 'src/store/store';
 
 import './topic.css'
 
@@ -87,7 +87,7 @@ const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info
     const timer = window.setInterval(updateNewMessages, 60 * 1000);
 
     const clearStore = () => {
-      dispatch(topicSlice.actions.clear());
+      dispatch(topicActions.clear());
       scrolledToHash = undefined;
       if (timer) clearInterval(timer);
     }
