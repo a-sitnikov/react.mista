@@ -26,6 +26,7 @@ const LoginForm: FC<ConnectedProps<typeof connector>> = (props): ReactElement =>
     <div>
       <form name="enterform" className="flex-row" style={{ flexWrap: "wrap" }}>
         <FormControl
+          id="username"
           type="text"
           placeholder="Имя"
           value={username}
@@ -35,6 +36,7 @@ const LoginForm: FC<ConnectedProps<typeof connector>> = (props): ReactElement =>
           style={{ marginRight: "5px", flex: "0 1 300px" }}
         />
         <FormControl
+          id="password"
           type="password"
           placeholder="Пароль"
           maxLength={20}

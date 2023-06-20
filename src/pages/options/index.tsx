@@ -136,7 +136,7 @@ const Options: FC<ConnectedProps<typeof connector>> = (props): ReactElement => {
               checked={String(value) === 'true'}
               disabled={item.disabled}              
               onChange={(e) => onChange(e, name, e.target.checked)}
-              style={{ flex: "0 0 auto", margin: "0px" }}
+              style={{ flex: "0 0 auto", margin: "0px", maxWidth: "100%" }}
             />
           );
         }

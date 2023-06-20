@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useState } from 'react'
+import React, { FC, ReactElement, useCallback, useState, useRef } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
@@ -32,8 +32,9 @@ const NewTopic: FC<ConnectedProps<typeof connector> & IProps> = ({ sections, new
 
   const dispatch = useAppDispatch();
   const [currentSection, setSection] = useState(null);
-
   const [votes, setVotes] = useState(Array(10).fill(""));
+
+  const formRef = useRef(null);
 
   const onSectionChange = (e: any, section: ISectionItem) => {
     setSection(section);
@@ -90,9 +91,17 @@ const NewTopic: FC<ConnectedProps<typeof connector> & IProps> = ({ sections, new
     dispatch(postNewTopicIfNeeded(params));
   }
 
-  const onSubjectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onSubjectChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(newTopicActions.changeSubject(e.target.value));
-  }
+  }, [dispatch]);
+  
+  const onTextChange = useCallback((text: string) => {
+    dispatch(newTopicActions.changeText(text));
+  }, [dispatch]);
+
+  const onShowVotingChange = useCallback((show: boolean) => {
+    dispatch(newTopicActions.showVoting(show));
+  }, [dispatch]);
 
   const this_onSubmitSuccess = () => {
 
@@ -133,7 +142,7 @@ const NewTopic: FC<ConnectedProps<typeof connector> & IProps> = ({ sections, new
   }
 
   return (
-    <form className="new-topic-container" onSubmit={onSubmit}>
+    <form className="new-topic-container" onSubmit={onSubmit} ref={formRef}>
       <div id="newtopic_form" className="new-topic-text">
         <div><b>Новая тема:</b></div>
         {newTopic.error && <ErrorElem text={newTopic.error} />}
@@ -172,7 +181,9 @@ const NewTopic: FC<ConnectedProps<typeof connector> & IProps> = ({ sections, new
           isVoting={newTopic.isVoting}
           text={newTopic.text}
           isFetching={newTopic.status === "loading"}
-          formName="NEW_TOPIC"
+          onChange={onTextChange}
+          onShowVotingChange={onShowVotingChange}
+          formRef={formRef}
         />
       </div>
       <FormGroup className="new-topic-voting">

@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useState } from 'react'
+import React, { FC, ReactElement, useState, useCallback } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { FormGroup, Form } from 'react-bootstrap'
 
@@ -69,7 +69,11 @@ const NewMessage: FC<ConnectedProps<typeof connector> & IProps> = ({ info, newMe
     setVoting(i);
   }
 
-  let votingElem;
+  const onTextChange = useCallback((text: string) => {
+    //dispatch(newTopicActions.changeText(text));
+  }, []);
+
+  let votingElem: ReactElement;
   if (info?.isVoting && info?.voting) {
 
     let votingOptions = [];
@@ -115,7 +119,7 @@ const NewMessage: FC<ConnectedProps<typeof connector> & IProps> = ({ info, newMe
             isFetching={newMessage.isFetching}
             text={newMessage.text}
             placeholder="Сообщение"
-            formName="NEW_MESSAGE"
+            onChange={onTextChange}
           />
         </div>
         <div className="new-message-voting">

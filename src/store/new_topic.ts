@@ -81,6 +81,9 @@ const slice = createSlice({
     changeSubject: (state, { payload }: PayloadAction<string>) => {
       state.subject = payload;
     },
+    changeText: (state, { payload }: PayloadAction<string>) => {
+      state.text = payload;
+    },    
     changeSection: (state, { payload }: PayloadAction<ISectionItem>) => {
       state.section = payload;
       state.forum = payload?.forum.toLowerCase();
