@@ -5,7 +5,6 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import { FormGroup } from 'react-bootstrap'
 
 import { RootState, useAppDispatch } from 'src/store/store'
-import { newTopicClear, postNewTopicError, postNewTopicIfNeeded } from 'src/data/newtopic/actions'
 
 import Sections from './sections'
 import TextEditor from 'src/components/common/text_editor'
@@ -13,7 +12,7 @@ import ErrorElem from 'src/components/common/error'
 
 import './new_topic.css'
 import { ISectionItem } from 'src/store/sections'
-import { newTopicActions } from 'src/store/new_topic'
+import { newTopicActions, postNewTopicIfNeeded } from 'src/store/new_topic'
 
 type IProps = {
   onSubmitSuccess?: any
@@ -52,18 +51,18 @@ const NewTopic: FC<ConnectedProps<typeof connector> & IProps> = ({ sections, new
     e.preventDefault();
 
     if (!currentSection) {
-      dispatch(postNewTopicError('Не выбрана секция'));
+      dispatch(newTopicActions.setError('Не выбрана секция'));
       return;
     }
 
     let subject = newTopic.subject;
     if (!subject) {
-      dispatch(postNewTopicError('Не указана тема'));
+      dispatch(newTopicActions.setError('Не указана тема'));
       return;
     }
 
     if (!newTopic.text) {
-      dispatch(postNewTopicError('Не указано сообщение'));
+      dispatch(newTopicActions.setError('Не указано сообщение'));
       return;
 
     }
@@ -105,7 +104,7 @@ const NewTopic: FC<ConnectedProps<typeof connector> & IProps> = ({ sections, new
 
   const this_onSubmitSuccess = () => {
 
-    dispatch(newTopicClear());
+    dispatch(newTopicActions.clear());
 
     if (onSubmitSuccess) {
       onSubmitSuccess();

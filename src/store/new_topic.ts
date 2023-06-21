@@ -53,17 +53,24 @@ export const postNewTopic = createAsyncThunk(
       }
 
     await fetchNewTopic(fetchParams);
-
+    // if (params.onSuccess)
+    // params.onSuccess();
   })
 
-  export const shouldPostNewTopic = ({ newTopic }: RootState): boolean => {
-    
-    if (!newTopic) return false
-    if (newTopic.status === "loading") return false
-    
-    return true
+export const shouldPost = ({ newTopic }: RootState): boolean => {
+
+  if (!newTopic) return false
+  if (newTopic.status === "loading") return false
+
+  return true
+}
+
+export const postNewTopicIfNeeded = (params: postNewTopicParams) => (dispatch: any, getState: any) => {
+  const state = getState();
+  if (shouldPost(state)) {
+    return dispatch(postNewTopic(params));
   }
-  
+}
 
 const clear = (state: NewTopicState) => {
   state.status = "init";
@@ -83,13 +90,16 @@ const slice = createSlice({
     },
     changeText: (state, { payload }: PayloadAction<string>) => {
       state.text = payload;
-    },    
+    },
     changeSection: (state, { payload }: PayloadAction<ISectionItem>) => {
       state.section = payload;
       state.forum = payload?.forum.toLowerCase();
     },
     showVoting: (state, { payload }: PayloadAction<boolean>) => {
       state.isVoting = payload;
+    },
+    setError: (state, { payload }: PayloadAction<string>) => {
+      state.error = payload;
     }
   },
   extraReducers: (builder) => {
@@ -108,38 +118,5 @@ const slice = createSlice({
       })
   }
 });
-
-// const reducer = createReducer(initialState, (builder) => {
-//   builder
-//     .addCase(postNewTopicStart, (state) => {
-//       state.isFetching = true;
-//       delete state.error;
-//     })
-//     .addCase(postNewTopicComplete, (state) => {
-//       state.isFetching = false;
-//     })
-//     .addCase(postNewTopicError, (state, action) => {
-//       state.isFetching = false;
-//       state.error = action.payload;
-//     })
-//     .addCase(newTopicText, (state, action) => {
-//       state.text = action.payload.text;
-//     })
-//     .addCase(newTopicClear, (state) => {
-//       state.text = '';
-//       state.subject = '';
-//       state.isVoting = false;
-//     })
-//     .addCase(newTopicSubject, (state, action) => {
-//       state.subject = action.payload.text;
-//     })
-//     .addCase(newTopicShowVoting, (state, action) => {
-//       state.isVoting = action.payload.show;
-//     })
-//     .addCase(newTopicSection, (state, action) => {
-//       state.section = action.payload.section;
-//       state.forum = action.payload.section == null ? '' : action.payload.section.forum.toLowerCase()
-//     })
-// })
 
 export const { actions: newTopicActions, reducer: newTopic } = slice;

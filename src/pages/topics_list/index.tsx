@@ -27,7 +27,7 @@ const mapState = (state: RootState) => {
 }
 
 const connector = connect(mapState);
-const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, sections, login }): ReactElement => {
+const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, login }): ReactElement => {
 
   const dispatch = useAppDispatch()
   const location = useLocation();
