@@ -1,6 +1,6 @@
 import { FC, ReactElement } from 'react'
 import VoteItem from './vote_item'
-import { IVotingItem } from 'src/store/slices/topic'
+import { IVotingItem } from 'src/store'
 
 type IProps = {
   items: IVotingItem[],

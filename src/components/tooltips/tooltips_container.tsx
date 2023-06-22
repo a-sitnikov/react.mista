@@ -2,7 +2,7 @@ import { ReactElement, useRef } from 'react'
 import { useOnClickOutside } from 'usehooks-ts'
 
 import { useActionCreators, useAppSelector } from 'src/store';
-import { tooltipsActions } from 'src/store/slices/tooltips'
+import { tooltipsActions } from 'src/store'
 
 import Tooltip from './tooltip'
 

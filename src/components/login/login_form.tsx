@@ -2,8 +2,8 @@ import { FormEvent, FC, ReactElement, useState } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { FormControl, Button } from 'react-bootstrap'
 
-import { doLoginIfNeeded } from 'src/store/slices/login'
 import { RootState, useAppDispatch } from 'src/store'
+import { doLoginIfNeeded } from 'src/store'
 
 const mapState = (state: RootState) => {
   return state.login;

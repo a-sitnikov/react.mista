@@ -1,7 +1,7 @@
 import { FC, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { useActionCreators } from 'src/store'
-import { topicsListActions } from 'src/store/slices/topics_list'
+import { topicsListActions } from 'src/store'
 
 import './topic_preview.css'
 

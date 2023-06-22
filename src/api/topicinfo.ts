@@ -1,5 +1,5 @@
 import { fetchAndGetJson, urlTopicInfo } from '.'
-import type { ITopicInfo } from 'src/store/slices/topic'
+import type { ITopicInfo } from 'src/store'
 
 interface IAPIResponse {
   id: string,

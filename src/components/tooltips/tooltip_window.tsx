@@ -8,7 +8,7 @@ import TooltipBody from './tooltip_body'
 import './tooltip.css'
 
 import { useActionCreators } from 'src/store';
-import { ITooltipItem, tooltipsActions } from 'src/store/slices/tooltips';
+import { ITooltipItem, tooltipsActions } from 'src/store';
 
 type IProps = {
   tooltip: ITooltipItem,

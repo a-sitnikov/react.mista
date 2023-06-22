@@ -4,7 +4,7 @@ import { connect, ConnectedProps } from 'react-redux'
 import UserInfo from './user_info'
 import MsgText from './msg_text'
 import { RootState } from 'src/store'
-import { ITopicMessage } from 'src/store/slices/topic'
+import { ITopicMessage } from 'src/store'
 
 type IProps = {
   data: ITopicMessage

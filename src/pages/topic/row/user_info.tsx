@@ -5,7 +5,7 @@ import { domain } from 'src/api'
 
 import { addMessageText } from 'src/data/newmessage/actions'
 import { useAppDispatch } from 'src/store'
-import { ITopicMessage } from 'src/store/slices/topic'
+import { ITopicMessage } from 'src/store'
 
 type IProps = {
   data: ITopicMessage,

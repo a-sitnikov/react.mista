@@ -5,7 +5,7 @@ import { connect, ConnectedProps } from 'react-redux'
 import { getMaxPage, childrenToText } from 'src/utils';
 import { fetchTopicInfo } from 'src/api'
 import { RootState } from 'src/store';
-import { ITooltipKeys, tooltipsActions } from 'src/store/slices/tooltips';
+import { ITooltipKeys, tooltipsActions } from 'src/store';
 
 type IProps = {
   topicId: string,

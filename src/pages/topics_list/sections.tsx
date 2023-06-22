@@ -1,9 +1,9 @@
-import React, { FC, ReactElement, useEffect } from 'react'
+import { FC, ReactElement, useEffect } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import Form from 'react-bootstrap/Form'
 
-import { getSectionsIfNeeded, ISectionItem } from 'src/store/slices/sections'
 import { RootState, useAppDispatch } from 'src/store'
+import { getSectionsIfNeeded, ISectionItem } from 'src/store'
 
 type IProps = {
   id: string,

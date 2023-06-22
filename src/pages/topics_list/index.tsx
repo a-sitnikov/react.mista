@@ -4,9 +4,10 @@ import { useLocation } from 'react-router-dom'
 import queryString from 'query-string'
 
 import { RootState, useAppDispatch } from 'src/store'
-import { getTopicsListIfNeeded } from 'src/store/slices/topics_list'
+import { getTopicsListIfNeeded } from 'src/store'
 
 import Header from './header'
+import TableHeader from './table_header'
 import Row from './row'
 import Pages from 'src/components/common/pages'
 import NewTopic from './new_topic'
@@ -66,14 +67,10 @@ const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, login })
       <Header />
       {topicsList.error && (<Error text={topicsList.error} />)}
       <div className="topic-list-table">
-        <div className="th" style={{ position: "sticky", top: "39px" }}>
-          <div style={{ letterSpacing: "-1px" }}>Раздел</div>
-          <div></div>
-          <div>Тема</div>
-          <div>Re</div>
-          <div>Автор</div>
-          <div><span style={{ cursor: "pointer" }} title="Обновить список" onClick={updateTopicsList}>{topicsList.status === "loading" ? "Обновляется" : "Обновлено"}</span></div>
-        </div>
+        <TableHeader
+          onUpdateClick={updateTopicsList}
+          isLoading={topicsList.status === "loading"}
+        />
         {rows}
         <div className="tf">
           <Pages maxPage={10} />

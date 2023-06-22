@@ -11,8 +11,7 @@ import TextEditor from 'src/components/common/text_editor'
 import ErrorElem from 'src/components/common/error'
 
 import './new_topic.css'
-import { ISectionItem } from 'src/store/slices/sections'
-import { newTopicActions, postNewTopicIfNeeded } from 'src/store/slices/new_topic'
+import { ISectionItem, newTopicActions, postNewTopicIfNeeded } from 'src/store'
 
 type IProps = {
   onSubmitSuccess?: any

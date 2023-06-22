@@ -12,8 +12,7 @@ import TooltipBody from './tooltip_body'
 
 import './tooltip.css'
 import { RootState } from 'src/store';
-import { ITopicMessage } from 'src/store/slices/topic';
-import { ITooltipItem } from 'src/store/slices/tooltips';
+import { ITopicMessage, ITooltipItem } from 'src/store';
 
 type IProps = {
   tooltip: ITooltipItem,

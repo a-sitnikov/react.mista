@@ -1,11 +1,11 @@
-import React, { ReactElement, useEffect } from 'react'
+import { ReactElement, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import queryString from 'query-string'
 
 import Login from '../../components/login'
 import Sections from './sections'
-import { ISectionItem, getSectionsIfNeeded } from 'src/store/slices/sections'
+import { ISectionItem, getSectionsIfNeeded } from 'src/store'
 
 const Header = (): ReactElement => {
 

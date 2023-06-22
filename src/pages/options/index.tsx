@@ -6,12 +6,13 @@ import { Form, FormControl, Button } from 'react-bootstrap'
 import RadioOption from './radio_option'
 import StringOption from './string_option'
 
-import { defaultOptionsState, optionsActions } from 'src/store/slices/options'
 import { formTabs, formParams } from './formscheme'
 import Tab from './tab'
 
-import './options.css'
 import { RootState, useAppDispatch } from 'src/store'
+import { defaultOptionsState, optionsActions } from 'src/store'
+
+import './options.css'
 
 const mapState = (state: RootState) => {
   return {
