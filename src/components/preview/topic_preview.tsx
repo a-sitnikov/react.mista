@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useCallback, useState } from 'react'
+import { FC, ReactElement, useCallback, useState } from 'react'
 import { SwipeEventData, useSwipeable } from 'react-swipeable'
 import { fetchTopicInfo } from 'src/api'
 

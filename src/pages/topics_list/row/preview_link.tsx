@@ -1,6 +1,6 @@
 import { FC, ReactElement } from 'react'
 
-import { useAppDispatch } from 'src/store';
+import { useActionCreators } from 'src/store';
 import { topicsListActions } from 'src/store';
 
 type IProps = {
@@ -10,10 +10,10 @@ type IProps = {
 
 const PreviewLink: FC<IProps> = ({ topicId, expanded }): ReactElement => {
 
-  const dispatch = useAppDispatch();
+  const actions = useActionCreators(topicsListActions);
 
   const onClick = () => {
-    dispatch(topicsListActions.togglePreview({topicId, msgNumber: 0}));
+    actions.togglePreview({topicId, msgNumber: 0});
   };
 
   const text = expanded 

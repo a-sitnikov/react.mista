@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useCallback, useEffect, useState } from 'react';
+import { FC, ReactElement, useCallback, useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux'
 
 import { fetchTopicMessage } from 'src/api';

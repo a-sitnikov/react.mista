@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useEffect } from 'react'
+import { FC, ReactElement, useEffect } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import LoggedUser from './logged_user'
 import LoginForm from './login_form'

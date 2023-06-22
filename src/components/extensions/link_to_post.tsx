@@ -1,5 +1,5 @@
 //TODO: Refactor
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 
 import { getMaxPage, childrenToText } from 'src/utils';

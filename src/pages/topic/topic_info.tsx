@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react'
+import { FC, ReactElement } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 
 import { RootState } from 'src/store'
