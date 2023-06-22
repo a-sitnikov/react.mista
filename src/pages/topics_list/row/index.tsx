@@ -7,9 +7,9 @@ import TopicNameCell from './topic_name_cell';
 import PreviewLink from './preview_link'
 
 import { today } from 'src/utils'
-import { RootState, useAppDispatch } from 'src/store/store';
-import { ITopicsListItem, topicsListActions } from 'src/store/topics_list';
-import { fetchTopicMessage } from 'src/api/topicMessages';
+import { RootState, useActionCreators } from 'src/store';
+import { ITopicsListItem, topicsListActions } from 'src/store';
+import { fetchTopicMessage } from 'src/api';
 
 const mapState = (state: RootState) => {
 
@@ -39,7 +39,7 @@ const formatTime = (time: number): string => {
 
 const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data, updated, topicId }): ReactElement => {
 
-  const dispatch = useAppDispatch();
+  const actions = useActionCreators(topicsListActions);
 
   const [time, setTime] = useState(updated);
   const updateTime = useCallback(async () => {
@@ -57,8 +57,8 @@ const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data, updated, top
   }, [updated])
 
   const countOnClick = useCallback(() => {
-    dispatch(topicsListActions.togglePreview({topicId, msgNumber: data.count}));
-  }, [dispatch, topicId, data.count]);
+    actions.togglePreview({topicId, msgNumber: data.count});
+  }, [actions, topicId, data.count]);
   
   return (
     <div className="topics-list-row">
