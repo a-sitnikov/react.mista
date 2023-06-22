@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
-import { fetchLogin, fetchLogout, IRequest } from 'src/api/login'
-import { fetchCookies } from 'src/api/cookies'
+import { fetchLogin, fetchLogout, ILoginRequest } from 'src/api'
+import { fetchCookies } from 'src/api'
 
-import { RootState } from './store';
+import { RootState } from '../types';
 
 export interface ILogin {
   userId?: number;
@@ -24,7 +24,7 @@ export interface ILoginState {
   isFetching?: boolean,
 }
 
-export const initialState: ILoginState = {
+const initialState: ILoginState = {
   status: "init",
   logged: false
 }
@@ -40,7 +40,7 @@ export const checkLogin = createAsyncThunk(
 
 export const doLogin = createAsyncThunk(
   'login/login',
-  async (params: IRequest, { dispatch }) => {
+  async (params: ILoginRequest, { dispatch }) => {
 
     await fetchLogin(params);
     return fetchCookies();

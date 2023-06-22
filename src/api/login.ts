@@ -1,11 +1,11 @@
 import { domain, urlLogin, urlLogout, paramsToString } from '.'
 
-export interface IRequest {
+export interface ILoginRequest {
   username: string,
   password: string,
 }
 
-export const fetchLogin = async (params: IRequest): Promise<void> => {
+export const fetchLogin = async (params: ILoginRequest): Promise<void> => {
   await fetch(`${domain}/${urlLogin}`, {
     method: 'POST',
     body: paramsToString('', {user_name: params.username, user_password: params.password}),

@@ -2,7 +2,7 @@ import React, { FC, ReactElement, useCallback, useEffect, useRef } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 
 import { useLocation } from "react-router-dom";
-import { topicActions, getTopicIfNeeded, getNewMessagesIfNeeded } from 'src/store/topic'
+import { topicActions, getTopicIfNeeded, getNewMessagesIfNeeded } from 'src/store'
 import { newMessageText } from 'src/data/newmessage/actions'
 
 import Error from 'src/components/common/error'
@@ -13,7 +13,7 @@ import Row from '../../pages/topic/row'
 import Footer from './footer'
 import NewMessage from './new_message';
 import { getMaxPage, extractTextFromHTML } from 'src/utils';
-import { RootState, useAppDispatch } from 'src/store/store';
+import { RootState, useActionCreators, useAppDispatch } from 'src/store';
 
 import './topic.css'
 
@@ -52,7 +52,8 @@ const getPageNumber = (locationPage: string | string[]): number | "last20" => {
 const connector = connect(mapState);
 const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info, error }): ReactElement => {
 
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
+  const actions = useActionCreators(topicActions);
   const location = useLocation();
 
   let locationParams = new URLSearchParams(location.search);
@@ -87,13 +88,13 @@ const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info
     const timer = window.setInterval(updateNewMessages, 60 * 1000);
 
     const clearStore = () => {
-      dispatch(topicActions.clear());
+      actions.clear();
       scrolledToHash = undefined;
       if (timer) clearInterval(timer);
     }
     return clearStore;
 
-  }, [dispatch, updateNewMessages]);
+  }, [actions, updateNewMessages]);
 
   useEffect(() => {
     if (!scrolledToHash &&

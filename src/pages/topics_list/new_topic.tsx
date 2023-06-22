@@ -4,15 +4,15 @@ import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
 import { FormGroup } from 'react-bootstrap'
 
-import { RootState, useAppDispatch } from 'src/store/store'
+import { RootState, useActionCreators, useAppDispatch } from 'src/store'
 
 import Sections from './sections'
 import TextEditor from 'src/components/common/text_editor'
 import ErrorElem from 'src/components/common/error'
 
 import './new_topic.css'
-import { ISectionItem } from 'src/store/sections'
-import { newTopicActions, postNewTopicIfNeeded } from 'src/store/new_topic'
+import { ISectionItem } from 'src/store/slices/sections'
+import { newTopicActions, postNewTopicIfNeeded } from 'src/store/slices/new_topic'
 
 type IProps = {
   onSubmitSuccess?: any
@@ -29,15 +29,16 @@ const mapState = (state: RootState) => {
 const connector = connect(mapState);
 const NewTopic: FC<ConnectedProps<typeof connector> & IProps> = ({ sections, newTopic, onSubmitSuccess }): ReactElement => {
 
-  const dispatch = useAppDispatch();
   const [currentSection, setSection] = useState(null);
   const [votes, setVotes] = useState(Array(10).fill(""));
 
   const formRef = useRef(null);
+  const dispatch = useAppDispatch();
+  const actions = useActionCreators(newTopicActions);
 
   const onSectionChange = (e: any, section: ISectionItem) => {
     setSection(section);
-    dispatch(newTopicActions.changeSection(section));
+    actions.changeSection(section);
   }
 
   const onVoteTextChange = (i: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,20 +52,19 @@ const NewTopic: FC<ConnectedProps<typeof connector> & IProps> = ({ sections, new
     e.preventDefault();
 
     if (!currentSection) {
-      dispatch(newTopicActions.setError('Не выбрана секция'));
+      actions.setError('Не выбрана секция');
       return;
     }
 
     let subject = newTopic.subject;
     if (!subject) {
-      dispatch(newTopicActions.setError('Не указана тема'));
+      actions.setError('Не указана тема');
       return;
     }
 
     if (!newTopic.text) {
-      dispatch(newTopicActions.setError('Не указано сообщение'));
+      actions.setError('Не указано сообщение');
       return;
-
     }
 
     let params = {
@@ -91,20 +91,20 @@ const NewTopic: FC<ConnectedProps<typeof connector> & IProps> = ({ sections, new
   }
 
   const onSubjectChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(newTopicActions.changeSubject(e.target.value));
-  }, [dispatch]);
+    actions.changeSubject(e.target.value);
+  }, [actions]);
   
   const onTextChange = useCallback((text: string) => {
-    dispatch(newTopicActions.changeText(text));
-  }, [dispatch]);
+    actions.changeText(text);
+  }, [actions]);
 
   const onShowVotingChange = useCallback((show: boolean) => {
-    dispatch(newTopicActions.showVoting(show));
-  }, [dispatch]);
+    actions.showVoting(show);
+  }, [actions]);
 
   const this_onSubmitSuccess = () => {
 
-    dispatch(newTopicActions.clear());
+    actions.clear();
 
     if (onSubmitSuccess) {
       onSubmitSuccess();

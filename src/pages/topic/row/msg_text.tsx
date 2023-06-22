@@ -8,9 +8,9 @@ import CustomLink from 'src/components/extensions/custom_link'
 
 import VoteChart from './vote_chart'
 import Vote from './vote'
-import { ITopicMessage } from 'src/store/topic';
-import { RootState } from 'src/store/store';
-import { fetchTopicInfo } from 'src/api/topicinfo';
+import { ITopicMessage } from 'src/store/slices/topic';
+import { RootState } from 'src/store';
+import { fetchTopicInfo } from 'src/api';
 
 type IProps = {
   topicId: number,

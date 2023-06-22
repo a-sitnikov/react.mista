@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
 import { ISectionItem } from "./sections";
-import { fetchNewTopic, IRequest } from 'src/api/newtopic';
-import type { RootState } from './store'
+import { fetchNewTopic, INewTopicRequest } from 'src/api';
+import { RootState } from '../types';
 
 export type NewTopicState = {
   status: "init" | "loading" | "success" | "error",
@@ -14,7 +14,7 @@ export type NewTopicState = {
   error?: string
 };
 
-export const initialState: NewTopicState = {
+const initialState: NewTopicState = {
   status: "init",
   section: null,
   text: '',
@@ -37,7 +37,7 @@ export const postNewTopic = createAsyncThunk(
   'newTopic/post',
   async (params: postNewTopicParams) => {
 
-    let fetchParams: IRequest = {
+    let fetchParams: INewTopicRequest = {
       message_text: params.text,
       topic_text: params.subject,
       target_section: String(params.section),

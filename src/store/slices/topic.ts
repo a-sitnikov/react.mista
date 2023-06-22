@@ -1,8 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-import { fetchTopicMessage, fetchTopicMessages } from 'src/api/topicMessages'
-import { fetchTopicInfo } from 'src/api/topicinfo'
-import { RootState } from './store';
+import { fetchTopicMessage, fetchTopicMessages, fetchTopicInfo } from 'src/api'
+import { RootState } from '../types';
 
 export interface IVotingItem {
   text: string,
@@ -54,7 +53,7 @@ export const defaultInfo: ITopicInfo = {
   count: -1
 }
 
-export const initialState: ITopicState = {
+const initialState: ITopicState = {
   status: "init",
   items: [],
   info: defaultInfo

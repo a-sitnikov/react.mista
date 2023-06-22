@@ -24,7 +24,7 @@ export interface ITooltipsState {
   items: ITooltipsList,
 }
 
-export const initialState: ITooltipsState = {
+const initialState: ITooltipsState = {
   items: []
 }
 

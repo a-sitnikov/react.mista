@@ -3,8 +3,8 @@ import { connect, ConnectedProps } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import queryString from 'query-string'
 
-import { RootState, useAppDispatch } from 'src/store/store'
-import { getTopicsListIfNeeded } from 'src/store/topics_list'
+import { RootState, useAppDispatch } from 'src/store'
+import { getTopicsListIfNeeded } from 'src/store/slices/topics_list'
 
 import Header from './header'
 import Row from './row'

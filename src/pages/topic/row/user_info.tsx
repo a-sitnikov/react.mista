@@ -4,8 +4,8 @@ import classNames from 'classnames'
 import { domain } from 'src/api'
 
 import { addMessageText } from 'src/data/newmessage/actions'
-import { useAppDispatch } from 'src/store/store'
-import { ITopicMessage } from 'src/store/topic'
+import { useAppDispatch } from 'src/store'
+import { ITopicMessage } from 'src/store/slices/topic'
 
 type IProps = {
   data: ITopicMessage,

@@ -1,8 +1,8 @@
 import { fetchAndGetJson, urlTopicsList } from '.'
 
-import type { ITopicsList, ITopicsListItem } from 'src/store/topics_list'
+import type { ITopicsList, ITopicsListItem } from 'src/store/slices/topics_list'
 
-export interface IRequest {
+export interface ITopicsListRequest {
   itemsPerPage?: number | null,
   page?: number | null,
   beforeTime?: string | null,
@@ -39,7 +39,7 @@ interface IAPIResponse {
   answ: number
 }
 
-function convertRequest(request: IRequest): IAPIRequest {
+function convertRequest(request: ITopicsListRequest): IAPIRequest {
 
   const page = request.page || 1;
   const itemsCount = request.itemsPerPage * page;
@@ -75,7 +75,7 @@ function convertResponse(response: IAPIResponse): ITopicsListItem {
 
 }
 
-async function fetchTopicsList(params?: IRequest): Promise<ITopicsList> {
+async function fetchTopicsList(params?: ITopicsListRequest): Promise<ITopicsList> {
 
   const request = convertRequest(params);
 

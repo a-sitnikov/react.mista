@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 import { groupBy } from 'src/utils'
 
-import { fetchSections } from 'src/api/sections'
-import type { RootState } from './store'
+import { fetchSections } from 'src/api'
+import { RootState } from '../types';
 
 export interface ISectionItem {
   id: number;
@@ -26,7 +26,7 @@ export interface ISectionsListState {
   lastUpdated?: number
 }
 
-export const initialState: ISectionsListState = {
+const initialState: ISectionsListState = {
   status: "init",
   items: [],
   tree: {}

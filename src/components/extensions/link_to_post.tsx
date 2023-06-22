@@ -3,9 +3,9 @@ import React, { Component } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 
 import { getMaxPage, childrenToText } from 'src/utils';
-import { fetchTopicInfo } from 'src/api/topicinfo'
-import { RootState } from 'src/store/store';
-import { ITooltipKeys, tooltipsActions } from 'src/store/tooltips';
+import { fetchTopicInfo } from 'src/api'
+import { RootState } from 'src/store';
+import { ITooltipKeys, tooltipsActions } from 'src/store/slices/tooltips';
 
 type IProps = {
   topicId: string,

@@ -1,7 +1,7 @@
 import { domain, paramsToString, urlNewMessage } from ".";
 
 // New message
-export interface IRequest {
+export interface INewMessageRequest {
   message_text: string,
   action: "new",
   topic_id: string,
@@ -10,7 +10,7 @@ export interface IRequest {
   as_admin?: boolean
 }
 
-export const fetchNewMessage = async (params: IRequest): Promise<any> => {
+export const fetchNewMessage = async (params: INewMessageRequest): Promise<any> => {
   
   const url = urlNewMessage.replace(':id', params.topic_id);
 

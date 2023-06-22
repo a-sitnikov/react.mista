@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 
 import './index.css';
 import App from './App';
-import store from 'src/store/store'
+import { store } from 'src/store'
 
 const Root = ({ store }): ReactElement => (
   <Provider store={store}>

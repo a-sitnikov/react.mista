@@ -1,29 +1,19 @@
-import { FC, ReactElement, useRef } from 'react'
-import { connect, ConnectedProps } from 'react-redux'
+import { ReactElement, useRef } from 'react'
 import { useOnClickOutside } from 'usehooks-ts'
 
-import { useAppDispatch, RootState } from 'src/store/store';
-import { tooltipsActions } from 'src/store/tooltips'
+import { useActionCreators, useAppSelector } from 'src/store';
+import { tooltipsActions } from 'src/store/slices/tooltips'
 
 import Tooltip from './tooltip'
 
-const mapState = (state: RootState) => {
+const TooltipsContainer = (): ReactElement => {
 
-  const {
-    items
-  } = state.tooltips;
-
-  return { items }
-}
-
-const connector = connect(mapState);
-const TooltipsContainer: FC<ConnectedProps<typeof connector>> = ({ items }): ReactElement => {
-
-  const dispatch = useAppDispatch();
+  const items = useAppSelector(state => state.tooltips.items);
+  const actions = useActionCreators(tooltipsActions);
   const ref = useRef(null);
 
   const handleClickOutside = () => {
-    dispatch(tooltipsActions.closeAll());
+    actions.closeAll();
   };
 
   useOnClickOutside(ref, handleClickOutside);
@@ -41,4 +31,4 @@ const TooltipsContainer: FC<ConnectedProps<typeof connector>> = ({ items }): Rea
   )
 }
 
-export default connector(TooltipsContainer);
+export default TooltipsContainer;

@@ -1,5 +1,5 @@
 import { fetchJsonpAndGetJson, urlSections } from '.'
-import type { ISectionsList, ISectionItem } from 'src/store/sections'
+import type { ISectionsList, ISectionItem } from 'src/store/slices/sections'
 
 interface IAPIResponse {
   id: number,

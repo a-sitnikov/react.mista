@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form'
 import { Link, useLocation } from "react-router-dom";
 
 import Search from 'src/components/common/search'
-import { getTopicsListIfNeeded } from 'src/store/topics_list'
+import { getTopicsListIfNeeded } from 'src/store/slices/topics_list'
 
 import './nav_bar.css'
 

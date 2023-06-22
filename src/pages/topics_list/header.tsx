@@ -5,7 +5,7 @@ import queryString from 'query-string'
 
 import Login from '../../components/login'
 import Sections from './sections'
-import { ISectionItem, getSectionsIfNeeded } from 'src/store/sections'
+import { ISectionItem, getSectionsIfNeeded } from 'src/store/slices/sections'
 
 const Header = (): ReactElement => {
 

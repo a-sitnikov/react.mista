@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit'
-import { fetchNewMessage, IRequest } from 'src/api/newmessage'
+import { fetchNewMessage, INewMessageRequest } from 'src/api'
 
 export const postNewMessageStart = createAction('POST_NEW_MESSAGE_START');
 export const postNewMessageComplete = createAction('POST_NEW_MESSAGE_COMPLETE');
@@ -25,7 +25,7 @@ export const postNewMessage = (params: PostNewmessageParams): any => async (disp
 
   dispatch(postNewMessageStart());
 
-  let fetchParams: IRequest = {
+  let fetchParams: INewMessageRequest = {
     message_text: params.text,
     action: "new",
     topic_id: params.topicId,

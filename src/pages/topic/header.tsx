@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 import { connect, ConnectedProps } from 'react-redux'
 
-import { RootState } from 'src/store/store'
+import { RootState } from 'src/store'
 import Login from 'src/components/login'
 import { Link } from 'react-router-dom';
 

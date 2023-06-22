@@ -1,10 +1,10 @@
 import React, { FC, ReactElement } from 'react'
 import { Dropdown } from 'react-bootstrap'
 
-import { doLogout } from 'src/store/login'
+import { doLogout } from 'src/store/slices/login'
 import { domain } from 'src/api'
 
-import { useAppDispatch } from 'src/store/store'
+import { useAppDispatch } from 'src/store'
 
 type IProps = {
   userId: number,

@@ -1,6 +1,6 @@
 import React, { FC, ReactElement, useCallback, useState } from 'react'
 import { SwipeEventData, useSwipeable } from 'react-swipeable'
-import { fetchTopicInfo } from 'src/api/topicinfo'
+import { fetchTopicInfo } from 'src/api'
 
 import PreviewButtons from './preview_buttons'
 import PreviewContent from './preview_content'

@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-import * as API from 'src/api/topicslist'
-import { domain, urlTopicsList } from 'src/api/index';
-import { RootState } from './store';
+import { ITopicsListRequest, fetchTopicsList } from 'src/api'
+import { domain, urlTopicsList } from 'src/api';
+import { RootState } from '../types';
 
 export interface ITopicsListItem {
   id: number,
@@ -39,7 +39,7 @@ export const initialState: ITopicsListState = {
 
 export const getTopicsList = createAsyncThunk(
   'topicsList/fetch',
-  async (params: API.IRequest, { getState }) => {
+  async (params: ITopicsListRequest, { getState }) => {
 
     const state = getState() as RootState;
 
@@ -47,7 +47,7 @@ export const getTopicsList = createAsyncThunk(
     if (itemsPerPage > 99) itemsPerPage = 99;
     params.itemsPerPage = itemsPerPage;
 
-    const json = await API.fetchTopicsList(params);
+    const json = await fetchTopicsList(params);
     return json.slice(-itemsPerPage);
 
   }
@@ -61,7 +61,7 @@ const shouldFetch = ({ topicsList }: RootState) => {
   return true
 }
 
-export const getTopicsListIfNeeded = (params: API.IRequest): any => (dispatch: any, getState: any) => {
+export const getTopicsListIfNeeded = (params: ITopicsListRequest): any => (dispatch: any, getState: any) => {
   if (shouldFetch(getState())) {
     return dispatch(getTopicsList(params));
   }

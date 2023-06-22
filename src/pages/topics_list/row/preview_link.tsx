@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from 'react'
 
-import { useAppDispatch } from 'src/store/store';
-import { topicsListActions } from 'src/store/topics_list';
+import { useAppDispatch } from 'src/store';
+import { topicsListActions } from 'src/store/slices/topics_list';
 
 type IProps = {
   topicId: number,

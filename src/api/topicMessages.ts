@@ -1,6 +1,6 @@
 
 import { fetchAndGetJson, urlTopicMessages } from '.'
-import type { ITopicMessage, ITopicMessagesList } from 'src/store/topic'
+import type { ITopicMessage, ITopicMessagesList } from 'src/store/slices/topic'
 
 interface IAPIRequest {
   id: number,
@@ -8,7 +8,7 @@ interface IAPIRequest {
   to?: number
 }
 
-export interface IRequest extends IAPIRequest {}
+export interface ITopicMessageRequest extends IAPIRequest {}
 
 interface IAPIResponse {
   id: string,
@@ -34,7 +34,7 @@ function convertResponse(response: IAPIResponse): ITopicMessage {
 
 }
 
-async function fetchTopicMessages(params?: IRequest): Promise<ITopicMessagesList> {
+async function fetchTopicMessages(params?: ITopicMessageRequest): Promise<ITopicMessagesList> {
 
   const list = await fetchAndGetJson(urlTopicMessages, params);
   return list.map(convertResponse);

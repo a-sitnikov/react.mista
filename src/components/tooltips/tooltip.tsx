@@ -1,7 +1,7 @@
 import React, { FC, ReactElement, useCallback, useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux'
 
-import { fetchTopicMessage } from 'src/api/topicMessages';
+import { fetchTopicMessage } from 'src/api';
 
 import MsgText from 'src/pages/topic/row/msg_text'
 import UserInfo from 'src/pages/topic/row/user_info';
@@ -11,9 +11,9 @@ import TooltipHeader from './tooltip_header'
 import TooltipBody from './tooltip_body'
 
 import './tooltip.css'
-import { RootState } from 'src/store/store';
-import { ITopicMessage } from 'src/store/topic';
-import { ITooltipItem } from 'src/store/tooltips';
+import { RootState } from 'src/store';
+import { ITopicMessage } from 'src/store/slices/topic';
+import { ITooltipItem } from 'src/store/slices/tooltips';
 
 type IProps = {
   tooltip: ITooltipItem,

@@ -4,8 +4,8 @@ import LoggedUser from './logged_user'
 import LoginForm from './login_form'
 import ErrorElem from '../common/error'
 
-import { checkLoginIfNeeded } from 'src/store/login'
-import { RootState, useAppDispatch } from 'src/store/store'
+import { checkLoginIfNeeded } from 'src/store/slices/login'
+import { RootState, useAppDispatch } from 'src/store'
 
 const mapState = (state: RootState) => {
   return state.login;

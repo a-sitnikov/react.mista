@@ -2,9 +2,9 @@ import React, { FC, ReactElement } from 'react';
 import { connect, ConnectedProps } from 'react-redux'
 import { Button } from 'react-bootstrap'
 
-import { defaultInfo, getNewMessagesIfNeeded } from 'src/store/topic'
+import { defaultInfo, getNewMessagesIfNeeded } from 'src/store/slices/topic'
 import { getMaxPage } from 'src/utils'
-import { RootState, useAppDispatch } from 'src/store/store'
+import { RootState, useAppDispatch } from 'src/store'
 
 const mapState = (state: RootState) => {
 

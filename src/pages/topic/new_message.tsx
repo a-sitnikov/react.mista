@@ -4,7 +4,7 @@ import { FormGroup, Form } from 'react-bootstrap'
 
 import TextEditor from 'src/components/common/text_editor'
 import { newMessageText, postNewMessage } from 'src/data/newmessage/actions'
-import { RootState, useAppDispatch } from 'src/store/store'
+import { RootState, useAppDispatch } from 'src/store'
 
 import { PostNewmessageParams } from 'src/data/newmessage/actions'
 
