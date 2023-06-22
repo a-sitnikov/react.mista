@@ -34,38 +34,38 @@ const addPrefix = (text: string, forum: string, sectionCode: string): string => 
   return text;  
 }
 
-const TopicNameCell: FC<IProps> = (data): ReactElement => {
+const TopicNameCell: FC<IProps> = (props): ReactElement => {
 
   const loggedUserName = useAppSelector(state => state.login.userName);
 
-  let href = `/topic.php?id=${data.id}`;
+  let href = `/topic.php?id=${props.id}`;
   let classes = classNames('agb', 'mr5', {
-    'bold': data.count >= 100,
-    'mytopics': data.author === loggedUserName,
-    'pinned': data.pinned
+    'bold': props.count >= 100,
+    'mytopics': props.author === loggedUserName,
+    'pinned': props.pinned
   });
 
-  let sectionHref = `/index.php?section=${data.sectionCode}`;
+  let sectionHref = `/index.php?section=${props.sectionCode}`;
   let section: ReactElement;
-  if (data.section) {
+  if (props.section) {
     section = (
       <span className="topic-section">
         <span className="agh" style={{ margin: "0px 5px" }}>/</span>
-        <Link key="1" rel="nofollow" className="agh" to={sectionHref} >{data.section}</Link>
+        <Link key="1" rel="nofollow" className="agh" to={sectionHref} >{props.section}</Link>
       </span>
     )
   }
 
-  let text = addPrefix(data.text, data.forum, data.sectionCode);
+  let text = addPrefix(props.text, props.forum, props.sectionCode);
 
   return (
     <div className="cell-title">
-      {data.pinned && <i className="fa fa-thumb-tack agh" aria-hidden="true" style={{marginRight: "5px"}}></i>}
+      {props.pinned && <i className="fa fa-thumb-tack agh" aria-hidden="true" style={{marginRight: "5px"}}></i>}
       <Link to={href} className={classes} dangerouslySetInnerHTML={{ __html: text }} style={{ overflowWrap: "anywhere" }}></Link>
-      {data.isVoting && <span className="agh separator">[±]</span>}
-      <Pages count={data.count} topicId={data.id} />
-      {data.closed && <span className="agh">Ø</span>}
-      {data.down && <span className="agh">↓</span>}
+      {props.isVoting && <span className="agh separator">[±]</span>}
+      <Pages count={props.count} topicId={props.id} />
+      {props.closed && <span className="agh">Ø</span>}
+      {props.down && <span className="agh">↓</span>}
       {section}
     </div>
   )
