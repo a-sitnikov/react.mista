@@ -19,8 +19,7 @@ const mapState = (state: RootState) => {
 }
 const connector = connect(mapState);
 
-type IProps = {
-  data: ITopicsListItem,
+interface IProps extends ITopicsListItem {
   updated: number,
   topicId: number
 }
@@ -37,7 +36,7 @@ const formatTime = (time: number): string => {
   }  
 }
 
-const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data, updated, topicId }): ReactElement => {
+const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ topicId, updated, ...data }): ReactElement => {
 
   const actions = useActionCreators(topicsListActions);
 
@@ -73,7 +72,7 @@ const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ data, updated, top
         <span>{data.count}</span>
       </div>
       <PreviewLink topicId={data.id} expanded={data.showPreview} />
-      <TopicNameCell data={data}/>
+      <TopicNameCell {...data}/>
       <div className="cell-author">
         <i aria-hidden="true" className="fa fa-user-circle" style={{marginRight: "3px"}}></i>
         {data.author}

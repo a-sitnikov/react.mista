@@ -1,9 +1,8 @@
-import React, { FC, ReactElement, useCallback, useEffect } from 'react'
-import { connect, ConnectedProps } from 'react-redux'
+import { ReactElement, useCallback, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import queryString from 'query-string'
 
-import { RootState, useAppDispatch } from 'src/store'
+import { useAppDispatch, useAppSelector } from 'src/store'
 import { getTopicsListIfNeeded } from 'src/store'
 
 import Header from './header'
@@ -17,20 +16,14 @@ import TopicPreview from 'src/components/preview/topic_preview'
 
 import './topics_list.css'
 
-const mapState = (state: RootState) => {
-
-  return {
-    topicsList: state.topicsList,
-    sections: state.sections,
-    login: state.login,
-    options: state.options
-  }
-}
-
-const connector = connect(mapState);
-const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, login }): ReactElement => {
+const TopicsList = (): ReactElement => {
 
   const dispatch = useAppDispatch()
+  const items = useAppSelector(state => state.topicsList.items);
+  const status = useAppSelector(state => state.topicsList.status);
+  const error = useAppSelector(state => state.topicsList.error);
+  const loggedUserId = useAppSelector(state => state.login.userId);
+
   const location = useLocation();
 
   const updateTopicsList = useCallback((locationParams) => {
@@ -47,9 +40,16 @@ const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, login })
   }, [location.search, updateTopicsList]);
 
   let rows = [];
-  for (let item of topicsList.items) {
+  for (let item of items) {
 
-    rows.push(<Row key={item.id} data={item} updated={item.updated} topicId={item.id}/>);
+    rows.push(
+      <Row 
+        key={item.id} 
+        {...item} 
+        topicId={item.id}
+      />
+    );
+
     if (item.showPreview)
       rows.push(
         <TopicPreview 
@@ -57,7 +57,7 @@ const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, login })
           topicId={item.id} 
           initialMsgNumber={item.previewMsgNumber}
           author={item.author}
-          loggedUserId={login.userId}
+          loggedUserId={loggedUserId}
           />
       )
   }
@@ -65,11 +65,11 @@ const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, login })
   return (
     <div>
       <Header />
-      {topicsList.error && (<Error text={topicsList.error} />)}
+      {error && (<Error text={error} />)}
       <div className="topic-list-table">
         <TableHeader
           onUpdateClick={updateTopicsList}
-          isLoading={topicsList.status === "loading"}
+          isLoading={status === "loading"}
         />
         {rows}
         <div className="tf">
@@ -85,4 +85,4 @@ const TopicsList: FC<ConnectedProps<typeof connector>> = ({ topicsList, login })
   )
 }
 
-export default connector(TopicsList);
+export default TopicsList;

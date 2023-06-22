@@ -1,40 +1,52 @@
-import React, { FC, ReactElement } from 'react'
-import { connect, ConnectedProps } from 'react-redux'
+import { FC, ReactElement } from 'react'
 import classNames from 'classnames'
 import { Link } from 'react-router-dom'
 
 import Pages from './pages';
-import { RootState } from 'src/store';
-import { ITopicsListItem } from 'src/store';
+import { useAppSelector } from 'src/store';
 
 type IProps = {
-  data: ITopicsListItem
-};
+  id: number,
+  count: number,
+  author: string,
+  pinned: boolean,
+  forum: string,
+  sectionCode: string,
+  section: string,
+  text: string,
+  isVoting: boolean
+  closed: boolean,
+  down: boolean,
 
-const mapState = (state: RootState) => {
-  return {
-    login: state.login
-  }
 }
 
-const connector = connect(mapState);
-const TopicNameCell: FC<ConnectedProps<typeof connector> & IProps> = ({ data, login }): ReactElement => {
+const addPrefix = (text: string, forum: string, sectionCode: string): string => {
+  
+  if (forum === 'life' && !text.startsWith('OFF'))
+    return 'OFF: ' + text;
+
+  else if (sectionCode === 'job' && !text.startsWith('JOB'))
+    return 'JOB: ' + text;
+
+  else if (sectionCode === 'v7' && !text.startsWith('v7'))
+    return  'v7: ' + text;
+
+  return text;  
+}
+
+const TopicNameCell: FC<IProps> = (data): ReactElement => {
+
+  const loggedUserName = useAppSelector(state => state.login.userName);
 
   let href = `/topic.php?id=${data.id}`;
   let classes = classNames('agb', 'mr5', {
     'bold': data.count >= 100,
-    'mytopics': data.author === login.userName,
+    'mytopics': data.author === loggedUserName,
     'pinned': data.pinned
   });
 
-  let isVoting;
-  if (data.isVoting) {
-    isVoting = <span className="agh separator">[±]</span>
-  }
-
   let sectionHref = `/index.php?section=${data.sectionCode}`;
-  let section;
-
+  let section: ReactElement;
   if (data.section) {
     section = (
       <span className="topic-section">
@@ -44,36 +56,20 @@ const TopicNameCell: FC<ConnectedProps<typeof connector> & IProps> = ({ data, lo
     )
   }
 
-  let closed: ReactElement;
-  let down: ReactElement;
-  let text = data.text;
-  if (data.closed)
-    closed = <span className="agh">Ø</span>
-
-  if (data.down)
-    down = <span className="agh">↓</span>
-
-  if (data.sectionCode === 'job' && text.substring(0, 3) !== 'JOB')
-    text = 'JOB: ' + text;
-
-  else if (data.forum === 'life' && text.substring(0, 3) !== 'OFF')
-    text = 'OFF: ' + text;
-
-  else if (data.sectionCode === 'v7' && text.substring(0, 2) !== 'v7')
-    text = 'v7: ' + text;
+  let text = addPrefix(data.text, data.forum, data.sectionCode);
 
   return (
     <div className="cell-title">
       {data.pinned && <i className="fa fa-thumb-tack agh" aria-hidden="true" style={{marginRight: "5px"}}></i>}
       <Link to={href} className={classes} dangerouslySetInnerHTML={{ __html: text }} style={{ overflowWrap: "anywhere" }}></Link>
-      {isVoting}
+      {data.isVoting && <span className="agh separator">[±]</span>}
       <Pages count={data.count} topicId={data.id} />
-      {closed}
-      {down}
+      {data.closed && <span className="agh">Ø</span>}
+      {data.down && <span className="agh">↓</span>}
       {section}
     </div>
   )
 
 }
 
-export default connector(TopicNameCell);
+export default TopicNameCell;
