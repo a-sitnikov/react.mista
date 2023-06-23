@@ -1,4 +1,3 @@
-//TODO: Refactor
 import { FC, ReactElement, useRef, useState, useEffect } from 'react'
 
 import { getMaxPage, childrenToText } from 'src/utils';
@@ -32,12 +31,12 @@ const LinkToPost: FC<IProps> = (props): ReactElement => {
 
     if (!initialText.startsWith("http")) return;
 
-    const getTitle = async () => {
+    const run = async () => {
       const topicInfo = await fetchTopicInfo(props.topicId);
       setText(topicInfo.title)
     }
 
-    getTitle();
+    run();
 
   }, [initialText, props.topicId]);
 
