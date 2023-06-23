@@ -25,14 +25,28 @@ const getVideoId = (href: string): string | null => {
   return null;
 }
 
-const getVideoParams = async (videoId: string): Promise<{ hrefName: string, title: string }> => {
+type HrefParams = {
+  hrefName: string
+  title: string,
+  notFound: boolean  
+}
+
+const getVideoParams = async (videoId: string): Promise<HrefParams> => {
 
   const apiKey = localStorage.getItem('youtubeApiKey') || 'AIzaSyCztN2QW4Fxw_1YuAHBTOZdYLbzigPz25g';
   let apiUrl = `https://www.googleapis.com/youtube/v3/videos?key=${apiKey}&fields=items(snippet(title))&part=snippet&id=${videoId}`;
   const response = await fetch(apiUrl);
   const json = await response.json();
 
-  let title = json.items[0].snippet.title;
+  if (json.items.length === 0)
+    return {
+      hrefName: '',
+      title: '',
+      notFound: true  
+    };
+
+  const title = json.items[0].snippet.title;
+
   let hrefName = title;
   let maxLength = 50;
   if (title.length > maxLength + 5)
@@ -40,7 +54,8 @@ const getVideoParams = async (videoId: string): Promise<{ hrefName: string, titl
 
   return {
     hrefName,
-    title
+    title,
+    notFound: false
   }
 }
 
@@ -59,14 +74,20 @@ const YoutubeLink: FC<IProps> = ({ href }): ReactElement => {
         return;
 
       try {
+        
         const params = await getVideoParams(videoId);
+
         if (isMounted) {
-          setHrefName(params.hrefName);
-          setTitle(params.title);
+          if (params.notFound)
+            setHrefName(href + ' (видео не найдено)');
+          else {  
+            setHrefName(params.hrefName);
+            setTitle(params.title);
+          }  
         }  
 
       } catch (e) {
-        console.error('youtube', e.message);
+        console.error('youtube', videoId, e.message);
       }
     }
 

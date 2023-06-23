@@ -1,85 +1,66 @@
 //TODO: Refactor
-import { Component } from 'react'
-import { connect, ConnectedProps } from 'react-redux'
+import { FC, ReactElement, useRef, useState, useEffect } from 'react'
 
 import { getMaxPage, childrenToText } from 'src/utils';
 import { fetchTopicInfo } from 'src/api'
-import { RootState } from 'src/store';
+import { useActionCreators, useAppSelector } from 'src/store';
 import { ITooltipKeys, tooltipsActions } from 'src/store';
 
 type IProps = {
-  topicId: string,
+  topicId: number,
   number: number,
-  style: {}
+  style?: {}
 }
 
-const mapState = (state: RootState) => {
+const LinkToPost: FC<IProps> = (props): ReactElement => {
 
-  const {
-    items, info
-  } = state.topic;
+  const timerRef = useRef(null);
+  const actions = useActionCreators(tooltipsActions);
 
-  return {
-    items,
-    info,
-    tooltipDelay: state.options.items['tooltipDelay']
-  }
-}
+  const currentTopicId = useAppSelector(state => state.topic.info?.id);
+  const tooltipDelay = useAppSelector(state => +state.options.items.tooltipDelay);
 
-const connector = connect(mapState);
-class LinkToPost extends Component<ConnectedProps<typeof connector> & IProps, { text: string }> {
+  let initialText = '';
+  if (!props.children)
+    initialText = String(props.number);
+  else  
+    initialText = childrenToText(props.children).join('');
 
-  timer: number;
+  const [text, setText] = useState(initialText);
 
-  constructor(props) {
-    super(props);
+  useEffect(() => {
 
-    const { children, number } = this.props;
-    if (children)
-      this.state = { text: childrenToText(children).join('') };
-    else
-      this.state = { text: String(number) };
-  }
+    if (!initialText.startsWith("http")) return;
 
-  UNSAFE_componentWillReceiveProps(props) {
-    if (!props.children) {
-      this.setState({ text: String(props.number) });
+    const getTitle = async () => {
+      const topicInfo = await fetchTopicInfo(props.topicId);
+      setText(topicInfo.title)
     }
-  }
 
-  componentDidMount() {
+    getTitle();
 
-    if (this.state.text.startsWith("http")) {
+  }, [initialText, props.topicId]);
 
-      const { topicId } = this.props;
-      fetchTopicInfo(+topicId)
-        .then(response => {
-          this.setState({
-            text: response.title
-          })
-        });
-
-    }
-  }
-
-  onMouseOver = (e: React.MouseEvent<HTMLElement>) => {
+  const onMouseOver = (e: React.MouseEvent<HTMLElement>) => {
     e.persist();
-    const { tooltipDelay } = this.props;
-    this.timer = window.setTimeout(() => this.showToolTip(e), +tooltipDelay);
+    timerRef.current = window.setTimeout(() => showToolTip(e), tooltipDelay);
   }
 
-  onClick = (e: React.MouseEvent<HTMLElement>) => {
+  const onMouseOut = () => {
+    if (timerRef.current)
+      clearTimeout(timerRef.current);
+  }
+
+  const onClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    clearTimeout(this.timer);
-    this.showToolTip(e);
+    if (timerRef.current)
+      clearTimeout(timerRef.current);
+    showToolTip(e);
   }
 
-  onMouseOut = () => {
-    clearTimeout(this.timer);
-  }
+  const showToolTip = (e: React.MouseEvent<HTMLElement>) => {
 
-  showToolTip = (e: React.MouseEvent<HTMLElement>) => {
-    const { topicId, number, dispatch } = this.props;
+    const { topicId, number } = props;
 
     const coords = {
       x: e.pageX,
@@ -90,49 +71,41 @@ class LinkToPost extends Component<ConnectedProps<typeof connector> & IProps, { 
       topicId: +topicId,
       number: +number
     }
-    dispatch(tooltipsActions.show({keys, coords}));    
-    // dispatch(showTooltip(
-    //   keys,
-    //   coords
-    // ));
+
+    actions.show({ keys, coords });
+
   }
 
-  render() {
-
-    const { topicId, number, style, info } = this.props;
-    const page = getMaxPage(number);
+  if ((props.topicId === currentTopicId) || !isNaN(+text))
+    return (
+      <span
+        onMouseOver={onMouseOver}
+        onMouseOut={onMouseOut}
+        onClick={onClick}
+        className='link'
+        style={{ ...props.style }}
+      >{text}</span>
+    )
+  else {
+    const page = getMaxPage(props.number);
 
     let pageParam = '';
     if (page > 1)
       pageParam = `&page=${page}`;
-
-    let a;
-    if ((info && (+topicId === info.id)) || !isNaN(+this.state.text))
-      a = (
-        <span
-          onMouseOver={this.onMouseOver}
-          onMouseOut={this.onMouseOut}
-          onClick={this.onClick}
+      
+    return (
+      <span>
+        <a href={`#/topic.php?id=${props.topicId}${pageParam}#${props.number}`}
+          style={{ ...props.style }}
+        >{text}</a>{' '}
+        (<span onMouseOver={onMouseOver}
+          onMouseOut={onMouseOut}
+          onClick={onClick}
           className='link'
-          style={{ ...style }}
-        >{this.state.text}</span>
-      )
-    else
-      a = (
-        <span>
-          <a href={`#/topic.php?id=${topicId}${pageParam}#${number}`}
-            style={{ ...style }}
-          >{this.state.text}</a>{' '}
-                    (<span onMouseOver={this.onMouseOver}
-            onMouseOut={this.onMouseOut}
-            onClick={this.onClick}
-            className='link'
-          >{number}</span>)
-        </span>
-      )
-
-    return a;
-  }
+        >{props.number}</span>)
+      </span>
+    )
+  }  
 }
 
-export default connector(LinkToPost);
+export default LinkToPost;

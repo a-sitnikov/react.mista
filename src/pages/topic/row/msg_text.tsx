@@ -26,7 +26,7 @@ const processLinksToPosts = (text: string, topicId: number): string => {
   const regexp = /(\()(\d+)(\))/gi; // (12)
   return text.replace(regexp, (res, ...segments) => {
     const number = segments[1];
-    return `(<link data-topicid='${topicId}' data-number='${number}' ></link>)`
+    return `(<link data-topicid='${topicId}' data-number='${number}'></link>)`
   });
 }
 
