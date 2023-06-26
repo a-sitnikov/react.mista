@@ -1,5 +1,5 @@
 import { screen, waitFor } from "@testing-library/react"
-import { renderWithProviders, setupStore } from './test-utils'
+import { renderWithProviders } from './test-utils'
 
 import * as API from 'src/api/sections'
 import SectionSelect from 'src/pages/topics_list/sections'

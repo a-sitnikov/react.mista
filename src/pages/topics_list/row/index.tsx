@@ -1,42 +1,20 @@
 import { FC, ReactElement, useCallback, useEffect, useState } from 'react'
-import { connect, ConnectedProps } from 'react-redux'
 import { Link } from 'react-router-dom'
-import dateFormat from 'dateformat'
 
 import TopicNameCell from './topic_name_cell';
 import PreviewLink from './preview_link'
 
-import { today } from 'src/utils'
-import { RootState, useActionCreators } from 'src/store';
+import { formattedTime } from 'src/utils'
+import { useActionCreators } from 'src/store';
 import { ITopicsListItem, topicsListActions } from 'src/store';
 import { fetchTopicMessage } from 'src/api';
-
-const mapState = (state: RootState) => {
-
-  return {
-    login: state.login
-  }
-}
-const connector = connect(mapState);
 
 interface IProps extends ITopicsListItem {
   updated: number,
   topicId: number
 }
 
-const formatTime = (time: number): string => {
-  
-  if (time === 2147483648000) return '';
-  
-  let date = new Date(time);
-  if (today(date)) {
-    return dateFormat(time, 'HH:MM')
-  } else {
-    return dateFormat(time, 'dd.mm.yy');
-  }  
-}
-
-const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ topicId, updated, ...data }): ReactElement => {
+const Row: FC<IProps> = ({ topicId, updated, ...data }): ReactElement => {
 
   const actions = useActionCreators(topicsListActions);
 
@@ -79,7 +57,7 @@ const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ topicId, updated, 
       </div>
       <div className="cell-lastuser">
         <div style={{ display: "flex" }}>
-          <span className="cell-lastuser-time">{formatTime(time)}</span>
+          <span className="cell-lastuser-time">{formattedTime(time)}</span>
           <span className="cell-lastuser-user">{data.lastUser}</span>
         </div>
       </div>
@@ -93,4 +71,4 @@ const Row: FC<ConnectedProps<typeof connector> & IProps> = ({ topicId, updated, 
 
 }
 
-export default connector(Row);
+export default Row;

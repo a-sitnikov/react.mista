@@ -1,8 +1,7 @@
-import { FC, ReactElement, useCallback, useEffect, useRef } from 'react'
-import { connect, ConnectedProps } from 'react-redux'
+import { ReactElement, useCallback, useEffect, useRef } from 'react'
 
 import { useLocation } from "react-router-dom";
-import { topicActions, getTopicIfNeeded, getNewMessagesIfNeeded } from 'src/store'
+import { topicActions, getTopicIfNeeded, getNewMessagesIfNeeded, useAppSelector } from 'src/store'
 import { newMessageText } from 'src/data/newmessage/actions'
 
 import Error from 'src/components/common/error'
@@ -13,34 +12,11 @@ import Row from '../../pages/topic/row'
 import Footer from './footer'
 import NewMessage from './new_message';
 import { getMaxPage, extractTextFromHTML } from 'src/utils';
-import { RootState, useActionCreators, useAppDispatch } from 'src/store';
+import { useActionCreators, useAppDispatch } from 'src/store';
 
 import './topic.css'
 
 var scrolledToHash: boolean;
-
-const mapState = (state: RootState) => {
-
-  const {
-    status,
-    lastUpdated,
-    info,
-    item0,
-    items,
-    error
-  } = state.topic;
-
-  return {
-    login: state.login,
-    info,
-    item0,
-    items,
-    status,
-    lastUpdated,
-    error,
-    options: state.options.items
-  }
-}
 
 const getPageNumber = (locationPage: string | string[]): number | "last20" => {
   if (!locationPage) return 1;
@@ -49,12 +25,17 @@ const getPageNumber = (locationPage: string | string[]): number | "last20" => {
   return +locationPage;
 }
 
-const connector = connect(mapState);
-const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info, error }): ReactElement => {
+const Topic = (): ReactElement => {
 
   const dispatch = useAppDispatch();
   const actions = useActionCreators(topicActions);
   const location = useLocation();
+
+  const login = useAppSelector(state => state.login);
+  const info = useAppSelector(state => state.topic.info);
+  const item0 = useAppSelector(state => state.topic.item0);
+  const items = useAppSelector(state => state.topic.items);
+  const error = useAppSelector(state => state.topic.error);
 
   let locationParams = new URLSearchParams(location.search);
   const topicId = +locationParams.get('id');
@@ -132,4 +113,4 @@ const Topic: FC<ConnectedProps<typeof connector>> = ({ login, items, item0, info
 
 }
 
-export default connector(Topic);
+export default Topic;

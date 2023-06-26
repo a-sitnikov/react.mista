@@ -1,3 +1,4 @@
+import moment from "moment";
 
 export function today(td: Date): boolean {
   var d = new Date();
@@ -71,4 +72,17 @@ export const extractTextFromHTML = (htmltext: string): string => {
   const parser = new DOMParser();
   const floatingElement = parser.parseFromString(htmltext, 'text/html');
   return (floatingElement.firstChild as HTMLElement).innerText;
+}
+
+
+export const formattedTime = (time: number): string => {
+  
+  if (time === 2147483648000) return '';
+  
+  let date = new Date(time);
+  if (today(date)) {
+    return moment(date).format('HH:MM')
+  } else {
+    return moment(date).format('dd.mm.yy')
+  }  
 }

@@ -8,6 +8,7 @@
     "classnames": "^2.3.1",
     "dateformat": "^5.0.3",
     "fetch-jsonp": "^1.2.1",
+    "moment": "^2.29.4",
     "query-string": "^7.1.1",
     "react": "^17.0.2",
     "react-active-html": "^1.2.2",
