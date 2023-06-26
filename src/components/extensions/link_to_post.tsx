@@ -75,6 +75,7 @@ const LinkToPost: FC<IProps> = (props): ReactElement => {
 
   }
 
+  console.log(1, props.topicId, currentTopicId, text);
   if ((props.topicId === currentTopicId) || !isNaN(+text))
     return (
       <span
@@ -92,7 +93,8 @@ const LinkToPost: FC<IProps> = (props): ReactElement => {
     if (page > 1)
       pageParam = `&page=${page}`;
       
-    return (
+      console.log(2, props.topicId, currentTopicId, text);
+      return (
       <span>
         <a href={`#/topic.php?id=${props.topicId}${pageParam}#${props.number}`}
           style={{ ...props.style }}

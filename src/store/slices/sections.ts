@@ -12,16 +12,14 @@ export interface ISectionItem {
   name: string,
 }
 
-export interface ISectionsList extends Array<ISectionItem> {}
-
 export interface ISectionsTree{
   [key: string]: ISectionItem[]
 }
 
 export interface ISectionsListState {
   status: "init" | "loading" | "success" | "error";
-  items: ISectionsList,
-  tree?: {},
+  items: ISectionItem[],
+  tree?: ISectionsTree,
   error?: string,
   lastUpdated?: number
 }

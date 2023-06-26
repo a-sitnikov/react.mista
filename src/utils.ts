@@ -49,9 +49,9 @@ export const getMaxPage = (count: number): number => {
   return Math.min(Math.ceil(count / 100), 10) || 1;
 }
 
-export const childrenToText = (children: any): string[]=> {
+export const childrenToText = (children: any): string[] => {
 
-  if (!children) return children;
+  if (!children) return [''];
 
   return children.map(value => {
     if (typeof (value) === 'string') {

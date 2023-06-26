@@ -1,8 +1,8 @@
-import highlight from '../components/extensions/code_highlight'
+import highlight from 'src/components/extensions/code_highlight'
 
 describe('Code highlight', () => {
 
-  it('+++test 1', () => {
+  it('Процедура с комментарием', () => {
 
     const text = highlight(
       '// Комментарий\n' +
@@ -11,11 +11,11 @@ describe('Code highlight', () => {
       'КонецПроцедуры\n'
     );
 
-    expect({ text }).toMatchSnapshot();
+    expect(text).toMatchSnapshot();
 
   })
 
-  it('+++test 2', () => {
+  it('Многострочный литерал', () => {
 
     const text = highlight(
       'd = "\n' +
@@ -23,7 +23,7 @@ describe('Code highlight', () => {
       '| dsgffsg";'
     );
 
-    expect({ text }).toMatchSnapshot();
+    expect(text).toMatchSnapshot();
 
   })
 });

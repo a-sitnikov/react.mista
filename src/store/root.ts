@@ -4,7 +4,7 @@ import logger from 'redux-logger' // eslint-disable-line @typescript-eslint/no-u
 import { topicsList, topic, sections, options, login, tooltips, newTopic } from './slices'
 import newMessage from '../data/newmessage/reducer'
 
-const reducer = {
+export const reducer = {
   topicsList,
   topic,
   sections,

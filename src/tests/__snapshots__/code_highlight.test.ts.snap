@@ -1,19 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Code highlight +++test 1 1`] = `
-Object {
-  "text": "<span class=com>// Комментарий</span>
+exports[`Code highlight test 1 1`] = `
+"<span class=com>// Комментарий</span>
 <span class=key>Процедура </span><span class=bg>Тест</span><span class=sp>()</span>
   <span class=bg>а </span><span class=sp>= </span><span class=num>1</span><span class=sp>;</span>
 <span class=key>КонецПроцедуры</span>
-",
-}
+"
 `;
 
-exports[`Code highlight +++test 2 1`] = `
-Object {
-  "text": "<span class=bg>d </span><span class=sp>= </span><span class=str>\\"
+exports[`Code highlight test 2 1`] = `
+"<span class=bg>d </span><span class=sp>= </span><span class=str>\\"
 | dfsf
-| dsgffsg\\"</span><span class=sp>;</span>",
-}
+| dsgffsg\\"</span><span class=sp>;</span>"
 `;

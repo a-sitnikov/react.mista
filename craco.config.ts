@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
   webpack: {
     alias: { /* ... */ },
     plugins: {
@@ -24,3 +24,5 @@ module.exports = {
     },
   },
 };
+
+export default config;

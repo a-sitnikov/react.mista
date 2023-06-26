@@ -39,7 +39,7 @@ export interface ITopicMessage {
 export interface ITopicMessagesList extends Array<ITopicMessage> {}
 
 export interface ITopicState {
-  status: "init" | "loading" | "success" | "error",
+  status?: "init" | "loading" | "success" | "error",
   items: ITopicMessagesList,
   item0?: ITopicMessage,
   info?: ITopicInfo,

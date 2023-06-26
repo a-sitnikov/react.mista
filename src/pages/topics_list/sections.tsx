@@ -1,33 +1,24 @@
 import { FC, ReactElement, useEffect } from 'react'
-import { connect, ConnectedProps } from 'react-redux'
+import CSS from 'csstype'
 import Form from 'react-bootstrap/Form'
 
-import { RootState, useAppDispatch } from 'src/store'
+import { useAppDispatch, useAppSelector } from 'src/store'
 import { getSectionsIfNeeded, ISectionItem } from 'src/store'
 
-type IProps = {
+export type IProps = {
   id: string,
   defaultValue: string,
   selected?: string,
-  style?: {},
+  style?: CSS.Properties,
   size?: 'sm' | 'lg',
-  onChange: (e: any, value: ISectionItem) => void
+  onChange?: (e: React.ChangeEvent<HTMLElement>, value: ISectionItem) => void
 }
 
-const mapState = (state: RootState) => {
-
-  const { items, tree } = state.sections;
-
-  return {
-    items,
-    tree
-  }
-}
-
-const connector = connect(mapState);
-const Sections: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactElement => {
+const Sections: FC<IProps> = (props): ReactElement => {
 
   const dispatch = useAppDispatch();
+  const items = useAppSelector(state => state.sections.items);
+  const tree = useAppSelector(state => state.sections.tree);
 
   useEffect(() => {
     dispatch(getSectionsIfNeeded());
@@ -35,7 +26,7 @@ const Sections: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactEl
 
   const onSelect: (e: React.ChangeEvent<HTMLElement>) => void = (e: any) => {
 
-    const { items, onChange } = props;
+    const { onChange } = props;
 
     if (onChange) {
       const code = e.currentTarget.value;
@@ -46,8 +37,6 @@ const Sections: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactEl
         onChange(e, null);
     }
   }
-
-  const { id, tree, defaultValue, selected, style, size } = props;
 
   let sectionsElem = [];
   for (let forum in tree) {
@@ -63,6 +52,8 @@ const Sections: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactEl
 
     sectionsElem.push(group);
   }
+  
+  const { id, defaultValue, selected, style, size } = props;
 
   return (
     <Form.Select
@@ -79,5 +70,4 @@ const Sections: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactEl
   )
 }
 
-export { Sections };
-export default connector(Sections);
+export default Sections;
