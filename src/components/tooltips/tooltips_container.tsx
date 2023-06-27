@@ -1,30 +1,20 @@
-import React, { FC, ReactElement, useCallback, useRef } from 'react'
-import { connect, ConnectedProps } from 'react-redux'
+import { ReactElement, useRef } from 'react'
 import { useOnClickOutside } from 'usehooks-ts'
 
-import { useAppDispatch } from 'src/data/store';
-import { RootState } from 'src/data/store'
-import { clearTooltipsIfNeeded } from 'src/data/tooltips/actions'
+import { useActionCreators, useAppSelector } from 'src/store';
+import { tooltipsActions } from 'src/store'
+
 import Tooltip from './tooltip'
 
-const mapState = (state: RootState) => {
+const TooltipsContainer = (): ReactElement => {
 
-  const {
-    items
-  } = state.tooltips;
-
-  return { items }
-}
-
-const connector = connect(mapState);
-const TooltipsContainer: FC<ConnectedProps<typeof connector>> = ({ items }): ReactElement => {
-
-  const dispatch = useAppDispatch();
+  const items = useAppSelector(state => state.tooltips.items);
+  const actions = useActionCreators(tooltipsActions);
   const ref = useRef(null);
 
-  const handleClickOutside = useCallback(() => {
-    dispatch(clearTooltipsIfNeeded());
-  }, [dispatch]);
+  const handleClickOutside = () => {
+    actions.closeAll();
+  };
 
   useOnClickOutside(ref, handleClickOutside);
   
@@ -32,8 +22,7 @@ const TooltipsContainer: FC<ConnectedProps<typeof connector>> = ({ items }): Rea
     <div ref={ref}>
       {items.map((item) => {
         return (
-          <Tooltip key={item.hash} tooltip={item}>
-          </Tooltip>
+          <Tooltip key={item.hash} tooltip={item} />
         )
       }
       )}
@@ -41,4 +30,4 @@ const TooltipsContainer: FC<ConnectedProps<typeof connector>> = ({ items }): Rea
   )
 }
 
-export default connector(TooltipsContainer);
+export default TooltipsContainer;

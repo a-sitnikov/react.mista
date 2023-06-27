@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 import { useDispatch } from 'react-redux'
 
 import Navbar from 'react-bootstrap/Navbar'
@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form'
 import { Link, useLocation } from "react-router-dom";
 
 import Search from 'src/components/common/search'
-import { getTopicsListIfNeeded } from 'src/data/topicslist/actions'
+import { getTopicsListIfNeeded } from 'src/store'
 
 import './nav_bar.css'
 
@@ -28,6 +28,7 @@ const NavBar = (): ReactElement => {
     { name: 'IT', link: `/index.php?forum=IT` },
     { name: 'JOB', link: `/index.php?forum=JOB` },
     { name: 'LIFE', link: `/index.php?forum=LIFE` },
+    { name: 'Настройки', link: '/options.php' },    
   ];
 
   const externalLinks = [

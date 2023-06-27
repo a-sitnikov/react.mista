@@ -1,46 +1,26 @@
-import React, { FC, ReactElement, useCallback, useEffect, useState } from 'react';
-import { connect, ConnectedProps } from 'react-redux'
+import { FC, ReactElement, useCallback, useEffect, useState } from 'react';
 
-import { fetchTopicMessage } from 'src/api/topicMessages';
+import { fetchTopicMessage } from 'src/api';
 
-import MsgText from '../topic/row/msg_text'
-import UserInfo from '../topic/row/user_info';
+import MsgText from 'src/pages/topic/row/msg_text'
+import UserInfo from 'src/pages/topic/row/user_info';
 
 import TooltipWindow from './tooltip_window'
 import TooltipHeader from './tooltip_header'
 import TooltipBody from './tooltip_body'
-import { ITooltipItem } from 'src/data/tooltips';
 
 import './tooltip.css'
-import { RootState } from 'src/data/store';
-import { ITopicMessage } from 'src/data/topic';
+import { useAppSelector } from 'src/store';
+import { ITopicMessage, ITooltipItem } from 'src/store';
 
 type IProps = {
-  tooltip: ITooltipItem,
-  info: any,
-  items: any,
-  item0: any
+  tooltip: ITooltipItem
 }
 
-const mapState = (state: RootState) => {
+const Tooltip: FC<IProps> = (props): ReactElement | null => {
 
-  const {
-    info,
-    items,
-    item0
-  } = state.topic;
-
-  return {
-    info,
-    items,
-    item0
-  }
-}
-
-const connector = connect(mapState);
-const Tooltip: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactElement | null => {
-
-  const { tooltip, info, items, item0 } = props;
+  const { info, items, item0 } = useAppSelector(state => state.topic);
+  const { tooltip } = props;
   const { keys } = tooltip;
 
   let text = '';
@@ -115,4 +95,4 @@ const Tooltip: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactEle
 
 }
 
-export default connector(Tooltip);
+export default Tooltip;

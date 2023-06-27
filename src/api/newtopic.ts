@@ -1,6 +1,7 @@
-import { domain, paramsToString, urlNewTopic } from ".";
+import { domain, urlNewTopic } from ".";
+import { paramsToString } from './api-utils';
 
-export interface IRequest {
+export interface INewTopicRequest {
   action: "new",
   rnd: number,
   topic_text: string,
@@ -20,7 +21,7 @@ export interface IRequest {
   select10?: string
 }
 
-export const fetchNewTopic = async (params: IRequest): Promise<any> => {
+export const fetchNewTopic = async (params: INewTopicRequest): Promise<any> => {
 
   await fetch(`${domain}/${urlNewTopic}`, {
     method: 'POST',

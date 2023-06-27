@@ -1,8 +1,4 @@
-
-export function today(td: Date): boolean {
-  var d = new Date();
-  return td.getDate() === d.getDate() && td.getMonth() === d.getMonth() && td.getFullYear() === d.getFullYear();
-}
+import moment from "moment";
 
 export const groupBy = <T, K extends keyof any>(list: T[], getKey: (item: T) => K) =>
   list.reduce((previous, currentItem) => {
@@ -49,9 +45,9 @@ export const getMaxPage = (count: number): number => {
   return Math.min(Math.ceil(count / 100), 10) || 1;
 }
 
-export const childrenToText = (children: any): string[]=> {
+export const childrenToText = (children: any): string[] => {
 
-  if (!children) return children;
+  if (!children) return [''];
 
   return children.map(value => {
     if (typeof (value) === 'string') {
@@ -71,4 +67,19 @@ export const extractTextFromHTML = (htmltext: string): string => {
   const parser = new DOMParser();
   const floatingElement = parser.parseFromString(htmltext, 'text/html');
   return (floatingElement.firstChild as HTMLElement).innerText;
+}
+
+export function isToday(td: Date | number): boolean {
+  return moment(td).isSame(new Date(), 'day');
+}
+
+export const formattedTime = (time: number): string => {
+  
+  if (time === 2147483648000) return '';
+  
+  if (isToday(time)) {
+    return moment(time).format('HH:mm')
+  } else {
+    return moment(time).format('DD.MM.YY')
+  }  
 }

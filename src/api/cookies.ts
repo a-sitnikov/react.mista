@@ -1,7 +1,8 @@
-import { fetchJsonpAndGetJson, urlCookies } from '.'
-import { ILogin } from 'src/data/login';
+import { urlCookies } from '.'
+import { fetchJsonpAndGetJson } from './api-utils';
+import { ILogin } from 'src/store';
 
-export type IAPIResponse = {
+type IAPIResponse = {
   cookie: {
     entr_id: string,
     entr_key: string,

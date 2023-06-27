@@ -1,23 +1,17 @@
-import React, { FC, ReactElement, useState } from 'react'
-import { connect, ConnectedProps } from 'react-redux'
+import { FormEvent, ReactElement, useState } from 'react'
 import { FormControl, Button } from 'react-bootstrap'
 
-import { doLoginIfNeeded } from 'src/data/login/actions'
-import { RootState, useAppDispatch } from 'src/data/store'
+import { useAppDispatch } from 'src/store'
+import { doLoginIfNeeded } from 'src/store'
 
-const mapState = (state: RootState) => {
-  return state.login;
-}
-
-const connector = connect(mapState);
-const LoginForm: FC<ConnectedProps<typeof connector>> = (props): ReactElement => {
+const LoginForm = (): ReactElement => {
 
   const dispatch = useAppDispatch();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const onLogin = (event) => {
+  const onLogin = (event: FormEvent) => {
     event.preventDefault();
     dispatch(doLoginIfNeeded(username, password));
   }
@@ -26,6 +20,7 @@ const LoginForm: FC<ConnectedProps<typeof connector>> = (props): ReactElement =>
     <div>
       <form name="enterform" className="flex-row" style={{ flexWrap: "wrap" }}>
         <FormControl
+          id="username"
           type="text"
           placeholder="Имя"
           value={username}
@@ -35,6 +30,7 @@ const LoginForm: FC<ConnectedProps<typeof connector>> = (props): ReactElement =>
           style={{ marginRight: "5px", flex: "0 1 300px" }}
         />
         <FormControl
+          id="password"
           type="password"
           placeholder="Пароль"
           maxLength={20}
@@ -48,7 +44,7 @@ const LoginForm: FC<ConnectedProps<typeof connector>> = (props): ReactElement =>
         <Button
           size="sm"
           variant="light"
-          className='button'          
+          className='button'
           onClick={onLogin}
         >Войти</Button>
       </form>
@@ -61,4 +57,4 @@ const LoginForm: FC<ConnectedProps<typeof connector>> = (props): ReactElement =>
 
 }
 
-export default connector(LoginForm);
+export default LoginForm;

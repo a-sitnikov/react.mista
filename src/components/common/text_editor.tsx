@@ -1,9 +1,7 @@
-import React, { FC, ReactElement, useRef } from 'react'
+import { FC, ReactElement, useRef, RefObject, useCallback } from 'react'
 import { FormControl, Button, ButtonGroup, Form } from 'react-bootstrap'
 
 import './text_editor.css'
-import { useAppDispatch } from 'src/data/store'
-import { newTopicShowVoting } from 'src/data/newtopic/actions'
 
 type IProps = {
   placeholder: string,
@@ -11,12 +9,13 @@ type IProps = {
   isVoting?: boolean,
   text: string,
   isFetching: boolean,
-  formName: string,
+  formRef?: RefObject<HTMLFormElement>,
+  onChange?: (text: string) => void,
+  onShowVotingChange?: (show: boolean) => void
 }
 
-const TextEditor: FC<IProps> = ({ formName, placeholder, showVoting, isVoting, isFetching, text }): ReactElement => {
+const TextEditor: FC<IProps> = ({ placeholder, showVoting, isVoting, isFetching, text, formRef, onChange, onShowVotingChange }): ReactElement => {
 
-  const dispatch = useAppDispatch();
   const textAreaRef = useRef() as React.MutableRefObject<HTMLTextAreaElement>;
 
   const onButtonCode1c = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -37,37 +36,25 @@ const TextEditor: FC<IProps> = ({ formName, placeholder, showVoting, isVoting, i
     const replacement = openTag + selectedText + closeTag;
     let newText = oldText.substring(0, start) + replacement + oldText.substring(end, len);
 
-    dispatch({
-      type: formName + '_TEXT',
-      payload: {
-        text: newText
-      }
-    })
+    if (onChange) onChange(newText);
 
   }
 
-  const onVotingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(newTopicShowVoting(e.currentTarget.checked))
-  }
+  const handleShowVotingChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    if (onShowVotingChange) onShowVotingChange(e.currentTarget.checked);
+  }, [onShowVotingChange]);
 
-  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    dispatch({
-      type: formName + '_TEXT',
-      payload: {
-        text: e.currentTarget.value
-      }
-    })
-  }
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (onChange) onChange(e.currentTarget.value);
+  }, [onChange]);
 
-  const onKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+
+    if (!formRef) return;
+    if (!formRef.current) return;
 
     if (e.key === 'Enter' && e.ctrlKey) {
-      let parent = e.currentTarget.parentElement;
-      while (parent && parent.tagName.toUpperCase() !== "FORM") {
-        parent = parent.parentElement;
-      }
-      if (parent)
-        parent.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
+      formRef.current.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
     }
   }
 
@@ -78,10 +65,11 @@ const TextEditor: FC<IProps> = ({ formName, placeholder, showVoting, isVoting, i
         placeholder={placeholder}
         cols={70} rows={3}
         value={text}
-        onChange={onChange}
-        onKeyPress={onKeyPress}
+        onChange={handleChange}
+        onKeyUp={handleKeyUp}
         ref={textAreaRef}
         className="text-editor input"
+        data-lpignore={true} 
       />
       <div className="flex-row">
         <ButtonGroup>
@@ -107,7 +95,7 @@ const TextEditor: FC<IProps> = ({ formName, placeholder, showVoting, isVoting, i
             id="show_voting"
             type="checkbox"
             checked={isVoting}
-            onChange={onVotingChange}
+            onChange={handleShowVotingChange}
             label="Голосование"
             style={{ margin: "auto 0px auto auto" }} />
         }

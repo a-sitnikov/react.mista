@@ -1,20 +1,18 @@
-import React, { FC, ReactElement, useEffect } from 'react'
-import { connect, ConnectedProps } from 'react-redux'
+import { ReactElement, useEffect } from 'react'
 import LoggedUser from './logged_user'
 import LoginForm from './login_form'
 import ErrorElem from '../common/error'
 
-import { checkLoginIfNeeded } from 'src/data/login/actions'
-import { RootState, useAppDispatch } from 'src/data/store'
+import { useAppDispatch, useAppSelector } from 'src/store'
+import { checkLoginIfNeeded } from 'src/store'
 
-const mapState = (state: RootState) => {
-  return state.login;
-}
-
-const connector = connect(mapState);
-const Login: FC<ConnectedProps<typeof connector>> = ({ logged, userId, userName, error }): ReactElement => {
+const Login = (): ReactElement => {
 
   const dispatch = useAppDispatch();
+  const logged = useAppSelector(state => state.login.logged);
+  const userId = useAppSelector(state => state.login.userId);
+  const userName = useAppSelector(state => state.login.userName);
+  const error = useAppSelector(state => state.login.error);
 
   useEffect(() => {
     dispatch(checkLoginIfNeeded());
@@ -36,4 +34,4 @@ const Login: FC<ConnectedProps<typeof connector>> = ({ logged, userId, userName,
   )
 }
 
-export default connector(Login);
+export default Login;

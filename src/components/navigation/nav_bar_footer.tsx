@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import{ ReactElement } from 'react'
 import { domain } from 'src/api'
 
 const NavBarFooter = (): ReactElement => {

@@ -10,7 +10,6 @@ import thunk from 'redux-thunk'
 import { configure , mount, shallow } from 'enzyme'
 import toJson from 'enzyme-to-json'
 
-import * as API from '../../api'
 import ConnectedNewTopic from '../components/topics_list/new_topic'
 import ConnectedTextEditor from '../components/common/text_editor'
 import rootReducer from '../../reducers'

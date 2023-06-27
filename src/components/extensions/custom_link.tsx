@@ -1,5 +1,4 @@
 import { FC, ReactElement } from 'react'
-import { connect, ConnectedProps } from 'react-redux'
 import URL from 'url-parse'
 
 import LinkToPost from './link_to_post'
@@ -7,18 +6,14 @@ import LinkToUser from './link_to_user'
 import YoutubeLink from './youtube_link'
 
 import { childrenToText } from 'src/utils'
-import { RootState } from 'src/data/store'
+import { useAppSelector } from 'src/store'
 
 type IProps = {
   href: string,
-  parentText: string,
-  target: string,
-  class: string,
-  rel: string,
-  showTooltipOnPostLink: string,
-  showYoutubeVideoTitle: string,
-  replaceCatalogMista: string,
-  fixBrokenLinks: string,
+  parentText?: string,
+  target?: string,
+  class?: string,
+  rel?: string
 }
 
 const fixBrokenLink = (href: string, parentText: string): string => {
@@ -65,26 +60,11 @@ const isMistaCatalog = (hostname: string): boolean => {
     return false
 }
 
-const mapState = (state: RootState) => {
+const CustomLink: FC<IProps> = ({ href, children, parentText, ...props }): ReactElement => {
 
-  const {
-    showYoutubeVideoTitle,
-    replaceCatalogMista,
-    fixBrokenLinks
-  } = state.options.items;
-
-  return {
-    showYoutubeVideoTitle,
-    replaceCatalogMista,
-    fixBrokenLinks
-  }
-}
-
-const connector = connect(mapState);
-const CustomLink: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactElement => {
-
-  const { href, children, parentText,
-    showYoutubeVideoTitle, replaceCatalogMista, fixBrokenLinks } = props;
+  const showYoutubeVideoTitle = useAppSelector(state => state.options.items.showYoutubeVideoTitle === 'true');
+  const replaceCatalogMista = useAppSelector(state => state.options.items.replaceCatalogMista === 'true');
+  const fixBrokenLinks = useAppSelector(state => state.options.items.fixBrokenLinks === 'true');
 
   try {
     var url = new URL(href, true);
@@ -115,49 +95,47 @@ const CustomLink: FC<ConnectedProps<typeof connector> & IProps> = (props): React
         </LinkToUser>
       )
     }
+  }
 
-    if (url.hostname === 'a-sitnikov.github.io' &&
-      url.pathname === '/react.mista/') {
+  if (url.hostname === 'a-sitnikov.github.io' &&
+    url.pathname === '/react.mista/') {
 
-      if (Object.keys(url.query).length === 0) {
+    if (Object.keys(url.query).length === 0) {
 
-        url = new URL(href.replace(/#\//, ''), true);
-        if (url.pathname === '/react.mista/topic.php')
-          return (
-            <LinkToPost topicId={url.query.id} number={url.hash.replace('#', '') || "0"}>
-              {childrenToText(children)}
-            </LinkToPost>
-          )
-      }
+      url = new URL(href.replace(/#\//, ''), true);
+      if (url.pathname === '/react.mista/topic.php')
+        return (
+          <LinkToPost topicId={url.query.id} number={url.hash.replace('#', '') || "0"}>
+            {childrenToText(children)}
+          </LinkToPost>
+        )
     }
   }
 
-  if (showYoutubeVideoTitle === 'true')
-    if (isYoutube(url.hostname)) 
-      return <YoutubeLink href={href} />
+  if (showYoutubeVideoTitle && isYoutube(url.hostname))
+    return <YoutubeLink href={href} />
 
-  if (replaceCatalogMista === 'true')
-    if (isMistaCatalog(url.hostname)) {
-      url.set('hostname', 'infostart.ru')
+  if (replaceCatalogMista && isMistaCatalog(url.hostname)) {
+    url.set('hostname', 'infostart.ru')
 
-      return (
-        <a target={props.target}
-          className={props.class}
-          rel={props.rel}
-          href={url.href} >{url.href} </a>
-      )
-    }
+    return (
+      <a target={props?.target}
+        className={props?.class}
+        rel={props?.rel}
+        href={url.href} >{url.href} </a>
+    )
+  }
 
-  if (fixBrokenLinks === 'true' && parentText) {
+  if (fixBrokenLinks && parentText) {
     newHref = fixBrokenLink(newHref, parentText);
   }
 
   return (
-    <a target={props.target}
-      className={props.class}
-      rel={props.rel}
+    <a target={props?.target}
+      className={props?.class}
+      rel={props?.rel}
       href={newHref} >{children}</a>
   )
 }
 
-export default connector(CustomLink);
+export default CustomLink;
