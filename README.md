@@ -21,9 +21,9 @@
 ## Используемые технологии:
 * Язык: TypeScript
 * Бойлерплейт:  [Create React App](https://github.com/facebookincubator/create-react-app)
-* Управление состоянием: [Redux / Thunk](https://github.com/reduxjs/redux-thunk)
+* Управление состоянием: [Redux](https://redux.js.org/)
 * Компоненты: [Bootstrap](https://react-bootstrap.github.io/)
 * Настройка Webpack: [Craco](https://craco.js.org/)
-* Тестирование: Jest / [Enzyme](https://airbnb.io/enzyme/)
+* Тестирование: Jest / React Testing Library
 
 Рабочую версию проекта можно посмотреть на [github.pages](https://a-sitnikov.github.io/react.mista/)

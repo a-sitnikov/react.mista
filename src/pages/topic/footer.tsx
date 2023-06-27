@@ -1,34 +1,17 @@
 import { FC, ReactElement } from 'react';
-import { connect, ConnectedProps } from 'react-redux'
 import { Button } from 'react-bootstrap'
 
 import { getMaxPage } from 'src/utils'
-import { RootState, useAppDispatch } from 'src/store'
+import { useAppDispatch, useAppSelector } from 'src/store'
 import { defaultInfo, getNewMessagesIfNeeded } from 'src/store'
 
-const mapState = (state: RootState) => {
-
-  const {
-    status,
-    lastUpdated,
-    info,
-  } = state.topic || {
-    isFetching: true,
-    info: defaultInfo,
-  }
-
-  return {
-    info,
-    status,
-    lastUpdated
-  }
-}
-const connector = connect(mapState);
 type IProps = { page?: number | string };
 
-const Footer: FC<ConnectedProps<typeof connector> & IProps> = ({ info, status, page }): ReactElement => {
+const Footer: FC<IProps> = ({ page }): ReactElement => {
 
   const dispatch = useAppDispatch();
+  const info = useAppSelector(state => state.topic.info || defaultInfo);
+  const status = useAppSelector(state => state.topic.status);
 
   const onBookmarkClick = () => {
     //dispatch(addBookmark(info));
@@ -72,4 +55,4 @@ const Footer: FC<ConnectedProps<typeof connector> & IProps> = ({ info, status, p
   )
 }
 
-export default connector(Footer);
+export default Footer;

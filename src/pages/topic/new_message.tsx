@@ -1,10 +1,9 @@
 import { FC, ReactElement, useState, useCallback } from 'react'
-import { connect, ConnectedProps } from 'react-redux'
 import { FormGroup, Form } from 'react-bootstrap'
 
 import TextEditor from 'src/components/common/text_editor'
 import { newMessageText, postNewMessage } from 'src/data/newmessage/actions'
-import { RootState, useAppDispatch } from 'src/store'
+import { useAppDispatch, useAppSelector } from 'src/store'
 
 import { PostNewmessageParams } from 'src/data/newmessage/actions'
 
@@ -12,21 +11,13 @@ type IProps = {
   onSubmitSuccess?: () => void
 }
 
-const mapState = (state: RootState) => {
-
-  return {
-    info: state.topic.info,
-    newMessage: state.newMessage
-  };
-
-}
-
-const connector = connect(mapState);
-
-const NewMessage: FC<ConnectedProps<typeof connector> & IProps> = ({ info, newMessage, onSubmitSuccess }): ReactElement => {
+const NewMessage: FC<IProps> = ({ onSubmitSuccess }): ReactElement => {
 
   const [voting, setVoting] = useState<number | undefined>();
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
+
+  const info = useAppSelector(state => state.topic.info);
+  const newMessage = useAppSelector(state => state.newMessage);
 
   const onSubmit = (e: any) => {
 
@@ -131,4 +122,4 @@ const NewMessage: FC<ConnectedProps<typeof connector> & IProps> = ({ info, newMe
 
 }
 
-export default connector(NewMessage);
+export default NewMessage;

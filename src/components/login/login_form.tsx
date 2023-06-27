@@ -1,16 +1,10 @@
-import { FormEvent, FC, ReactElement, useState } from 'react'
-import { connect, ConnectedProps } from 'react-redux'
+import { FormEvent, ReactElement, useState } from 'react'
 import { FormControl, Button } from 'react-bootstrap'
 
-import { RootState, useAppDispatch } from 'src/store'
+import { useAppDispatch } from 'src/store'
 import { doLoginIfNeeded } from 'src/store'
 
-const mapState = (state: RootState) => {
-  return state.login;
-}
-
-const connector = connect(mapState);
-const LoginForm: FC<ConnectedProps<typeof connector>> = (props): ReactElement => {
+const LoginForm = (): ReactElement => {
 
   const dispatch = useAppDispatch();
 
@@ -63,4 +57,4 @@ const LoginForm: FC<ConnectedProps<typeof connector>> = (props): ReactElement =>
 
 }
 
-export default connector(LoginForm);
+export default LoginForm;

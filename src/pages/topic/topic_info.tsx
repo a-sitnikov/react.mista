@@ -1,39 +1,29 @@
-import { FC, ReactElement } from 'react'
-import { connect, ConnectedProps } from 'react-redux'
+import { ReactElement } from 'react'
 
-import { RootState } from 'src/store'
-
+import { useAppSelector } from 'src/store'
 import { domain, urlTopicInfo, urlTopicMessages } from 'src/api'
 
-const mapState = (state: RootState) => {
+const TopicInfo = (): ReactElement => {
 
-  const {
-    info
-  } = state.topic;
+  const topicId = useAppSelector(state => state.topic.info.id);
+  const title = useAppSelector(state => state.topic.info.title);
 
-  return {
-    info
-  }
-}
-const connector = connect(mapState);
-const TopicInfo: FC<ConnectedProps<typeof connector>> = ({ info }): ReactElement => {
-
-  let yandexUrl = "https://www.yandex.ru/search/?text=" + encodeURIComponent(info.title);
+  let yandexUrl = "https://www.yandex.ru/search/?text=" + encodeURIComponent(title);
 
   return (
     <div className="topic-row">
       <div className="cell-userinfo">
         <div className="topic-tools">
-          <a title="API.info" href={`${domain}/${urlTopicInfo}?id=${info.id}`} className="agh" style={{ display: "block", lineHeight: "1em" }}>i</a>
-          <a title="API.messages" href={`${domain}/${urlTopicMessages}?id=${info.id}&from=0&to=20`} className="agh" style={{ display: "block", lineHeight: "1em" }}>m</a>
+          <a title="API.info" href={`${domain}/${urlTopicInfo}?id=${topicId}`} className="agh" style={{ display: "block", lineHeight: "1em" }}>i</a>
+          <a title="API.messages" href={`${domain}/${urlTopicMessages}?id=${topicId}&from=0&to=20`} className="agh" style={{ display: "block", lineHeight: "1em" }}>m</a>
           {/*<a href="add_voting.php?topic_id=815217" title="Добавить голосование">vote</a> &nbsp;&nbsp;*/}
         </div>
       </div>
       <div className="cell-message">
         <div className="flex-row">
           <div style={{ flex: 1, textAlign: "center" }}>
-            <a href={`${domain}/topic.php?id=${info.id}`}>
-              <h1 className="topic-title" dangerouslySetInnerHTML={{ __html: info.title }}></h1>
+            <a href={`${domain}/topic.php?id=${topicId}`}>
+              <h1 className="topic-title" dangerouslySetInnerHTML={{ __html: title }}></h1>
             </a>
             <div className="moder-action"></div>
           </div>
@@ -49,4 +39,4 @@ const TopicInfo: FC<ConnectedProps<typeof connector>> = ({ info }): ReactElement
 
 }
 
-export default connector(TopicInfo);
+export default TopicInfo;

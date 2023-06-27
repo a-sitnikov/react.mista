@@ -1,36 +1,19 @@
 import { FC, ReactElement } from 'react'
-import { connect, ConnectedProps } from 'react-redux'
 
 import UserInfo from './user_info'
 import MsgText from './msg_text'
-import { RootState } from 'src/store'
+import { useAppSelector } from 'src/store'
 import { ITopicMessage } from 'src/store'
 
 type IProps = {
   data: ITopicMessage
 }
 
-const mapState = (state: RootState) => {
+const Row: FC<IProps> = ({ data }): ReactElement => {
 
-  const {
-    info,
-    item0,
-  } = state.topic || {
-    info: {},
-    item0: {},
-  }
-
-  return {
-    topicId: info.id,
-    author: item0 ? item0.user : '',
-    login: state.login
-  }
-}
-
-const connector = connect(mapState);
-const Row: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactElement => {
-
-    const { data, author, topicId, login } = props;
+    const topicId = useAppSelector(state => state.topic.info.id);
+    const login = useAppSelector(state => state.login);
+    const author = useAppSelector(state => state.topic.item0?.user || '');
 
     if (!data)
       return null;
@@ -47,4 +30,4 @@ const Row: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactElement
     )
 }
 
-export default connector(Row);
+export default Row;

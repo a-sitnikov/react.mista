@@ -1,5 +1,4 @@
 import { FC, ReactElement, useCallback, useEffect, useState } from 'react';
-import { connect, ConnectedProps } from 'react-redux'
 
 import { fetchTopicMessage } from 'src/api';
 
@@ -11,7 +10,7 @@ import TooltipHeader from './tooltip_header'
 import TooltipBody from './tooltip_body'
 
 import './tooltip.css'
-import { RootState } from 'src/store';
+import { useAppSelector } from 'src/store';
 import { ITopicMessage, ITooltipItem } from 'src/store';
 
 type IProps = {
@@ -21,25 +20,10 @@ type IProps = {
   item0: any
 }
 
-const mapState = (state: RootState) => {
+const Tooltip: FC<IProps> = (props): ReactElement | null => {
 
-  const {
-    info,
-    items,
-    item0
-  } = state.topic;
-
-  return {
-    info,
-    items,
-    item0
-  }
-}
-
-const connector = connect(mapState);
-const Tooltip: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactElement | null => {
-
-  const { tooltip, info, items, item0 } = props;
+  const { info, items, item0 } = useAppSelector(state => state.topic);
+  const { tooltip } = props;
   const { keys } = tooltip;
 
   let text = '';
@@ -114,4 +98,4 @@ const Tooltip: FC<ConnectedProps<typeof connector> & IProps> = (props): ReactEle
 
 }
 
-export default connector(Tooltip);
+export default Tooltip;

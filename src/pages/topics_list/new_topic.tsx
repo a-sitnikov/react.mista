@@ -1,10 +1,9 @@
 import { FC, ReactElement, useCallback, useState, useRef } from 'react'
-import { connect, ConnectedProps } from 'react-redux'
 import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
 import { FormGroup } from 'react-bootstrap'
 
-import { RootState, useActionCreators, useAppDispatch } from 'src/store'
+import { useActionCreators, useAppDispatch, useAppSelector } from 'src/store'
 
 import Sections from './sections'
 import TextEditor from 'src/components/common/text_editor'
@@ -17,16 +16,10 @@ type IProps = {
   onSubmitSuccess?: any
 };
 
-const mapState = (state: RootState) => {
+const NewTopic: FC<IProps> = ({ onSubmitSuccess }): ReactElement => {
 
-  return {
-    sections: state.sections,
-    newTopic: state.newTopic
-  }
-}
-
-const connector = connect(mapState);
-const NewTopic: FC<ConnectedProps<typeof connector> & IProps> = ({ sections, newTopic, onSubmitSuccess }): ReactElement => {
+  const sections = useAppSelector(state => state.sections);
+  const newTopic = useAppSelector(state => state.newTopic);
 
   const [currentSection, setSection] = useState(null);
   const [votes, setVotes] = useState(Array(10).fill(""));
@@ -191,4 +184,4 @@ const NewTopic: FC<ConnectedProps<typeof connector> & IProps> = ({ sections, new
   )
 }
 
-export default connector(NewTopic);
+export default NewTopic;

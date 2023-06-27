@@ -1,26 +1,19 @@
-import { FC, ReactElement } from 'react';
-import { connect, ConnectedProps } from 'react-redux'
+import { ReactElement } from 'react';
 
-import { RootState } from 'src/store'
+import { useAppSelector } from 'src/store'
 import Login from 'src/components/login'
 import { Link } from 'react-router-dom';
 
-const mapState = (state: RootState) => {
-  return {
-    info: state.topic.info,
-    login: state.login
-  }  
-}
-const connector = connect(mapState);
+const forums = {
+  '1c': '1С:Предприятие',
+  'life': 'О жизни',
+  'it': 'Информационные технологии',
+  'job': 'Работа'
+};
 
-const Header: FC<ConnectedProps<typeof connector>> =  ({ info, login }): ReactElement => {
+const Header =  (): ReactElement => {
 
-  const forums = {
-    '1c': '1С:Предприятие',
-    'life': 'О жизни',
-    'it': 'Информационные технологии',
-    'job': 'Работа'
-  };
+  const info = useAppSelector(state => state.topic.info);
 
   return (
 
@@ -37,4 +30,4 @@ const Header: FC<ConnectedProps<typeof connector>> =  ({ info, login }): ReactEl
   )
 }
 
-export default connector(Header);
+export default Header;

@@ -1,6 +1,5 @@
-import { FC, ReactElement, useState } from 'react'
+import { ReactElement, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { connect, ConnectedProps } from 'react-redux'
 import { Form, FormControl, Button } from 'react-bootstrap'
 
 import RadioOption from './radio_option'
@@ -9,25 +8,20 @@ import StringOption from './string_option'
 import { formTabs, formParams } from './formscheme'
 import Tab from './tab'
 
-import { RootState, useAppDispatch } from 'src/store'
+import { IOptionsItems, RootState, useAppDispatch, useAppSelector } from 'src/store'
 import { defaultOptionsState, optionsActions } from 'src/store'
 
 import './options.css'
 
-const mapState = (state: RootState) => {
-  return {
-    options: state.options
-  };
-}
-
-const connector = connect(mapState);
-const Options: FC<ConnectedProps<typeof connector>> = (props): ReactElement => {
+const Options = (): ReactElement => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const options = useAppSelector(state => state.options);
+
   const [state, setState] = useState({
-    items: props.options.items
+    items: options.items
   })
 
   const closeForm = () => {
@@ -47,7 +41,7 @@ const Options: FC<ConnectedProps<typeof connector>> = (props): ReactElement => {
     closeForm();
   }
 
-  const onChange = (e: React.FormEvent<HTMLElement>, name: string, value) => {
+  const onChange = (e: React.FormEvent<HTMLElement>, name: string, value: IOptionsItems[keyof IOptionsItems]) => {
 
     let items = Object.assign({}, state.items);
     items[name] = value;
@@ -197,4 +191,4 @@ const Options: FC<ConnectedProps<typeof connector>> = (props): ReactElement => {
   )
 }
 
-export default connector(Options);
+export default Options;

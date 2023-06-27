@@ -1,5 +1,4 @@
 import { FC, ReactElement, useEffect, useState, useCallback } from 'react'
-import { connect, ConnectedProps } from 'react-redux'
 import activeHtml from 'react-active-html';
 
 import Code from 'src/components/extensions/code1c'
@@ -8,7 +7,7 @@ import CustomLink from 'src/components/extensions/custom_link'
 
 import VoteChart from './vote_chart'
 import Vote from './vote'
-import { RootState } from 'src/store';
+import { useAppSelector } from 'src/store';
 import { ITopicMessage } from 'src/store';
 import { fetchTopicInfo } from 'src/api';
 
@@ -54,20 +53,11 @@ const processText = (text: string, topicId: number): string | undefined => {
   return newtext;
 }
 
+const MsgText: FC<IProps> =
+  ({ topicId, n, html, vote, style }): ReactElement => {
 
-const mapState = (state: RootState) => {
-
-  const { info } = state.topic;
-
-  return {
-    info,
-    voteColors: state.options.voteColors,
-    showTooltips: state.options.items['showTooltips']
-  }
-}
-const connector = connect(mapState);
-const MsgText: FC<ConnectedProps<typeof connector> & IProps> =
-  ({ topicId, n, html, vote, info, style, voteColors }): ReactElement => {
+    const info = useAppSelector(state => state.topic.info);
+    const voteColors = useAppSelector(state => state.options.voteColors);
 
     let initialVoteText: string = null;
     if (vote && info.voting && topicId === info.id)
@@ -115,4 +105,4 @@ const MsgText: FC<ConnectedProps<typeof connector> & IProps> =
     )
   }
 
-export default connector(MsgText);
+export default MsgText;
