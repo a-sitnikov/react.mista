@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/react.mista/static/css/main.569f45ec.css",
-    "main.js": "/react.mista/static/js/main.2af971e4.js",
-    "vendors.js": "/react.mista/static/js/vendors.c0a6d78a.js",
+    "main.js": "/react.mista/static/js/main.68c4b5e3.js",
+    "vendors.js": "/react.mista/static/js/vendors.7a6a56bf.js",
     "index.html": "/react.mista/index.html",
     "main.569f45ec.css.map": "/react.mista/static/css/main.569f45ec.css.map",
-    "main.2af971e4.js.map": "/react.mista/static/js/main.2af971e4.js.map",
-    "vendors.c0a6d78a.js.map": "/react.mista/static/js/vendors.c0a6d78a.js.map"
+    "main.68c4b5e3.js.map": "/react.mista/static/js/main.68c4b5e3.js.map",
+    "vendors.7a6a56bf.js.map": "/react.mista/static/js/vendors.7a6a56bf.js.map"
   },
   "entrypoints": [
-    "static/js/vendors.c0a6d78a.js",
+    "static/js/vendors.7a6a56bf.js",
     "static/css/main.569f45ec.css",
-    "static/js/main.2af971e4.js"
+    "static/js/main.68c4b5e3.js"
   ]
 }
