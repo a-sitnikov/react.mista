@@ -130,7 +130,7 @@ const Options = (): ReactElement => {
               name={name}
               checked={String(value) === 'true'}
               disabled={item.disabled}              
-              onChange={(e) => onChange(e, name, e.target.checked)}
+              onChange={(e) => onChange(e, name, String(e.target.checked))}
               style={{ flex: "0 0 auto", margin: "0px", maxWidth: "100%" }}
             />
           );
