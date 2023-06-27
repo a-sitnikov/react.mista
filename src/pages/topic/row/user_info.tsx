@@ -1,4 +1,5 @@
 import { FC, ReactElement, useEffect, useState } from 'react'
+import type { Property } from 'csstype'
 import moment from 'moment'
 import classNames from 'classnames'
 import { domain } from 'src/api'
@@ -18,7 +19,7 @@ const UserInfo: FC<IProps> = (props): ReactElement => {
 
   const actions = useActionCreators(newMessageActions);
 
-  const [imgDisplay, setImgDisplay] = useState('none');
+  const [imgDisplay, setImgDisplay] = useState<Property.Display>('none');
 
   const onClick = () => {
     const { data } = props;
