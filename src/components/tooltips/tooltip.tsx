@@ -14,10 +14,7 @@ import { useAppSelector } from 'src/store';
 import { ITopicMessage, ITooltipItem } from 'src/store';
 
 type IProps = {
-  tooltip: ITooltipItem,
-  info: any,
-  items: any,
-  item0: any
+  tooltip: ITooltipItem
 }
 
 const Tooltip: FC<IProps> = (props): ReactElement | null => {

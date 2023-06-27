@@ -1,4 +1,5 @@
-import { fetchJsonpAndGetJson, urlSections } from '.'
+import { urlSections } from '.'
+import { fetchJsonpAndGetJson } from './api-utils'
 import type { ISectionItem } from 'src/store'
 
 interface IAPIResponse {

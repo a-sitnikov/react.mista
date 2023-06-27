@@ -32,7 +32,7 @@ export interface ITopicsListState {
   lastUpdated?: number
 }
 
-export const initialState: ITopicsListState = {
+const initialState: ITopicsListState = {
   status: "init",
   items: []
 }

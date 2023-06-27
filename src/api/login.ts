@@ -1,4 +1,5 @@
-import { domain, urlLogin, urlLogout, paramsToString } from '.'
+import { domain, urlLogin, urlLogout } from '.'
+import { paramsToString } from './api-utils';
 
 export interface ILoginRequest {
   username: string,

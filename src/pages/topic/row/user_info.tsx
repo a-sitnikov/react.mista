@@ -3,9 +3,9 @@ import moment from 'moment'
 import classNames from 'classnames'
 import { domain } from 'src/api'
 
-import { addMessageText } from 'src/data/newmessage/actions'
-import { useAppDispatch } from 'src/store'
-import { ITopicMessage } from 'src/store'
+import { useActionCreators } from 'src/store'
+import type { ITopicMessage } from 'src/store'
+import { newMessageActions } from 'src/store'
 
 type IProps = {
   data: ITopicMessage,
@@ -16,13 +16,13 @@ type IProps = {
 
 const UserInfo: FC<IProps> = (props): ReactElement => {
 
-  const dispatch = useAppDispatch();
+  const actions = useActionCreators(newMessageActions);
 
   const [imgDisplay, setImgDisplay] = useState('none');
 
   const onClick = () => {
     const { data } = props;
-    dispatch(addMessageText(`(${data.n})`));
+    actions.changeText(`(${data.n})`);
 
     let elem = document.getElementById('message_text');
     if (elem)

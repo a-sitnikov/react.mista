@@ -1,4 +1,5 @@
-import { fetchJsonpAndGetJson, urlCookies } from '.'
+import { urlCookies } from '.'
+import { fetchJsonpAndGetJson } from './api-utils';
 import { ILogin } from 'src/store';
 
 type IAPIResponse = {

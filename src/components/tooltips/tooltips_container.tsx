@@ -22,8 +22,7 @@ const TooltipsContainer = (): ReactElement => {
     <div ref={ref}>
       {items.map((item) => {
         return (
-          <Tooltip key={item.hash} tooltip={item}>
-          </Tooltip>
+          <Tooltip key={item.hash} tooltip={item} />
         )
       }
       )}

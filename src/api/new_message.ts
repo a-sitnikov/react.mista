@@ -1,4 +1,5 @@
-import { domain, paramsToString, urlNewMessage } from ".";
+import { domain, urlNewMessage } from ".";
+import { paramsToString } from './api-utils';
 
 // New message
 export interface INewMessageRequest {

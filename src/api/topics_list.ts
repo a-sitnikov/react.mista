@@ -1,4 +1,5 @@
-import { fetchAndGetJson, urlTopicsList } from '.'
+import { urlTopicsList } from '.'
+import { fetchAndGetJson } from './api-utils'
 
 import type { ITopicsList, ITopicsListItem } from 'src/store'
 

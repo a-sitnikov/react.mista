@@ -2,10 +2,10 @@ import { FC, ReactElement, useState, useCallback } from 'react'
 import { FormGroup, Form } from 'react-bootstrap'
 
 import TextEditor from 'src/components/common/text_editor'
-import { newMessageText, postNewMessage } from 'src/data/newmessage/actions'
-import { useAppDispatch, useAppSelector } from 'src/store'
+import { useActionCreators, useAppDispatch, useAppSelector } from 'src/store'
+import { newMessageActions, postNewMessage } from 'src/store'
 
-import { PostNewmessageParams } from 'src/data/newmessage/actions'
+import type { PostNewmessageParams } from 'src/store'
 
 type IProps = {
   onSubmitSuccess?: () => void
@@ -15,6 +15,7 @@ const NewMessage: FC<IProps> = ({ onSubmitSuccess }): ReactElement => {
 
   const [voting, setVoting] = useState<number | undefined>();
   const dispatch = useAppDispatch();
+  const actions = useActionCreators(newMessageActions);
 
   const info = useAppSelector(state => state.topic.info);
   const newMessage = useAppSelector(state => state.newMessage);
@@ -40,8 +41,7 @@ const NewMessage: FC<IProps> = ({ onSubmitSuccess }): ReactElement => {
 
   const afterSubmit = () => {
 
-    dispatch(newMessageText(''));
-
+    actions.changeText('');
     setVoting(undefined);
 
     if (onSubmitSuccess) {
@@ -107,7 +107,7 @@ const NewMessage: FC<IProps> = ({ onSubmitSuccess }): ReactElement => {
       <div className="new-message-container">
         <div className="new-message-text">
           <TextEditor
-            isFetching={newMessage.isFetching}
+            isFetching={newMessage.status === "loading"}
             text={newMessage.text}
             placeholder="Сообщение"
             onChange={onTextChange}

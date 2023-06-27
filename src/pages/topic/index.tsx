@@ -2,7 +2,7 @@ import { ReactElement, useCallback, useEffect, useRef } from 'react'
 
 import { useLocation } from "react-router-dom";
 import { topicActions, getTopicIfNeeded, getNewMessagesIfNeeded, useAppSelector } from 'src/store'
-import { newMessageText } from 'src/data/newmessage/actions'
+import { newMessageActions } from 'src/store'
 
 import Error from 'src/components/common/error'
 import Pages from 'src/components/common/pages'
@@ -52,7 +52,7 @@ const Topic = (): ReactElement => {
 
   const onPostNewMessageSuccess = () => {
     updateNewMessages();
-    dispatch(newMessageText(''));
+    dispatch(newMessageActions.changeText(''));
   }
 
   useEffect(() => {

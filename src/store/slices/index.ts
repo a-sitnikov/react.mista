@@ -5,3 +5,4 @@ export * from "./sections";
 export * from "./tooltips";
 export * from "./topic";
 export * from "./topics_list";
+export * from "./new_message";

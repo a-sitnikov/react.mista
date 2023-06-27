@@ -1,4 +1,5 @@
-import { fetchAndGetJson, urlTopicInfo } from '.'
+import { urlTopicInfo } from '.'
+import { fetchAndGetJson } from './api-utils';
 import type { ITopicInfo } from 'src/store'
 
 interface IAPIResponse {

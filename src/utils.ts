@@ -1,10 +1,5 @@
 import moment from "moment";
 
-export function today(td: Date): boolean {
-  var d = new Date();
-  return td.getDate() === d.getDate() && td.getMonth() === d.getMonth() && td.getFullYear() === d.getFullYear();
-}
-
 export const groupBy = <T, K extends keyof any>(list: T[], getKey: (item: T) => K) =>
   list.reduce((previous, currentItem) => {
     const group = getKey(currentItem);
@@ -74,15 +69,17 @@ export const extractTextFromHTML = (htmltext: string): string => {
   return (floatingElement.firstChild as HTMLElement).innerText;
 }
 
+export function isToday(td: Date | number): boolean {
+  return moment(td).isSame(new Date(), 'day');
+}
 
 export const formattedTime = (time: number): string => {
   
   if (time === 2147483648000) return '';
   
-  let date = new Date(time);
-  if (today(date)) {
-    return moment(date).format('HH:MM')
+  if (isToday(time)) {
+    return moment(time).format('HH:mm')
   } else {
-    return moment(date).format('dd.mm.yy')
+    return moment(time).format('DD.MM.YY')
   }  
 }
