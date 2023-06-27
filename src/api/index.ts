@@ -17,12 +17,12 @@ export const urlSearch: string = localStorage.getItem('urlSearch') || 'ajax_find
 
 export * from './cookies'
 export * from './login'
-export * from './newmessage'
+export * from './new_message'
 export * from './newtopic'
 export * from './sections'
-export * from './topicinfo'
-export * from './topicMessages'
-export * from './topicslist'
+export * from './topic_info'
+export * from './topic_messages'
+export * from './topics_list'
 
 //Bookmark
 export type RequestBookmark = {
