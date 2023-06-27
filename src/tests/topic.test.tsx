@@ -1,8 +1,8 @@
 import { waitFor } from '@testing-library/react'
 import { renderWithProviders } from './test-utils'
 
-import * as APITopicInfo from 'src/api/topicinfo'
-import * as APITopicMessages from 'src/api/topicMessages'
+import * as APITopicInfo from 'src/api/topic_info'
+import * as APITopicMessages from 'src/api/topic_messages'
 
 import Topic from 'src/pages/topic'
 import { ITopicMessage } from 'src/store'
