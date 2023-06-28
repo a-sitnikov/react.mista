@@ -62,6 +62,7 @@ const TextEditor: FC<IProps> = ({ placeholder, showVoting, isVoting, isFetching,
     <div>
       <FormControl
         as="textarea"
+        aria-label="Сообщение"
         placeholder={placeholder}
         cols={70} rows={3}
         value={text}

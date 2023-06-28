@@ -57,6 +57,7 @@ const Sections: FC<IProps> = (props): ReactElement => {
 
   return (
     <Form.Select
+      aria-label="Секция"
       onChange={onSelect}
       value={selected}
       style={style}

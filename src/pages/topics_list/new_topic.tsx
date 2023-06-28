@@ -158,12 +158,13 @@ const NewTopic: FC<IProps> = ({ onSubmitSuccess }): ReactElement => {
         </div>
         <Form.Control
           type="text"
+          aria-label="Тема"
+          placeholder="Тема"
           size="sm"
           value={newTopic.subject}
           onChange={onSubjectChange}
           style={{ marginBottom: "3px" }}
           className='input'
-          placeholder="Тема"
           maxLength={90}
         />
         <TextEditor

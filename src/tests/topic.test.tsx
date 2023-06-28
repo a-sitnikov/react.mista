@@ -45,7 +45,7 @@ const topicMessages: ITopicMessage[] = [
   },
 ]
 
-describe('Topic.Actions', () => {
+describe('Topic', () => {
 
   it('render', async () => {
 

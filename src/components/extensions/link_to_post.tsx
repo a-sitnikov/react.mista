@@ -75,7 +75,6 @@ const LinkToPost: FC<IProps> = (props): ReactElement => {
 
   }
 
-  console.log(1, props.topicId, currentTopicId, text);
   if ((props.topicId === currentTopicId) || !isNaN(+text))
     return (
       <span
