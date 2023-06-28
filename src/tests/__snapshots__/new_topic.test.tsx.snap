@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewTopic render 1`] = `
+<div>
+  <form
+    class="new-topic-container"
+  >
+    <div
+      class="new-topic-text"
+      id="newtopic_form"
+    >
+      <div>
+        <b>
+          Новая тема:
+        </b>
+      </div>
+      <div
+        class="flex-row"
+        style="margin-bottom: 3px;"
+      >
+        <select
+          class="input form-select form-select-sm"
+          disabled=""
+          style="flex: 0 1 90px;"
+        >
+          <option
+            value="1c"
+          >
+            1C
+          </option>
+          <option
+            value="it"
+          >
+            IT
+          </option>
+        </select>
+        <select
+          aria-label="Секция"
+          class="input form-select form-select-sm"
+          id="target_section"
+          style="flex: 1 1 auto;"
+        >
+          <option
+            value=""
+          >
+            Секция
+          </option>
+          <optgroup
+            label="1C"
+          >
+            <option
+              value="v7"
+            >
+              1С:Предприятие 7.7 и ранее
+            </option>
+            <option
+              value="v8"
+            >
+              1С:Предприятие 8 общая
+            </option>
+          </optgroup>
+          <optgroup
+            label="IT"
+          >
+            <option
+              value="admin"
+            >
+              Администрирование
+            </option>
+            <option
+              value="mobile"
+            >
+              Мобильный мир
+            </option>
+          </optgroup>
+        </select>
+      </div>
+      <input
+        aria-label="ttt"
+        class="input form-control form-control-sm"
+        maxlength="90"
+        placeholder="Тема"
+        style="margin-bottom: 3px;"
+        type="text"
+        value=""
+      />
+      <div>
+        <textarea
+          aria-label="Сообщение"
+          class="text-editor input form-control"
+          cols="70"
+          data-lpignore="true"
+          placeholder="Сообщение"
+          rows="3"
+        />
+        <div
+          class="flex-row"
+        >
+          <div
+            class="btn-group"
+            role="group"
+          >
+            <button
+              class="button btn btn-light btn-sm"
+              style="margin-right: 5px;"
+              type="button"
+            >
+              Код 1С
+            </button>
+            <button
+              class="button btn btn-light btn-sm"
+              type="submit"
+            >
+              Отправить
+            </button>
+          </div>
+          <div
+            class="form-check"
+            style="margin: auto 0px auto auto;"
+          >
+            <input
+              class="form-check-input"
+              id="show_voting"
+              type="checkbox"
+            />
+            <label
+              class="form-check-label"
+              for="show_voting"
+              title=""
+            >
+              Голосование
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="new-topic-voting"
+    />
+  </form>
+</div>
+`;

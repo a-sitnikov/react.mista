@@ -38,7 +38,7 @@ export interface ITopicMessage {
 
 export interface ITopicMessagesList extends Array<ITopicMessage> {}
 
-export interface ITopicState {
+export interface TopicState {
   status?: "init" | "loading" | "success" | "error",
   items: ITopicMessagesList,
   item0?: ITopicMessage,
@@ -53,7 +53,7 @@ export const defaultInfo: ITopicInfo = {
   count: -1
 }
 
-const initialState: ITopicState = {
+const initialState: TopicState = {
   status: "init",
   items: [],
   info: defaultInfo

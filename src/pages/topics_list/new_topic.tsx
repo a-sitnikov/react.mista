@@ -122,6 +122,7 @@ const NewTopic: FC<IProps> = ({ onSubmitSuccess }): ReactElement => {
           </InputGroup.Text>
           <Form.Control
             type="text"
+            aria-label={`Вариант ${i}`}
             maxLength={50}
             className='input'
             value={votes[i - 1]}

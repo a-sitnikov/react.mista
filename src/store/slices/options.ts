@@ -15,13 +15,13 @@ export interface IOptionsItems {
   fixBrokenLinks: string
 }
 
-export interface IOptionsState {
+export interface OptionsState {
   voteColors: Array<string>,
   items: IOptionsItems,
   show?: boolean
 };
 
-export const defaultOptionsState: IOptionsState = {
+export const defaultOptionsState: OptionsState = {
   voteColors: [
     "#FF1616", //1
     "#1A861A", //2
@@ -56,9 +56,9 @@ const readOption = (name: string, defaultValue: string): string => {
   return window.localStorage.getItem(name) || defaultValue;
 }
 
-const readAllOptions = (): IOptionsState => {
+const readAllOptions = (): OptionsState => {
   
-  let state: IOptionsState = defaultOptionsState;
+  let state: OptionsState = defaultOptionsState;
   for (let key in state.items) {
     state.items[key] = readOption(key, state.items[key]);
   }

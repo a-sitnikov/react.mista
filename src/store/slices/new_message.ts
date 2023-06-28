@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { INewMessageRequest, fetchNewMessage } from 'src/api';
 
-export type INewMessageState = {
+export type NewMessageState = {
   status: "init" | "loading" | "success" | "error",
   text: string,
   error?: string
 };
 
-const initialState: INewMessageState = {
+const initialState: NewMessageState = {
   status: "init",
   text: ''
 }

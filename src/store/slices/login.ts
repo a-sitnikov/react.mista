@@ -12,7 +12,7 @@ export interface ILogin {
   lastError?: string,
 }
 
-export interface ILoginState {
+export interface LoginState {
   status: "init" | "loading" | "success" | "error",
   logged: boolean,
   userId?: number,
@@ -24,7 +24,7 @@ export interface ILoginState {
   isFetching?: boolean,
 }
 
-const initialState: ILoginState = {
+const initialState: LoginState = {
   status: "init",
   logged: false
 }

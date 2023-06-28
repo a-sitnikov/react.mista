@@ -20,15 +20,15 @@ export interface ITooltipItem {
 
 export interface ITooltipsList extends Array<ITooltipItem> {}
 
-export interface ITooltipsState {
+export interface TooltipsState {
   items: ITooltipsList,
 }
 
-const initialState: ITooltipsState = {
+const initialState: TooltipsState = {
   items: []
 }
 
-const show = (state: ITooltipsState, { payload }: PayloadAction<{ keys: ITooltipKeys; coords: ICoords}>) => {
+const show = (state: TooltipsState, { payload }: PayloadAction<{ keys: ITooltipKeys; coords: ICoords}>) => {
   const hash = JSON.stringify(payload.keys);
   const index = state.items.findIndex(item => item.hash === hash);
   let zIndex = 0;

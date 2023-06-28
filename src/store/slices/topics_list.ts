@@ -25,14 +25,14 @@ export interface ITopicsListItem {
 
 export interface ITopicsList extends Array<ITopicsListItem> { }
 
-export interface ITopicsListState {
+export interface TopicsListState {
   status: "init" | "loading" | "success" | "error",
   items: ITopicsList,
   error?: string,
   lastUpdated?: number
 }
 
-const initialState: ITopicsListState = {
+const initialState: TopicsListState = {
   status: "init",
   items: []
 }

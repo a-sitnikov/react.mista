@@ -16,7 +16,7 @@ export interface ISectionsTree{
   [key: string]: ISectionItem[]
 }
 
-export interface ISectionsListState {
+export interface SectionsState {
   status: "init" | "loading" | "success" | "error";
   items: ISectionItem[],
   tree?: ISectionsTree,
@@ -24,7 +24,7 @@ export interface ISectionsListState {
   lastUpdated?: number
 }
 
-const initialState: ISectionsListState = {
+const initialState: SectionsState = {
   status: "init",
   items: [],
   tree: {}
