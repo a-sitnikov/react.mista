@@ -35,6 +35,10 @@ const TopicsList = (): ReactElement => {
   }, []);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  useEffect(() => {
     const locationParams = queryString.parse(location.search);
     updateTopicsList(locationParams);
   }, [location.search, updateTopicsList]);
