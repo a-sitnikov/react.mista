@@ -1,4 +1,4 @@
-import { FC, ReactElement, useEffect, useState, useCallback } from 'react'
+import { FC, ReactElement, useEffect, useState, useCallback, memo } from 'react'
 import activeHtml from 'react-active-html';
 
 import Code from 'src/components/extensions/code1c'
@@ -53,6 +53,23 @@ const processText = (text: string, topicId: number): string | undefined => {
   return newtext;
 }
 
+const ProcessedText: FC<{ html: string, topicId: number }> = memo(({ html, topicId }): ReactElement => {
+
+  let processedHtml = processText(html, topicId);
+  const componentsMap = {
+    link: (props: any) => <LinkToPost topicId={props['data-topicid']} number={props['data-number']} key={props.key} />,
+    code: (props: any) => <Code {...props} />,
+    a: (props: any) => <CustomLink {...props} parentText={processedHtml} />
+  };
+  const textComponent = activeHtml(processedHtml, componentsMap);
+
+  return (
+      <>
+        {textComponent}
+      </>  
+  )
+})
+
 const MsgText: FC<IProps> =
   ({ topicId, n, html, vote, style }): ReactElement => {
 
@@ -86,19 +103,11 @@ const MsgText: FC<IProps> =
       voteChart = <VoteChart items={info.voting} topicId={topicId} colors={voteColors} />
     }
 
-    let processedHtml = processText(html, topicId);
-    const componentsMap = {
-      link: (props: any) => <LinkToPost topicId={props['data-topicid']} number={props['data-number']} key={props.key} />,
-      code: (props: any) => <Code {...props} />,
-      a: (props: any) => <CustomLink {...props} parentText={processedHtml} />
-    };
-    const textComponent = activeHtml(processedHtml, componentsMap);
-
     return (
       <div className="message" style={style}>
         {voteChart}
         <div>
-          {textComponent}
+          <ProcessedText html={html} topicId={topicId} />
         </div>
         {showVote && <Vote text={voteText} n={vote} colors={voteColors} />}
       </div>
