@@ -1,4 +1,4 @@
-import { FC, ReactElement, memo } from 'react'
+import { FC, ReactElement } from 'react'
 import CSS from 'csstype'
 
 import { domain } from 'src/api'
