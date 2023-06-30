@@ -13,9 +13,9 @@ const VoteChart: FC<IProps> = ({ items, topicId, colors }): ReactElement => {
   let total = Math.max(...items.map(item => item.count));
 
   return (
-    <div style={{ marginBottom: "10px" }}>
+    <ul style={{ paddingLeft: 0 }}>
       {items.filter(item => item.text).map((data, i) => <VoteItem key={i} data={data} total={total} n={i + 1} topicId={topicId} colors={colors} />)}
-    </div>
+    </ul>
   )
 }
 
