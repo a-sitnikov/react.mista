@@ -13,7 +13,7 @@ type IProps = {
   n: number
 }
 
-const VoteItem: FC<IProps> = memo(({ topicId, data, total, n, colors }): ReactElement => {
+const VoteItem: FC<IProps> = ({ topicId, data, total, n, colors }): ReactElement => {
 
   const img = `${domain}/css/voting${n}.png`;
 
@@ -48,6 +48,6 @@ const VoteItem: FC<IProps> = memo(({ topicId, data, total, n, colors }): ReactEl
       </div>
     </li>
   )
-})
+}
 
 export default VoteItem;
