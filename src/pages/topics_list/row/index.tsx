@@ -1,4 +1,4 @@
-import { FC, ReactElement, useCallback, useEffect, useState } from 'react'
+import { FC, ReactElement, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import TopicNameCell from './topic_name_cell';
@@ -19,24 +19,28 @@ const Row: FC<IProps> = ({ topicId, updated, ...data }): ReactElement => {
   const actions = useActionCreators(topicsListActions);
 
   const [time, setTime] = useState(updated);
-  const updateTime = useCallback(async () => {
-    const msg = await fetchTopicMessage(topicId, data.count);
-    setTime(msg.time);
-  }, [topicId, data.count])
-  
+
   useEffect(() => {
-    if (data.pinned)
-      updateTime();
-  }, [data.pinned, updateTime])
-  
+
+    if (!data.pinned) return;
+
+    const updateTime = async () => {
+      const msg = await fetchTopicMessage(topicId, data.count);
+      setTime(msg.time);
+    }
+
+    updateTime();
+
+  }, [data.pinned, topicId, data.count])
+
   useEffect(() => {
     setTime(updated);
   }, [updated])
 
-  const countOnClick = useCallback(() => {
-    actions.togglePreview({topicId, msgNumber: data.count});
-  }, [actions, topicId, data.count]);
-  
+  const countOnClick = () => {
+    actions.togglePreview({ topicId, msgNumber: data.count });
+  }
+
   return (
     <div className="topics-list-row">
       <div className="cell-forum">
@@ -46,13 +50,13 @@ const Row: FC<IProps> = ({ topicId, updated, ...data }): ReactElement => {
         {data.section}
       </div>
       <div className="cell-answ" onClick={countOnClick}>
-        <i className="fa fa-comments-o" aria-hidden="true" style={{marginRight: "3px"}}></i>
+        <i className="fa fa-comments-o" aria-hidden="true" style={{ marginRight: "3px" }}></i>
         <span>{data.count}</span>
       </div>
       <PreviewLink topicId={data.id} expanded={data.showPreview} />
-      <TopicNameCell {...data}/>
+      <TopicNameCell {...data} />
       <div className="cell-author">
-        <i aria-hidden="true" className="fa fa-user-circle" style={{marginRight: "3px"}}></i>
+        <i aria-hidden="true" className="fa fa-user-circle" style={{ marginRight: "3px" }}></i>
         {data.author}
       </div>
       <div className="cell-lastuser">

@@ -1,4 +1,4 @@
-import { FC, ReactElement, useCallback, useEffect, useState } from 'react';
+import { FC, ReactElement, useEffect, useState } from 'react';
 
 import { fetchTopicMessage } from 'src/api';
 
@@ -40,30 +40,32 @@ const Tooltip: FC<IProps> = (props): ReactElement | null => {
     text
   })
 
-  const fetchData = useCallback(async () => {
-
-    if (state.data) return;
-
-    let data: ITopicMessage;
-    let text = '';
-
-    try {
-      data = await fetchTopicMessage(keys.topicId, keys.number);
-      if (data)
-        text = data.text;
-      else
-        text = `Сообщение не найдено ${keys.number}`;
-
-    } catch (e) {
-      text = (e as Error).message;
-    }
-
-    setState({ data, text });
-  }, [keys.topicId, keys.number, state.data])
-
   useEffect(() => {
-      fetchData();
-  }, [fetchData])
+    
+    const fetchData = async () => {
+
+      if (state.data) return;
+  
+      let data: ITopicMessage;
+      let text = '';
+  
+      try {
+        data = await fetchTopicMessage(keys.topicId, keys.number);
+        if (data)
+          text = data.text;
+        else
+          text = `Сообщение не найдено ${keys.number}`;
+  
+      } catch (e) {
+        text = (e as Error).message;
+      }
+  
+      setState({ data, text });
+    }
+    
+    fetchData();
+
+  }, [keys.topicId, keys.number, state.data])
 
   if (!state.text)
     return null;

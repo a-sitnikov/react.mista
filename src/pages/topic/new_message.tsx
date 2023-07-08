@@ -3,7 +3,7 @@ import { FormGroup, Form } from 'react-bootstrap'
 
 import TextEditor from 'src/components/common/text_editor'
 import { useActionCreators, useAppDispatch, useAppSelector } from 'src/store'
-import { newMessageActions, postNewMessage } from 'src/store'
+import { newMessageActions, postNewMessage, newTopicActions } from 'src/store'
 
 import type { PostNewmessageParams } from 'src/store'
 
@@ -61,8 +61,8 @@ const NewMessage: FC<IProps> = ({ onSubmitSuccess }): ReactElement => {
   }
 
   const onTextChange = useCallback((text: string) => {
-    //dispatch(newTopicActions.changeText(text));
-  }, []);
+    dispatch(newTopicActions.changeText(text));
+  }, [dispatch]);
 
   let votingElem: ReactElement;
   if (info?.isVoting && info?.voting) {
