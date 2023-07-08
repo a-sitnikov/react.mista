@@ -1,4 +1,4 @@
-import { FC, ReactElement, useEffect, useState, useCallback, memo } from 'react'
+import { FC, ReactElement, useEffect, useState, memo } from 'react'
 import activeHtml from 'react-active-html';
 
 import Code from 'src/components/extensions/code1c'
@@ -82,20 +82,22 @@ const MsgText: FC<IProps> =
 
     const [voteText, setVoteText] = useState(initialVoteText);
 
-    const getVoteText = useCallback(async () => {
-      try {
-        const _info = await fetchTopicInfo(topicId);
-        setVoteText(_info.voting[vote - 1].text);
-      } catch (e) {
-        console.error(e.message);
-      }
-    }, [topicId, vote]);
-
     useEffect(() => {
+
+      const getVoteText = async () => {
+        try {
+          const _info = await fetchTopicInfo(topicId);
+          setVoteText(_info.voting[vote - 1].text);
+        } catch (e) {
+          console.error(e.message);
+        }
+      }
+      
       if (vote && !initialVoteText) {
         getVoteText();
-      } 
-    }, [vote, getVoteText, initialVoteText]);
+      }
+
+    }, [vote, initialVoteText, topicId]);
 
     const showVote = (vote !== 0) && (voteText !== null);
     let voteChart: ReactElement;
