@@ -29,14 +29,22 @@ const LinkToPost: FC<IProps> = (props): ReactElement => {
 
   useEffect(() => {
 
-    if (!initialText.startsWith("http")) return;
+    let isMounted = true;
+
+    if (!initialText.startsWith("http")) {
+      setText(initialText);
+      return;
+    }  
 
     const run = async () => {
-      const topicInfo = await fetchTopicInfo(props.topicId);
-      setText(topicInfo.title)
+      const { title } = await fetchTopicInfo(props.topicId);
+      if (isMounted)
+        setText(title);
     }
 
     run();
+
+    return () => { isMounted = false };
 
   }, [initialText, props.topicId]);
 
