@@ -43,7 +43,7 @@ const TopicsList = (): ReactElement => {
     updateTopicsList(locationParams);
   }, [location.search, updateTopicsList]);
 
-  let rows = [];
+  let rows = new Array(items.length);
   for (let item of items) {
 
     rows.push(
