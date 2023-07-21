@@ -1,5 +1,5 @@
 import { FC, ReactElement, useEffect, useState, memo } from 'react'
-import activeHtml from 'react-active-html';
+import HtmlToReact from 'html-to-react';
 
 import Code from 'src/components/extensions/code1c'
 import LinkToPost from 'src/components/extensions/link_to_post'
@@ -31,15 +31,14 @@ const processLinksToPosts = (text: string, topicId: number): string => {
 
 const processCode1C = (text: string): string => {
 
-  const regexp = /(\[1[CС]\])((.|\n|\r)*?)(\[\/1[CС]\])/gi; // [1C] text [/1C]
-  return text.replace(regexp, (res, ...segments) => {
-    let txt = segments[1];
+  return (
+    text
+      .replace(/\[1[CС]\]/gi, "<code>")    //[1C]
+      .replace(/<1[CС]>/gi, "<code>")      //<1C>
+      .replace(/\[\/1[CС]\]/gi, "</code>") //[/1C]
+      .replace(/<\/1[CС]>/gi, "</code>")   //</1C>     
+  );
 
-    //remove first <br>
-    if (txt.substr(0, 4) === "<br>")
-      txt = txt.substr(4);
-    return `<code>${txt}</code>`
-  });
 }
 
 const processText = (text: string, topicId: number): string | undefined => {
@@ -53,19 +52,59 @@ const processText = (text: string, topicId: number): string | undefined => {
   return newtext;
 }
 
+const htmlToReactParser = HtmlToReact.Parser();
+const processNodeDefinitions = HtmlToReact.ProcessNodeDefinitions();
+const isValidNode = () => true;
+
+const linkProcessor = {
+  shouldProcessNode: (node: any) => {
+    return node?.name === 'link';
+  },
+  processNode: (node: any, children: any, index: number) => {
+    const topicId = node.attribs['data-topicid'];
+    const number = node.attribs['data-number'];
+    return <LinkToPost key={index} topicId={topicId} number={number} />;
+  }
+}
+
+const codeProcessor = {
+  shouldProcessNode: (node: any) => {
+    return node?.name === 'code';
+  },
+  processNode: (node: any, children: any) => {
+    return <Code>{children}</Code>;
+  }
+}
+
 const ProcessedText: FC<{ html: string, topicId: number }> = memo(({ html, topicId }): ReactElement => {
 
-  let processedHtml = processText(html, topicId);
-  const componentsMap = {
-    link: (props: any) => <LinkToPost topicId={props['data-topicid']} number={props['data-number']} key={props.key} />,
-    code: (props: any) => <Code {...props} />,
-    a: (props: any) => <CustomLink {...props} parentText={processedHtml} />
-  };
-  const textComponent = activeHtml(processedHtml, componentsMap);
+  const processedHtml = processText(html, topicId);
+  const processingInstructions = [
+    linkProcessor,
+    codeProcessor,  
+    {
+      // <custom link>
+      shouldProcessNode: (node: any) => {
+        return node?.name === 'a';
+      },
+      processNode: function (node: any, children: any, index: number) {
+        const href = node.attribs['href'];
+        return <CustomLink key={index} href={href} parentText={processedHtml}>{children}</CustomLink>;
+      }
+    },   
+    {
+      // Anything else
+      shouldProcessNode: () => true,
+      processNode: processNodeDefinitions.processDefaultNode,
+    }
+  ];
+  
+  const reactComponent = htmlToReactParser.parseWithInstructions(
+    processedHtml, isValidNode, processingInstructions);
 
   return (
       <>
-        {textComponent}
+        {reactComponent}
       </>  
   )
 })

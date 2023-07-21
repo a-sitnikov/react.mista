@@ -8,7 +8,7 @@ import StringOption from './string_option'
 import { formTabs, formParams } from './formscheme'
 import Tab from './tab'
 
-import { IOptionsItems, RootState, useAppDispatch, useAppSelector } from 'src/store'
+import { IOptionsItems, useAppDispatch, useAppSelector } from 'src/store'
 import { defaultOptionsState, optionsActions } from 'src/store'
 
 import './options.css'
