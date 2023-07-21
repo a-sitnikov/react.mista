@@ -22,9 +22,9 @@ const LinkToPost: FC<IProps> = (props): ReactElement => {
   let initialText = '';
   if (!props.children)
     initialText = String(props.number);
-  else  
+  else
     initialText = childrenToText(props.children).join('');
-
+  
   const [text, setText] = useState(initialText);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const LinkToPost: FC<IProps> = (props): ReactElement => {
     if (!initialText.startsWith("http")) {
       setText(initialText);
       return;
-    }  
+    }
 
     const run = async () => {
       const { title } = await fetchTopicInfo(props.topicId);
@@ -99,9 +99,8 @@ const LinkToPost: FC<IProps> = (props): ReactElement => {
     let pageParam = '';
     if (page > 1)
       pageParam = `&page=${page}`;
-      
-      console.log(2, props.topicId, currentTopicId, text);
-      return (
+
+    return (
       <span>
         <a href={`#/topic.php?id=${props.topicId}${pageParam}#${props.number}`}
           style={{ ...props.style }}
@@ -113,7 +112,7 @@ const LinkToPost: FC<IProps> = (props): ReactElement => {
         >{props.number}</span>)
       </span>
     )
-  }  
+  }
 }
 
 export default LinkToPost;
