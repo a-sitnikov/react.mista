@@ -1,4 +1,4 @@
-import { FC, ReactElement, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { fetchTopicMessage } from 'src/api';
 
@@ -17,7 +17,7 @@ type IProps = {
   tooltip: ITooltipItem
 }
 
-const Tooltip: FC<IProps> = (props): ReactElement | null => {
+const Tooltip: FC<IProps> = (props): React.ReactElement | null => {
 
   const { info, items, item0 } = useAppSelector(state => state.topic);
   const { tooltip } = props;
@@ -70,7 +70,7 @@ const Tooltip: FC<IProps> = (props): ReactElement | null => {
   if (!state.text)
     return null;
 
-  let header: ReactElement;
+  let header: React.ReactElement;
   if (!state.data) {
     header = <b>Заголовок</b>
   } else {

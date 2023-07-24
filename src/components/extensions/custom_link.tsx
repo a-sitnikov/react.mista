@@ -13,7 +13,8 @@ type IProps = {
   parentText?: string,
   target?: string,
   class?: string,
-  rel?: string
+  rel?: string,
+  children?: React.ReactNode
 }
 
 const fixBrokenLink = (href: string, parentText: string): string => {

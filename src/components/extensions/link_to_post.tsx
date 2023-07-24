@@ -8,7 +8,8 @@ import { ITooltipKeys, tooltipsActions } from 'src/store';
 type IProps = {
   topicId: number,
   number: number,
-  style?: {}
+  style?: {},
+  children?: React.ReactNode
 }
 
 const LinkToPost: FC<IProps> = (props): ReactElement => {

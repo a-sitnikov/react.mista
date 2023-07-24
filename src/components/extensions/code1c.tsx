@@ -25,7 +25,7 @@ const prepareText = (text: string): string => {
   return highlight(newtext);
 }
 
-const Code: FC = ({ children }): ReactElement => {
+const Code: FC<{ children?: React.ReactNode }> = ({ children }): ReactElement => {
 
   const [hidden, setHidden] = useState(true);
 

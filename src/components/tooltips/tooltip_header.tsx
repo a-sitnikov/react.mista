@@ -1,7 +1,8 @@
 import { FC, ReactElement } from 'react'
 
 type IProps = {
-  closeWindow?: (e: any) => any
+  closeWindow?: (e: any) => void,
+  children?: React.ReactNode
 }
 
 const TooltipHeader: FC<IProps> = ({ children, closeWindow }): ReactElement => {

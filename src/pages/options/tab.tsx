@@ -1,7 +1,8 @@
 import { FC, ReactElement } from "react";
 
 type IProps = {
-  name: string
+  name: string,
+  children?: React.ReactNode
 }
 
 const Tab: FC<IProps> = ({ name, children }): ReactElement => {

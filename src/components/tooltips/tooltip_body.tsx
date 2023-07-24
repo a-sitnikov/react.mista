@@ -1,7 +1,8 @@
 import { FC, ReactElement } from 'react'
 
 type IProps = {
-  onScroll?: (e: any) => any
+  onScroll?: (delta: number) => void,
+  children?: React.ReactNode
 }
 
 const TooltipBody: FC<IProps> = ({ children, onScroll }): ReactElement => {

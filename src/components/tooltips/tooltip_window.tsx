@@ -13,6 +13,7 @@ import { ITooltipItem, tooltipsActions } from 'src/store';
 type IProps = {
   tooltip: ITooltipItem,
   zIndex?: number,
+  children?: React.ReactNode
 }
 
 const TooltipWindow: FC<IProps> = ({ tooltip, zIndex, children }): ReactElement => {

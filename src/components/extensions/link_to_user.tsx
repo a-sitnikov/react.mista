@@ -1,7 +1,8 @@
 import { FC, ReactElement } from 'react'
 
 type IProps = {
-  href: string
+  href: string,
+  children?: React.ReactNode
 }
 
 const LinkToUser: FC<IProps> = ({ href, children }): ReactElement => {
