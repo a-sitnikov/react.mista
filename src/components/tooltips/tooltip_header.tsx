@@ -1,7 +1,7 @@
 import { FC, ReactElement } from 'react'
 
 type IProps = {
-  closeWindow?: (e: any) => void,
+  closeWindow?: (e: React.SyntheticEvent<HTMLDivElement>) => void,
   children?: React.ReactNode
 }
 

@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react'
+import { useState } from 'react'
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
 import Dropdown from 'react-bootstrap/Dropdown'
@@ -6,12 +6,12 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import './search.css'
 
-const Search = (): ReactElement => {
+const Search = (): React.ReactElement => {
 
   const [searchEngine, setSearchEngine] = useState('Яндекс');
   const [text, setText] = useState('');
 
-  const onKeyPress = (e: any) => {
+  const onKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       doSearch();
     }
@@ -20,11 +20,14 @@ const Search = (): ReactElement => {
   const doSearch = () => {
 
     let url: string;
-    if (searchEngine === 'Яндекс') 
-      url = `https://www.yandex.ru/search/?text=${text}&site=forum.mista.ru`;
-
-    else if (searchEngine === 'Google') 
-      url = `https://www.google.ru/search?q=${text}+site:forum.mista.ru`
+    switch (searchEngine) {
+      case 'Яндекс': 
+        url = `https://www.yandex.ru/search/?text=${text}&site=forum.mista.ru`;
+        break;
+      case 'Google': 
+        url = `https://www.google.ru/search?q=${text}+site:forum.mista.ru`;
+        break;
+    }
 
     window.open(url);
     setText('');
@@ -36,8 +39,6 @@ const Search = (): ReactElement => {
         id="search-engine" 
         title="" 
         size="sm" 
-        style={{ marginRight: "2px" }} 
-        className='button' 
         variant="light"
         onSelect={eventKey => setSearchEngine(eventKey)}
         >
@@ -47,13 +48,12 @@ const Search = (): ReactElement => {
       <FormControl
         type="text"
         placeholder={`${searchEngine}: поиск`}
-        style={{ marginRight: "4px", paddingRight: "27px" }}
-        className='input'
-        onKeyPress={onKeyPress}
+        className='search-input input'
+        onKeyUp={onKeyUp}
         onChange={e => setText(e.target.value)}
         value={text}
       />
-      <InputGroup.Text style={{ marginLeft: "-35px", marginTop: "auto", marginBottom: "auto", cursor: "pointer" }} onClick={doSearch}>
+      <InputGroup.Text className="search-button" onClick={doSearch}>
         <i className="fa fa-search input" style={{ zIndex: 1000 }} />
       </InputGroup.Text>
     </InputGroup>

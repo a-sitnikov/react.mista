@@ -6,7 +6,7 @@ type IProps = {
   label: string,
   value: string,
   values: Array<{ name: string, descr: string }>,
-  onChange: any,
+  onChange: (e: React.ChangeEvent<HTMLInputElement>, name: string, value: string) => void,
   oneLine: boolean
 }
 

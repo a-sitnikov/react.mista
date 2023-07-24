@@ -1,16 +1,16 @@
-import { FC, ReactElement } from 'react'
+import { FC } from 'react'
 
 type IProps = {
   name: string,
   label: string,
   value: string,
-  onChange: any,
+  onChange: (e: React.ChangeEvent<HTMLInputElement>, name: string, value: string) => void,
   postfix?: string
 }
 
-const StringOption: FC<IProps> = (props): ReactElement => {
+const StringOption: FC<IProps> = (props): React.ReactElement => {
 
-  const onChange = (e: any) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = props;
     props.onChange(e, name, e.target.value);
   }

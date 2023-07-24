@@ -28,7 +28,7 @@ const NewTopic: FC<IProps> = ({ onSubmitSuccess }): ReactElement => {
   const dispatch = useAppDispatch();
   const actions = useActionCreators(newTopicActions);
 
-  const onSectionChange = (e: any, section: ISectionItem) => {
+  const onSectionChange = (e: React.SyntheticEvent, section: ISectionItem) => {
     setSection(section);
     actions.changeSection(section);
   }

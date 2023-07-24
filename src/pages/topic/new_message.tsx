@@ -1,4 +1,4 @@
-import { FC, ReactElement, useState, useCallback } from 'react'
+import React, { FC, ReactElement, useState, useCallback } from 'react'
 import { FormGroup, Form } from 'react-bootstrap'
 
 import TextEditor from 'src/components/common/text_editor'
@@ -20,7 +20,7 @@ const NewMessage: FC<IProps> = ({ onSubmitSuccess }): ReactElement => {
   const info = useAppSelector(state => state.topic.info);
   const newMessage = useAppSelector(state => state.newMessage);
 
-  const onSubmit = (e: any) => {
+  const onSubmit = (e: React.SyntheticEvent) => {
 
     e.preventDefault();
     e.stopPropagation();

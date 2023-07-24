@@ -57,10 +57,10 @@ const processNodeDefinitions = HtmlToReact.ProcessNodeDefinitions();
 const isValidNode = () => true;
 
 const linkProcessor = {
-  shouldProcessNode: (node: any) => {
+  shouldProcessNode: (node: any): boolean => {
     return node?.name === 'link';
   },
-  processNode: (node: any, children: any, index: number) => {
+  processNode: (node: any, children: any, index: number): React.ReactElement => {
     const topicId = node.attribs['data-topicid'];
     const number = node.attribs['data-number'];
     return <LinkToPost key={index} topicId={topicId} number={number} />;

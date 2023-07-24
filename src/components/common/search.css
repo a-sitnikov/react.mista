@@ -1,23 +1,40 @@
 .select-search-down {
-    display: block;
+  display: block;
 }
 
 .dropdown-menu {
-    right: auto !important;
+  right: auto !important;
+}
+
+.dropdown-button {
+  margin-right: 2px;
+  border-right: 1px solid black;
 }
 
 .select-search-up {
-    display: none;
+  display: none;
+}
+
+.search-input {
+  margin-right: 4px;
+  padding-right: 27px !important;
+}
+
+.search-button {
+  margin-left: -35px !important;
+  margin-top: auto;
+  margin-bottom: auto;
+  cursor: pointer
 }
 
 @media (max-width: 768px) {
 
-    .select-search-down {
-        display: none;
-    }
-    
-    .select-search-up {
-        display: block;
-    }
+  .select-search-down {
+    display: none;
+  }
+
+  .select-search-up {
+    display: block;
+  }
 
 }

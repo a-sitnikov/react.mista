@@ -7,10 +7,10 @@ import './topic_preview.css'
 
 type IProps = {
   topicId: number,
-  onFirst: any,
-  onLast: any,
-  onPrev: any,
-  onNext: any
+  onFirst: () => void,
+  onLast: () => void,
+  onPrev: () => void,
+  onNext: () => void
 }
 
 const PreviewButtons: FC<IProps> = ({ topicId, onFirst, onPrev, onNext, onLast }): ReactElement => {

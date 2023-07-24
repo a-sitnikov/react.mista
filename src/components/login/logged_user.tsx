@@ -28,12 +28,12 @@ const LoggedUser: FC<IProps> = ({ userId, userName }): ReactElement => {
 
   const actions = useActionCreators(loginActions);
 
-  const onLogout = (event: any) => {
+  const onLogout = (event: React.SyntheticEvent) => {
     event.preventDefault();
     actions.doLogout()
   }
 
-  const onMenuSelect = (eventKey: any, event: any): any => {
+  const onMenuSelect = (eventKey: string, event: React.SyntheticEvent): void => {
     if (eventKey === 'exit') {
       onLogout(event);
     }

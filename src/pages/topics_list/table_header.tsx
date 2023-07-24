@@ -1,11 +1,11 @@
-import { FC, ReactElement } from 'react'
+import { FC } from 'react'
 
 type IProps = {
-  onUpdateClick: any,
+  onUpdateClick: (e: React.MouseEvent) => void,
   isLoading: boolean
 }
 
-const TableHeader: FC<IProps> = ({ isLoading, onUpdateClick }): ReactElement => {
+const TableHeader: FC<IProps> = ({ isLoading, onUpdateClick }): React.ReactElement => {
 
   return (
     <div className="th" style={{ position: "sticky", top: "39px" }}>

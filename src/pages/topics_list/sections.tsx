@@ -24,7 +24,7 @@ const Sections: FC<IProps> = (props): ReactElement => {
     dispatch(getSectionsIfNeeded());
   }, [dispatch]);
 
-  const onSelect: (e: React.ChangeEvent<HTMLElement>) => void = (e: any) => {
+  const onSelect = (e: React.ChangeEvent<HTMLSelectElement>): void => {
 
     const { onChange } = props;
 
