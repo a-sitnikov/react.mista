@@ -26,7 +26,7 @@
 * Компоненты: [Bootstrap](https://react-bootstrap.github.io/)
 * Настройка Webpack: [Craco](https://craco.js.org/)
 * Тестирование: Jest / React Testing Library
-* [Storybook](https://storybook.js.org/)
+* Визуальное тестирование: [Storybook](https://storybook.js.org/)
 
 Рабочую версию проекта можно посмотреть на [github.pages](https://a-sitnikov.github.io/react.mista/)<br>
 [Storybook](https://64ca3f44dd931147ddba3ee9-ghjjzmgfpn.chromatic.com/) проекта<br>
