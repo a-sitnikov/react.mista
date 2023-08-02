@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/react.mista/static/css/main.569f45ec.css",
-    "main.js": "/react.mista/static/js/main.51db8e8f.js",
-    "vendors.js": "/react.mista/static/js/vendors.3d6b864e.js",
+    "main.css": "/react.mista/static/css/main.33f3b81f.css",
+    "main.js": "/react.mista/static/js/main.ffe179a4.js",
+    "vendors.js": "/react.mista/static/js/vendors.b4e4bfb9.js",
     "index.html": "/react.mista/index.html",
-    "main.569f45ec.css.map": "/react.mista/static/css/main.569f45ec.css.map",
-    "main.51db8e8f.js.map": "/react.mista/static/js/main.51db8e8f.js.map",
-    "vendors.3d6b864e.js.map": "/react.mista/static/js/vendors.3d6b864e.js.map"
+    "main.33f3b81f.css.map": "/react.mista/static/css/main.33f3b81f.css.map",
+    "main.ffe179a4.js.map": "/react.mista/static/js/main.ffe179a4.js.map",
+    "vendors.b4e4bfb9.js.map": "/react.mista/static/js/vendors.b4e4bfb9.js.map"
   },
   "entrypoints": [
-    "static/js/vendors.3d6b864e.js",
-    "static/css/main.569f45ec.css",
-    "static/js/main.51db8e8f.js"
+    "static/js/vendors.b4e4bfb9.js",
+    "static/css/main.33f3b81f.css",
+    "static/js/main.ffe179a4.js"
   ]
 }
