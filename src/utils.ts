@@ -1,4 +1,4 @@
-import moment from "moment";
+import dayjs from "dayjs";
 
 export const groupBy = <T, K extends keyof any>(list: T[], getKey: (item: T) => K) =>
   list.reduce((previous, currentItem) => {
@@ -70,7 +70,7 @@ export const extractTextFromHTML = (htmltext: string): string => {
 }
 
 export function isToday(td: Date | number): boolean {
-  return moment(td).isSame(new Date(), 'day');
+  return dayjs(td).isSame(new Date(), 'day');
 }
 
 export const formattedTime = (time: number): string => {
@@ -78,8 +78,8 @@ export const formattedTime = (time: number): string => {
   if (time === 2147483648000) return '';
   
   if (isToday(time)) {
-    return moment(time).format('HH:mm')
+    return dayjs(time).format('HH:mm')
   } else {
-    return moment(time).format('DD.MM.YY')
+    return dayjs(time).format('DD.MM.YY')
   }  
 }

@@ -1,6 +1,6 @@
 import { FC, ReactElement, useEffect, useState } from 'react'
 import type { Property } from 'csstype'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import classNames from 'classnames'
 import { domain } from 'src/api'
 
@@ -48,11 +48,11 @@ const UserInfo: FC<IProps> = (props): ReactElement => {
   if (!data) {
     dataStr = '';
   } else if (data.n === 0) {
-    dataStr = moment(data.time).format('DD.MM.YY - HH:MM');
+    dataStr = dayjs(data.time).format('DD.MM.YY - HH:mm');
   } else {
     dataStr = (
       <>
-        <span className="message-number">{data.n}</span>{' - ' + moment(data.time).format('DD.MM.YY - HH:MM')}
+        <span className="message-number">{data.n}</span>{' - ' + dayjs(data.time).format('DD.MM.YY - HH:mm')}
       </>
     )
   }
