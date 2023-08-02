@@ -24,7 +24,7 @@ const Row: FC<IProps> = ({ data }): ReactElement => {
           <UserInfo data={data} isAuthor={data.user === author} isYou={data.user === login.userName} />
         </div>
         <div className="cell-message">
-          <MsgText data={data} html={data.text} topicId={topicId} n={data.n} vote={data.vote} />
+          <MsgText html={data.text} topicId={topicId} n={data.n} vote={data.vote} />
         </div>
       </div>
     )

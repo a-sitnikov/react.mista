@@ -11,7 +11,7 @@
   --pinned-color: purple;
 }
 
-body[theme="dark"] {
+[data-theme="dark"] {
   --border-color: rgb(100, 100, 100);
   --inner-border-color: rgb(100, 100, 100);
   --header-background: black;
@@ -37,15 +37,15 @@ body {
   ;
 }
 
-body[theme='yellow'] {
+body[data-theme='yellow'] {
   background-image: url("https://a-sitnikov.github.io/react.mista/img/fon_forum.gif");
 }
 
-body[theme='lightgray'] {
+body[data-theme='lightgray'] {
   background-image: url("https://a-sitnikov.github.io/react.mista/img/white_carbon.png");
 }
 
-body[theme="dark"] {
+[data-theme="dark"] {
   background-color: black;
   color: white;
 }
@@ -94,17 +94,17 @@ body[theme="dark"] {
   color: #888;
 }
 
-[theme="dark"] .button {
+[data-theme="dark"] .button {
   background: black;
   color: inherit;
 }
 
-[theme="dark"] .dropdown-menu {
+[data-theme="dark"] .dropdown-menu {
   background-color: var(--background);
   border: 1px solid white;
 }
 
-[theme="dark"] .dropdown-item {
+[data-theme="dark"] .dropdown-item {
   color: var(--font-color);
 }
 
@@ -213,7 +213,7 @@ a:hover {
   border-color: var(--border-color);
 }
 
-[theme="dark"] .input {
+[data-theme="dark"] .input {
   background: black;
   color: inherit;
 }

@@ -84,7 +84,6 @@ const Tooltip: FC<IProps> = (props): React.ReactElement | null => {
       </TooltipHeader>
       <TooltipBody>
         <MsgText
-          data={state.data}
           n={state.data?.n}
           vote={state.data?.vote}
           html={state.text}

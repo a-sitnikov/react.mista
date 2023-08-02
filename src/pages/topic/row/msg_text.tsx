@@ -8,7 +8,6 @@ import CustomLink from 'src/components/extensions/custom_link'
 import VoteChart from './vote_chart'
 import Vote from './vote'
 import { useAppSelector } from 'src/store';
-import { ITopicMessage } from 'src/store';
 import { fetchTopicInfo } from 'src/api';
 
 type IProps = {
@@ -16,7 +15,6 @@ type IProps = {
   n: number,
   html: string,
   vote: number,
-  data: ITopicMessage,
   style?: {}
 }
 

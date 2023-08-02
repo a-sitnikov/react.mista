@@ -13,7 +13,7 @@ const App = (): ReactElement => {
   const theme = useAppSelector(state => state.options.items.theme);
 
   useLayoutEffect(() => {
-    document.body.setAttribute('theme', theme);
+    document.body.setAttribute('data-theme', theme);
   }, [theme])
 
   return (

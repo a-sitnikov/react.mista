@@ -10,11 +10,7 @@ import type { RootState } from 'src/store'
 import { reducer } from 'src/store'
 
 
-export type PartialState<S> = {
-  [K in keyof S]?: S[K]
-}
-
-export const setupStore = (preloadedState?: PartialState<RootState>) => {
+export const setupStore = (preloadedState?: Partial<RootState>) => {
   return configureStore({
     reducer,
     preloadedState
@@ -26,7 +22,7 @@ export type AppStore = ReturnType<typeof setupStore>
 // This type interface extends the default options for render from RTL, as well
 // as allows the user to specify other things such as initialState, store.
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
-  preloadedState?: PartialState<RootState>
+  preloadedState?: Partial<RootState>
   store?: AppStore
 }
 

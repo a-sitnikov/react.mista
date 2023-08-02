@@ -4,6 +4,6 @@
     color: var(--link-color)
 }
 
-[theme='dark'] .page-item.active span {
+[data-theme='dark'] .page-item.active span {
     background-color: darkblue;
 }

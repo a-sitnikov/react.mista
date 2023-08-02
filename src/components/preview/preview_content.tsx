@@ -59,7 +59,6 @@ const PreviewContent: FC<IProps> = ({ topicId, n, author, loggedUserId, onDataLo
           <MsgText
             topicId={topicId}
             n={n}
-            data={data}
             html={data.text}
             vote={data.vote}
             style={{ overflowY: "auto", overflowWrap: "break-word" }}

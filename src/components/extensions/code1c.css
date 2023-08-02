@@ -42,22 +42,22 @@
     overflow-x: auto;
 }
 
-[theme='dark'] .code-pre {
+[data-theme='dark'] .code-pre {
     border-color: rgb(100, 100, 100);
 }
 
-[theme='dark'] .str {
+[data-theme='dark'] .str {
     color: white;
 }
 
-[theme='dark'] .num {
+[data-theme='dark'] .num {
     color: white;
 }
 
-[theme='dark'] .bg {
+[data-theme='dark'] .bg {
     color: rgb(50, 150, 255);
 }
 
-[theme='dark'] .com {
+[data-theme='dark'] .com {
     color: rgb(91, 236, 161);
 }
