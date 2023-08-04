@@ -8,7 +8,7 @@
   z-index: 1;
 }
 
-[theme="dark"] .th {
+[data-theme="dark"] .th {
   color: inherit;
 }
 
@@ -26,7 +26,7 @@
   padding: 5px;
 }
 
-[theme="dark"] .tf {
+[data-theme="dark"] .tf {
   color: inherit;
 }
 
@@ -46,7 +46,7 @@
   margin-top: 5px;
 }
 
-[theme="dark"] .topic-list-table {
+[data-theme="dark"] .topic-list-table {
   color: inherit;
 }
 
@@ -182,7 +182,7 @@
     padding: 5px 0px;
   }
 
-  [theme="dark"] .tf {
+  [data-theme="dark"] .tf {
     border: none;
   }
 
@@ -217,7 +217,7 @@
     display: initial;
   }
 
-  [theme='dark'] .cell-author {
+  [data-theme='dark'] .cell-author {
     border-right: none;
   }
 

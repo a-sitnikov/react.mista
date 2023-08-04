@@ -11,7 +11,7 @@
   padding: 4px;
 }
 
-[theme='dark'] .options-header {
+[data-theme='dark'] .options-header {
   background: inherit;
 }
 
@@ -45,7 +45,7 @@
 }
 
 /*
-[theme='dark'] .tab-header {
+[data-theme='dark'] .tab-header {
     background: inherit;
 }
 */

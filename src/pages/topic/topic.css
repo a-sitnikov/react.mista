@@ -18,7 +18,7 @@
   grid-template-areas: "user message";
 }
 
-[theme='dark'] .topic-row {
+[data-theme='dark'] .topic-row {
   background-color: inherit;
 }
 
@@ -52,7 +52,7 @@
   background-color: rgb(255, 215, 132);
 }
 
-[theme='dark'] .is-author {
+[data-theme='dark'] .is-author {
   background-color: rgb(99, 74, 23);
 }
 
@@ -60,7 +60,7 @@
   background-color: rgb(155, 197, 239);
 }
 
-[theme='dark'] .is-you {
+[data-theme='dark'] .is-you {
   background-color: rgb(38, 78, 117);
 }
 
@@ -85,7 +85,7 @@
   padding: 0px;
 }
 
-[theme='dark'] .registered-user {
+[data-theme='dark'] .registered-user {
   color: inherit;
 }
 
@@ -150,7 +150,7 @@
     padding: 0px;
   }
 
-  [theme='dark'] .cell-userinfo {
+  [data-theme='dark'] .cell-userinfo {
     background: inherit;
   }
 
