@@ -23,6 +23,7 @@
 * Язык: TypeScript
 * Бойлерплейт:  [Create React App](https://github.com/facebookincubator/create-react-app)
 * Управление состоянием: [Redux](https://redux.js.org/)
+* Сохранение настроек: [Redux-Persist](https://www.npmjs.com/package/redux-persist)
 * Компоненты: [Bootstrap](https://react-bootstrap.github.io/)
 * Настройка Webpack: [Craco](https://craco.js.org/)
 * Тестирование: Jest / React Testing Library

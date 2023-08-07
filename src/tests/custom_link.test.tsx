@@ -4,7 +4,6 @@ import CustomLink from 'src/components/extensions/custom_link'
 import { defaultOptionsState } from 'src/store'
 import { AppStore, renderWithProviders, setupStore } from './test-utils'
 
-
 const mockLinkToPost = jest.fn();
 jest.mock("src/components/extensions/link_to_post", () => (props: any) => {
   mockLinkToPost(props);
@@ -25,6 +24,7 @@ describe('CustomLink', () => {
     
     const initialState = {
       options: {
+        _persist: null,
         ...defaultOptionsState,
         items: {
           ...defaultOptionsState.items,

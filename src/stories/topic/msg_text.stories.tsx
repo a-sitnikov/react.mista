@@ -15,15 +15,12 @@ const preloadedState: Partial<RootState> = {
     items: [mock_topic_item0],
     status: "success"
   },
-  options: defaultOptionsState
+  options: { ...defaultOptionsState, _persist: null }
 }
 
 const meta = {
   title: 'topic/MsgText',
   component: MsgText,
-  parameters: {
-    //layout: 'centered',
-  },
   tags: [],
   decorators: [(story) => wrapper(story(), preloadedState)],
   argTypes: {

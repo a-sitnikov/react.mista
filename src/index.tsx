@@ -3,11 +3,14 @@ import { Provider } from 'react-redux'
 
 import './index.css';
 import App from './App';
-import { store } from 'src/store'
+import { store, persistor } from 'src/store'
+import { PersistGate } from 'redux-persist/integration/react';
 
 const Root = ({ store }): React.ReactElement => (
   <Provider store={store}>
-    <App />
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
   </Provider>
 )
 
