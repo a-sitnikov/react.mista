@@ -1,4 +1,4 @@
-export const domain: string = localStorage.getItem('domain') || 'https://forum.mista.ru';
+export const domain: string = localStorage.getItem('domain') || 'https://dev.mista.ru';
 //export const domain = 'https://dev.mista.ru';
 export const urlTopicsList: string = localStorage.getItem('urlTopicsList') || 'api/topic.php';
 export const urlTopicInfo: string = localStorage.getItem('urlTopicInfo') || 'ajax_gettopic.php';

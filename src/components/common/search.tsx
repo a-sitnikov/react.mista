@@ -1,23 +1,28 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import './search.css'
+import { useEventCallback } from 'usehooks-ts'
 
 const Search = (): React.ReactElement => {
 
   const [searchEngine, setSearchEngine] = useState('Яндекс');
   const [text, setText] = useState('');
 
-  const onKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleTextChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setText(e.target.value)
+  }, []);
+
+  const handleKeyDown = useEventCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       doSearch();
     }
-  }
+  });
 
-  const doSearch = () => {
+  const doSearch = useEventCallback(() => {
 
     let url: string;
     switch (searchEngine) {
@@ -31,7 +36,7 @@ const Search = (): React.ReactElement => {
 
     window.open(url);
     setText('');
-  }
+  });
 
   return (
     <InputGroup size="sm">
@@ -40,7 +45,7 @@ const Search = (): React.ReactElement => {
         title="" 
         size="sm" 
         variant="light"
-        onSelect={eventKey => setSearchEngine(eventKey)}
+        onSelect={setSearchEngine}
         >
         <Dropdown.Item eventKey="Яндекс">Яндекс</Dropdown.Item>
         <Dropdown.Item eventKey="Google">Google</Dropdown.Item>
@@ -49,8 +54,8 @@ const Search = (): React.ReactElement => {
         type="text"
         placeholder={`${searchEngine}: поиск`}
         className='search-input input'
-        onKeyUp={onKeyUp}
-        onChange={e => setText(e.target.value)}
+        onKeyDown={handleKeyDown}
+        onChange={handleTextChange}
         value={text}
       />
       <InputGroup.Text className="search-button" onClick={doSearch}>

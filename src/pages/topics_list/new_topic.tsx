@@ -11,6 +11,7 @@ import ErrorElem from 'src/components/common/error'
 
 import './new_topic.css'
 import { ISectionItem, newTopicActions, postNewTopicIfNeeded } from 'src/store'
+import { useEventCallback } from 'usehooks-ts'
 
 type IProps = {
   onSubmitSuccess?: any
@@ -28,10 +29,10 @@ const NewTopic: FC<IProps> = ({ onSubmitSuccess }): ReactElement => {
   const dispatch = useAppDispatch();
   const actions = useActionCreators(newTopicActions);
 
-  const onSectionChange = (e: React.SyntheticEvent, section: ISectionItem) => {
+  const onSectionChange = useEventCallback((e: React.SyntheticEvent, section: ISectionItem) => {
     setSection(section);
     actions.changeSection(section);
-  }
+  });
 
   const onVoteTextChange = (i: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
     let votesCopy = votes.slice();
@@ -39,7 +40,7 @@ const NewTopic: FC<IProps> = ({ onSubmitSuccess }): ReactElement => {
     setVotes(votesCopy);
   }
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = useEventCallback((e: React.FormEvent<HTMLFormElement>) => {
 
     e.preventDefault();
 
@@ -80,7 +81,7 @@ const NewTopic: FC<IProps> = ({ onSubmitSuccess }): ReactElement => {
     }
 
     dispatch(postNewTopicIfNeeded(params));
-  }
+  });
 
   const onSubjectChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     actions.changeSubject(e.target.value);
