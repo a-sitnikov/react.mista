@@ -35,6 +35,8 @@ const processCode1C = (text: string): string => {
       .replace(/<1[CС]>/gi, "<code>")      //<1C>
       .replace(/\[\/1[CС]\]/gi, "</code>") //[/1C]
       .replace(/<\/1[CС]>/gi, "</code>")   //</1C>     
+      .replace(/<pre>/gi, "<code>")        //<pre>     
+      .replace(/<\/pre>/gi, "</code>")     //</pre>     
   );
 
 }

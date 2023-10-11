@@ -108,6 +108,10 @@ body[data-theme='lightgray'] {
   color: var(--font-color);
 }
 
+[data-theme="dark"] .bg-dark {
+  background-color: var(--background) !important;
+}
+
 .ah {
   text-decoration: none;
   font-size: 80%;
