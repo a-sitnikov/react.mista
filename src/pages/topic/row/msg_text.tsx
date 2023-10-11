@@ -20,7 +20,7 @@ type IProps = {
 
 const processLinksToPosts = (text: string, topicId: number): string => {
 
-  const regexp = /(\()(\d+)(\))/gi; // (12)
+  const regexp = /(\()(\d+)(\))(?![^<>]*<\/)/gi; // (12)
   return text.replace(regexp, (res, ...segments) => {
     const number = segments[1];
     return `(<link data-topicid='${topicId}' data-number='${number}'></link>)`
@@ -35,8 +35,6 @@ const processCode1C = (text: string): string => {
       .replace(/<1[CС]>/gi, "<code>")      //<1C>
       .replace(/\[\/1[CС]\]/gi, "</code>") //[/1C]
       .replace(/<\/1[CС]>/gi, "</code>")   //</1C>     
-      .replace(/<pre>/gi, "<code>")        //<pre>     
-      .replace(/<\/pre>/gi, "</code>")     //</pre>     
   );
 
 }
@@ -48,6 +46,7 @@ const processText = (text: string, topicId: number): string | undefined => {
 
   let newtext = processCode1C(text);
   newtext = processLinksToPosts(newtext, topicId);
+  console.log(newtext)
 
   return newtext;
 }
@@ -69,7 +68,7 @@ const linkProcessor = {
 
 const codeProcessor = {
   shouldProcessNode: (node: any) => {
-    return node?.name === 'code';
+    return node?.name === 'code' || node?.name === 'pre';
   },
   processNode: (node: any, children: any) => {
     return <Code>{children}</Code>;
