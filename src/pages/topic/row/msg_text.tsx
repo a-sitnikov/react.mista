@@ -46,7 +46,6 @@ const processText = (text: string, topicId: number): string | undefined => {
 
   let newtext = processCode1C(text);
   newtext = processLinksToPosts(newtext, topicId);
-  console.log(newtext)
 
   return newtext;
 }
