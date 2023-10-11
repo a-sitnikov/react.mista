@@ -47,7 +47,7 @@ body[data-theme='lightgray'] {
 
 [data-theme="dark"] {
   background-color: black;
-  color: white;
+  color: var(--font-color);
 }
 
 #root {
@@ -99,9 +99,15 @@ body[data-theme='lightgray'] {
   color: inherit;
 }
 
+[data-theme="dark"] .dropdown-toggle  {
+  background-color: var(--background);
+  border-color: var(--border-color);
+  color: var(--font-color);
+}
+
 [data-theme="dark"] .dropdown-menu {
   background-color: var(--background);
-  border: 1px solid white;
+  border: 1px solid var(--border-color);
 }
 
 [data-theme="dark"] .dropdown-item {
