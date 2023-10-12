@@ -24,11 +24,13 @@ const addPrefix = (
   forum: string,
   sectionCode: string
 ): string => {
-  if (forum === "life" && !text.startsWith("OFF")) return "OFF: " + text;
-  else if (sectionCode === "job" && !text.startsWith("JOB"))
+  if (forum === "life" && !text.startsWith("OFF")) {
+    return "OFF: " + text;
+  } else if (sectionCode === "job" && !text.startsWith("JOB")) {
     return "JOB: " + text;
-  else if (sectionCode === "v7" && !text.startsWith("v7")) return "v7: " + text;
-
+  } else if (sectionCode === "v7" && !text.startsWith("v7")) {
+    return "v7: " + text;
+  }
   return text;
 };
 
