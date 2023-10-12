@@ -1,29 +1,32 @@
-import { domain, urlLogin, urlLogout } from '.'
-import { paramsToString } from './api-utils';
+import { domain, urlLogin, urlLogout } from ".";
+import { paramsToString } from "./api-utils";
 
 export interface ILoginRequest {
-  username: string,
-  password: string,
+  username: string;
+  password: string;
 }
 
 export const fetchLogin = async (params: ILoginRequest): Promise<void> => {
   await fetch(`${domain}/${urlLogin}`, {
-    method: 'POST',
-    body: paramsToString('', {user_name: params.username, user_password: params.password}),
-    mode: 'no-cors',
-    credentials: 'include',
+    method: "POST",
+    body: paramsToString("", {
+      user_name: params.username,
+      user_password: params.password,
+    }),
+    mode: "no-cors",
+    credentials: "include",
     headers: {
-      'Accept': 'text/html,application/xhtml+xml,application/xml',
-      'Content-Type': 'application/x-www-form-urlencoded',
+      Accept: "text/html,application/xhtml+xml,application/xml",
+      "Content-Type": "application/x-www-form-urlencoded",
     },
-    redirect: 'follow'
+    redirect: "follow",
   });
-}
+};
 
 export const fetchLogout = async (): Promise<void> => {
   const fullUrl = `${domain}/${urlLogout}`;
   await fetch(fullUrl, {
-    mode: 'no-cors',
-    credentials: 'include'
+    mode: "no-cors",
+    credentials: "include",
   });
-}
+};

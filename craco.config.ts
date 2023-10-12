@@ -1,24 +1,23 @@
 const config = {
   webpack: {
-    alias: { /* ... */ },
+    alias: {},
     plugins: {
-      add: [ /* ... */],
-      remove: [ /* ... */],
+      add: [],
+      remove: [],
     },
     configure: (webpackConfig, { env, paths }) => {
-      
       if (webpackConfig.mode !== "production") return webpackConfig;
-      
+
       webpackConfig.optimization.splitChunks = {
         cacheGroups: {
           default: false,
           vendors: {
             test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all'
-          }
-        }
-      }
+            name: "vendors",
+            chunks: "all",
+          },
+        },
+      };
 
       return webpackConfig;
     },

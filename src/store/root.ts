@@ -1,14 +1,31 @@
-import { combineReducers, configureStore  } from '@reduxjs/toolkit'
-import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-import { topicsList, topic, sections, options, login, tooltips, newTopic, newMessage } from './slices'
-
+import {
+  topicsList,
+  topic,
+  sections,
+  options,
+  login,
+  tooltips,
+  newTopic,
+  newMessage,
+} from "./slices";
 
 const persistConfig = {
-  key: 'options',
+  key: "options",
   storage,
-}
+};
 
 export const reducer = combineReducers({
   topicsList,
@@ -18,7 +35,7 @@ export const reducer = combineReducers({
   login,
   tooltips,
   newTopic,
-  newMessage
+  newMessage,
 });
 
 export const store = configureStore({
@@ -29,7 +46,7 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
-  devTools: process.env.NODE_ENV !== 'production'
-})
+  devTools: process.env.NODE_ENV !== "production",
+});
 
 export const persistor = persistStore(store);

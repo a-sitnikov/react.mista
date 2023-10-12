@@ -1,26 +1,24 @@
-import { urlSections } from '.'
-import { fetchJsonpAndGetJson } from './api-utils'
-import type { ISectionItem } from 'src/store'
+import { urlSections } from ".";
+import { fetchJsonpAndGetJson } from "./api-utils";
+import type { ISectionItem } from "src/store";
 
 interface IAPIResponse {
-  id: number,
-  forum: string,
-  shortn: string,
-  fulln: string
+  id: number;
+  forum: string;
+  shortn: string;
+  fulln: string;
 }
 
 function convertResponse(response: IAPIResponse): ISectionItem {
-
-  return ({
+  return {
     id: response.id,
     forum: response.forum,
     code: response.shortn,
     name: response.fulln,
-  })
-
+  };
 }
 
 export const fetchSections = async (): Promise<ISectionItem[]> => {
   const list = await fetchJsonpAndGetJson(urlSections);
   return list.map(convertResponse);
-}
+};

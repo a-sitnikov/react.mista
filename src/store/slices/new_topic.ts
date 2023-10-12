@@ -1,50 +1,49 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
 import { ISectionItem } from "./sections";
-import { fetchNewTopic, INewTopicRequest } from 'src/api';
-import { RootState } from '../types';
+import { fetchNewTopic, INewTopicRequest } from "src/api";
+import { RootState } from "../types";
 
 export type NewTopicState = {
-  status: "init" | "loading" | "success" | "error",
-  section: ISectionItem,
-  text: string,
-  subject: string,
-  forum: string,
-  isVoting: boolean,
-  error?: string
+  status: "init" | "loading" | "success" | "error";
+  section: ISectionItem;
+  text: string;
+  subject: string;
+  forum: string;
+  isVoting: boolean;
+  error?: string;
 };
 
 const initialState: NewTopicState = {
   status: "init",
   section: null,
-  text: '',
-  subject: '',
-  forum: '1C',
-  isVoting: false
-}
+  text: "",
+  subject: "",
+  forum: "1C",
+  isVoting: false,
+};
 
 export type postNewTopicParams = {
-  subject: string,
-  text: string,
-  section: number,
-  forum: string,
-  isVoting: boolean,
-  votingItems?: Array<string>,
-  onSuccess?: () => void
+  subject: string;
+  text: string;
+  section: number;
+  forum: string;
+  isVoting: boolean;
+  votingItems?: Array<string>;
+  onSuccess?: () => void;
 };
 
 export const postNewTopic = createAsyncThunk(
-  'newTopic/post',
+  "newTopic/post",
   async (params: postNewTopicParams) => {
-
     let fetchParams: INewTopicRequest = {
       message_text: params.text,
       topic_text: params.subject,
       target_section: String(params.section),
       target_forum: params.forum.toLowerCase(),
-      action: 'new',
+      action: "new",
       rnd: Math.round(Math.random() * 10000000000),
-      voting: params.isVoting ? 1 : 0
+      voting: params.isVoting ? 1 : 0,
     };
 
     if (params.votingItems)
@@ -55,33 +54,34 @@ export const postNewTopic = createAsyncThunk(
     await fetchNewTopic(fetchParams);
     // if (params.onSuccess)
     // params.onSuccess();
-  })
+  }
+);
 
 export const shouldPost = ({ newTopic }: RootState): boolean => {
+  if (!newTopic) return false;
+  if (newTopic.status === "loading") return false;
 
-  if (!newTopic) return false
-  if (newTopic.status === "loading") return false
+  return true;
+};
 
-  return true
-}
-
-export const postNewTopicIfNeeded = (params: postNewTopicParams) => (dispatch: any, getState: any) => {
-  const state = getState();
-  if (shouldPost(state)) {
-    return dispatch(postNewTopic(params));
-  }
-}
+export const postNewTopicIfNeeded =
+  (params: postNewTopicParams) => (dispatch: any, getState: any) => {
+    const state = getState();
+    if (shouldPost(state)) {
+      return dispatch(postNewTopic(params));
+    }
+  };
 
 const clear = (state: NewTopicState) => {
   state.status = "init";
-  state.text = '';
-  state.subject = '';
-  state.forum = '';
+  state.text = "";
+  state.subject = "";
+  state.forum = "";
   state.isVoting = false;
-}
+};
 
 const slice = createSlice({
-  name: 'newTopic',
+  name: "newTopic",
   initialState,
   reducers: {
     clear,
@@ -100,7 +100,7 @@ const slice = createSlice({
     },
     setError: (state, { payload }: PayloadAction<string>) => {
       state.error = payload;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -115,8 +115,8 @@ const slice = createSlice({
       .addCase(postNewTopic.rejected, (state, { error }) => {
         state.status = "error";
         state.error = error?.message;
-      })
-  }
+      });
+  },
 });
 
 export const { actions: newTopicActions, reducer: newTopic } = slice;

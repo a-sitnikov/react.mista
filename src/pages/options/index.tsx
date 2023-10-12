@@ -1,72 +1,70 @@
-import { ReactElement, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Form, FormControl, Button } from 'react-bootstrap'
+import { ReactElement, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Form, FormControl, Button } from "react-bootstrap";
 
-import RadioOption from './radio_option'
-import StringOption from './string_option'
+import RadioOption from "./radio_option";
+import StringOption from "./string_option";
 
-import { formTabs, formParams } from './formscheme'
-import Tab from './tab'
+import { formTabs, formParams } from "./formscheme";
+import Tab from "./tab";
 
-import { IOptionsItems, useAppDispatch, useAppSelector } from 'src/store'
-import { defaultOptionsState, optionsActions } from 'src/store'
+import { IOptionsItems, useAppDispatch, useAppSelector } from "src/store";
+import { defaultOptionsState, optionsActions } from "src/store";
 
-import './options.css'
+import "./options.css";
 
 const Options = (): ReactElement => {
-
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const options = useAppSelector(state => state.options);
+  const options = useAppSelector((state) => state.options);
 
   const [state, setState] = useState({
-    items: options.items
-  })
+    items: options.items,
+  });
 
   const closeForm = () => {
-    navigate('/#');
-  }
+    navigate("/#");
+  };
 
   const resetOptions = () => {
     setState({
       ...state,
-      items: Object.assign({}, defaultOptionsState.items)
-    })
-  }
+      items: Object.assign({}, defaultOptionsState.items),
+    });
+  };
 
   const applyOptions = () => {
-
     dispatch(optionsActions.save(state.items));
     closeForm();
-  }
+  };
 
-  const onChange = (e: React.FormEvent<HTMLElement>, name: string, value: IOptionsItems[keyof IOptionsItems]) => {
-
+  const onChange = (
+    e: React.FormEvent<HTMLElement>,
+    name: string,
+    value: IOptionsItems[keyof IOptionsItems]
+  ) => {
     let items = Object.assign({}, state.items);
     items[name] = value;
     setState({
       ...state,
-      items
-    })
-  }
+      items,
+    });
+  };
 
   let tabs = [];
   for (let tab of formTabs) {
-
     let rows = [];
     for (let i in tab.rows) {
-
       const row = tab.rows[i];
       let rowElem = [];
       for (let name of row) {
-
         const item = formParams[name];
         if (!item) continue;
 
         const value = state.items[name];
 
-        if (item.type === 'radio') {
+        if (item.type === "radio") {
           rowElem.push(
             <RadioOption
               key={name}
@@ -78,20 +76,20 @@ const Options = (): ReactElement => {
               onChange={onChange}
             />
           );
-        } else if (item.type === 'number') {
-
+        } else if (item.type === "number") {
           if (item.label)
             rowElem.push(
               <label
                 htmlFor={name}
-                key={name + '_label'}
-                style={{ fontWeight: "inherit" }}>
+                key={name + "_label"}
+                style={{ fontWeight: "inherit" }}
+              >
                 {item.label}
               </label>
             );
 
           rowElem.push(
-            <div className='options-number' key={name}>
+            <div className="options-number" key={name}>
               <FormControl
                 type="number"
                 min={item.min}
@@ -99,17 +97,20 @@ const Options = (): ReactElement => {
                 value={value}
                 disabled={item.disabled}
                 onChange={(e) => onChange(e, name, e.target.value)}
-                
-                className='input'
+                className="input"
                 size="sm"
-              >
-              </FormControl>
-              {item.postfix &&
-                <span key={name + '_postfix'} style={{ marginLeft: "5px", flex: "0 0 auto", }}>{item.postfix}</span>}
+              ></FormControl>
+              {item.postfix && (
+                <span
+                  key={name + "_postfix"}
+                  style={{ marginLeft: "5px", flex: "0 0 auto" }}
+                >
+                  {item.postfix}
+                </span>
+              )}
             </div>
           );
-
-        } else if (item.type === 'string') {
+        } else if (item.type === "string") {
           rowElem.push(
             <StringOption
               key={name}
@@ -120,7 +121,7 @@ const Options = (): ReactElement => {
               onChange={onChange}
             />
           );
-        } else if (item.type === 'checkbox') {
+        } else if (item.type === "checkbox") {
           rowElem.push(
             <Form.Check
               id={name}
@@ -128,8 +129,8 @@ const Options = (): ReactElement => {
               label={item.label}
               key={name}
               name={name}
-              checked={String(value) === 'true'}
-              disabled={item.disabled}              
+              checked={String(value) === "true"}
+              disabled={item.disabled}
               onChange={(e) => onChange(e, name, String(e.target.checked))}
               style={{ flex: "0 0 auto", margin: "0px", maxWidth: "100%" }}
             />
@@ -142,7 +143,6 @@ const Options = (): ReactElement => {
           {rowElem}
         </div>
       );
-
     }
 
     tabs.push(
@@ -164,8 +164,9 @@ const Options = (): ReactElement => {
           size="sm"
           variant="light"
           style={{ margin: "5px" }}
-          className='button'
-          onClick={applyOptions}>
+          className="button"
+          onClick={applyOptions}
+        >
           OK
         </Button>
         <Button
@@ -173,8 +174,9 @@ const Options = (): ReactElement => {
           size="sm"
           variant="light"
           style={{ margin: "5px", float: "left" }}
-          className='button'
-          onClick={closeForm}>
+          className="button"
+          onClick={closeForm}
+        >
           Отмена
         </Button>
         <Button
@@ -182,13 +184,14 @@ const Options = (): ReactElement => {
           size="sm"
           variant="light"
           style={{ margin: "5px", float: "right" }}
-          className='button'
-          onClick={resetOptions}>
+          className="button"
+          onClick={resetOptions}
+        >
           Сбросить настройки
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Options;

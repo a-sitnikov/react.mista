@@ -1,38 +1,37 @@
-import { urlTopicInfo } from '.'
-import { fetchAndGetJson } from './api-utils';
-import type { ITopicInfo } from 'src/store'
+import { urlTopicInfo } from ".";
+import { fetchAndGetJson } from "./api-utils";
+import type { ITopicInfo } from "src/store";
 
 interface IAPIResponse {
-  id: string,
-  text: string,
-  forum: string,
-  section: string,
-  created: string,
-  user_id: string,
-  user_name: string,
-  updated: string,
-  updated_name: string,
-  answers_count: string,
-  down: number,
-  closed: number,
-  deleted: number,
-  is_voting: number,
+  id: string;
+  text: string;
+  forum: string;
+  section: string;
+  created: string;
+  user_id: string;
+  user_name: string;
+  updated: string;
+  updated_name: string;
+  answers_count: string;
+  down: number;
+  closed: number;
+  deleted: number;
+  is_voting: number;
   voting: {
-    select: string,
-    result: number
-  }[]
+    select: string;
+    result: number;
+  }[];
 }
 
 function convertResponse(response: IAPIResponse): ITopicInfo {
-
   let voting = [];
   if (response.voting)
-    voting = response.voting.map(x => ({
+    voting = response.voting.map((x) => ({
       text: x.select,
-      count: x.result
+      count: x.result,
     }));
-    
-  return ({
+
+  return {
     id: parseInt(response.id),
     title: response.text,
     forum: response.forum,
@@ -47,16 +46,13 @@ function convertResponse(response: IAPIResponse): ITopicInfo {
     closed: response.closed,
     deleted: response.deleted,
     isVoting: response.is_voting,
-    voting
-  })
-
+    voting,
+  };
 }
 
 async function fetchTopicInfo(id: number): Promise<ITopicInfo> {
-
   const info = await fetchAndGetJson(urlTopicInfo, { id });
   return convertResponse(info);
-
 }
 
-export { fetchTopicInfo }
+export { fetchTopicInfo };

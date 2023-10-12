@@ -1,35 +1,38 @@
-import React, { FC, ReactElement } from 'react'
+import React, { FC, ReactElement } from "react";
 
-import Draggable from 'react-draggable';
+import Draggable from "react-draggable";
 
-import TooltipHeader from './tooltip_header'
-import TooltipBody from './tooltip_body'
+import TooltipHeader from "./tooltip_header";
+import TooltipBody from "./tooltip_body";
 
-import './tooltip.css'
+import "./tooltip.css";
 
-import { useActionCreators } from 'src/store';
-import { ITooltipItem, tooltipsActions } from 'src/store';
+import { useActionCreators } from "src/store";
+import { ITooltipItem, tooltipsActions } from "src/store";
 
 type IProps = {
-  tooltip: ITooltipItem,
-  zIndex?: number,
-  children?: React.ReactNode
-}
+  tooltip: ITooltipItem;
+  zIndex?: number;
+  children?: React.ReactNode;
+};
 
-const TooltipWindow: FC<IProps> = ({ tooltip, zIndex, children }): ReactElement => {
-
+const TooltipWindow: FC<IProps> = ({
+  tooltip,
+  zIndex,
+  children,
+}): ReactElement => {
   const actions = useActionCreators(tooltipsActions);
 
   const onCloseClick = () => {
     actions.close(tooltip.keys);
-  }
+  };
 
   const { coords } = tooltip;
 
-  let axis: "both" | "x" | "y" | "none";;
+  let axis: "both" | "x" | "y" | "none";
   let position: {
-    top: number,
-    left: number
+    top: number;
+    left: number;
   };
 
   if (window.innerWidth <= 768) {
@@ -37,7 +40,10 @@ const TooltipWindow: FC<IProps> = ({ tooltip, zIndex, children }): ReactElement 
     position = { top: coords.y, left: 5 };
   } else {
     axis = "both";
-    position = { top: coords.y, left: Math.min(coords.x, window.innerWidth - 670) }
+    position = {
+      top: coords.y,
+      left: Math.min(coords.x, window.innerWidth - 670),
+    };
   }
 
   let [header, body] = React.Children.toArray(children);
@@ -47,19 +53,16 @@ const TooltipWindow: FC<IProps> = ({ tooltip, zIndex, children }): ReactElement 
       axis={axis}
       handle=".tooltip-header"
       defaultClassNameDragging="dragging"
-      key={zIndex}>
-
+      key={zIndex}
+    >
       <div className="tooltip-window" style={{ ...position }}>
         <TooltipHeader closeWindow={onCloseClick}>
           {(header as ReactElement).props.children}
         </TooltipHeader>
-        <TooltipBody>
-          {(body as ReactElement).props.children}
-        </TooltipBody>
+        <TooltipBody>{(body as ReactElement).props.children}</TooltipBody>
       </div>
     </Draggable>
-  )
-
-}
+  );
+};
 
 export default TooltipWindow;

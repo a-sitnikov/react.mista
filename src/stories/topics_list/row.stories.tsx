@@ -1,25 +1,25 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
-import { themes } from '@storybook/theming'
+import type { Meta, StoryObj } from "@storybook/react";
+import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
+import { themes } from "@storybook/theming";
 
-import Row from 'src/pages/topics_list/row';
-import { mock_topics_list_item0 } from 'src/tests/mock_data/mock_topics_list';
+import Row from "src/pages/topics_list/row";
+import { mock_topics_list_item0 } from "src/tests/mock_data/mock_topics_list";
 
-import { wrapper } from '../utils';
+import { wrapper } from "../utils";
 
-import 'src/index.css'
-import 'src/pages/topics_list/topics_list.css'
-import { RootState } from 'src/store';
+import "src/index.css";
+import "src/pages/topics_list/topics_list.css";
+import { RootState } from "src/store";
 
 const preloadedState: Partial<RootState> = {
   topicsList: {
     items: [mock_topics_list_item0],
-    status: "success"
-  }
-}
+    status: "success",
+  },
+};
 
 const meta = {
-  title: 'topics list/Row',
+  title: "topics list/Row",
   component: Row,
   parameters: {
     //layout: 'centered',
@@ -29,7 +29,7 @@ const meta = {
   argTypes: {
     forum: {
       control: "select",
-      options: ["1C", "IT", "JOB", "LIFE"]
+      options: ["1C", "IT", "JOB", "LIFE"],
     },
   },
 } satisfies Meta<typeof Row>;
@@ -40,34 +40,34 @@ type Story = StoryObj<typeof meta>;
 export const Desktop: Story = {
   args: {
     topicId: mock_topics_list_item0.id,
-    ...mock_topics_list_item0
+    ...mock_topics_list_item0,
   },
 };
 
 export const Mobile: Story = {
   args: {
     topicId: mock_topics_list_item0.id,
-    ...mock_topics_list_item0
+    ...mock_topics_list_item0,
   },
   parameters: {
     viewport: {
       viewports: INITIAL_VIEWPORTS,
-      defaultViewport: 'iphone6',
+      defaultViewport: "iphone6",
     },
-  }
+  },
 };
 
 export const Mobile_Dark: Story = {
   args: {
     topicId: mock_topics_list_item0.id,
-    ...mock_topics_list_item0
+    ...mock_topics_list_item0,
   },
   parameters: {
     viewport: {
       viewports: INITIAL_VIEWPORTS,
-      defaultViewport: 'iphone6',
+      defaultViewport: "iphone6",
     },
     theme: themes.dark,
   },
-  decorators: [(story) => <div data-theme="dark">{story()}</div>]
+  decorators: [(story) => <div data-theme="dark">{story()}</div>],
 };

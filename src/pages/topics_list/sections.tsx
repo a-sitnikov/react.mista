@@ -1,47 +1,42 @@
-import { FC, ReactElement, useEffect } from 'react'
-import CSS from 'csstype'
-import Form from 'react-bootstrap/Form'
+import { FC, ReactElement, useEffect } from "react";
+import CSS from "csstype";
+import Form from "react-bootstrap/Form";
 
-import { useAppDispatch, useAppSelector } from 'src/store'
-import { getSectionsIfNeeded, ISectionItem } from 'src/store'
+import { useAppDispatch, useAppSelector } from "src/store";
+import { getSectionsIfNeeded, ISectionItem } from "src/store";
 
 export type IProps = {
-  id: string,
-  defaultValue: string,
-  selected?: string,
-  style?: CSS.Properties,
-  size?: 'sm' | 'lg',
-  onChange?: (e: React.ChangeEvent<HTMLElement>, value: ISectionItem) => void
-}
+  id: string;
+  defaultValue: string;
+  selected?: string;
+  style?: CSS.Properties;
+  size?: "sm" | "lg";
+  onChange?: (e: React.ChangeEvent<HTMLElement>, value: ISectionItem) => void;
+};
 
 const Sections: FC<IProps> = (props): ReactElement => {
-
   const dispatch = useAppDispatch();
-  const items = useAppSelector(state => state.sections.items);
-  const tree = useAppSelector(state => state.sections.tree);
+  const items = useAppSelector((state) => state.sections.items);
+  const tree = useAppSelector((state) => state.sections.tree);
 
   useEffect(() => {
     dispatch(getSectionsIfNeeded());
   }, [dispatch]);
 
   const onSelect = (e: React.ChangeEvent<HTMLSelectElement>): void => {
-
     const { onChange } = props;
 
     if (onChange) {
       const code = e.currentTarget.value;
-      const arr = items.filter(item => item.code === code);
-      if (arr.length > 0)
-        onChange(e, arr[0]);
-      else
-        onChange(e, null);
+      const arr = items.filter((item) => item.code === code);
+      if (arr.length > 0) onChange(e, arr[0]);
+      else onChange(e, null);
     }
-  }
+  };
 
   let sectionsElem = [];
   for (let forum in tree) {
-
-    let group =
+    let group = (
       <optgroup key={forum} label={forum}>
         {tree[forum].map((item) => (
           <option key={item.id} value={item.code}>
@@ -49,10 +44,11 @@ const Sections: FC<IProps> = (props): ReactElement => {
           </option>
         ))}
       </optgroup>
+    );
 
     sectionsElem.push(group);
   }
-  
+
   const { id, defaultValue, selected, style, size } = props;
 
   return (
@@ -61,14 +57,14 @@ const Sections: FC<IProps> = (props): ReactElement => {
       onChange={onSelect}
       value={selected}
       style={style}
-      className='input'
+      className="input"
       size={size}
       id={id}
     >
       <option value="">{defaultValue}</option>
       {sectionsElem}
     </Form.Select>
-  )
-}
+  );
+};
 
 export default Sections;

@@ -1,27 +1,25 @@
-import React, { FC, ReactElement, useState, useCallback } from 'react'
-import { FormGroup, Form } from 'react-bootstrap'
+import React, { FC, ReactElement, useState, useCallback } from "react";
+import { FormGroup, Form } from "react-bootstrap";
 
-import TextEditor from 'src/components/common/text_editor'
-import { useActionCreators, useAppDispatch, useAppSelector } from 'src/store'
-import { newMessageActions, postNewMessage, newTopicActions } from 'src/store'
+import TextEditor from "src/components/common/text_editor";
+import { useActionCreators, useAppDispatch, useAppSelector } from "src/store";
+import { newMessageActions, postNewMessage, newTopicActions } from "src/store";
 
-import type { PostNewmessageParams } from 'src/store'
+import type { PostNewmessageParams } from "src/store";
 
 type IProps = {
-  onSubmitSuccess?: () => void
-}
+  onSubmitSuccess?: () => void;
+};
 
 const NewMessage: FC<IProps> = ({ onSubmitSuccess }): ReactElement => {
-
   const [voting, setVoting] = useState<number | undefined>();
   const dispatch = useAppDispatch();
   const actions = useActionCreators(newMessageActions);
 
-  const info = useAppSelector(state => state.topic.info);
-  const newMessage = useAppSelector(state => state.newMessage);
+  const info = useAppSelector((state) => state.topic.info);
+  const newMessage = useAppSelector((state) => state.newMessage);
 
   const onSubmit = (e: React.SyntheticEvent) => {
-
     e.preventDefault();
     e.stopPropagation();
 
@@ -29,7 +27,7 @@ const NewMessage: FC<IProps> = ({ onSubmitSuccess }): ReactElement => {
       text: newMessage.text,
       topicId: String(info?.id),
       onSuccess: afterSubmit,
-      voting_select: undefined
+      voting_select: undefined,
     };
 
     if (voting) {
@@ -37,42 +35,39 @@ const NewMessage: FC<IProps> = ({ onSubmitSuccess }): ReactElement => {
     }
 
     dispatch(postNewMessage(params));
-  }
+  };
 
   const afterSubmit = () => {
-
-    actions.changeText('');
+    actions.changeText("");
     setVoting(undefined);
 
     if (onSubmitSuccess) {
       onSubmitSuccess();
     }
-  }
+  };
 
   const clearVoting = (e: React.MouseEvent<HTMLElement>) => {
-
     e.preventDefault();
     setVoting(undefined);
-
-  }
+  };
 
   const setVotingOption = (i: number) => {
     setVoting(i);
-  }
+  };
 
-  const onTextChange = useCallback((text: string) => {
-    dispatch(newTopicActions.changeText(text));
-  }, [dispatch]);
+  const onTextChange = useCallback(
+    (text: string) => {
+      dispatch(newTopicActions.changeText(text));
+    },
+    [dispatch]
+  );
 
   let votingElem: ReactElement;
   if (info?.isVoting && info?.voting) {
-
     let votingOptions = [];
     for (let i = 1; i <= info.voting.length; i++) {
-
       const item = info.voting[i - 1];
-      if (!item.text)
-        continue;
+      if (!item.text) continue;
 
       votingOptions.push(
         <Form.Check
@@ -86,19 +81,24 @@ const NewMessage: FC<IProps> = ({ onSubmitSuccess }): ReactElement => {
       );
     }
 
-
     votingElem = (
       <FormGroup>
         <legend>
-          <small>Ваш выбор:
-            <span id="voting_clear" style={{ marginLeft: "5px", cursor: "pointer" }} onClick={clearVoting}>очистить</span>
+          <small>
+            Ваш выбор:
+            <span
+              id="voting_clear"
+              style={{ marginLeft: "5px", cursor: "pointer" }}
+              onClick={clearVoting}
+            >
+              очистить
+            </span>
           </small>
         </legend>
         {votingOptions}
         Обоснуйте свой выбор!
       </FormGroup>
     );
-
   }
 
   return (
@@ -113,13 +113,10 @@ const NewMessage: FC<IProps> = ({ onSubmitSuccess }): ReactElement => {
             onChange={onTextChange}
           />
         </div>
-        <div className="new-message-voting">
-          {votingElem}
-        </div>
+        <div className="new-message-voting">{votingElem}</div>
       </div>
     </form>
-  )
-
-}
+  );
+};
 
 export default NewMessage;

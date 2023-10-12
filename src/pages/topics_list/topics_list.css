@@ -1,4 +1,4 @@
-.th {
+.table-header {
   display: grid;
   background: var(--header-background);
   font-weight: bold;
@@ -6,13 +6,15 @@
   border: 1px solid var(--border-color);
   text-align: center;
   z-index: 1;
+  position: sticky;
+  top: 39px;
 }
 
-[data-theme="dark"] .th {
+[data-theme="dark"] .table-header {
   color: inherit;
 }
 
-.th>div {
+.table-header>div {
   padding: 2px;
 }
 
