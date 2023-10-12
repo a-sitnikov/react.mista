@@ -9,6 +9,9 @@
   --link-hover-color: #D00;
   --mytopics-color: #052;
   --pinned-color: purple;
+  --button-hover-bg-color: var(--bs-light);
+  --button-disabled-color: #888;
+  --button-hover-border-color: #eee #888 #888 #eee;
 }
 
 [data-theme="dark"] {
@@ -22,6 +25,9 @@
   --link-hover-color: #D00;
   --mytopics-color: #052;
   --pinned-color: rgb(207, 41, 207);
+  --button-hover-bg-color: rgb(15, 15, 15);
+  --button-disabled-color: rgb(100, 100, 100);
+  --button-hover-border-color: #eee #888 #888 #eee;  
 }
 
 html {
@@ -81,22 +87,21 @@ body[data-theme='lightgray'] {
 }
 
 .button {
-  color: black;
+  color: var(--font-color);
+  background: var(--background);
   border: 1px solid var(--border-color);
   border-radius: 3px;
 }
 
 .button:hover:not([disabled=""]) {
-  border-color: #eee #888 #888 #eee;
+  color: var(--font-color);
+  background: var(--button-hover-bg-color);
+  border-color: var(--button-hover-border-color);
+  /*background: var(--background);*/
 }
 
 .button:disabled {
-  color: #888;
-}
-
-[data-theme="dark"] .button {
-  background: black;
-  color: inherit;
+  color: var(--button-disabled-color);
 }
 
 [data-theme="dark"] .dropdown-toggle  {
