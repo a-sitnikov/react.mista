@@ -10,7 +10,10 @@ const prepareText = (text: string): string => {
     .replace(/<br>\n/g, "\n")
     .replace(/\r<br>/g, "\n")
     .replace(/<br>\r/g, "\n")
-    .replace(/<br>/g, "\n");
+    .replace(/<br>/g, "\n")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")    
+    .replace(/>/g, "&gt");    
 
   // remove all leading|ending new-lines
   while (newtext[0] === "\n") {
