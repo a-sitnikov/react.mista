@@ -192,7 +192,7 @@
 
 @media (min-width: 769px) and (max-width: 991px) {
 
-  .th {
+  .table-header {
     grid-template-columns: 50px 30px auto 30px 80px 110px;
   }
 
@@ -203,7 +203,7 @@
 
 @media (max-width: 768px) {
 
-  .th {
+  .table-header {
     display: none;
   }
 
