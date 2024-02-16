@@ -7,10 +7,10 @@ import { ITopicMessage } from "src/store";
 
 type IProps = {
   data: ITopicMessage;
+  topicId: number;
 };
 
-const Row: FC<IProps> = ({ data }): ReactElement => {
-  const topicId = useAppSelector((state) => state.topic.info.id);
+const Row: FC<IProps> = ({ data, topicId }): ReactElement => {
   const login = useAppSelector((state) => state.login);
   const author = useAppSelector((state) => state.topic.item0?.user || "");
 

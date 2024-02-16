@@ -91,9 +91,9 @@ const Topic = (): ReactElement => {
       {error && <Error text={error} />}
       <div className="topic-table">
         <TopicInfo />
-        <Row key="0" data={item0} />
+        <Row key="0" data={item0} topicId={topicId}/>
         {items.map((item, i) => (
-          <Row key={item.n} data={item} />
+          <Row key={item.n} data={item} topicId={topicId}/>
         ))}
         {(maxPage > 1 || page === "last20") && (
           <div className="tf">
