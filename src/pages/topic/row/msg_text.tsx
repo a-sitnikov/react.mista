@@ -9,7 +9,8 @@ import VoteChart from "./vote_chart";
 import Vote from "./vote";
 import { useAppSelector } from "src/store";
 import { fetchTopicInfo } from "src/api";
-import dayjs from "dayjs";
+import InternalImage from "src/components/extensions/internal-image";
+import { PhotoProvider } from "react-photo-view";
 
 type IProps = {
   topicId: number;
@@ -39,14 +40,10 @@ const processCode1C = (text: string): string => {
 
 const processImages = (text: string, topicId: number, topicDate: number, messageNumber: number): string | undefined => {
   const regexp = /\[IMG_(\d*)\]/gi; // ([IMG_1])
-  const date = dayjs(topicDate).format('YYYY/MM/DD');
 
   return text.replace(regexp, (res, ...segments) => {
-    const number = segments[0];
-    //topics/files/2024/02/16/892137/2/1_preview.png
-    const href = `https://forum.mista.ru/topics/files/${date}/${topicId}/${messageNumber}/${number}_preview.png`; 
-
-    return `<img src='${href}' style='max-width: 100%'/>`;
+    const idx = segments[0];
+    return `<int_img idx='${idx}'></int_img>`;
     });
 };
 
@@ -64,7 +61,7 @@ const htmlToReactParser = HtmlToReact.Parser();
 const processNodeDefinitions = HtmlToReact.ProcessNodeDefinitions();
 const isValidNode = () => true;
 
-const linkProcessor = {
+const linkToPostProcessor = {
   shouldProcessNode: (node: any): boolean => {
     return node?.name === "link";
   },
@@ -83,31 +80,46 @@ const codeProcessor = {
   shouldProcessNode: (node: any) => {
     return node?.name === "code" || node?.name === "pre";
   },
-  processNode: (node: any, children: any) => {
-    return <Code>{children}</Code>;
+  processNode: (node: any, children: any, index: number) => {
+    return <Code key={index}>{children}</Code>;
   },
 };
+
+const linkProcessor = (processedHtml: string) => ({
+  // <custom link>
+  shouldProcessNode: (node: any) => {
+    return node?.name === "a";
+  },
+  processNode: function (node: any, children: any, index: number) {
+    const href = node.attribs["href"];
+    return (
+      <CustomLink key={index} href={href} parentText={processedHtml}>
+        {children}
+      </CustomLink>
+    );
+  },  
+});
+
+const internalImageProcesor = (topicId: number, topicDate: number,  messageNumber: number ) => ({
+  shouldProcessNode: (node: any) => {
+    return node?.name === "int_img";
+  },
+  processNode: function (node: any, children: any, index: number) {
+    const idx = node.attribs["idx"];
+    return (
+      <InternalImage key={index} topicId={topicId} topicDate={topicDate} messageNumber={messageNumber} idx={idx}/>
+    );
+  },  
+})
 
 const ProcessedText: FC<{ html: string; topicId: number, topicDate: number,  messageNumber: number}> = memo(
   ({ html, topicId, topicDate, messageNumber }): ReactElement => {
     const processedHtml = processText(html, topicId, topicDate, messageNumber);
     const processingInstructions = [
-      linkProcessor,
+      linkToPostProcessor,
       codeProcessor,
-      {
-        // <custom link>
-        shouldProcessNode: (node: any) => {
-          return node?.name === "a";
-        },
-        processNode: function (node: any, children: any, index: number) {
-          const href = node.attribs["href"];
-          return (
-            <CustomLink key={index} href={href} parentText={processedHtml}>
-              {children}
-            </CustomLink>
-          );
-        },
-      },
+      linkProcessor(processedHtml),
+      internalImageProcesor(topicId, topicDate, messageNumber),
       {
         // Anything else
         shouldProcessNode: () => true,
@@ -169,7 +181,9 @@ const MsgText: FC<IProps> = ({
     <div className="message" style={style}>
       {voteChart}
       <div>
-        <ProcessedText html={html} topicId={topicId} topicDate={topicDate} messageNumber={n}/>
+        <PhotoProvider>
+          <ProcessedText html={html} topicId={topicId} topicDate={topicDate} messageNumber={n}/>
+        </PhotoProvider>
       </div>
       {showVote && <Vote text={voteText} n={vote} colors={voteColors} />}
     </div>
