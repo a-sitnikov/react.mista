@@ -35,6 +35,7 @@ type Story = StoryObj<typeof meta>;
 export const Desktop: Story = {
   args: {
     topicId: mock_topic_item0.id,
+    topicDate: mock_topic_item0.time,
     n: mock_topic_item0.n,
     html: mock_topic_item0.text,
     vote: mock_topic_item0.vote,

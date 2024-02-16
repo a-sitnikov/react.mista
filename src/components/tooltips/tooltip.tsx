@@ -82,6 +82,7 @@ const Tooltip: FC<IProps> = (props): React.ReactElement | null => {
           vote={state.data?.vote}
           html={state.text}
           topicId={keys.topicId}
+          topicDate={state.data?.time}
           style={{ maxHeight: "min(550px, 80vh)", overflowY: "auto" }}
         />
       </TooltipBody>

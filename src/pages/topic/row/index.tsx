@@ -29,6 +29,7 @@ const Row: FC<IProps> = ({ data }): ReactElement => {
         <MsgText
           html={data.text}
           topicId={topicId}
+          topicDate={data.time}
           n={data.n}
           vote={data.vote}
         />

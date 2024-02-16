@@ -9,9 +9,11 @@ import VoteChart from "./vote_chart";
 import Vote from "./vote";
 import { useAppSelector } from "src/store";
 import { fetchTopicInfo } from "src/api";
+import dayjs from "dayjs";
 
 type IProps = {
   topicId: number;
+  topicDate: number;
   n: number;
   html: string;
   vote: number;
@@ -34,11 +36,26 @@ const processCode1C = (text: string): string => {
     .replace(/<\/1[CС]>/gi, "</code>"); //</1C>
 };
 
-const processText = (text: string, topicId: number): string | undefined => {
+
+const processImages = (text: string, topicId: number, topicDate: number, messageNumber: number): string | undefined => {
+  const regexp = /\[IMG_(\d*)\]/gi; // ([IMG_1])
+  const date = dayjs(topicDate).format('YYYY/MM/DD');
+
+  return text.replace(regexp, (res, ...segments) => {
+    const number = segments[0];
+    //topics/files/2024/02/16/892137/2/1_preview.png
+    const href = `https://forum.mista.ru/topics/files/${date}/${topicId}/${messageNumber}/${number}_preview.png`; 
+
+    return `<img src='${href}' style='max-width: 100%'/>`;
+    });
+};
+
+const processText = (text: string, topicId: number, topicDate: number, messageNumber: number): string | undefined => {
   if (!text) return text;
 
   let newtext = processCode1C(text);
   newtext = processLinksToPosts(newtext, topicId);
+  newtext = processImages(newtext, topicId, topicDate, messageNumber);
 
   return newtext;
 };
@@ -71,9 +88,9 @@ const codeProcessor = {
   },
 };
 
-const ProcessedText: FC<{ html: string; topicId: number }> = memo(
-  ({ html, topicId }): ReactElement => {
-    const processedHtml = processText(html, topicId);
+const ProcessedText: FC<{ html: string; topicId: number, topicDate: number,  messageNumber: number}> = memo(
+  ({ html, topicId, topicDate, messageNumber }): ReactElement => {
+    const processedHtml = processText(html, topicId, topicDate, messageNumber);
     const processingInstructions = [
       linkProcessor,
       codeProcessor,
@@ -110,6 +127,7 @@ const ProcessedText: FC<{ html: string; topicId: number }> = memo(
 
 const MsgText: FC<IProps> = ({
   topicId,
+  topicDate,
   n,
   html,
   vote,
@@ -151,7 +169,7 @@ const MsgText: FC<IProps> = ({
     <div className="message" style={style}>
       {voteChart}
       <div>
-        <ProcessedText html={html} topicId={topicId} />
+        <ProcessedText html={html} topicId={topicId} topicDate={topicDate} messageNumber={n}/>
       </div>
       {showVote && <Vote text={voteText} n={vote} colors={voteColors} />}
     </div>

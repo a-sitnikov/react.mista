@@ -64,6 +64,7 @@ const PreviewContent: FC<IProps> = ({
           </div>
           <MsgText
             topicId={topicId}
+            topicDate={data.time}
             n={n}
             html={data.text}
             vote={data.vote}
