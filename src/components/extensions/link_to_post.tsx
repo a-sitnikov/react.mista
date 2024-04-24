@@ -86,6 +86,7 @@ const LinkToPost: FC<IProps> = (props): ReactElement => {
         onClick={onClick}
         className="link"
         style={{ ...props.style }}
+        role="tooltip"
       >
         {text}
       </span>
@@ -110,6 +111,7 @@ const LinkToPost: FC<IProps> = (props): ReactElement => {
           onMouseOut={onMouseOut}
           onClick={onClick}
           className="link"
+          role="tooltip"
         >
           {props.number}
         </span>
