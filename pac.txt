@@ -1,0 +1,66 @@
+﻿var rules = [
+  //test
+  "2ip.ru", 
+  "facebook.com",
+  "instagram.com",
+  "fbcdn.net",
+  //torrents
+  "kinozal.tv",
+  "rutracker.org",
+  "rutrk.org",
+  "rutracker.cc",
+  //google
+  "youtube.com",
+  "youtu.be",
+  "yt.be",
+  "ytimg.com",
+  "googlevideo.com",
+  //twitter
+  "twitter.com",
+  "x.com",
+  "twimg.com",
+  "t.co",
+  //codeium
+  "codeium.com",
+  "zendesk.com",
+  //others
+  "linkedin.com",
+  "intel.com",
+  "squareup.com",
+  "squarecdn.com",
+  "fox.com",
+  "foxdcg.com",
+  "robinbob.in",
+  "copilot.microsoft.com",
+  "medium.com",
+  "artsy.net",
+  "envato.com",
+  "ntc.party",
+  "1tw.live",
+  "quora.com",
+  "truthsocial.com",
+  "bricklink.com",
+  "streamable.com",
+  "newsweek.com",
+  "camunda.io",
+  "elastic.co",
+  "linktr.ee",
+  "discord.com",
+  "id5-sync.com",
+  "9gag.com",
+  "ant.design"
+];
+
+var direct = 'DIRECT';
+var proxy = 'PROXY 127.0.0.1:1080';
+
+function FindProxyForURL(url, host) {
+	console.log(url, host);
+	for (var i = 0; i < rules.length; i++){
+		if (host.endsWith(rules[i])) {
+			return proxy;
+		}
+	}
+	
+    return direct;
+}
