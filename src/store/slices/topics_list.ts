@@ -19,8 +19,6 @@ export interface ITopicsListItem {
   down: boolean;
   pinned: boolean;
   isVoting: boolean;
-  showPreview: boolean;
-  previewMsgNumber?: number;
 }
 
 export interface ITopicsList extends Array<ITopicsListItem> {}
@@ -73,11 +71,6 @@ const slice = createSlice({
     clear: (state) => {
       state.items = [];
       state.status = "init";
-    },
-    togglePreview: (state, { payload }) => {
-      const item = state.items.find((item) => item.id === payload.topicId);
-      item.showPreview = !item.showPreview;
-      item.previewMsgNumber = payload.msgNumber;
     },
   },
   extraReducers: (builder) => {

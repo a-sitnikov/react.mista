@@ -1,9 +1,7 @@
-import { ReactElement, useCallback, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import queryString from "query-string";
+import { ReactElement, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
-import { useAppDispatch, useAppSelector } from "src/store";
-import { getTopicsListIfNeeded } from "src/store";
+import { useTopicsList } from "src/store/query-hooks";
 
 import Header from "./header";
 import TableHeader from "./table_header";
@@ -12,25 +10,17 @@ import Pages from "src/components/common/pages";
 import NewTopic from "./new_topic";
 import Error from "src/components/common/error";
 
-import TopicPreview from "src/components/preview/topic_preview";
-
 import "./topics_list.css";
 
 const TopicsList = (): ReactElement => {
-  const dispatch = useAppDispatch();
-  const items = useAppSelector((state) => state.topicsList.items);
-  const status = useAppSelector((state) => state.topicsList.status);
-  const error = useAppSelector((state) => state.topicsList.error);
-  const loggedUserId = useAppSelector((state) => state.login.userId);
+  const [searchParams] = useSearchParams();
 
-  const location = useLocation();
-
-  const updateTopicsList = useCallback(
-    (locationParams) => {
-      dispatch(getTopicsListIfNeeded(locationParams));
-    },
-    [dispatch]
-  );
+  const {
+    isFetching,
+    data: items,
+    error,
+    refetch,
+  } = useTopicsList({ searchParams });
 
   useEffect(() => {
     document.title = "React.Mista";
@@ -38,39 +28,17 @@ const TopicsList = (): ReactElement => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location.pathname, location.search]);
-
-  useEffect(() => {
-    const locationParams = queryString.parse(location.search);
-    updateTopicsList(locationParams);
-  }, [location.search, updateTopicsList]);
-
-  let rows = new Array(items.length);
-  for (let item of items) {
-    rows.push(<Row key={item.id} {...item} topicId={item.id} />);
-
-    if (item.showPreview)
-      rows.push(
-        <TopicPreview
-          key={`preview${item.id}`}
-          topicId={item.id}
-          initialMsgNumber={item.previewMsgNumber}
-          author={item.author}
-          loggedUserId={loggedUserId}
-        />
-      );
-  }
+  }, [searchParams]);
 
   return (
     <div>
       <Header />
-      {error && <Error text={error} />}
+      {error && <Error text={error.message} />}
       <div className="topic-list-table">
-        <TableHeader
-          onUpdateClick={updateTopicsList}
-          isLoading={status === "loading"}
-        />
-        {rows}
+        <TableHeader onUpdateClick={() => refetch()} isLoading={isFetching} />
+        {(items ?? []).map((item) => (
+          <Row key={item.id} item={item} />
+        ))}
         <div className="tf">
           <Pages maxPage={10} />
         </div>
@@ -80,7 +48,7 @@ const TopicsList = (): ReactElement => {
         className="newtopic"
         style={{ marginBottom: "10px", marginTop: "5px", position: "relative" }}
       >
-        <NewTopic onSubmitSuccess={updateTopicsList} />
+        <NewTopic onSubmitSuccess={() => refetch()} />
       </div>
     </div>
   );

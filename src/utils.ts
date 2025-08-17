@@ -1,5 +1,17 @@
 import dayjs from "dayjs";
 
+export const toNumber = (
+  str: string | number | undefined | null,
+  defaultValue = 0
+) => {
+  if (!str) return defaultValue;
+  if (typeof str === "number") return str;
+
+  const number = parseInt(str, 10);
+  if (isNaN(number)) return defaultValue;
+  return number;
+};
+
 export const groupBy = <T, K extends keyof any>(
   list: T[],
   getKey: (item: T) => K

@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 type IProps = {
-  onUpdateClick: (e: React.MouseEvent) => void;
+  onUpdateClick: () => void;
   isLoading: boolean;
 };
 
@@ -10,7 +10,9 @@ const TableHeader: FC<IProps> = ({
   onUpdateClick,
 }): React.ReactElement => {
   return (
-    <div className="table-header" /* style={{ position: "sticky", top: "39px" }} */>
+    <div
+      className="table-header" /* style={{ position: "sticky", top: "39px" }} */
+    >
       <div style={{ letterSpacing: "-1px" }}>Раздел</div>
       <div></div>
       <div>Тема</div>

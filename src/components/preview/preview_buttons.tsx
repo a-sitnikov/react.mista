@@ -1,7 +1,5 @@
 import { FC, ReactElement } from "react";
 import { Link } from "react-router-dom";
-import { useActionCreators } from "src/store";
-import { topicsListActions } from "src/store";
 
 import "./topic_preview.css";
 
@@ -11,6 +9,7 @@ type IProps = {
   onLast: () => void;
   onPrev: () => void;
   onNext: () => void;
+  close: () => void;
 };
 
 const PreviewButtons: FC<IProps> = ({
@@ -19,13 +18,8 @@ const PreviewButtons: FC<IProps> = ({
   onPrev,
   onNext,
   onLast,
+  close,
 }): ReactElement => {
-  const actions = useActionCreators(topicsListActions);
-
-  const closePreview = () => {
-    actions.togglePreview({ topicId, msgNumber: 0 });
-  };
-
   return (
     <div className="topic-preview-rewind">
       <div
@@ -56,10 +50,7 @@ const PreviewButtons: FC<IProps> = ({
       >
         <i className="fa fa-angle-double-right" aria-hidden="true"></i>
       </div>
-      <div
-        className="topic-preview-button close-preview"
-        onClick={closePreview}
-      >
+      <div className="topic-preview-button close-preview" onClick={close}>
         <i className="fa fa-angle-right" aria-hidden="true"></i>
         <i
           className="fa fa-angle-left"

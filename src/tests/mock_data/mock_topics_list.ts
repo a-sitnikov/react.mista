@@ -1,6 +1,5 @@
 import { ITopicsListItem } from "src/store";
 
-
 export const mock_topics_list_item0: ITopicsListItem = {
   id: 888064,
   author: "Злоп",
@@ -16,9 +15,7 @@ export const mock_topics_list_item0: ITopicsListItem = {
   down: false,
   pinned: false,
   isVoting: false,
-  showPreview: false,
-  previewMsgNumber: 1
-}
+};
 
 export const mock_topics_list_item1: ITopicsListItem = {
   id: 888424,
@@ -35,10 +32,6 @@ export const mock_topics_list_item1: ITopicsListItem = {
   down: true,
   pinned: false,
   isVoting: true,
-  showPreview: false,
-  previewMsgNumber: 1
-}
+};
 
-export const mock_topics_list = [
-  mock_topics_list_item0
-]
+export const mock_topics_list = [mock_topics_list_item0];

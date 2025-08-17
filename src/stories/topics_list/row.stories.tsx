@@ -27,10 +27,10 @@ const meta = {
   tags: [],
   decorators: [(story) => wrapper(story(), preloadedState)],
   argTypes: {
-    forum: {
-      control: "select",
-      options: ["1C", "IT", "JOB", "LIFE"],
-    },
+    // forum: {
+    //   control: "select",
+    //   options: ["1C", "IT", "JOB", "LIFE"],
+    // },
   },
 } satisfies Meta<typeof Row>;
 
@@ -39,15 +39,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Desktop: Story = {
   args: {
-    topicId: mock_topics_list_item0.id,
-    ...mock_topics_list_item0,
+    item: mock_topics_list_item0,
   },
 };
 
 export const Mobile: Story = {
   args: {
-    topicId: mock_topics_list_item0.id,
-    ...mock_topics_list_item0,
+    item: mock_topics_list_item0,
   },
   parameters: {
     viewport: {
@@ -59,8 +57,7 @@ export const Mobile: Story = {
 
 export const Mobile_Dark: Story = {
   args: {
-    topicId: mock_topics_list_item0.id,
-    ...mock_topics_list_item0,
+    item: mock_topics_list_item0,
   },
   parameters: {
     viewport: {

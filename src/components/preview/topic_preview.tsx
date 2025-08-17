@@ -5,20 +5,23 @@ import { fetchTopicInfo } from "src/api";
 import PreviewButtons from "./preview_buttons";
 import PreviewContent from "./preview_content";
 import "./topic_preview.css";
+import { useAppSelector } from "src/store";
 
 type IProps = {
   topicId: number;
   initialMsgNumber: number;
   author: string;
-  loggedUserId: number;
+  close: () => void;
 };
 
 const TopicPreview: FC<IProps> = ({
   topicId,
   initialMsgNumber,
   author,
-  loggedUserId,
+  close,
 }): ReactElement => {
+  const loggedUserId = useAppSelector((state) => state.login.userId);
+
   const [deltaX, setDeltaX] = useState(0);
   const [display, setDispaly] = useState("none");
   const [state, setState] = useState({
@@ -107,6 +110,7 @@ const TopicPreview: FC<IProps> = ({
           onLast={onClickLast}
           onNext={onClickNext}
           onPrev={onClickPrev}
+          close={close}
         />
         <div className="preview-carousel" {...swipeable} style={style}>
           <div

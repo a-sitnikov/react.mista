@@ -1,91 +1,63 @@
-import { FC, ReactElement, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 
+import AuthorCell from "./author-cell";
+import CountCell from "./count-cell";
+import ForumCell from "./forum-cell";
+import Last20Cell from "./last20-cell";
+import LastUserCell from "./last-user-cell";
+import ShowPreviewButton from "./show_preview_button";
 import TopicNameCell from "./topic_name_cell";
-import PreviewLink from "./preview_link";
+import TopicPreview from "src/components/preview/topic_preview";
 
-import { formattedTime } from "src/utils";
-import { useActionCreators } from "src/store";
-import { ITopicsListItem, topicsListActions } from "src/store";
-import { fetchTopicMessage } from "src/api";
+import { ITopicsListItem } from "src/store";
 
-interface IProps extends ITopicsListItem {
-  updated: number;
-  topicId: number;
+interface IProps {
+  item: ITopicsListItem;
 }
 
-const Row: FC<IProps> = ({ topicId, updated, ...data }): ReactElement => {
-  const actions = useActionCreators(topicsListActions);
+const Row: React.FC<IProps> = ({ item }) => {
+  const [previewNumber, setPreviewNumber] = useState<number>();
 
-  const [time, setTime] = useState(updated);
+  const previewShowFirst = () => {
+    if (previewNumber === undefined) {
+      setPreviewNumber(0);
+    } else {
+      setPreviewNumber(undefined);
+    }
+  };
 
-  useEffect(() => {
-    if (!data.pinned) return;
-
-    const updateTime = async () => {
-      const msg = await fetchTopicMessage(topicId, data.count);
-      setTime(msg.time);
-    };
-
-    updateTime();
-  }, [data.pinned, topicId, data.count]);
-
-  useEffect(() => {
-    setTime(updated);
-  }, [updated]);
-
-  const countOnClick = () => {
-    actions.togglePreview({ topicId, msgNumber: data.count });
+  const previewShowLast = () => {
+    if (previewNumber === undefined || previewNumber !== item.count) {
+      setPreviewNumber(item.count);
+    } else {
+      setPreviewNumber(undefined);
+    }
   };
 
   return (
-    <div className="topics-list-row">
-      <div className="cell-forum">
-        <div className="cell-forum--inner">{data.forum}</div>
+    <>
+      <div className="topics-list-row">
+        <ForumCell item={item} />
+        <div className="cell-section">{item.section}</div>
+        <CountCell item={item} onClick={previewShowLast} />
+        <ShowPreviewButton
+          expanded={previewNumber !== undefined}
+          onClick={previewShowFirst}
+        />
+        <TopicNameCell data={item} />
+        <AuthorCell item={item} />
+        <LastUserCell item={item} />
+        <Last20Cell item={item} />
       </div>
-      <div className="cell-section">{data.section}</div>
-      <div className="cell-answ" onClick={countOnClick}>
-        <div className="cell-answ--inner">
-          <i
-            className="fa fa-comments-o"
-            aria-hidden="true"
-            style={{ marginRight: "3px" }}
-          ></i>
-          <span>{data.count}</span>
-        </div>
-      </div>
-      <PreviewLink topicId={data.id} expanded={data.showPreview} />
-      <TopicNameCell {...data} />
-      <div className="cell-author">
-        <div className="cell-author--inner">
-          <i
-            aria-hidden="true"
-            className="fa fa-user-circle"
-            style={{ marginRight: "3px" }}
-          ></i>
-          {data.author}
-        </div>
-      </div>
-      <div className="cell-lastuser">
-        <div className="cell-author--inner">
-          <span className="cell-lastuser-time">{formattedTime(time)}</span>
-          <span className="cell-lastuser-user">{data.lastUser}</span>
-        </div>
-      </div>
-      <div className="cell-last20">
-        <Link
-          to={`/topic.php?id=${data.id}&page=last20#F`}
-          style={{
-            color: "inherit",
-            display: "block",
-            width: "100%",
-            textAlign: "center",
-          }}
-        >
-          <i className="fa fa-angle-right" aria-hidden="true"></i>
-        </Link>
-      </div>
-    </div>
+      {previewNumber !== undefined && (
+        <TopicPreview
+          topicId={item.id}
+          initialMsgNumber={previewNumber}
+          author={item.author}
+          close={() => setPreviewNumber(undefined)}
+        />
+      )}
+    </>
   );
 };
 

@@ -3,20 +3,10 @@ import classNames from "classnames";
 import { Link } from "react-router-dom";
 
 import Pages from "./pages";
-import { useAppSelector } from "src/store";
+import { ITopicsListItem, useAppSelector } from "src/store";
 
 type IProps = {
-  id: number;
-  count: number;
-  author: string;
-  pinned: boolean;
-  forum: string;
-  sectionCode: string;
-  section: string;
-  text: string;
-  isVoting: boolean;
-  closed: boolean;
-  down: boolean;
+  data: ITopicsListItem;
 };
 
 const addPrefix = (
@@ -34,37 +24,37 @@ const addPrefix = (
   return text;
 };
 
-const TopicNameCell: FC<IProps> = (props): ReactElement => {
+const TopicNameCell: FC<IProps> = ({ data }): ReactElement => {
   const loggedUserName = useAppSelector((state) => state.login.userName);
 
-  let href = `/topic.php?id=${props.id}`;
+  let href = `/topic.php?id=${data.id}`;
   let classes = classNames("agb", "mr5", {
-    bold: props.count >= 100,
-    mytopics: props.author === loggedUserName,
-    pinned: props.pinned,
+    bold: data.count >= 100,
+    mytopics: data.author === loggedUserName,
+    pinned: data.pinned,
   });
 
-  let sectionHref = `/index.php?section=${props.sectionCode}`;
+  let sectionHref = `/index.php?section=${data.sectionCode}`;
   let section: ReactElement;
-  if (props.section) {
+  if (data.section) {
     section = (
       <span className="topic-section">
         <span className="agh" style={{ margin: "0px 5px" }}>
           /
         </span>
         <Link key="1" rel="nofollow" className="agh" to={sectionHref}>
-          {props.section}
+          {data.section}
         </Link>
       </span>
     );
   }
 
-  let text = addPrefix(props.text, props.forum, props.sectionCode);
+  let text = addPrefix(data.text, data.forum, data.sectionCode);
 
   return (
     <div className="cell-title">
       <div className="cell-title--inner">
-        {props.pinned && (
+        {data.pinned && (
           <i
             className="fa fa-thumb-tack agh"
             aria-hidden="true"
@@ -77,10 +67,10 @@ const TopicNameCell: FC<IProps> = (props): ReactElement => {
           dangerouslySetInnerHTML={{ __html: text }}
           style={{ overflowWrap: "anywhere" }}
         ></Link>
-        {props.isVoting && <span className="agh separator">[±]</span>}
-        <Pages count={props.count} topicId={props.id} />
-        {props.closed && <span className="agh">Ø</span>}
-        {props.down && <span className="agh">↓</span>}
+        {data.isVoting && <span className="agh separator">[±]</span>}
+        <Pages count={data.count} topicId={data.id} />
+        {data.closed && <span className="agh">Ø</span>}
+        {data.down && <span className="agh">↓</span>}
         {section}
       </div>
     </div>

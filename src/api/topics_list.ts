@@ -1,11 +1,12 @@
+import { toNumber } from "src/utils";
 import { urlTopicsList } from ".";
 import { fetchAndGetJson } from "./api-utils";
 
 import type { ITopicsList, ITopicsListItem } from "src/store";
 
 export interface ITopicsListRequest {
-  itemsPerPage?: number | null;
-  page?: number | null;
+  itemsPerPage?: number | string | null;
+  page?: number | string | null;
   beforeTime?: string | null;
   forum?: string | null;
   section?: string | null;
@@ -41,8 +42,8 @@ interface IAPIResponse {
 }
 
 function convertRequest(request: ITopicsListRequest): IAPIRequest {
-  const page = request.page || 1;
-  const itemsCount = request.itemsPerPage * page;
+  const page = toNumber(request.page, 1);
+  const itemsCount = toNumber(request.itemsPerPage, 20) * page;
 
   return {
     topics: String(itemsCount),
@@ -69,7 +70,6 @@ function convertResponse(response: IAPIResponse): ITopicsListItem {
     down: response.down === 1,
     pinned: response.utime === 2147483648,
     isVoting: response.is_voting === 1,
-    showPreview: false,
   };
 }
 
@@ -78,8 +78,10 @@ async function fetchTopicsList(
 ): Promise<ITopicsList> {
   const request = convertRequest(params);
 
+  const itemsPerPage = toNumber(params?.itemsPerPage, 20);
+
   const list = await fetchAndGetJson(urlTopicsList, request);
-  return list.map(convertResponse);
+  return list.map(convertResponse).slice(-itemsPerPage);
 }
 
 export { fetchTopicsList };
