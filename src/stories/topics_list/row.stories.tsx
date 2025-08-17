@@ -11,12 +11,7 @@ import "src/index.css";
 import "src/pages/topics_list/topics_list.css";
 import { RootState } from "src/store";
 
-const preloadedState: Partial<RootState> = {
-  topicsList: {
-    items: [mock_topics_list_item0],
-    status: "success",
-  },
-};
+const preloadedState: Partial<RootState> = {};
 
 const meta = {
   title: "topics list/Row",

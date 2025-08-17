@@ -12,7 +12,6 @@ import {
 import storage from "redux-persist/lib/storage";
 
 import {
-  topicsList,
   topic,
   options,
   login,
@@ -27,7 +26,6 @@ const persistConfig = {
 };
 
 export const reducer = combineReducers({
-  topicsList,
   topic,
   options: persistReducer(persistConfig, options),
   login,

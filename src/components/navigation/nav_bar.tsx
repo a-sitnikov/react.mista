@@ -1,25 +1,25 @@
-import { ReactElement } from "react";
-import { useDispatch } from "react-redux";
-
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 
 import Search from "src/components/common/search";
-import { getTopicsListIfNeeded } from "src/store";
 
 import "./nav_bar.css";
+import { useTopicsList } from "src/store/query-hooks";
 
-const NavBar = (): ReactElement => {
+const NavBar: React.FC = () => {
   const location = useLocation();
-  const dispatch = useDispatch();
+  const [searchParams] = useSearchParams();
 
-  const locationParams = new URLSearchParams(location.search);
-  const forum = locationParams.get("forum");
+  const forum = searchParams.get("forum");
+  const { refetch } = useTopicsList({ searchParams });
 
-  const onClick = () => {
-    dispatch(getTopicsListIfNeeded({}));
+  const onClick = (e: React.MouseEvent) => {
+    if (location.pathname === "/" && searchParams.size === 0) {
+      e.preventDefault();
+      refetch();
+    }
   };
 
   const internalLinks = [
