@@ -1,25 +1,23 @@
-import { ReactElement, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import queryString from "query-string";
+import { ReactElement } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import Login from "../../components/login";
 import Sections from "./sections";
-import { ISectionItem, getSectionsIfNeeded } from "src/store";
+import { ISectionItem } from "src/store";
 
 const Header = (): ReactElement => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const params = queryString.parse(location.search);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  useEffect(() => {
-    dispatch(getSectionsIfNeeded());
-  }, [dispatch]);
-
-  const onSectionChange = (e, value: ISectionItem) => {
-    if (value) navigate(`/index.php?section=${value.code}`);
-    else navigate(`/`);
+  const onSectionChange = (e, value: ISectionItem | undefined) => {
+    setSearchParams((prevSearchParams) => {
+      const newSearchParams = new URLSearchParams(prevSearchParams);
+      if (value) {
+        newSearchParams.set("section", value.code);
+      } else {
+        newSearchParams.delete("section");
+      }
+      return newSearchParams;
+    });
   };
 
   return (
@@ -31,7 +29,7 @@ const Header = (): ReactElement => {
         <Sections
           id="sect"
           defaultValue="--Все секции--"
-          selected={String(params.section) || ""}
+          selected={searchParams.get("section") ?? ""}
           onChange={onSectionChange}
           size="sm"
         />

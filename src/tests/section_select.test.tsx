@@ -6,6 +6,7 @@ import SectionSelect from "src/pages/topics_list/sections";
 import type { IProps } from "src/pages/topics_list/sections";
 
 import { mock_sections } from "./mock_data";
+import { groupBy } from "src/utils";
 
 describe("SectionSelect", () => {
   it("render", async () => {
@@ -16,9 +17,12 @@ describe("SectionSelect", () => {
       size: "sm",
     };
 
-    jest
-      .spyOn(API, "fetchSections")
-      .mockReturnValue(Promise.resolve(mock_sections));
+    jest.spyOn(API, "fetchSections").mockReturnValue(
+      Promise.resolve({
+        items: mock_sections,
+        tree: groupBy(mock_sections, (item) => item.forum),
+      })
+    );
 
     renderWithProviders(<SectionSelect {...props} />);
     await waitFor(() => expect(API.fetchSections).toHaveBeenCalledTimes(1));

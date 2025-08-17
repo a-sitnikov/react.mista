@@ -1,3 +1,4 @@
+import { groupBy } from "src/utils";
 import { urlSections } from ".";
 import { fetchJsonpAndGetJson } from "./api-utils";
 import type { ISectionItem } from "src/store";
@@ -18,7 +19,14 @@ function convertResponse(response: IAPIResponse): ISectionItem {
   };
 }
 
-export const fetchSections = async (): Promise<ISectionItem[]> => {
+export const fetchSections = async (): Promise<{
+  items: ISectionItem[];
+  tree: { [key: string]: ISectionItem[] };
+}> => {
   const list = await fetchJsonpAndGetJson(urlSections);
-  return list.map(convertResponse);
+  const items = list.map(convertResponse);
+  return {
+    items,
+    tree: groupBy(items, (item) => item.forum),
+  };
 };

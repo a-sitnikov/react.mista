@@ -1,9 +1,8 @@
-import { FC, ReactElement, useEffect } from "react";
 import CSS from "csstype";
 import Form from "react-bootstrap/Form";
 
-import { useAppDispatch, useAppSelector } from "src/store";
-import { getSectionsIfNeeded, ISectionItem } from "src/store";
+import { ISectionItem } from "src/store";
+import { useSections } from "src/store/query-hooks";
 
 export type IProps = {
   id: string;
@@ -11,45 +10,29 @@ export type IProps = {
   selected?: string;
   style?: CSS.Properties;
   size?: "sm" | "lg";
-  onChange?: (e: React.ChangeEvent<HTMLElement>, value: ISectionItem) => void;
+  onChange?: (
+    e: React.ChangeEvent<HTMLElement>,
+    value: ISectionItem | undefined
+  ) => void;
 };
 
-const Sections: FC<IProps> = (props): ReactElement => {
-  const dispatch = useAppDispatch();
-  const items = useAppSelector((state) => state.sections.items);
-  const tree = useAppSelector((state) => state.sections.tree);
-
-  useEffect(() => {
-    dispatch(getSectionsIfNeeded());
-  }, [dispatch]);
+const Sections: React.FC<IProps> = ({
+  id,
+  defaultValue,
+  selected,
+  style,
+  size,
+  onChange,
+}) => {
+  const { data } = useSections();
 
   const onSelect = (e: React.ChangeEvent<HTMLSelectElement>): void => {
-    const { onChange } = props;
+    if (!onChange) return;
 
-    if (onChange) {
-      const code = e.currentTarget.value;
-      const arr = items.filter((item) => item.code === code);
-      if (arr.length > 0) onChange(e, arr[0]);
-      else onChange(e, null);
-    }
+    const code = e.currentTarget.value;
+    const item = data.items.find((item) => item.code === code);
+    onChange(e, item);
   };
-
-  let sectionsElem = [];
-  for (let forum in tree) {
-    let group = (
-      <optgroup key={forum} label={forum}>
-        {tree[forum].map((item) => (
-          <option key={item.id} value={item.code}>
-            {item.name}
-          </option>
-        ))}
-      </optgroup>
-    );
-
-    sectionsElem.push(group);
-  }
-
-  const { id, defaultValue, selected, style, size } = props;
 
   return (
     <Form.Select
@@ -62,7 +45,15 @@ const Sections: FC<IProps> = (props): ReactElement => {
       id={id}
     >
       <option value="">{defaultValue}</option>
-      {sectionsElem}
+      {Object.keys(data.tree).map((forum) => (
+        <optgroup key={forum} label={forum}>
+          {data.tree[forum].map((item) => (
+            <option key={item.id} value={item.code}>
+              {item.name}
+            </option>
+          ))}
+        </optgroup>
+      ))}
     </Form.Select>
   );
 };

@@ -1,8 +1,14 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
-import { ISectionItem } from "./sections";
 import { fetchNewTopic, INewTopicRequest } from "src/api";
 import { RootState } from "../types";
+
+export interface ISectionItem {
+  id: number;
+  forum: string;
+  code: string;
+  name: string;
+}
 
 export type NewTopicState = {
   status: "init" | "loading" | "success" | "error";

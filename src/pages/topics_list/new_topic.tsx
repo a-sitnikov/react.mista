@@ -12,13 +12,15 @@ import ErrorElem from "src/components/common/error";
 import "./new_topic.css";
 import { ISectionItem, newTopicActions, postNewTopicIfNeeded } from "src/store";
 import { useEventCallback } from "usehooks-ts";
+import { useSections } from "src/store/query-hooks";
 
 type IProps = {
   onSubmitSuccess?: any;
 };
 
 const NewTopic: FC<IProps> = ({ onSubmitSuccess }): ReactElement => {
-  const sections = useAppSelector((state) => state.sections);
+  const { data: sections } = useSections();
+
   const newTopic = useAppSelector((state) => state.newTopic);
 
   const [currentSection, setSection] = useState(null);

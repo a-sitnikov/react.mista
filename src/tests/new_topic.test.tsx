@@ -3,16 +3,9 @@ import "@testing-library/jest-dom";
 
 import { setupStore, renderWithProviders } from "./test-utils";
 import NewTopic from "src/pages/topics_list/new_topic";
-import { NewTopicState, SectionsState } from "src/store";
-import { mock_sections, mock_sections_tree } from "./mock_data";
+import { NewTopicState } from "src/store";
 
 describe("NewTopic", () => {
-  const sections: SectionsState = {
-    status: "init",
-    items: mock_sections,
-    tree: mock_sections_tree,
-  };
-
   const newTopic: NewTopicState = {
     status: "init",
     section: null,
@@ -23,7 +16,6 @@ describe("NewTopic", () => {
   };
 
   let initialState = {
-    sections,
     newTopic,
   };
 
