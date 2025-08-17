@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from "react";
+import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { useTopicsList } from "src/store/query-hooks";
@@ -12,7 +12,7 @@ import Error from "src/components/common/error";
 
 import "./topics_list.css";
 
-const TopicsList = (): ReactElement => {
+const TopicsList: React.FC = () => {
   const [searchParams] = useSearchParams();
 
   const {
@@ -35,11 +35,11 @@ const TopicsList = (): ReactElement => {
       <Header />
       {error && <Error text={error.message} />}
       <div className="topic-list-table">
-        <TableHeader onUpdateClick={() => refetch()} isLoading={isFetching} />
+        <TableHeader onUpdateClick={refetch} isLoading={isFetching} />
         {(items ?? []).map((item) => (
           <Row key={item.id} item={item} />
         ))}
-        <div className="tf">
+        <div className="table-footer">
           <Pages maxPage={10} />
         </div>
       </div>
@@ -48,7 +48,7 @@ const TopicsList = (): ReactElement => {
         className="newtopic"
         style={{ marginBottom: "10px", marginTop: "5px", position: "relative" }}
       >
-        <NewTopic onSubmitSuccess={() => refetch()} />
+        <NewTopic onSubmitSuccess={refetch} />
       </div>
     </div>
   );
