@@ -3,7 +3,7 @@ import { fetchTopic } from "../slices";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { QueryKeys } from "./types";
 
-interface IUseTopicMessagesProps {
+interface IProps {
   topicId: number;
 }
 
@@ -11,10 +11,7 @@ export type TFetchTopicData =
   | Awaited<ReturnType<typeof fetchTopic>>
   | undefined;
 
-export const useTopicMessages = (
-  { topicId }: IUseTopicMessagesProps,
-  options?: { select?: (data: TFetchTopicData) => any }
-) => {
+export const useTopicMessages = ({ topicId }: IProps) => {
   const [searchParams] = useSearchParams();
 
   const page = searchParams.get("page");
@@ -28,7 +25,6 @@ export const useTopicMessages = (
       return fetchTopic({ topicId, page, item0: cacheData?.item0 });
     },
     placeholderData: (previousData) => previousData,
-    ...options,
   });
 };
 
