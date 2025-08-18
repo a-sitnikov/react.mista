@@ -1,4 +1,4 @@
-import { FC, ReactElement, useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 
 import { getMaxPage, childrenToText } from "src/utils";
 import { fetchTopicInfo } from "src/api";
@@ -12,7 +12,7 @@ type IProps = {
   children?: React.ReactNode;
 };
 
-const LinkToPost: FC<IProps> = (props): ReactElement => {
+const LinkToPost: React.FC<IProps> = (props) => {
   const timerRef = useRef(null);
   const actions = useActionCreators(tooltipsActions);
 
