@@ -11,6 +11,7 @@ import { useAppSelector } from "src/store";
 import { fetchTopicInfo } from "src/api";
 import InternalImage from "src/components/extensions/internal-image";
 import { PhotoProvider } from "react-photo-view";
+import { useTopicMessages } from "src/store/query-hooks";
 
 type IProps = {
   topicId: number;
@@ -37,17 +38,26 @@ const processCode1C = (text: string): string => {
     .replace(/<\/1[CС]>/gi, "</code>"); //</1C>
 };
 
-
-const processImages = (text: string, topicId: number, topicDate: number, messageNumber: number): string | undefined => {
+const processImages = (
+  text: string,
+  topicId: number,
+  topicDate: number,
+  messageNumber: number
+): string | undefined => {
   const regexp = /\[IMG_(\d*)\]/gi; // ([IMG_1])
 
   return text.replace(regexp, (res, ...segments) => {
     const idx = segments[0];
     return `<int_img idx='${idx}'></int_img>`;
-    });
+  });
 };
 
-const processText = (text: string, topicId: number, topicDate: number, messageNumber: number): string | undefined => {
+const processText = (
+  text: string,
+  topicId: number,
+  topicDate: number,
+  messageNumber: number
+): string | undefined => {
   if (!text) return text;
 
   let newtext = processCode1C(text);
@@ -97,45 +107,58 @@ const linkProcessor = (processedHtml: string) => ({
         {children}
       </CustomLink>
     );
-  },  
+  },
 });
 
-const internalImageProcesor = (topicId: number, topicDate: number,  messageNumber: number ) => ({
+const internalImageProcesor = (
+  topicId: number,
+  topicDate: number,
+  messageNumber: number
+) => ({
   shouldProcessNode: (node: any) => {
     return node?.name === "int_img";
   },
   processNode: function (node: any, children: any, index: number) {
     const idx = node.attribs["idx"];
     return (
-      <InternalImage key={index} topicId={topicId} topicDate={topicDate} messageNumber={messageNumber} idx={idx}/>
+      <InternalImage
+        key={index}
+        topicId={topicId}
+        topicDate={topicDate}
+        messageNumber={messageNumber}
+        idx={idx}
+      />
     );
-  },  
-})
+  },
+});
 
-const ProcessedText: FC<{ html: string; topicId: number, topicDate: number,  messageNumber: number}> = memo(
-  ({ html, topicId, topicDate, messageNumber }): ReactElement => {
-    const processedHtml = processText(html, topicId, topicDate, messageNumber);
-    const processingInstructions = [
-      linkToPostProcessor,
-      codeProcessor,
-      linkProcessor(processedHtml),
-      internalImageProcesor(topicId, topicDate, messageNumber),
-      {
-        // Anything else
-        shouldProcessNode: () => true,
-        processNode: processNodeDefinitions.processDefaultNode,
-      },
-    ];
+const ProcessedText: FC<{
+  html: string;
+  topicId: number;
+  topicDate: number;
+  messageNumber: number;
+}> = memo(({ html, topicId, topicDate, messageNumber }): ReactElement => {
+  const processedHtml = processText(html, topicId, topicDate, messageNumber);
+  const processingInstructions = [
+    linkToPostProcessor,
+    codeProcessor,
+    linkProcessor(processedHtml),
+    internalImageProcesor(topicId, topicDate, messageNumber),
+    {
+      // Anything else
+      shouldProcessNode: () => true,
+      processNode: processNodeDefinitions.processDefaultNode,
+    },
+  ];
 
-    const reactComponent = htmlToReactParser.parseWithInstructions(
-      processedHtml,
-      isValidNode,
-      processingInstructions
-    );
+  const reactComponent = htmlToReactParser.parseWithInstructions(
+    processedHtml,
+    isValidNode,
+    processingInstructions
+  );
 
-    return <>{reactComponent}</>;
-  }
-);
+  return <>{reactComponent}</>;
+});
 
 const MsgText: FC<IProps> = ({
   topicId,
@@ -145,7 +168,9 @@ const MsgText: FC<IProps> = ({
   vote,
   style,
 }): ReactElement => {
-  const info = useAppSelector((state) => state.topic.info);
+  const {
+    data: { info },
+  } = useTopicMessages({ topicId }, { enabled: false });
   const voteColors = useAppSelector((state) => state.options.voteColors);
 
   let initialVoteText: string = null;
@@ -182,7 +207,12 @@ const MsgText: FC<IProps> = ({
       {voteChart}
       <div>
         <PhotoProvider>
-          <ProcessedText html={html} topicId={topicId} topicDate={topicDate} messageNumber={n}/>
+          <ProcessedText
+            html={html}
+            topicId={topicId}
+            topicDate={topicDate}
+            messageNumber={n}
+          />
         </PhotoProvider>
       </div>
       {showVote && <Vote text={voteText} n={vote} colors={voteColors} />}

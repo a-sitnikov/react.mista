@@ -1,9 +1,10 @@
 import { useRef, useState, useEffect } from "react";
 
-import { getMaxPage, childrenToText } from "src/utils";
+import { getMaxPage, childrenToText, toNumber } from "src/utils";
 import { fetchTopicInfo } from "src/api";
 import { useActionCreators, useAppSelector } from "src/store";
 import { ITooltipKeys, tooltipsActions } from "src/store";
+import { useSearchParams } from "react-router-dom";
 
 type IProps = {
   topicId: number;
@@ -16,7 +17,9 @@ const LinkToPost: React.FC<IProps> = (props) => {
   const timerRef = useRef(null);
   const actions = useActionCreators(tooltipsActions);
 
-  const currentTopicId = useAppSelector((state) => state.topic.info?.id);
+  const [searchParams] = useSearchParams();
+  const currentTopicId = toNumber(searchParams.get("id"), -1);
+
   const tooltipDelay = useAppSelector(
     (state) => +state.options.items.tooltipDelay
   );

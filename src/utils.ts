@@ -52,8 +52,13 @@ export const parseJSON = (text: string): {} => {
   }
 };
 
+export const getPageNumber = (locationPage: string): number | "last20" => {
+  if (locationPage === "last20") return "last20";
+  return toNumber(locationPage, 1);
+};
+
 export const getMaxPage = (count: number): number => {
-  if (count === -1) return -1;
+  if (count === -1 || count === undefined) return -1;
   return Math.min(Math.ceil(count / 100), 10) || 1;
 };
 

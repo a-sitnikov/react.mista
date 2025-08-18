@@ -1,10 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import MsgText from "src/pages/topic/row/msg_text";
-import {
-  mock_topicInfo,
-  mock_topic_item0,
-} from "src/tests/mock_data/mock_topic";
+import { mock_topic_item0 } from "src/tests/mock_data/mock_topic";
 
 import { wrapper } from "../utils";
 
@@ -13,11 +10,6 @@ import "src/pages/topics_list/topics_list.css";
 import { RootState, defaultOptionsState } from "src/store";
 
 const preloadedState: Partial<RootState> = {
-  topic: {
-    info: mock_topicInfo,
-    items: [mock_topic_item0],
-    status: "success",
-  },
   options: { ...defaultOptionsState, _persist: null },
 };
 

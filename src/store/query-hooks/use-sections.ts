@@ -6,5 +6,6 @@ export const useSections = () => {
     queryKey: ["sections"],
     queryFn: fetchSections,
     placeholderData: { items: [], tree: {} },
+    refetchOnWindowFocus: false,
   });
 };

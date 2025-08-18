@@ -34,5 +34,6 @@ export const useMessageData = ({ topicId, number }: IProps) => {
 
       return item;
     },
+    refetchOnWindowFocus: false,
   });
 };

@@ -11,14 +11,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import {
-  topic,
-  options,
-  login,
-  tooltips,
-  newTopic,
-  newMessage,
-} from "./slices";
+import { options, login, tooltips, newTopic, newMessage } from "./slices";
 
 const persistConfig = {
   key: "options",
@@ -26,7 +19,6 @@ const persistConfig = {
 };
 
 export const reducer = combineReducers({
-  topic,
   options: persistReducer(persistConfig, options),
   login,
   tooltips,

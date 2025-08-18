@@ -1,7 +1,13 @@
 import { useSearchParams } from "react-router-dom";
 import { fetchTopic } from "../slices";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
 import { QueryKeys } from "./types";
+import { fetchTopicMessages } from "src/api";
+
+interface TOptions {
+  enabled?: boolean;
+  refetchInterval?: number;
+}
 
 interface IProps {
   topicId: number;
@@ -11,7 +17,7 @@ export type TFetchTopicData =
   | Awaited<ReturnType<typeof fetchTopic>>
   | undefined;
 
-export const useTopicMessages = ({ topicId }: IProps) => {
+export const useTopicMessages = ({ topicId }: IProps, options?: TOptions) => {
   const [searchParams] = useSearchParams();
 
   const page = searchParams.get("page");
@@ -25,10 +31,58 @@ export const useTopicMessages = ({ topicId }: IProps) => {
       return fetchTopic({ topicId, page, item0: cacheData?.item0 });
     },
     placeholderData: (previousData) => previousData,
+    refetchOnWindowFocus: false,
+    ...options,
   });
 };
 
-export const getCachedTopicData = (queryClient: any, topicId: number) => {
+export const useUpdateMessages = ({ topicId }: IProps, options: TOptions) => {
+  const [searchParams] = useSearchParams();
+
+  const page = searchParams.get("page");
+
+  const queryClient = useQueryClient();
+
+  return useQuery({
+    queryKey: [QueryKeys.UpdateTopicMessages, topicId],
+    queryFn: async () => {
+      const cacheData = getCachedTopicData(queryClient, topicId);
+      if (!cacheData) return true;
+
+      const data = await fetchTopicMessages({
+        id: topicId,
+        from: cacheData.info.count + 1,
+        to: 1050,
+      });
+
+      if (data.length === 0) return true;
+
+      queryClient.setQueryData<TFetchTopicData>(
+        [QueryKeys.TopicMessages, topicId, page],
+        (prevData) => {
+          return {
+            info: {
+              ...prevData.info,
+              count: data.at(-1).n,
+            },
+            item0: prevData.item0,
+            list: [...prevData.list, ...data],
+          };
+        }
+      );
+
+      return true;
+    },
+    initialData: true,
+    refetchOnMount: false,
+    ...options,
+  });
+};
+
+export const getCachedTopicData = (
+  queryClient: QueryClient,
+  topicId: number
+) => {
   const topicQueries = queryClient.getQueriesData({
     queryKey: [QueryKeys.TopicMessages, topicId],
   });

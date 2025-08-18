@@ -6,17 +6,21 @@ import { useActionCreators, useAppDispatch, useAppSelector } from "src/store";
 import { newMessageActions, postNewMessage, newTopicActions } from "src/store";
 
 import type { PostNewmessageParams } from "src/store";
+import { useTopicMessages } from "src/store/query-hooks";
 
 type IProps = {
+  topicId: number;
   onSubmitSuccess?: () => void;
 };
 
-const NewMessage: FC<IProps> = ({ onSubmitSuccess }): ReactElement => {
+const NewMessage: FC<IProps> = ({ topicId, onSubmitSuccess }): ReactElement => {
   const [voting, setVoting] = useState<number | undefined>();
   const dispatch = useAppDispatch();
   const actions = useActionCreators(newMessageActions);
 
-  const info = useAppSelector((state) => state.topic.info);
+  const {
+    data: { info },
+  } = useTopicMessages({ topicId });
   const newMessage = useAppSelector((state) => state.newMessage);
 
   const onSubmit = (e: React.SyntheticEvent) => {

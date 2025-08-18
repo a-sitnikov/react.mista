@@ -1,8 +1,6 @@
-import { ReactElement } from "react";
-
-import { useAppSelector } from "src/store";
 import Login from "src/components/login";
 import { Link } from "react-router-dom";
+import { useTopicMessages } from "src/store/query-hooks";
 
 const forums = {
   "1c": "1С:Предприятие",
@@ -11,8 +9,12 @@ const forums = {
   job: "Работа",
 };
 
-const Header = (): ReactElement => {
-  const info = useAppSelector((state) => state.topic.info);
+interface IProps {
+  topicId: number;
+}
+
+const Header: React.FC<IProps> = ({ topicId }) => {
+  const { data } = useTopicMessages({ topicId }, { enabled: false });
 
   return (
     <div className="flex-row">
@@ -22,10 +24,10 @@ const Header = (): ReactElement => {
       <div className="header-right">
         <span id="forum_string" className="bold120">
           <Link
-            to={`/index.php?forum=${info.forum}`}
+            to={`/index.php?forum=${data?.info.forum}`}
             style={{ textDecoration: "none" }}
           >
-            {forums[info.forum]}
+            {forums[data?.info.forum]}
           </Link>
         </span>
       </div>

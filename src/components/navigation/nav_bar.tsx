@@ -13,7 +13,7 @@ const NavBar: React.FC = () => {
   const [searchParams] = useSearchParams();
 
   const forum = searchParams.get("forum");
-  const { refetch } = useTopicsList({ searchParams });
+  const { refetch } = useTopicsList({ searchParams }, { enabled: false });
 
   const onClick = (e: React.MouseEvent) => {
     if (location.pathname === "/" && searchParams.size === 0) {

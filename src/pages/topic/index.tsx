@@ -1,12 +1,9 @@
-import { ReactElement, useCallback, useEffect } from "react";
-
+import { ReactElement, useEffect } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
-import {
-  topicActions,
-  getNewMessagesIfNeeded,
-  useAppSelector,
-} from "src/store";
+
+import { useAppDispatch, useAppSelector } from "src/store";
 import { newMessageActions } from "src/store";
+import { useTopicMessages, useUpdateMessages } from "src/store/query-hooks";
 
 import Error from "src/components/common/error";
 import Pages from "src/components/common/pages";
@@ -15,24 +12,22 @@ import TopicInfo from "./topic_info";
 import Row from "../../pages/topic/row";
 import Footer from "./footer";
 import NewMessage from "./new_message";
-import { getMaxPage, extractTextFromHTML, toNumber } from "src/utils";
-import { useActionCreators, useAppDispatch } from "src/store";
+import {
+  getMaxPage,
+  extractTextFromHTML,
+  toNumber,
+  getPageNumber,
+} from "src/utils";
 
 import "./topic.css";
-import { useTopicMessages } from "src/store/query-hooks";
-
-const getPageNumber = (locationPage: string): number | "last20" => {
-  if (locationPage === "last20") return "last20";
-  return toNumber(locationPage, 1);
-};
+import { useEnableUpdater } from "./hooks/use-enable-updater";
 
 const Topic = (): ReactElement => {
   const dispatch = useAppDispatch();
-  const actions = useActionCreators(topicActions);
-  const location = useLocation();
+  const { hash } = useLocation();
   const [searchParams] = useSearchParams();
 
-  const topicId = +searchParams.get("id");
+  const topicId = toNumber(searchParams.get("id"), -1);
   const { data, error, isPending } = useTopicMessages({ topicId });
 
   const { info, item0, list: items = [] } = data ?? {};
@@ -43,13 +38,18 @@ const Topic = (): ReactElement => {
   const maxPage = getMaxPage(info?.count);
 
   const isLastPage = page === "last20" || page === maxPage;
+  const { enableUpdater, refreshInterval } = useEnableUpdater({ isLastPage });
 
-  const updateNewMessages = useCallback(() => {
-    if (isLastPage) dispatch(getNewMessagesIfNeeded());
-  }, [dispatch, isLastPage]);
+  const { refetch: updateMessages } = useUpdateMessages(
+    { topicId },
+    {
+      refetchInterval: refreshInterval,
+      enabled: enableUpdater,
+    }
+  );
 
   const onPostNewMessageSuccess = () => {
-    updateNewMessages();
+    updateMessages();
     dispatch(newMessageActions.changeText(""));
   };
 
@@ -60,34 +60,24 @@ const Topic = (): ReactElement => {
   }, [info?.title]);
 
   useEffect(() => {
-    const timer = window.setInterval(updateNewMessages, 60 * 1000);
-
-    const clearStore = () => {
-      actions.clear();
-      if (timer) clearInterval(timer);
-    };
-    return clearStore;
-  }, [actions, updateNewMessages]);
-
-  useEffect(() => {
     if (isPending) return;
-    if (!location.hash) return;
+    if (!hash) return;
 
-    const nodeHash = document.getElementById(location.hash.slice(1));
+    const nodeHash = document.getElementById(hash.slice(1));
     if (nodeHash) {
       window.scrollTo(0, nodeHash.offsetTop);
     }
-  }, [isPending, location.hash]);
+  }, [isPending, hash]);
 
   return (
     <div style={{ marginBottom: "5px" }}>
-      <Header />
+      <Header topicId={topicId} />
       {error && <Error text={error.message} />}
       <div className="topic-table">
         <TopicInfo topicId={topicId} />
-        <Row key="0" data={item0} topicId={topicId} />
+        <Row item={item0} topicId={topicId} />
         {items.map((item, i) => (
-          <Row key={item.n} data={item} topicId={topicId} />
+          <Row key={item.n} item={item} topicId={topicId} />
         ))}
         {(maxPage > 1 || page === "last20") && (
           <div className="table-footer">
@@ -95,8 +85,13 @@ const Topic = (): ReactElement => {
           </div>
         )}
       </div>
-      <Footer page={page} />
-      {login.logged && <NewMessage onSubmitSuccess={onPostNewMessageSuccess} />}
+      <Footer topicId={topicId} isLastPage={isLastPage} />
+      {login.logged && (
+        <NewMessage
+          topicId={topicId}
+          onSubmitSuccess={onPostNewMessageSuccess}
+        />
+      )}
     </div>
   );
 };

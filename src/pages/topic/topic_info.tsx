@@ -6,12 +6,11 @@ interface IProps {
 }
 
 const TopicInfo: React.FC<IProps> = ({ topicId }) => {
-  const { data } = useTopicMessages({
-    topicId,
-  });
+  const { data } = useTopicMessages({ topicId });
 
   let yandexUrl =
-    "https://www.yandex.ru/search/?text=" + encodeURIComponent(data.info.title);
+    "https://www.yandex.ru/search/?text=" +
+    encodeURIComponent(data?.info.title);
 
   return (
     <div className="topic-row">
@@ -42,7 +41,7 @@ const TopicInfo: React.FC<IProps> = ({ topicId }) => {
             <a href={`https://forum.mista.ru/topic/${topicId}`}>
               <h1
                 className="topic-title"
-                dangerouslySetInnerHTML={{ __html: data.info.title }}
+                dangerouslySetInnerHTML={{ __html: data?.info.title }}
               ></h1>
             </a>
             <div className="moder-action"></div>

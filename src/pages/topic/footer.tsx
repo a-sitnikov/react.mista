@@ -1,29 +1,20 @@
-import { FC, ReactElement } from "react";
 import { Button } from "react-bootstrap";
+import { useUpdateMessages } from "src/store/query-hooks";
 
-import { getMaxPage } from "src/utils";
-import { useAppDispatch, useAppSelector } from "src/store";
-import { defaultInfo, getNewMessagesIfNeeded } from "src/store";
+interface IProps {
+  topicId: number;
+  isLastPage: boolean;
+}
 
-type IProps = { page?: number | string };
-
-const Footer: FC<IProps> = ({ page }): ReactElement => {
-  const dispatch = useAppDispatch();
-  const info = useAppSelector((state) => state.topic.info || defaultInfo);
-  const status = useAppSelector((state) => state.topic.status);
+const Footer: React.FC<IProps> = ({ topicId, isLastPage }) => {
+  const { isFetching, refetch } = useUpdateMessages(
+    { topicId },
+    { enabled: false }
+  );
 
   const onBookmarkClick = () => {
     //dispatch(addBookmark(info));
   };
-
-  const onRefreshClick = () => {
-    dispatch(getNewMessagesIfNeeded());
-  };
-
-  const maxPage = getMaxPage(info.count);
-
-  let showUpdateButton = false;
-  if (page === "last20" || page === maxPage) showUpdateButton = true;
 
   return (
     <div className="flex-row" id="F">
@@ -39,15 +30,15 @@ const Footer: FC<IProps> = ({ page }): ReactElement => {
         </Button>
       </div>
       <div className="ta-right va-middle" style={{ marginLeft: "auto" }}>
-        {showUpdateButton && (
+        {isLastPage && (
           <Button
-            onClick={onRefreshClick}
-            disabled={status === "loading"}
+            onClick={() => refetch()}
+            disabled={isFetching}
             size="sm"
             className="button"
             variant="light"
           >
-            {status === "loading" ? "Обновляется" : "Обновить ветку"}
+            {isFetching ? "Обновляется" : "Обновить ветку"}
           </Button>
         )}
       </div>
