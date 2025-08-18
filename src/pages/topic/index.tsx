@@ -15,19 +15,15 @@ import TopicInfo from "./topic_info";
 import Row from "../../pages/topic/row";
 import Footer from "./footer";
 import NewMessage from "./new_message";
-import { getMaxPage, extractTextFromHTML } from "src/utils";
+import { getMaxPage, extractTextFromHTML, toNumber } from "src/utils";
 import { useActionCreators, useAppDispatch } from "src/store";
 
 import "./topic.css";
 import { useTopicMessages } from "src/store/query-hooks";
 
-var scrolledToHash: boolean;
-
-const getPageNumber = (locationPage: string | string[]): number | "last20" => {
-  if (!locationPage) return 1;
+const getPageNumber = (locationPage: string): number | "last20" => {
   if (locationPage === "last20") return "last20";
-  if (isNaN(+locationPage)) return 1;
-  return +locationPage;
+  return toNumber(locationPage, 1);
 };
 
 const Topic = (): ReactElement => {
@@ -37,7 +33,7 @@ const Topic = (): ReactElement => {
   const [searchParams] = useSearchParams();
 
   const topicId = +searchParams.get("id");
-  const { data, error } = useTopicMessages({ topicId });
+  const { data, error, isPending } = useTopicMessages({ topicId });
 
   const { info, item0, list: items = [] } = data ?? {};
 
@@ -68,19 +64,20 @@ const Topic = (): ReactElement => {
 
     const clearStore = () => {
       actions.clear();
-      scrolledToHash = undefined;
       if (timer) clearInterval(timer);
     };
     return clearStore;
   }, [actions, updateNewMessages]);
 
   useEffect(() => {
-    if (!scrolledToHash && location.hash && items.length > 0) {
-      const nodeHash = document.getElementById(location.hash.slice(1));
-      if (nodeHash) setTimeout(() => window.scrollTo(0, nodeHash.offsetTop), 1);
-      scrolledToHash = true;
+    if (isPending) return;
+    if (!location.hash) return;
+
+    const nodeHash = document.getElementById(location.hash.slice(1));
+    if (nodeHash) {
+      window.scrollTo(0, nodeHash.offsetTop);
     }
-  });
+  }, [isPending, location.hash]);
 
   return (
     <div style={{ marginBottom: "5px" }}>
