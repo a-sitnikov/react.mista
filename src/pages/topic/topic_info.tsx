@@ -1,11 +1,17 @@
-import { ReactElement } from "react";
-
-import { useAppSelector } from "src/store";
 import { domain, urlTopicInfo, urlTopicMessages } from "src/api";
+import { useTopicMessages } from "src/store/query-hooks";
 
-const TopicInfo = (): ReactElement => {
-  const topicId = useAppSelector((state) => state.topic.info.id);
-  const title = useAppSelector((state) => state.topic.info.title);
+interface IProps {
+  topicId: number;
+}
+
+const TopicInfo: React.FC<IProps> = ({ topicId }) => {
+  const { data: title } = useTopicMessages(
+    {
+      topicId,
+    },
+    { select: (data) => data?.info.title }
+  );
 
   let yandexUrl =
     "https://www.yandex.ru/search/?text=" + encodeURIComponent(title);
@@ -36,7 +42,7 @@ const TopicInfo = (): ReactElement => {
       <div className="cell-message">
         <div className="flex-row">
           <div style={{ flex: 1, textAlign: "center" }}>
-            <a href={`${domain}/topic.php?id=${topicId}`}>
+            <a href={`https://forum.mista.ru/topic/${topicId}`}>
               <h1
                 className="topic-title"
                 dangerouslySetInnerHTML={{ __html: title }}

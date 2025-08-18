@@ -1,9 +1,8 @@
-import { ReactElement, useCallback, useEffect, useRef } from "react";
+import { ReactElement, useCallback, useEffect } from "react";
 
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import {
   topicActions,
-  getTopicIfNeeded,
   getNewMessagesIfNeeded,
   useAppSelector,
 } from "src/store";
@@ -20,6 +19,7 @@ import { getMaxPage, extractTextFromHTML } from "src/utils";
 import { useActionCreators, useAppDispatch } from "src/store";
 
 import "./topic.css";
+import { useTopicMessages } from "src/store/query-hooks";
 
 var scrolledToHash: boolean;
 
@@ -34,24 +34,23 @@ const Topic = (): ReactElement => {
   const dispatch = useAppDispatch();
   const actions = useActionCreators(topicActions);
   const location = useLocation();
+  const [searchParams] = useSearchParams();
+
+  const topicId = +searchParams.get("id");
+  const { data, error } = useTopicMessages({ topicId });
+
+  const { info, item0, list: items = [] } = data ?? {};
 
   const login = useAppSelector((state) => state.login);
-  const info = useAppSelector((state) => state.topic.info);
-  const item0 = useAppSelector((state) => state.topic.item0);
-  const items = useAppSelector((state) => state.topic.items);
-  const error = useAppSelector((state) => state.topic.error);
 
-  let locationParams = new URLSearchParams(location.search);
-  const topicId = +locationParams.get("id");
-  const page = getPageNumber(locationParams.get("page"));
-  const maxPage = getMaxPage(info.count);
+  const page = getPageNumber(searchParams.get("page"));
+  const maxPage = getMaxPage(info?.count);
 
-  const isLastPageRef = useRef(false);
-  isLastPageRef.current = page === "last20" || page === maxPage;
+  const isLastPage = page === "last20" || page === maxPage;
 
   const updateNewMessages = useCallback(() => {
-    if (isLastPageRef.current) dispatch(getNewMessagesIfNeeded());
-  }, [dispatch]);
+    if (isLastPage) dispatch(getNewMessagesIfNeeded());
+  }, [dispatch, isLastPage]);
 
   const onPostNewMessageSuccess = () => {
     updateNewMessages();
@@ -59,12 +58,10 @@ const Topic = (): ReactElement => {
   };
 
   useEffect(() => {
-    if (info.title) document.title = extractTextFromHTML(info.title);
-  }, [info.title]);
-
-  useEffect(() => {
-    dispatch(getTopicIfNeeded(topicId, page));
-  }, [dispatch, topicId, page]);
+    if (info?.title) {
+      document.title = extractTextFromHTML(info.title);
+    }
+  }, [info?.title]);
 
   useEffect(() => {
     const timer = window.setInterval(updateNewMessages, 60 * 1000);
@@ -88,15 +85,15 @@ const Topic = (): ReactElement => {
   return (
     <div style={{ marginBottom: "5px" }}>
       <Header />
-      {error && <Error text={error} />}
+      {error && <Error text={error.message} />}
       <div className="topic-table">
-        <TopicInfo />
-        <Row key="0" data={item0} topicId={topicId}/>
+        <TopicInfo topicId={topicId} />
+        <Row key="0" data={item0} topicId={topicId} />
         {items.map((item, i) => (
-          <Row key={item.n} data={item} topicId={topicId}/>
+          <Row key={item.n} data={item} topicId={topicId} />
         ))}
         {(maxPage > 1 || page === "last20") && (
-          <div className="tf">
+          <div className="table-footer">
             <Pages maxPage={maxPage} last20 />
           </div>
         )}
