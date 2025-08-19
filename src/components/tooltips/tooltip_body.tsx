@@ -1,7 +1,6 @@
 type IProps = {
   onScroll?: (delta: number) => void;
-  children?: React.ReactNode;
-};
+} & React.PropsWithChildren;
 
 const TooltipBody: React.FC<IProps> = ({ children, onScroll }) => {
   let startX = 0;

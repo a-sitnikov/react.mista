@@ -26,7 +26,7 @@ const Sections: React.FC<IProps> = ({
 }) => {
   const { data } = useSections();
 
-  const onSelect = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     if (!onChange) return;
 
     const code = e.currentTarget.value;
@@ -37,7 +37,7 @@ const Sections: React.FC<IProps> = ({
   return (
     <Form.Select
       aria-label="Секция"
-      onChange={onSelect}
+      onChange={handleChange}
       value={selected}
       style={style}
       className="input"

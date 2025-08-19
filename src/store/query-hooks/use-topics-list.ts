@@ -3,9 +3,9 @@ import { fetchTopicsList, TFetchTopicsListData } from "src/api";
 import { QueryKeys } from "./types";
 import { useAppSelector } from "../hooks";
 
-interface IProps {
+type IProps = {
   searchParams: URLSearchParams;
-}
+};
 
 export const useTopicsList = <TError = Error, TData = TFetchTopicsListData>(
   { searchParams }: IProps,
@@ -29,7 +29,7 @@ export const useTopicsList = <TError = Error, TData = TFetchTopicsListData>(
       const params = Object.fromEntries(searchParams);
       return fetchTopicsList({ itemsPerPage, ...params });
     },
-    placeholderData: (previousData) => previousData,
+    placeholderData: (previousData) => previousData ?? [],
     refetchOnWindowFocus: false,
     ...options,
   });

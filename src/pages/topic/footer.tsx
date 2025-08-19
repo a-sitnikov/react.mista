@@ -1,10 +1,10 @@
 import { Button } from "react-bootstrap";
 import { useUpdateMessages } from "src/store/query-hooks";
 
-interface IProps {
+type IProps = {
   topicId: number;
   isLastPage: boolean;
-}
+};
 
 const Footer: React.FC<IProps> = ({ topicId, isLastPage }) => {
   const { isFetching, refetch } = useUpdateMessages(

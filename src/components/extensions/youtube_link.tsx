@@ -1,4 +1,4 @@
-import { FC, ReactElement, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 type IProps = {
   href: string;
@@ -29,12 +29,15 @@ type HrefParams = {
   notFound: boolean;
 };
 
-const getVideoParams = async (videoId: string): Promise<HrefParams> => {
+const getVideoParams = async (
+  videoId: string,
+  signal: AbortSignal
+): Promise<HrefParams> => {
   const apiKey =
     localStorage.getItem("youtubeApiKey") ||
     "AIzaSyCztN2QW4Fxw_1YuAHBTOZdYLbzigPz25g";
   let apiUrl = `https://www.googleapis.com/youtube/v3/videos?key=${apiKey}&fields=items(snippet(title))&part=snippet&id=${videoId}`;
-  const response = await fetch(apiUrl);
+  const response = await fetch(apiUrl, { signal });
   const json = await response.json();
 
   if (json.items.length === 0)
@@ -63,20 +66,19 @@ const YoutubeLink: React.FC<IProps> = ({ href }) => {
   let [title, setTitle] = useState("");
 
   useEffect(() => {
-    let isMounted = true;
+    const abortController = new AbortController();
+
     const run = async () => {
       const videoId = getVideoId(href);
       if (!videoId) return;
 
       try {
-        const params = await getVideoParams(videoId);
+        const params = await getVideoParams(videoId, abortController.signal);
 
-        if (isMounted) {
-          if (params.notFound) setHrefName(href + " (видео не найдено)");
-          else {
-            setHrefName(params.hrefName);
-            setTitle(params.title);
-          }
+        if (params.notFound) setHrefName(href + " (видео не найдено)");
+        else {
+          setHrefName(params.hrefName);
+          setTitle(params.title);
         }
       } catch (e) {
         console.error("youtube", videoId, e.message);
@@ -85,9 +87,7 @@ const YoutubeLink: React.FC<IProps> = ({ href }) => {
 
     run();
 
-    return () => {
-      isMounted = false;
-    };
+    return () => abortController.abort();
   }, [href]);
 
   const prefix = "youtube";

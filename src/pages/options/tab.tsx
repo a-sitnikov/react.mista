@@ -1,6 +1,5 @@
 type IProps = {
   name: string;
-  children?: React.ReactNode;
 } & React.PropsWithChildren;
 
 const Tab: React.FC<IProps> = ({ name, children }) => {

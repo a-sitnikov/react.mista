@@ -3,10 +3,10 @@ import { QueryKeys } from "./types";
 import { getCachedTopicData } from "./use-topic-messages";
 import { fetchTopicMessage } from "src/api";
 
-interface IProps {
+type IProps = {
   topicId: number;
   number: number;
-}
+};
 
 export const useMessageData = ({ topicId, number }: IProps) => {
   const queryClient = useQueryClient();

@@ -1,9 +1,9 @@
 import { domain, urlTopicInfo, urlTopicMessages } from "src/api";
 import { useTopicMessages } from "src/store/query-hooks";
 
-interface IProps {
+type IProps = {
   topicId: number;
-}
+};
 
 const TopicInfo: React.FC<IProps> = ({ topicId }) => {
   const { data: title } = useTopicMessages(

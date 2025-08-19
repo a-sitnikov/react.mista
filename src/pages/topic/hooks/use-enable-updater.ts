@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useAppSelector } from "src/store";
 import { toNumber } from "src/utils";
 
-interface IProps {
+type IProps = {
   isLastPage: boolean;
-}
+};
 
 export const useEnableUpdater = ({ isLastPage }: IProps) => {
   const [enableRefresh, refreshInterval] = useAppSelector((state) => [

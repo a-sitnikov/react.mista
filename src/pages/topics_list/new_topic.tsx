@@ -2,17 +2,17 @@ import { useCallback, useState, useRef } from "react";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FormGroup } from "react-bootstrap";
+import { useEventCallback } from "usehooks-ts";
 
 import { useActionCreators, useAppDispatch, useAppSelector } from "src/store";
+import { ISectionItem, newTopicActions, postNewTopicIfNeeded } from "src/store";
+import { useSections } from "src/store/query-hooks";
 
 import Sections from "./sections";
 import TextEditor from "src/components/common/text_editor";
 import ErrorElem from "src/components/common/error";
 
 import "./new_topic.css";
-import { ISectionItem, newTopicActions, postNewTopicIfNeeded } from "src/store";
-import { useEventCallback } from "usehooks-ts";
-import { useSections } from "src/store/query-hooks";
 
 type IProps = {
   onSubmitSuccess?: any;

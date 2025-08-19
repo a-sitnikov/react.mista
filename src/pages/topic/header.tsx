@@ -9,9 +9,9 @@ const forums = {
   job: "Работа",
 };
 
-interface IProps {
+type IProps = {
   topicId: number;
-}
+};
 
 const Header: React.FC<IProps> = ({ topicId }) => {
   const { data: forum } = useTopicMessages(

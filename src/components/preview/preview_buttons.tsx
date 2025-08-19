@@ -1,4 +1,3 @@
-import { FC, ReactElement } from "react";
 import { Link } from "react-router-dom";
 
 import "./topic_preview.css";

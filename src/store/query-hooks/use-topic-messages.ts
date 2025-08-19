@@ -9,9 +9,9 @@ import {
 import { QueryKeys } from "./types";
 import { fetchTopicMessages } from "src/api";
 
-interface IProps {
+type IProps = {
   topicId: number;
-}
+};
 
 export const useTopicMessages = <TError = Error, TData = TFetchTopicData>(
   { topicId }: IProps,

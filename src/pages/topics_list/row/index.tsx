@@ -11,9 +11,9 @@ import TopicPreview from "src/components/preview/topic_preview";
 
 import { ITopicsListItem } from "src/store";
 
-interface IProps {
+type IProps = {
   item: ITopicsListItem;
-}
+};
 
 const Row: React.FC<IProps> = ({ item }) => {
   const [previewNumber, setPreviewNumber] = useState<number>();

@@ -1,5 +1,3 @@
-import { FC } from "react";
-
 type IProps = {
   name: string;
   label: string;
@@ -12,13 +10,16 @@ type IProps = {
   postfix?: string;
 };
 
-const StringOption: FC<IProps> = (props): React.ReactElement => {
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name } = props;
-    props.onChange(e, name, e.target.value);
+const StringOption: React.FC<IProps> = ({
+  name,
+  value,
+  label,
+  postfix,
+  onChange,
+}) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e, name, e.target.value);
   };
-
-  const { name, value, label, postfix } = props;
 
   return (
     <label htmlFor={name} style={{ marginRight: "5px" }}>
@@ -27,7 +28,7 @@ const StringOption: FC<IProps> = (props): React.ReactElement => {
         type="string"
         name={name}
         value={value}
-        onChange={onChange}
+        onChange={handleChange}
         className="input"
       />
       {postfix !== undefined ? (

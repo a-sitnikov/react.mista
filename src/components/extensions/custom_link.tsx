@@ -1,4 +1,3 @@
-import { FC, ReactElement } from "react";
 import URL from "url-parse";
 
 import LinkToPost from "./link_to_post";
@@ -14,8 +13,7 @@ type IProps = {
   target?: string;
   class?: string;
   rel?: string;
-  children?: React.ReactNode;
-};
+} & React.PropsWithChildren;
 
 const fixBrokenLink = (href: string, parentText: string): string => {
   let escapedHref = href

@@ -1,4 +1,4 @@
-import { FC, ReactElement, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { fetchTopicMessage } from "src/api";
 

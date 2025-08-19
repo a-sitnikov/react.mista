@@ -1,14 +1,9 @@
-import { FC } from "react";
-
 type IProps = {
   onUpdateClick: () => void;
   isLoading: boolean;
 };
 
-const TableHeader: FC<IProps> = ({
-  isLoading,
-  onUpdateClick,
-}): React.ReactElement => {
+const TableHeader: React.FC<IProps> = ({ isLoading, onUpdateClick }) => {
   return (
     <div
       className="table-header" /* style={{ position: "sticky", top: "39px" }} */

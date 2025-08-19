@@ -12,8 +12,7 @@ import { ITooltipItem, tooltipsActions } from "src/store";
 type IProps = {
   tooltip: ITooltipItem;
   zIndex?: number;
-  children?: React.ReactNode;
-};
+} & React.PropsWithChildren;
 
 const TooltipWindow: React.FC<IProps> = ({ tooltip, zIndex, children }) => {
   const actions = useActionCreators(tooltipsActions);
