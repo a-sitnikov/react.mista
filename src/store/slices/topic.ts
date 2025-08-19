@@ -20,7 +20,7 @@ export interface ITopicInfo {
   down?: number;
   closed?: number;
   deleted?: number;
-  isVoting?: number;
+  isVoting?: boolean;
   voting?: IVotingItem[];
 }
 
@@ -102,3 +102,5 @@ export const fetchTopic = async ({
     list: items,
   };
 };
+
+export type TFetchTopicData = Awaited<ReturnType<typeof fetchTopic>>;

@@ -1,23 +1,30 @@
 import { useSearchParams } from "react-router-dom";
-import { fetchTopic } from "../slices";
-import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
+import { fetchTopic, TFetchTopicData } from "../slices";
+import {
+  QueryClient,
+  useQuery,
+  useQueryClient,
+  UseQueryOptions,
+} from "@tanstack/react-query";
 import { QueryKeys } from "./types";
 import { fetchTopicMessages } from "src/api";
-
-interface TOptions {
-  enabled?: boolean;
-  refetchInterval?: number;
-}
 
 interface IProps {
   topicId: number;
 }
 
-export type TFetchTopicData =
-  | Awaited<ReturnType<typeof fetchTopic>>
-  | undefined;
-
-export const useTopicMessages = ({ topicId }: IProps, options?: TOptions) => {
+export const useTopicMessages = <TError = Error, TData = TFetchTopicData>(
+  { topicId }: IProps,
+  options?: Omit<
+    UseQueryOptions<
+      TFetchTopicData,
+      TError,
+      TData,
+      [QueryKeys.TopicMessages, number, ...string[]]
+    >,
+    "queryKey" | "queryFn"
+  >
+) => {
   const [searchParams] = useSearchParams();
 
   const page = searchParams.get("page");
@@ -36,7 +43,18 @@ export const useTopicMessages = ({ topicId }: IProps, options?: TOptions) => {
   });
 };
 
-export const useUpdateMessages = ({ topicId }: IProps, options: TOptions) => {
+export const useUpdateMessages = <TError = Error, TData = TFetchTopicData>(
+  { topicId }: IProps,
+  options?: Omit<
+    UseQueryOptions<
+      Boolean,
+      TError,
+      TData,
+      [QueryKeys.UpdateTopicMessages, number]
+    >,
+    "queryKey" | "queryFn"
+  >
+) => {
   const [searchParams] = useSearchParams();
 
   const page = searchParams.get("page");

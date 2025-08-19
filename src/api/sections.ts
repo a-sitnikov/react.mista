@@ -30,3 +30,5 @@ export const fetchSections = async (): Promise<{
     tree: groupBy(items, (item) => item.forum),
   };
 };
+
+export type TFetchSectionsData = Awaited<ReturnType<typeof fetchSections>>;

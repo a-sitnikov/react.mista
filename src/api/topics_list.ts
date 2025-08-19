@@ -85,3 +85,4 @@ async function fetchTopicsList(
 }
 
 export { fetchTopicsList };
+export type TFetchTopicsListData = Awaited<ReturnType<typeof fetchTopicsList>>;

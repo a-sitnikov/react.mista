@@ -45,7 +45,7 @@ function convertResponse(response: IAPIResponse): ITopicInfo {
     down: response.down,
     closed: response.closed,
     deleted: response.deleted,
-    isVoting: response.is_voting,
+    isVoting: response.is_voting === 1,
     voting,
   };
 }

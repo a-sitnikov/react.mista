@@ -1,19 +1,30 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchTopicsList } from "src/api";
-import { QueryKeys, TOptions } from "./types";
+import { useQuery, UseQueryOptions } from "@tanstack/react-query";
+import { fetchTopicsList, TFetchTopicsListData } from "src/api";
+import { QueryKeys } from "./types";
 import { useAppSelector } from "../hooks";
 
 interface IProps {
   searchParams: URLSearchParams;
 }
 
-export const useTopicsList = ({ searchParams }: IProps, options?: TOptions) => {
+export const useTopicsList = <TError = Error, TData = TFetchTopicsListData>(
+  { searchParams }: IProps,
+  options?: Omit<
+    UseQueryOptions<
+      TFetchTopicsListData,
+      TError,
+      TData,
+      [QueryKeys.TopicsList, ...string[]]
+    >,
+    "queryKey" | "queryFn"
+  >
+) => {
   const itemsPerPage = useAppSelector(
     (state) => state.options.items.topicsPerPage
   );
 
   return useQuery({
-    queryKey: [QueryKeys.TopicsList, ...searchParams],
+    queryKey: [QueryKeys.TopicsList, ...Object.values(searchParams)],
     queryFn: () => {
       const params = Object.fromEntries(searchParams);
       return fetchTopicsList({ itemsPerPage, ...params });

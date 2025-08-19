@@ -13,8 +13,8 @@ export const mock_topicInfo: ITopicInfo = {
   down: 0,
   closed: 0,
   deleted: 0,
-  isVoting: 0
-}
+  isVoting: false,
+};
 
 export const mock_topic_item0: ITopicMessage = {
   id: 20180872,
@@ -23,7 +23,7 @@ export const mock_topic_item0: ITopicMessage = {
   user: "Злоп",
   userId: 132558,
   time: 16889777280000,
-  vote: 0
+  vote: 0,
 };
 
 export const mock_topicMessages_p2: ITopicMessage[] = [
@@ -34,7 +34,7 @@ export const mock_topicMessages_p2: ITopicMessage[] = [
     user: "user 1",
     userId: 1,
     time: 1687795290000,
-    vote: 0
+    vote: 0,
   },
   {
     id: 1,
@@ -43,7 +43,6 @@ export const mock_topicMessages_p2: ITopicMessage[] = [
     user: "user 2",
     userId: 2,
     time: 1687795390000,
-    vote: 0
+    vote: 0,
   },
-]
-
+];

@@ -14,7 +14,13 @@ interface IProps {
 }
 
 const Header: React.FC<IProps> = ({ topicId }) => {
-  const { data } = useTopicMessages({ topicId }, { enabled: false });
+  const { data: forum } = useTopicMessages(
+    { topicId },
+    {
+      enabled: false,
+      select: (data) => data?.info.forum,
+    }
+  );
 
   return (
     <div className="flex-row">
@@ -24,10 +30,10 @@ const Header: React.FC<IProps> = ({ topicId }) => {
       <div className="header-right">
         <span id="forum_string" className="bold120">
           <Link
-            to={`/index.php?forum=${data?.info.forum}`}
+            to={`/index.php?forum=${forum}`}
             style={{ textDecoration: "none" }}
           >
-            {forums[data?.info.forum]}
+            {forums[forum]}
           </Link>
         </span>
       </div>
