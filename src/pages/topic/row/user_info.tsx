@@ -1,4 +1,4 @@
-import { ReactElement, useMemo } from "react";
+import { useMemo } from "react";
 import dayjs from "dayjs";
 import classNames from "classnames";
 
@@ -16,12 +16,7 @@ type IProps = {
   isTooltip?: boolean;
 };
 
-const UserInfo: React.FC<IProps> = ({
-  data,
-  isAuthor,
-  isYou,
-  isTooltip,
-}): ReactElement => {
+const UserInfo: React.FC<IProps> = ({ data, isAuthor, isYou, isTooltip }) => {
   const actions = useActionCreators(newMessageActions);
 
   const onClick = () => {

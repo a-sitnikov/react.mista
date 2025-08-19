@@ -26,7 +26,7 @@ const CustomToggle = React.forwardRef<HTMLSpanElement, HTMLProps>(
   )
 );
 
-const LoggedUser: FC<IProps> = ({ userId, userName }): ReactElement => {
+const LoggedUser: React.FC<IProps> = ({ userId, userName }) => {
   const actions = useActionCreators(loginActions);
 
   const onLogout = (event: React.SyntheticEvent) => {

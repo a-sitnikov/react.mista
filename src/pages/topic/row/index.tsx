@@ -1,5 +1,3 @@
-import { FC, ReactElement } from "react";
-
 import UserInfo from "./user_info";
 import MsgText from "./msg_text";
 import { useAppSelector } from "src/store";
@@ -11,7 +9,7 @@ type IProps = {
   topicId: number;
 };
 
-const Row: FC<IProps> = ({ item, topicId }): ReactElement => {
+const Row: React.FC<IProps> = ({ item, topicId }) => {
   const login = useAppSelector((state) => state.login);
   const { data: topic } = useTopicMessages({ topicId }, { enabled: false });
   const author = topic?.item0?.user || "";

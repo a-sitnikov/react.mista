@@ -58,7 +58,7 @@ const getVideoParams = async (videoId: string): Promise<HrefParams> => {
   };
 };
 
-const YoutubeLink: FC<IProps> = ({ href }): ReactElement => {
+const YoutubeLink: React.FC<IProps> = ({ href }) => {
   let [hrefName, setHrefName] = useState(href);
   let [title, setTitle] = useState("");
 

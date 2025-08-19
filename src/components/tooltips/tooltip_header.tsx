@@ -1,11 +1,8 @@
-import { FC, ReactElement } from "react";
-
 type IProps = {
   closeWindow?: (e: React.SyntheticEvent<HTMLDivElement>) => void;
-  children?: React.ReactNode;
-};
+} & React.PropsWithChildren;
 
-const TooltipHeader: FC<IProps> = ({ children, closeWindow }): ReactElement => {
+const TooltipHeader: React.FC<IProps> = ({ children, closeWindow }) => {
   return (
     <div className="tooltip-header">
       {children}

@@ -1,8 +1,6 @@
-import { FC, ReactElement } from "react";
 import CSS from "csstype";
 
 import { domain } from "src/api";
-
 import { IVotingItem } from "src/store";
 
 type IProps = {
@@ -13,20 +11,10 @@ type IProps = {
   n: number;
 };
 
-const VoteItem: FC<IProps> = ({
-  topicId,
-  data,
-  total,
-  n,
-  colors,
-}): ReactElement => {
+const VoteItem: React.FC<IProps> = ({ topicId, data, total, n, colors }) => {
   const img = `${domain}/css/voting${n}.png`;
 
-  let percent = 0;
-
-  if (total) {
-    percent = Math.round((100 * data.count) / total);
-  }
+  const percent = total ? Math.round((100 * data.count) / total) : 0;
 
   const imgStyle: CSS.Properties = {
     maxWidth: "500px",

@@ -1,11 +1,8 @@
-import { FC, ReactElement } from "react";
-
 type IProps = {
   href: string;
-  children?: React.ReactNode;
-};
+} & React.PropsWithChildren;
 
-const LinkToUser: FC<IProps> = ({ href, children }): ReactElement => {
+const LinkToUser: React.FC<IProps> = ({ href, children }) => {
   return (
     <a href={href} className="registered-user">
       {children}

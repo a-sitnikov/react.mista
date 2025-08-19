@@ -1,4 +1,4 @@
-import { FC, ReactElement, useCallback, useState, useRef } from "react";
+import { useCallback, useState, useRef } from "react";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FormGroup } from "react-bootstrap";
@@ -18,7 +18,7 @@ type IProps = {
   onSubmitSuccess?: any;
 };
 
-const NewTopic: FC<IProps> = ({ onSubmitSuccess }): ReactElement => {
+const NewTopic: React.FC<IProps> = ({ onSubmitSuccess }) => {
   const { data: sections } = useSections();
 
   const newTopic = useAppSelector((state) => state.newTopic);

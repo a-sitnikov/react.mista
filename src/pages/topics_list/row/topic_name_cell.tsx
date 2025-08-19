@@ -1,4 +1,3 @@
-import { FC, ReactElement } from "react";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 
@@ -24,30 +23,8 @@ const addPrefix = (
   return text;
 };
 
-const TopicNameCell: FC<IProps> = ({ data }): ReactElement => {
+const TopicNameCell: React.FC<IProps> = ({ data }) => {
   const loggedUserName = useAppSelector((state) => state.login.userName);
-
-  let href = `/topic.php?id=${data.id}`;
-  let classes = classNames("agb", "mr5", {
-    bold: data.count >= 100,
-    mytopics: data.author === loggedUserName,
-    pinned: data.pinned,
-  });
-
-  let sectionHref = `/index.php?section=${data.sectionCode}`;
-  let section: ReactElement;
-  if (data.section) {
-    section = (
-      <span className="topic-section">
-        <span className="agh" style={{ margin: "0px 5px" }}>
-          /
-        </span>
-        <Link key="1" rel="nofollow" className="agh" to={sectionHref}>
-          {data.section}
-        </Link>
-      </span>
-    );
-  }
 
   let text = addPrefix(data.text, data.forum, data.sectionCode);
 
@@ -62,8 +39,12 @@ const TopicNameCell: FC<IProps> = ({ data }): ReactElement => {
           ></i>
         )}
         <Link
-          to={href}
-          className={classes}
+          to={`/topic.php?id=${data.id}`}
+          className={classNames("agb", "mr5", {
+            bold: data.count >= 100,
+            mytopics: data.author === loggedUserName,
+            pinned: data.pinned,
+          })}
           dangerouslySetInnerHTML={{ __html: text }}
           style={{ overflowWrap: "anywhere" }}
         ></Link>
@@ -71,7 +52,21 @@ const TopicNameCell: FC<IProps> = ({ data }): ReactElement => {
         <Pages count={data.count} topicId={data.id} />
         {data.closed && <span className="agh">Ø</span>}
         {data.down && <span className="agh">↓</span>}
-        {section}
+        {data.section && (
+          <span className="topic-section">
+            <span className="agh" style={{ margin: "0px 5px" }}>
+              /
+            </span>
+            <Link
+              key="1"
+              rel="nofollow"
+              className="agh"
+              to={`/index.php?section=${data.sectionCode}`}
+            >
+              {data.section}
+            </Link>
+          </span>
+        )}
       </div>
     </div>
   );

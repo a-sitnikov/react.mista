@@ -1,5 +1,4 @@
-import React, { FC, ReactElement } from "react";
-
+import { Children, ReactElement } from "react";
 import Draggable from "react-draggable";
 
 import TooltipHeader from "./tooltip_header";
@@ -16,11 +15,7 @@ type IProps = {
   children?: React.ReactNode;
 };
 
-const TooltipWindow: FC<IProps> = ({
-  tooltip,
-  zIndex,
-  children,
-}): ReactElement => {
+const TooltipWindow: React.FC<IProps> = ({ tooltip, zIndex, children }) => {
   const actions = useActionCreators(tooltipsActions);
 
   const onCloseClick = () => {
@@ -46,7 +41,7 @@ const TooltipWindow: FC<IProps> = ({
     };
   }
 
-  let [header, body] = React.Children.toArray(children);
+  let [header, body] = Children.toArray(children);
 
   return (
     <Draggable

@@ -1,12 +1,10 @@
-import { FC, ReactElement } from "react";
-
 import "./error.css";
 
 type IProps = {
   text: string;
 };
 
-const ErrorElem: FC<IProps> = ({ text }): ReactElement | null => {
+const ErrorElem: React.FC<IProps> = ({ text }) => {
   if (!text) return null;
 
   return (

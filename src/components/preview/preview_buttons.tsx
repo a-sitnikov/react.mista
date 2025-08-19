@@ -12,14 +12,14 @@ type IProps = {
   close: () => void;
 };
 
-const PreviewButtons: FC<IProps> = ({
+const PreviewButtons: React.FC<IProps> = ({
   topicId,
   onFirst,
   onPrev,
   onNext,
   onLast,
   close,
-}): ReactElement => {
+}) => {
   return (
     <div className="topic-preview-rewind">
       <div

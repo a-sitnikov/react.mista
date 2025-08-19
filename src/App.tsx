@@ -1,4 +1,4 @@
-import { ReactElement, useLayoutEffect } from "react";
+import { useLayoutEffect } from "react";
 import { HashRouter } from "react-router-dom";
 
 import NavBar from "./components/navigation/nav_bar";
@@ -7,7 +7,7 @@ import NavBarFooter from "./components/navigation/nav_bar_footer";
 import TooltipsContainer from "./components/tooltips/tooltips_container";
 import { useAppSelector } from "./store";
 
-const App = (): ReactElement => {
+const App: React.FC = () => {
   const theme = useAppSelector((state) => state.options.items.theme);
 
   useLayoutEffect(() => {

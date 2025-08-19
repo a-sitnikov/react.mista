@@ -1,4 +1,4 @@
-import { FC, ReactElement, useRef, RefObject, useCallback } from "react";
+import { useRef, RefObject, useCallback } from "react";
 import { FormControl, Button, ButtonGroup, Form } from "react-bootstrap";
 
 import "./text_editor.css";
@@ -14,7 +14,7 @@ type IProps = {
   onShowVotingChange?: (show: boolean) => void;
 };
 
-const TextEditor: FC<IProps> = ({
+const TextEditor: React.FC<IProps> = ({
   placeholder,
   showVoting,
   isVoting,
@@ -23,8 +23,8 @@ const TextEditor: FC<IProps> = ({
   formRef,
   onChange,
   onShowVotingChange,
-}): ReactElement => {
-  const textAreaRef = useRef() as React.MutableRefObject<HTMLTextAreaElement>;
+}) => {
+  const textAreaRef = useRef<HTMLTextAreaElement>();
 
   const onButtonCode1c = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

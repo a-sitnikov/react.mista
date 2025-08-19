@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useState, useCallback } from "react";
+import React, { ReactElement, useState, useCallback } from "react";
 import { FormGroup, Form } from "react-bootstrap";
 
 import TextEditor from "src/components/common/text_editor";
@@ -13,7 +13,7 @@ type IProps = {
   onSubmitSuccess?: () => void;
 };
 
-const NewMessage: FC<IProps> = ({ topicId, onSubmitSuccess }): ReactElement => {
+const NewMessage: React.FC<IProps> = ({ topicId, onSubmitSuccess }) => {
   const [voting, setVoting] = useState<number | undefined>();
   const dispatch = useAppDispatch();
   const actions = useActionCreators(newMessageActions);

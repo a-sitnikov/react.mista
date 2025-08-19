@@ -1,4 +1,3 @@
-import { FC, ReactElement } from "react";
 import VoteItem from "./vote_item";
 import { IVotingItem } from "src/store";
 
@@ -8,7 +7,7 @@ type IProps = {
   colors: string[];
 };
 
-const VoteChart: FC<IProps> = ({ items, topicId, colors }): ReactElement => {
+const VoteChart: React.FC<IProps> = ({ items, topicId, colors }) => {
   let total = Math.max(...items.map((item) => item.count));
 
   return (

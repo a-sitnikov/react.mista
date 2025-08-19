@@ -1,4 +1,3 @@
-import { FC, ReactElement } from "react";
 import { Link } from "react-router-dom";
 
 import { getMaxPage } from "src/utils";
@@ -8,7 +7,7 @@ type IProps = {
   topicId: number;
 };
 
-const Pages: FC<IProps> = ({ count, topicId }): ReactElement => {
+const Pages: React.FC<IProps> = ({ count, topicId }) => {
   let pages = [];
   if (count > 100) {
     let maxPage = getMaxPage(count);

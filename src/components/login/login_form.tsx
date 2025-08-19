@@ -1,10 +1,10 @@
-import { FormEvent, ReactElement, useState } from "react";
+import { FormEvent, useState } from "react";
 import { FormControl, Button } from "react-bootstrap";
 
 import { useAppDispatch } from "src/store";
 import { doLoginIfNeeded } from "src/store";
 
-const LoginForm = (): ReactElement => {
+const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const [username, setUsername] = useState("");

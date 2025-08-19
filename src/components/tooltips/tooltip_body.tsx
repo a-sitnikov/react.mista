@@ -1,11 +1,9 @@
-import { FC, ReactElement } from "react";
-
 type IProps = {
   onScroll?: (delta: number) => void;
   children?: React.ReactNode;
 };
 
-const TooltipBody: FC<IProps> = ({ children, onScroll }): ReactElement => {
+const TooltipBody: React.FC<IProps> = ({ children, onScroll }) => {
   let startX = 0;
 
   const onTouchStart = (e: React.TouchEvent<HTMLElement>) => {

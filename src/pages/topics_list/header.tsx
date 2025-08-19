@@ -1,11 +1,10 @@
-import { ReactElement } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import Login from "../../components/login";
 import Sections from "./sections";
 import { ISectionItem } from "src/store";
 
-const Header = (): ReactElement => {
+const Header: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const onSectionChange = (e, value: ISectionItem | undefined) => {

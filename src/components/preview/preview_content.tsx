@@ -17,13 +17,13 @@ type IProps = {
   onDataLoaded?: () => void;
 };
 
-const PreviewContent: FC<IProps> = ({
+const PreviewContent: React.FC<IProps> = ({
   topicId,
   n,
   author,
   loggedUserId,
   onDataLoaded,
-}): ReactElement => {
+}) => {
   const [data, setData] = useState<ITopicMessage | null>(null);
   const [error, setError] = useState<string | null>(null);
 

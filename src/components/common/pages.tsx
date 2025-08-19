@@ -1,4 +1,3 @@
-import { FC, ReactElement } from "react";
 import { Pagination } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 
@@ -9,7 +8,7 @@ type IProps = {
   last20?: boolean;
 };
 
-const Pages: FC<IProps> = ({ maxPage, last20 }): ReactElement => {
+const Pages: React.FC<IProps> = ({ maxPage, last20 }) => {
   const location = useLocation();
   let pathName = location.pathname;
   if (pathName === "/") pathName = "/index.php";

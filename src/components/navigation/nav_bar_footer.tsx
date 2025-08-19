@@ -1,7 +1,6 @@
-import { ReactElement } from "react";
 import { domain } from "src/api";
 
-const NavBarFooter = (): ReactElement => {
+const NavBarFooter: React.FC = () => {
   return (
     <footer className="flex-row navbar-footer">
       <a href={`${domain}/rules.php`}>Правила</a>

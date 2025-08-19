@@ -1,11 +1,9 @@
-import { FC, ReactElement } from "react";
-
 type IProps = {
   expanded: boolean;
   onClick: () => void;
 };
 
-const ShowPreviewButton: FC<IProps> = ({ expanded, onClick }): ReactElement => {
+const ShowPreviewButton: React.FC<IProps> = ({ expanded, onClick }) => {
   return (
     <div className="cell-preview-link" onClick={onClick}>
       <span>

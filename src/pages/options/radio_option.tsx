@@ -1,4 +1,3 @@
-import { FC, ReactElement } from "react";
 import { Form } from "react-bootstrap";
 
 type IProps = {
@@ -14,14 +13,14 @@ type IProps = {
   oneLine: boolean;
 };
 
-const RadioOption: FC<IProps> = ({
+const RadioOption: React.FC<IProps> = ({
   name,
   label,
   value,
   values,
   oneLine,
   onChange,
-}): ReactElement => {
+}) => {
   const onChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e, name, e.target.value);
   };

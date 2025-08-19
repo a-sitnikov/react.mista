@@ -1,3 +1,5 @@
+//https://infostart.ru/1c/tools/1598931/
+
 function highlight(text: string): string {
   const keywords = new Set(
     (

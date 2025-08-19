@@ -59,12 +59,12 @@ const isMistaCatalog = (hostname: string): boolean => {
   else return false;
 };
 
-const CustomLink: FC<IProps> = ({
+const CustomLink: React.FC<IProps> = ({
   href,
   children,
   parentText,
   ...props
-}): ReactElement => {
+}) => {
   const showYoutubeVideoTitle = useAppSelector(
     (state) => state.options.items.showYoutubeVideoTitle === "true"
   );

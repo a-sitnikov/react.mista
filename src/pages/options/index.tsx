@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, FormControl, Button } from "react-bootstrap";
 
@@ -13,7 +13,7 @@ import { defaultOptionsState, optionsActions } from "src/store";
 
 import "./options.css";
 
-const Options = (): ReactElement => {
+const Options: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

@@ -1,7 +1,24 @@
-import { FC, ReactElement, useState } from "react";
+import { useMemo, useState } from "react";
 import { childrenToText } from "src/utils";
 import highlight from "./code_highlight";
 import "./code1c.css";
+
+const trimNewLines = (str: string) => {
+  let start = 0;
+  let end = str.length;
+
+  // Remove leading newlines
+  while (start < end && (str[start] === "\n" || str[start] === "\r")) {
+    start++;
+  }
+
+  // Remove trailing newlines
+  while (end > start && (str[end - 1] === "\n" || str[end - 1] === "\r")) {
+    end--;
+  }
+
+  return str.substring(start, end);
+};
 
 const prepareText = (text: string): string => {
   // replace double new-lines
@@ -12,54 +29,28 @@ const prepareText = (text: string): string => {
     .replace(/<br>\r/g, "\n")
     .replace(/<br>/g, "\n")
     .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")    
-    .replace(/>/g, "&gt");    
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt");
 
-  // remove all leading|ending new-lines
-  while (newtext[0] === "\n") {
-    newtext = newtext.substring(1);
-  }
-
-  while (newtext.substring(newtext.length - 1) === "\n") {
-    newtext = newtext.substring(0, newtext.length - 1);
-  }
-
+  newtext = trimNewLines(newtext);
   return highlight(newtext);
 };
 
-const Code: FC<{ children?: React.ReactNode }> = ({
-  children,
-}): ReactElement => {
+const Code: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [hidden, setHidden] = useState(true);
 
-  let text: string = "";
-  if (children) {
-    const textArr = childrenToText(children);
-    text = textArr.join("");
+  const [text, linesCount] = useMemo(() => {
+    if (!children) return ["", 0];
 
-    text = prepareText(text);
-  }
+    let _text = childrenToText(children).join("");
+    _text = prepareText(_text);
+
+    return [_text, _text.split("\n").length];
+  }, [children]);
 
   const onShowClick = () => {
-    setHidden(!hidden);
+    setHidden((prev) => !prev);
   };
-
-  let buttonText: string;
-  let linesCount = 0;
-  if (text) linesCount = text.split("\n").length;
-
-  if (hidden) buttonText = `Показать: ${linesCount} строк`;
-  else buttonText = "Скрыть";
-
-  let buttonShow: ReactElement | null = null;
-  if (linesCount > 7)
-    buttonShow = (
-      <div className="expand-button-div">
-        <span className="expand-button-span" onClick={onShowClick}>
-          {buttonText}
-        </span>
-      </div>
-    );
 
   let preStyle: React.CSSProperties = {};
 
@@ -78,7 +69,13 @@ const Code: FC<{ children?: React.ReactNode }> = ({
         style={preStyle}
         dangerouslySetInnerHTML={{ __html: text }}
       ></pre>
-      {buttonShow}
+      {linesCount > 7 && (
+        <div className="expand-button-div">
+          <span className="expand-button-span" onClick={onShowClick}>
+            {hidden ? `Показать: ${linesCount} строк` : "Скрыть"}
+          </span>
+        </div>
+      )}
     </div>
   );
 };

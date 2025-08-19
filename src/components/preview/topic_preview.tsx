@@ -1,4 +1,4 @@
-import { FC, ReactElement, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { SwipeEventData, useSwipeable } from "react-swipeable";
 import { fetchTopicInfo } from "src/api";
 
@@ -14,12 +14,12 @@ type IProps = {
   close: () => void;
 };
 
-const TopicPreview: FC<IProps> = ({
+const TopicPreview: React.FC<IProps> = ({
   topicId,
   initialMsgNumber,
   author,
   close,
-}): ReactElement => {
+}) => {
   const loggedUserId = useAppSelector((state) => state.login.userId);
 
   const [deltaX, setDeltaX] = useState(0);

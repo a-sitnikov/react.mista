@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from "react";
+import { useEffect } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "src/store";
@@ -22,7 +22,7 @@ import {
 import "./topic.css";
 import { useEnableUpdater } from "./hooks/use-enable-updater";
 
-const Topic = (): ReactElement => {
+const Topic: React.FC = () => {
   const dispatch = useAppDispatch();
   const { hash } = useLocation();
   const [searchParams] = useSearchParams();

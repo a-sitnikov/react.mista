@@ -1,4 +1,4 @@
-import { FC, ReactElement, memo } from "react";
+import { memo } from "react";
 
 type IProps = {
   colors: string[];
@@ -6,7 +6,7 @@ type IProps = {
   text: string;
 };
 
-const Vote: FC<IProps> = memo(({ colors, n, text }): ReactElement => {
+const Vote: React.FC<IProps> = memo(({ colors, n, text }) => {
   return (
     <div style={{ marginTop: "5px" }}>
       <b>
