@@ -37,7 +37,7 @@ const TopicsList: React.FC = () => {
       <div className="topic-list-table">
         <TableHeader onUpdateClick={refetch} isLoading={isFetching} />
         {items.map((item) => (
-          <Row key={item.id} item={item} />
+          <Row key={item.id} item={item} isFetching={isFetching} />
         ))}
         <div className="table-footer">
           <Pages maxPage={10} />

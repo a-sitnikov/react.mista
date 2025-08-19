@@ -52,7 +52,7 @@ const MsgText: React.FC<IProps> = ({
     }
   }, [vote, initialVoteText, topicId]);
 
-  const showVoteChart = n === 0 && info.isVoting && info.voting;
+  const showVoteChart = n === 0 && info?.isVoting && info?.voting;
   const showVoteText = vote !== 0 && voteText !== null;
 
   return (

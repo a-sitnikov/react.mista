@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import AuthorCell from "./author-cell";
 import CountCell from "./count-cell";
@@ -13,10 +13,17 @@ import { ITopicsListItem } from "src/store";
 
 type IProps = {
   item: ITopicsListItem;
+  isFetching?: boolean;
 };
 
-const Row: React.FC<IProps> = ({ item }) => {
+const Row: React.FC<IProps> = ({ item, isFetching }) => {
   const [previewNumber, setPreviewNumber] = useState<number>();
+
+  useEffect(() => {
+    if (isFetching) {
+      setPreviewNumber(undefined);
+    }
+  }, [isFetching]);
 
   const previewShowFirst = () => {
     if (previewNumber === undefined) {

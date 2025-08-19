@@ -28,7 +28,7 @@ const Header: React.FC = () => {
         <Sections
           id="sect"
           defaultValue="--Все секции--"
-          selected={searchParams.get("section")}
+          selected={searchParams.get("section") ?? ""}
           onChange={onSectionChange}
           size="sm"
         />
