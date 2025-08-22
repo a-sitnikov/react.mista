@@ -14,7 +14,7 @@ export const useTopicsList = <TError = Error, TData = TFetchTopicsListData>(
       TFetchTopicsListData,
       TError,
       TData,
-      [QueryKeys.TopicsList, ...string[]]
+      [QueryKeys.TopicsList, object]
     >,
     "queryKey" | "queryFn"
   >
@@ -24,7 +24,7 @@ export const useTopicsList = <TError = Error, TData = TFetchTopicsListData>(
   );
 
   return useQuery({
-    queryKey: [QueryKeys.TopicsList, ...Object.values(searchParams)],
+    queryKey: [QueryKeys.TopicsList, Object.entries(searchParams)],
     queryFn: async () => {
       const params = Object.fromEntries(searchParams);
       return fetchTopicsList({ itemsPerPage, ...params });
