@@ -1,11 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { fetchTopic, TFetchTopicData } from "../slices";
-import {
-  QueryClient,
-  useQuery,
-  useQueryClient,
-  UseQueryOptions,
-} from "@tanstack/react-query";
+import { QueryClient, useQuery, UseQueryOptions } from "@tanstack/react-query";
 import { QueryKeys } from "./types";
 import { fetchTopicMessages } from "src/api";
 
@@ -29,16 +24,13 @@ export const useTopicMessages = <TError = Error, TData = TFetchTopicData>(
 
   const page = searchParams.get("page");
 
-  const queryClient = useQueryClient();
-
   return useQuery({
     queryKey: [QueryKeys.TopicMessages, topicId, page],
-    queryFn: () => {
-      const cacheData = getCachedTopicData(queryClient, topicId);
+    queryFn: ({ client }) => {
+      const cacheData = getCachedTopicData(client, topicId);
       return fetchTopic({ topicId, page, item0: cacheData?.item0 });
     },
     placeholderData: (previousData) => previousData,
-    refetchOnWindowFocus: false,
     ...options,
   });
 };
@@ -59,12 +51,10 @@ export const useUpdateMessages = <TError = Error, TData = TFetchTopicData>(
 
   const page = searchParams.get("page");
 
-  const queryClient = useQueryClient();
-
   return useQuery({
     queryKey: [QueryKeys.UpdateTopicMessages, topicId],
-    queryFn: async () => {
-      const cacheData = getCachedTopicData(queryClient, topicId);
+    queryFn: async ({ client }) => {
+      const cacheData = getCachedTopicData(client, topicId);
       if (!cacheData) return true;
 
       const data = await fetchTopicMessages({
@@ -75,7 +65,7 @@ export const useUpdateMessages = <TError = Error, TData = TFetchTopicData>(
 
       if (data.length === 0) return true;
 
-      queryClient.setQueryData<TFetchTopicData>(
+      client.setQueryData<TFetchTopicData>(
         [QueryKeys.TopicMessages, topicId, page],
         (prevData) => {
           return {

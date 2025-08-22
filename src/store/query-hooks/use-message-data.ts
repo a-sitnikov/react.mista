@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "./types";
 import { getCachedTopicData } from "./use-topic-messages";
 import { fetchTopicMessage } from "src/api";
@@ -9,12 +9,10 @@ type IProps = {
 };
 
 export const useMessageData = ({ topicId, number }: IProps) => {
-  const queryClient = useQueryClient();
-
   return useQuery({
     queryKey: [QueryKeys.TopicMessageData, topicId, number],
-    queryFn: async () => {
-      const cachedTopicData = getCachedTopicData(queryClient, topicId);
+    queryFn: async ({ client }) => {
+      const cachedTopicData = getCachedTopicData(client, topicId);
 
       if (cachedTopicData) {
         if (number === 0) {
@@ -34,6 +32,5 @@ export const useMessageData = ({ topicId, number }: IProps) => {
 
       return item;
     },
-    refetchOnWindowFocus: false,
   });
 };

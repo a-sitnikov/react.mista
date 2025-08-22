@@ -12,7 +12,6 @@ export const useSections = <TError = Error, TData = TFetchSectionsData>(
     queryKey: [QueryKeys.Sections],
     queryFn: fetchSections,
     placeholderData: { items: [], tree: {} },
-    refetchOnWindowFocus: false,
     ...options,
   });
 };

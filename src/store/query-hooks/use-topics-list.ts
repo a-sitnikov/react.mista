@@ -30,7 +30,6 @@ export const useTopicsList = <TError = Error, TData = TFetchTopicsListData>(
       return fetchTopicsList({ itemsPerPage, ...params });
     },
     placeholderData: (previousData) => previousData ?? [],
-    refetchOnWindowFocus: false,
     ...options,
   });
 };
