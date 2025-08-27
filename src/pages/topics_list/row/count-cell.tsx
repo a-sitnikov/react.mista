@@ -1,5 +1,5 @@
 import React from "react";
-import { ITopicsListItem } from "src/store";
+import { type ITopicsListItem } from "src/store";
 
 type IProps = {
   item: ITopicsListItem;

@@ -1,11 +1,17 @@
-import React, { ReactElement, useState, useCallback } from "react";
+import React, { type ReactElement, useState, useCallback } from "react";
 import { FormGroup, Form } from "react-bootstrap";
 
 import TextEditor from "src/components/common/text_editor";
-import { useActionCreators, useAppDispatch, useAppSelector } from "src/store";
-import { newMessageActions, postNewMessage, newTopicActions } from "src/store";
+import {
+  useActionCreators,
+  useAppDispatch,
+  useAppSelector,
+  newMessageActions,
+  postNewMessage,
+  newTopicActions,
+  type PostNewmessageParams,
+} from "src/store";
 
-import type { PostNewmessageParams } from "src/store";
 import { useTopicMessages } from "src/store/query-hooks";
 
 type IProps = {
@@ -38,7 +44,7 @@ const NewMessage: React.FC<IProps> = ({ topicId, onSubmitSuccess }) => {
       params.voting_select = voting;
     }
 
-    dispatch(postNewMessage(params));
+    void dispatch(postNewMessage(params));
   };
 
   const afterSubmit = () => {

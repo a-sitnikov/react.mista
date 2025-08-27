@@ -1,7 +1,7 @@
+import { type Property } from "csstype";
 import { useEffect, useState } from "react";
-import type { Property } from "csstype";
 import { domain } from "src/api";
-import { ITopicMessage } from "src/store";
+import { type ITopicMessage } from "src/store";
 
 type IProps = {
   data: ITopicMessage;

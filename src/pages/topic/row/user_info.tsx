@@ -1,11 +1,13 @@
-import { useMemo } from "react";
-import dayjs from "dayjs";
 import classNames from "classnames";
+import dayjs from "dayjs";
+import { useMemo } from "react";
 
-import { useActionCreators } from "src/store";
-import type { ITopicMessage } from "src/store";
-import { newMessageActions } from "src/store";
 import { domain } from "src/api";
+import {
+  type ITopicMessage,
+  useActionCreators,
+  newMessageActions,
+} from "src/store";
 
 import UserIco from "./user_ico";
 

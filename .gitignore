@@ -24,4 +24,6 @@ yarn-error.log*
 debug.log
 build-storybook.log
 
+vite.config.ts.timestamp-*
 stats.html
+*storybook.log

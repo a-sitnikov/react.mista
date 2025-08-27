@@ -1,8 +1,12 @@
 {
+  "_id": "react.mista@2.0.0",
   "name": "react.mista",
   "version": "2.0.0",
   "private": false,
   "homepage": "https://a-sitnikov.github.io/react.mista",
+  "author": "a.sitnikov@outlook.com",
+  "sideEffects": false,
+  "type": "module",
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
     "classnames": "^2.5.1",
@@ -21,21 +25,16 @@
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^3.1.0",
-    "typescript": "^4.6.4",
     "url-parse": "^1.5.10",
     "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^4.1.1",
     "@redux-devtools/extension": "^3.3.0",
-    "@storybook/addon-essentials": "^7.1.1",
-    "@storybook/addon-interactions": "^7.1.1",
-    "@storybook/addon-links": "^7.1.1",
-    "@storybook/addon-onboarding": "^1.0.8",
-    "@storybook/blocks": "^7.1.1",
-    "@storybook/preset-create-react-app": "^7.1.1",
-    "@storybook/react": "^7.1.1",
-    "@storybook/react-webpack5": "^7.1.1",
-    "@storybook/testing-library": "^0.2.0",
+    "@storybook/addon-a11y": "^9.1.3",
+    "@storybook/addon-docs": "^9.1.3",
+    "@storybook/addon-vitest": "^9.1.3",
+    "@storybook/react-vite": "^9.1.3",
     "@tanstack/react-query": "^5.85.3",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
@@ -45,16 +44,32 @@
     "@types/react": "^18.3.24",
     "@types/react-dom": "^18.3.7",
     "@types/react-redux": "^7.1.34",
+    "@typescript-eslint/eslint-plugin": "^8.41.0",
+    "@typescript-eslint/parser": "^8.41.0",
     "@vitejs/plugin-react": "^5.0.1",
-    "chromatic": "^6.20.0",
-    "eslint-plugin-storybook": "^0.6.13",
+    "@vitest/eslint-plugin": "^1.3.4",
+    "eslint": "^8.57.1",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jest-dom": "^5.5.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-storybook": "^9.1.3",
+    "eslint-plugin-testing-library": "^7.6.6",
     "gh-pages": "^6.3.0",
+    "globals": "^16.3.0",
     "redux-logger": "^3.0.6",
     "redux-mock-store": "^1.5.5",
     "rollup-plugin-visualizer": "^6.0.3",
-    "storybook": "^7.1.1",
+    "storybook": "^9.1.3",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.41.0",
     "vite": "^7.1.3",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.4",
+    "@vitest/browser": "3.2.4",
+    "playwright": "^1.55.0",
+    "@vitest/coverage-v8": "3.2.4"
   },
   "scripts": {
     "start": "vite",
@@ -65,7 +80,9 @@
     "deploy": "gh-pages -d build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "chromatic": "npx chromatic --project-token=chpt_088c4d8898f3088"
+    "chromatic": "npx chromatic --project-token=chpt_088c4d8898f3088",
+    "lint:check": "eslint --ignore-pattern .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
+    "lint:fix": "eslint --fix --ignore-pattern .gitignore --cache --cache-location ./node_modules/.cache/eslint ."
   },
   "eslintConfig": {
     "extends": [
@@ -87,5 +104,7 @@
     ]
   },
   "readme": "ERROR: No README data found!",
-  "_id": "react.mista@2.0.0"
+  "engines": {
+    "node": ">=22.0.0"
+  }
 }

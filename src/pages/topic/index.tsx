@@ -1,26 +1,26 @@
 import { useEffect } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 
-import { useAppDispatch, useAppSelector } from "src/store";
-import { newMessageActions } from "src/store";
-import { useTopicMessages, useUpdateMessages } from "src/store/query-hooks";
-
 import Error from "src/components/common/error";
 import Pages from "src/components/common/pages";
-import Header from "./header";
-import TopicInfo from "./topic_info";
-import Row from "../../pages/topic/row";
-import Footer from "./footer";
-import NewMessage from "./new_message";
+import { useAppDispatch, useAppSelector, newMessageActions } from "src/store";
+
+import { useTopicMessages, useUpdateMessages } from "src/store/query-hooks";
+
 import {
   getMaxPage,
   extractTextFromHTML,
   toNumber,
   getPageNumber,
 } from "src/utils";
+import Row from "../../pages/topic/row";
+import Footer from "./footer";
+import Header from "./header";
+import { useEnableUpdater } from "./hooks/use-enable-updater";
+import NewMessage from "./new_message";
+import TopicInfo from "./topic_info";
 
 import "./topic.css";
-import { useEnableUpdater } from "./hooks/use-enable-updater";
 
 const Topic: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -49,7 +49,7 @@ const Topic: React.FC = () => {
   );
 
   const onPostNewMessageSuccess = () => {
-    updateMessages();
+    void updateMessages();
     dispatch(newMessageActions.changeText(""));
   };
 
@@ -76,7 +76,7 @@ const Topic: React.FC = () => {
       <div className="topic-table">
         <TopicInfo topicId={topicId} />
         <Row item={item0} topicId={topicId} />
-        {items.map((item, i) => (
+        {items.map((item) => (
           <Row key={item.n} item={item} topicId={topicId} />
         ))}
         {(maxPage > 1 || page === "last20") && (

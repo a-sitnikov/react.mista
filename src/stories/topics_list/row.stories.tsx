@@ -1,15 +1,15 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
-import { themes } from "@storybook/theming";
-
+import { type Meta, type StoryObj } from "@storybook/react";
 import Row from "src/pages/topics_list/row";
+import { type RootState } from "src/store";
+// eslint-disable-next-line no-restricted-imports
 import { mock_topics_list_item0 } from "src/tests/mock_data/mock_topics_list";
+import { themes } from "storybook/theming";
+import { INITIAL_VIEWPORTS } from "storybook/viewport";
 
 import { wrapper } from "../utils";
 
 import "src/index.css";
 import "src/pages/topics_list/topics_list.css";
-import { RootState } from "src/store";
 
 const preloadedState: Partial<RootState> = {};
 

@@ -1,15 +1,19 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Form, FormControl, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
+import {
+  type IOptionsItems,
+  useAppDispatch,
+  useAppSelector,
+  defaultOptionsState,
+  optionsActions,
+} from "src/store";
+import { formTabs, formParams } from "./formscheme";
 import RadioOption from "./radio_option";
 import StringOption from "./string_option";
 
-import { formTabs, formParams } from "./formscheme";
 import Tab from "./tab";
-
-import { IOptionsItems, useAppDispatch, useAppSelector } from "src/store";
-import { defaultOptionsState, optionsActions } from "src/store";
 
 import "./options.css";
 

@@ -1,8 +1,12 @@
+import {
+  type QueryClient,
+  useQuery,
+  type UseQueryOptions,
+} from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
-import { fetchTopic, TFetchTopicData } from "../slices";
-import { QueryClient, useQuery, UseQueryOptions } from "@tanstack/react-query";
-import { QueryKeys } from "./types";
 import { fetchTopicMessages } from "src/api";
+import { fetchTopic, type TFetchTopicData } from "../slices";
+import { QueryKeys } from "./types";
 
 type IProps = {
   topicId: number;

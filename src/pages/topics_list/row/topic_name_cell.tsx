@@ -1,8 +1,8 @@
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 
+import { type ITopicsListItem, useAppSelector } from "src/store";
 import Pages from "./pages";
-import { ITopicsListItem, useAppSelector } from "src/store";
 
 type IProps = {
   data: ITopicsListItem;

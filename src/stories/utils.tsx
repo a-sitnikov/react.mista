@@ -1,8 +1,9 @@
+import { Container } from "react-bootstrap";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router";
-import { Container } from "react-bootstrap";
 
-import { RootState } from "src/store";
+import { type RootState } from "src/store";
+// eslint-disable-next-line no-restricted-imports
 import { setupStore } from "src/tests/test-utils";
 
 export const wrapper = (

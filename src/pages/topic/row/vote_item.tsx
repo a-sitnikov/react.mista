@@ -1,7 +1,7 @@
-import CSS from "csstype";
+import type CSS from "csstype";
 
 import { domain } from "src/api";
-import { IVotingItem } from "src/store";
+import { type IVotingItem } from "src/store";
 
 type IProps = {
   topicId: number;

@@ -1,10 +1,10 @@
 import HtmlToReact from "html-to-react";
 
+import { memo } from "react";
 import Code from "src/components/extensions/code1c";
-import LinkToPost from "src/components/extensions/link_to_post";
 import CustomLink from "src/components/extensions/custom_link";
 import InternalImage from "src/components/extensions/internal-image";
-import { memo } from "react";
+import LinkToPost from "src/components/extensions/link_to_post";
 
 const processLinksToPosts = (text: string, topicId: number): string => {
   const regexp = /(\()(\d+)(\))(?![^<>]*<\/)/gi; // (12)
@@ -24,9 +24,9 @@ const processCode1C = (text: string): string => {
 
 const processImages = (
   text: string,
-  topicId: number,
-  topicDate: number,
-  messageNumber: number
+  _topicId: number,
+  _topicDate: number,
+  _messageNumber: number
 ): string | undefined => {
   const regexp = /\[IMG_(\d*)\]/gi; // ([IMG_1])
 

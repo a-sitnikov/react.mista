@@ -1,5 +1,5 @@
-import { useQuery, UseQueryOptions } from "@tanstack/react-query";
-import { fetchSections, TFetchSectionsData } from "src/api";
+import { useQuery, type UseQueryOptions } from "@tanstack/react-query";
+import { fetchSections, type TFetchSectionsData } from "src/api";
 import { QueryKeys } from "./types";
 
 export const useSections = <TError = Error, TData = TFetchSectionsData>(

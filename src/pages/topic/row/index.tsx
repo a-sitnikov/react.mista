@@ -1,8 +1,8 @@
-import UserInfo from "./user_info";
-import MsgText from "./msg_text";
-import { useAppSelector } from "src/store";
-import { ITopicMessage } from "src/store";
+import { useAppSelector, type ITopicMessage } from "src/store";
+
 import { useTopicMessages } from "src/store/query-hooks";
+import MsgText from "./msg_text";
+import UserInfo from "./user_info";
 
 type IProps = {
   item: ITopicMessage;

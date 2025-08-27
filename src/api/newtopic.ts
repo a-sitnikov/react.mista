@@ -1,5 +1,5 @@
-import { domain, urlNewTopic } from ".";
 import { paramsToString } from "./api-utils";
+import { domain, urlNewTopic } from ".";
 
 export interface INewTopicRequest {
   action: "new";

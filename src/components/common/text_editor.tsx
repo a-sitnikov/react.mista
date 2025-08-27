@@ -1,4 +1,4 @@
-import { useRef, RefObject, useCallback } from "react";
+import { useRef, type RefObject, useCallback } from "react";
 import { FormControl, Button, ButtonGroup, Form } from "react-bootstrap";
 
 import "./text_editor.css";

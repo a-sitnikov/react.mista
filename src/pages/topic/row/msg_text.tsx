@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
-import VoteChart from "./vote_chart";
-import Vote from "./vote";
-import { useAppSelector } from "src/store";
-import { fetchTopicInfo } from "src/api";
 import { PhotoProvider } from "react-photo-view";
+import { fetchTopicInfo } from "src/api";
+import { useAppSelector } from "src/store";
 import { useTopicMessages } from "src/store/query-hooks";
 import ProcessedText from "./processed_text";
+import Vote from "./vote";
+import VoteChart from "./vote_chart";
 
 type IProps = {
   topicId: number;
@@ -48,7 +48,7 @@ const MsgText: React.FC<IProps> = ({
     };
 
     if (vote && !initialVoteText) {
-      getVoteText();
+      void getVoteText();
     }
   }, [vote, initialVoteText, topicId]);
 

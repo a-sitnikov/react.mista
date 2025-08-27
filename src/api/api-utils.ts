@@ -19,7 +19,7 @@ export const paramsToString = (paramsPrefix: string, params?: {}): string => {
 export const fetchJsonpAndGetJson = async (
   url: string,
   params?: {},
-  options?: {}
+  _options?: {}
 ): Promise<any> => {
   let fullUrl = `${domain}/${url}${paramsToString("?", params)}`;
   const response = await fetchJsonp(fullUrl);
@@ -29,6 +29,7 @@ export const fetchJsonpAndGetJson = async (
     try {
       json = JSON.parse(responseJson);
     } catch (e) {
+      console.log(e);
       json = utils.parseJSON(responseJson);
     }
   } else {

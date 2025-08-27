@@ -1,8 +1,7 @@
+import { type ITopicsList, type ITopicsListItem } from "src/store";
 import { toNumber } from "src/utils";
-import { urlTopicsList } from ".";
 import { fetchAndGetJson } from "./api-utils";
-
-import type { ITopicsList, ITopicsListItem } from "src/store";
+import { urlTopicsList } from ".";
 
 export interface ITopicsListRequest {
   itemsPerPage?: number | string | null;

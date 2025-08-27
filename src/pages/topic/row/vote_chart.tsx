@@ -1,5 +1,5 @@
+import { type IVotingItem } from "src/store";
 import VoteItem from "./vote_item";
-import { IVotingItem } from "src/store";
 
 type IProps = {
   items: IVotingItem[];

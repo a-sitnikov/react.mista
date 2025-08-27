@@ -1,7 +1,11 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createAsyncThunk,
+  type PayloadAction,
+} from "@reduxjs/toolkit";
 
-import { fetchNewTopic, INewTopicRequest } from "src/api";
-import { RootState } from "../types";
+import { fetchNewTopic, type INewTopicRequest } from "src/api";
+import { type RootState } from "../types";
 
 export interface ISectionItem {
   id: number;

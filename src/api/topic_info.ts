@@ -1,6 +1,6 @@
-import { urlTopicInfo } from ".";
+import { type ITopicInfo } from "src/store";
 import { fetchAndGetJson } from "./api-utils";
-import type { ITopicInfo } from "src/store";
+import { urlTopicInfo } from ".";
 
 interface IAPIResponse {
   id: string;

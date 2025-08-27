@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchTopicMessage } from "src/api";
-import { ITopicsListItem } from "src/store";
+import { type ITopicsListItem } from "src/store";
 import { formattedTime } from "src/utils";
 
 type IProps = {
@@ -18,7 +18,7 @@ const LastUserCell: React.FC<IProps> = ({ item }) => {
       setTime(msg.time);
     };
 
-    updateTime();
+    void updateTime();
   }, [item.pinned, item.id, item.count]);
 
   useEffect(() => {

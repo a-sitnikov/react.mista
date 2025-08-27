@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
+import { fetchTopicMessage } from "src/api";
 import { QueryKeys } from "./types";
 import { getCachedTopicData } from "./use-topic-messages";
-import { fetchTopicMessage } from "src/api";
 
 type IProps = {
   topicId: number;

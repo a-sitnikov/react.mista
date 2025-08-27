@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 
+import TopicPreview from "src/components/preview/topic_preview";
+import { type ITopicsListItem } from "src/store";
 import AuthorCell from "./author-cell";
 import CountCell from "./count-cell";
 import ForumCell from "./forum-cell";
-import Last20Cell from "./last20-cell";
 import LastUserCell from "./last-user-cell";
+import Last20Cell from "./last20-cell";
 import ShowPreviewButton from "./show_preview_button";
 import TopicNameCell from "./topic_name_cell";
-import TopicPreview from "src/components/preview/topic_preview";
-
-import { ITopicsListItem } from "src/store";
 
 type IProps = {
   item: ITopicsListItem;

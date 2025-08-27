@@ -1,7 +1,7 @@
-import CSS from "csstype";
+import type CSS from "csstype";
 import Form from "react-bootstrap/Form";
 
-import { ISectionItem } from "src/store";
+import { type ISectionItem } from "src/store";
 import { useSections } from "src/store/query-hooks";
 
 export type IProps = {

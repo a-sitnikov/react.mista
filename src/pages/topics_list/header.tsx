@@ -1,8 +1,8 @@
 import { useSearchParams } from "react-router-dom";
 
+import { type ISectionItem } from "src/store";
 import Login from "../../components/login";
 import Sections from "./sections";
-import { ISectionItem } from "src/store";
 
 const Header: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();

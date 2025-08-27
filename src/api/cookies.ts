@@ -1,6 +1,6 @@
-import { urlCookies } from ".";
+import { type ILogin } from "src/store";
 import { fetchJsonpAndGetJson } from "./api-utils";
-import { ILogin } from "src/store";
+import { urlCookies } from ".";
 
 type IAPIResponse = {
   cookie: {

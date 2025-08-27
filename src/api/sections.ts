@@ -1,7 +1,7 @@
+import { type ISectionItem } from "src/store";
 import { groupBy } from "src/utils";
-import { urlSections } from ".";
 import { fetchJsonpAndGetJson } from "./api-utils";
-import type { ISectionItem } from "src/store";
+import { urlSections } from ".";
 
 interface IAPIResponse {
   id: number;

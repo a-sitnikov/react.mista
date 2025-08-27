@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
+import Error from "src/components/common/error";
+import Pages from "src/components/common/pages";
 import { useTopicsList } from "src/store/query-hooks";
 
 import Header from "./header";
-import TableHeader from "./table_header";
-import Row from "./row";
-import Pages from "src/components/common/pages";
 import NewTopic from "./new_topic";
-import Error from "src/components/common/error";
+import Row from "./row";
+import TableHeader from "./table_header";
 
 import "./topics_list.css";
 

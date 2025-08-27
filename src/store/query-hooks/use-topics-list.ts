@@ -1,7 +1,7 @@
-import { useQuery, UseQueryOptions } from "@tanstack/react-query";
-import { fetchTopicsList, TFetchTopicsListData } from "src/api";
-import { QueryKeys } from "./types";
+import { useQuery, type UseQueryOptions } from "@tanstack/react-query";
+import { fetchTopicsList, type TFetchTopicsListData } from "src/api";
 import { useAppSelector } from "../hooks";
+import { QueryKeys } from "./types";
 
 type IProps = {
   searchParams: URLSearchParams;
