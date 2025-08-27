@@ -24,9 +24,9 @@ export const useTopicsList = <TError = Error, TData = TFetchTopicsListData>(
   );
 
   return useQuery({
-    queryKey: [QueryKeys.TopicsList, Object.entries(searchParams)],
-    queryFn: async () => {
-      const params = Object.fromEntries(searchParams);
+    queryKey: [QueryKeys.TopicsList, Object.fromEntries(searchParams)],
+    queryFn: async ({ queryKey }) => {
+      const params = queryKey[1];
       return fetchTopicsList({ itemsPerPage, ...params });
     },
     placeholderData: (previousData) => previousData ?? [],

@@ -12,22 +12,27 @@ const Pages: React.FC<IProps> = ({ count, topicId }) => {
   if (count > 100) {
     let maxPage = getMaxPage(count);
     for (let i = 1; i <= maxPage; i++) {
-      let href = `/topic.php?id=${topicId}&page=${i}`;
-      let text: string;
-      if (i > 3 && i < maxPage) text = "•";
-      else text = String(i);
       pages.push(
-        <Link key={i} className="agh" style={{ margin: "3px" }} to={href}>
-          {text}
+        <Link
+          key={i}
+          className="agh"
+          style={{ margin: "3px" }}
+          to={`/topic.php?id=${topicId}&page=${i}`}
+        >
+          {i > 3 && i < maxPage ? "•" : String(i)}
         </Link>
       );
     }
   }
 
   if (count > 20) {
-    let href = `/topic.php?id=${topicId}&page=last20#F`;
     pages.push(
-      <Link key="last20" className="agh" style={{ margin: "3px" }} to={href}>
+      <Link
+        key="last20"
+        className="agh"
+        style={{ margin: "3px" }}
+        to={`/topic.php?id=${topicId}&page=last20#F`}
+      >
         »
       </Link>
     );

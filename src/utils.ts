@@ -52,8 +52,12 @@ export const parseJSON = (text: string): {} => {
   }
 };
 
-export const getPageNumber = (locationPage: string): number | "last20" => {
+export const getPageNumber = (
+  locationPage: string | undefined | null
+): number | "last20" => {
+  if (!locationPage) return 1;
   if (locationPage === "last20") return "last20";
+
   return toNumber(locationPage, 1);
 };
 
