@@ -1,5 +1,6 @@
-import { type ITopicsList, type ITopicsListItem } from "src/store";
+import { type ITopicsListItem } from "src/store";
 import { toNumber } from "src/utils";
+import { z } from "zod";
 import { fetchAndGetJson } from "./api-utils";
 import { urlTopicsList } from ".";
 
@@ -21,24 +22,45 @@ interface IAPIRequest {
   mytopics?: string;
 }
 
-interface IAPIResponse {
-  id: number;
-  forum: string;
-  sect1: string;
-  sect2: string;
-  v8: string;
-  closed: number;
-  down: number;
-  paid: number;
-  text: string;
-  message: string;
-  created: number;
-  utime: number;
-  user: string;
-  user0: string;
-  is_voting: number;
-  answ: number;
-}
+export const topicsListSchema = z
+  .object({
+    id: z.int(),
+    forum: z.string(),
+    sect1: z.string(),
+    sect2: z.string(),
+    v8: z.string().nullable().optional(),
+    closed: z.int(),
+    down: z.int(),
+    paid: z.int(),
+    text: z.string(),
+    message: z.string(),
+    created: z.int(),
+    utime: z.int(),
+    user: z.string().nullable().optional(),
+    user0: z.string(),
+    is_voting: z.int(),
+    answ: z.int(),
+  })
+  .transform(
+    (response) =>
+      ({
+        id: response.id,
+        forum: response.forum,
+        section: response.sect1,
+        sectionCode: response.sect2,
+        author: response.user0,
+        lastUser: response.user,
+        created: response.created * 1000,
+        updated: response.utime * 1000,
+        count: response.answ,
+        text: response.text,
+        closed: response.closed === 1,
+        down: response.down === 1,
+        pinned: response.utime === 2147483648,
+        isVoting: response.is_voting === 1,
+      } as ITopicsListItem)
+  )
+  .array();
 
 function convertRequest(request: ITopicsListRequest): IAPIRequest {
   const page = toNumber(request.page, 1);
@@ -53,35 +75,22 @@ function convertRequest(request: ITopicsListRequest): IAPIRequest {
   };
 }
 
-function convertResponse(response: IAPIResponse): ITopicsListItem {
-  return {
-    id: response.id,
-    forum: response.forum,
-    section: response.sect1,
-    sectionCode: response.sect2,
-    author: response.user0,
-    lastUser: response.user,
-    created: response.created * 1000,
-    updated: response.utime * 1000,
-    count: response.answ,
-    text: response.text,
-    closed: response.closed === 1,
-    down: response.down === 1,
-    pinned: response.utime === 2147483648,
-    isVoting: response.is_voting === 1,
-  };
-}
-
 async function fetchTopicsList(
   params?: ITopicsListRequest
-): Promise<ITopicsList> {
+): Promise<ITopicsListItem[]> {
   const request = convertRequest(params);
 
   const itemsPerPage = toNumber(params?.itemsPerPage, 20);
 
-  const list = await fetchAndGetJson(urlTopicsList, request);
-  return list.map(convertResponse).slice(-itemsPerPage);
+  const data = await fetchAndGetJson(urlTopicsList, request);
+
+  try {
+    return topicsListSchema.parse(data).slice(-itemsPerPage);
+  } catch (e) {
+    console.log(data);
+    console.log(e);
+    throw new Error("Ошибка при преобразовании json");
+  }
 }
 
 export { fetchTopicsList };
-export type TFetchTopicsListData = Awaited<ReturnType<typeof fetchTopicsList>>;

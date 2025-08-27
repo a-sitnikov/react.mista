@@ -1,17 +1,18 @@
 import { useQuery, type UseQueryOptions } from "@tanstack/react-query";
-import { fetchTopicsList, type TFetchTopicsListData } from "src/api";
+import { fetchTopicsList } from "src/api";
 import { useAppSelector } from "../hooks";
+import { type ITopicsListItem } from "../slices";
 import { QueryKeys } from "./types";
 
 type IProps = {
   searchParams: URLSearchParams;
 };
 
-export const useTopicsList = <TError = Error, TData = TFetchTopicsListData>(
+export const useTopicsList = <TError = Error, TData = ITopicsListItem[]>(
   { searchParams }: IProps,
   options?: Omit<
     UseQueryOptions<
-      TFetchTopicsListData,
+      ITopicsListItem[],
       TError,
       TData,
       [QueryKeys.TopicsList, object]

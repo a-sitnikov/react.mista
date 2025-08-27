@@ -14,5 +14,3 @@ export interface ITopicsListItem {
   pinned: boolean;
   isVoting: boolean;
 }
-
-export interface ITopicsList extends Array<ITopicsListItem> {}

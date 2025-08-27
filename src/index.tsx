@@ -1,16 +1,25 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "src/store";
+import App from "./App";
 
 import "./index.css";
-import App from "./App";
-import { store, persistor } from "src/store";
-import { PersistGate } from "redux-persist/integration/react";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      retry: false,
+      retryOnMount: false,
       refetchOnWindowFocus: false,
+      throwOnError: (error) => {
+        if (error.name !== "AbortError") {
+          console.log(error.message);
+        }
+        return false;
+      },
     },
   },
 });

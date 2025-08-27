@@ -2,9 +2,9 @@ import { useLayoutEffect } from "react";
 import { HashRouter } from "react-router-dom";
 
 import NavBar from "./components/navigation/nav_bar";
-import AppRoutes from "./pages/approutes";
 import NavBarFooter from "./components/navigation/nav_bar_footer";
 import TooltipsContainer from "./components/tooltips/tooltips_container";
+import AppRoutes from "./pages/approutes";
 import { useAppSelector } from "./store";
 
 const App: React.FC = () => {
@@ -15,7 +15,12 @@ const App: React.FC = () => {
   }, [theme]);
 
   return (
-    <HashRouter>
+    <HashRouter
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
       <NavBar />
       <AppRoutes />
       <NavBarFooter />
