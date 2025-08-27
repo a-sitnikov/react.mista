@@ -1,11 +1,11 @@
 import { useCallback, useState } from "react";
-import { SwipeEventData, useSwipeable } from "react-swipeable";
+import { type SwipeEventData, useSwipeable } from "react-swipeable";
 import { fetchTopicInfo } from "src/api";
+import { useAppSelector } from "src/store";
 
 import PreviewButtons from "./preview_buttons";
 import PreviewContent from "./preview_content";
 import "./topic_preview.css";
-import { useAppSelector } from "src/store";
 
 type IProps = {
   topicId: number;

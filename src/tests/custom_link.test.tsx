@@ -2,7 +2,7 @@ import { screen } from "@testing-library/react";
 
 import CustomLink from "src/components/extensions/custom_link";
 import { defaultOptionsState } from "src/store";
-import { AppStore, renderWithProviders, setupStore } from "./test-utils";
+import { type AppStore, renderWithProviders, setupStore } from "./test-utils";
 
 const mockLinkToPost = jest.fn();
 jest.mock("src/components/extensions/link_to_post", () => (props: any) => {

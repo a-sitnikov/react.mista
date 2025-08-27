@@ -5,7 +5,7 @@ import { fetchTopicMessage } from "src/api";
 import MsgText from "src/pages/topic/row/msg_text";
 import UserInfo from "src/pages/topic/row/user_info";
 
-import { ITopicMessage } from "src/store";
+import { type ITopicMessage } from "src/store";
 
 import "./topic_preview.css";
 
@@ -45,7 +45,7 @@ const PreviewContent: React.FC<IProps> = ({
       }
     };
 
-    getData();
+    void getData();
   }, [topicId, n, onDataLoaded]);
 
   if (!data && !error) return null;

@@ -1,12 +1,11 @@
-import { ITooltipItem } from "src/store";
-import { useMessageData } from "src/store/query-hooks";
-
 import MsgText from "src/pages/topic/row/msg_text";
 import UserInfo from "src/pages/topic/row/user_info";
+import { type ITooltipItem } from "src/store";
+import { useMessageData } from "src/store/query-hooks";
 
-import TooltipWindow from "./tooltip_window";
-import TooltipHeader from "./tooltip_header";
 import TooltipBody from "./tooltip_body";
+import TooltipHeader from "./tooltip_header";
+import TooltipWindow from "./tooltip_window";
 
 import "./tooltip.css";
 

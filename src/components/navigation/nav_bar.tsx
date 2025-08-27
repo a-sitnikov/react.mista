@@ -1,6 +1,6 @@
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 
 import Search from "src/components/common/search";
@@ -18,7 +18,7 @@ const NavBar: React.FC = () => {
   const onClick = (e: React.MouseEvent) => {
     if (location.pathname === "/" && searchParams.size === 0) {
       e.preventDefault();
-      refetch();
+      void refetch();
     }
   };
 

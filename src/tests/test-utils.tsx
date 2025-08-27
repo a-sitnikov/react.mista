@@ -1,13 +1,11 @@
-import React, { PropsWithChildren } from "react";
-import { render } from "@testing-library/react";
-import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
+import { render, type RenderOptions } from "@testing-library/react";
+import React, { type PropsWithChildren } from "react";
+import { Provider } from "react-redux";
 
-import type { RenderOptions } from "@testing-library/react";
 //import type { PreloadedState } from '@reduxjs/toolkit' - doesn't work
 
-import type { RootState } from "src/store";
-import { reducer } from "src/store";
+import { type RootState, reducer } from "src/store";
 
 export const setupStore = (preloadedState?: Partial<RootState>) => {
   return configureStore({

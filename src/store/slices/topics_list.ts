@@ -1,7 +1,7 @@
 export interface ITopicsListItem {
   id: number;
   author: string;
-  lastUser: string;
+  lastUser?: string | null;
   forum: string;
   sectionCode: string;
   section: string;

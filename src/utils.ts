@@ -26,7 +26,7 @@ export const groupBy = <T, K extends keyof any>(
 export const parseJSON = (text: string): {} => {
   try {
     return JSON.parse(text);
-  } catch (e) {}
+  } catch {}
 
   try {
     text = text

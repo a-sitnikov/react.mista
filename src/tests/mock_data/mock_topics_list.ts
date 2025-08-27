@@ -1,4 +1,4 @@
-import { ITopicsListItem } from "src/store";
+import { type ITopicsListItem } from "src/store";
 
 export const mock_topics_list_item0: ITopicsListItem = {
   id: 888064,

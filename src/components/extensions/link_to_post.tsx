@@ -1,10 +1,14 @@
 import { useRef, useState, useEffect } from "react";
 
-import { getMaxPage, childrenToText, toNumber } from "src/utils";
-import { fetchTopicInfo } from "src/api";
-import { useActionCreators, useAppSelector } from "src/store";
-import { ITooltipKeys, tooltipsActions } from "src/store";
 import { useSearchParams } from "react-router-dom";
+import { fetchTopicInfo } from "src/api";
+import {
+  useActionCreators,
+  useAppSelector,
+  type ITooltipKeys,
+  tooltipsActions,
+} from "src/store";
+import { getMaxPage, childrenToText, toNumber } from "src/utils";
 
 type IProps = {
   topicId: number;
@@ -42,7 +46,7 @@ const LinkToPost: React.FC<IProps> = ({ topicId, number, children, style }) => {
       if (isMounted) setText(title);
     };
 
-    run();
+    void run();
 
     return () => {
       isMounted = false;

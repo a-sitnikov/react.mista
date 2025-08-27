@@ -1,12 +1,11 @@
 import { screen, waitFor } from "@testing-library/react";
-import { renderWithProviders } from "./test-utils";
 
 import * as API from "src/api/sections";
-import SectionSelect from "src/pages/topics_list/sections";
-import type { IProps } from "src/pages/topics_list/sections";
+import SectionSelect, { type IProps } from "src/pages/topics_list/sections";
 
-import { mock_sections } from "./mock_data";
 import { groupBy } from "src/utils";
+import { mock_sections } from "./mock_data";
+import { renderWithProviders } from "./test-utils";
 
 describe("SectionSelect", () => {
   it("render", async () => {

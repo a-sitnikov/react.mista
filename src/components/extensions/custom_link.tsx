@@ -1,11 +1,11 @@
+import { useAppSelector } from "src/store";
+import { childrenToText } from "src/utils";
 import URL from "url-parse";
 
 import LinkToPost from "./link_to_post";
 import LinkToUser from "./link_to_user";
 import YoutubeLink from "./youtube_link";
 
-import { childrenToText } from "src/utils";
-import { useAppSelector } from "src/store";
 
 type IProps = {
   href: string;

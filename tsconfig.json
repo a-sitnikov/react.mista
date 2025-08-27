@@ -1,11 +1,9 @@
 {
+  "include": ["src/*.ts", "src/*.tsx", ".storybook/*.ts"],
   "compilerOptions": {
     "target": "es2015",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["vite/client"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -19,9 +17,6 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "./",
-  },
-  "include": [
-    "src"
-  ]
+    "baseUrl": "./"
+  }
 }

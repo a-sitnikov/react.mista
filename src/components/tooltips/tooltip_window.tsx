@@ -1,13 +1,14 @@
-import { Children, ReactElement } from "react";
+import { Children, type ReactElement } from "react";
 import Draggable from "react-draggable";
-
-import TooltipHeader from "./tooltip_header";
+import {
+  useActionCreators,
+  type ITooltipItem,
+  tooltipsActions,
+} from "src/store";
 import TooltipBody from "./tooltip_body";
+import TooltipHeader from "./tooltip_header";
 
 import "./tooltip.css";
-
-import { useActionCreators } from "src/store";
-import { ITooltipItem, tooltipsActions } from "src/store";
 
 type IProps = {
   tooltip: ITooltipItem;

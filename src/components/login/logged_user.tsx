@@ -1,8 +1,8 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
 
-import { loginActions, useActionCreators } from "src/store";
 import { domain } from "src/api";
+import { loginActions, useActionCreators } from "src/store";
 
 type IProps = {
   userId: number;

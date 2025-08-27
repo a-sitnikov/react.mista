@@ -10,7 +10,7 @@ const getVideoId = (href: string): string | null => {
 
   try {
     var url = new URL(fullHref);
-  } catch (e) {
+  } catch {
     return null;
   }
 
@@ -23,16 +23,7 @@ const getVideoId = (href: string): string | null => {
   return null;
 };
 
-type HrefParams = {
-  hrefName: string;
-  title: string;
-  notFound: boolean;
-};
-
-const getVideoParams = async (
-  videoId: string,
-  signal: AbortSignal
-): Promise<HrefParams> => {
+const getVideoParams = async (videoId: string, signal: AbortSignal) => {
   const apiKey =
     localStorage.getItem("youtubeApiKey") ||
     "AIzaSyCztN2QW4Fxw_1YuAHBTOZdYLbzigPz25g";
@@ -47,7 +38,7 @@ const getVideoParams = async (
       notFound: true,
     };
 
-  const title = json.items[0].snippet.title;
+  const title: string = json.items[0].snippet.title;
 
   let hrefName = title;
   let maxLength = 50;
@@ -85,7 +76,7 @@ const YoutubeLink: React.FC<IProps> = ({ href }) => {
       }
     };
 
-    run();
+    void run();
 
     return () => abortController.abort();
   }, [href]);

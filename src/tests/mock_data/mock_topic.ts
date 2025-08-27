@@ -1,4 +1,4 @@
-import { ITopicInfo, ITopicMessage } from "src/store";
+import { type ITopicInfo, type ITopicMessage } from "src/store";
 
 export const mock_topicInfo: ITopicInfo = {
   id: 888064,
