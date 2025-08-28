@@ -1,4 +1,5 @@
-import path from "path";
+import path from "node:path";
+import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig, type PluginOption } from "vite";
@@ -7,10 +8,11 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       react(),
+      tailwindcss(),
       mode === "analyze" &&
         (visualizer({
           open: true,
-        }) as PluginOption),
+        }) as unknown as PluginOption),
     ],
     resolve: {
       alias: {
