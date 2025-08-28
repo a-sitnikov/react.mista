@@ -39,7 +39,7 @@ const TopicsList: React.FC = () => {
         {(items ?? []).map((item) => (
           <Row key={item.id} item={item} isFetching={isFetching} />
         ))}
-        <div className="table-footer">
+        <div className="flex justify-center p-2 border-outer bg-bgHeader">
           <Pages maxPage={10} />
         </div>
       </div>

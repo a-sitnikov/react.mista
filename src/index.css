@@ -1,12 +1,26 @@
+@import "tailwindcss";
+@config '../tailwind.config.ts';
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --color-bgHeader: #eee;
+  --color-borderColor: #ccc;
+}
+
+@utility border-outer {
+  @apply border-1 border-(--color-borderColor);
+}
+
 :root {
-  --border-color: #CCC;
+  --border-color: #ccc;
   --inner-border-color: #eee;
   --header-background: #eee;
   --background: white;
   --background-hover: #f5f9fc;
   --font-color: black;
-  --link-color: #00C;
-  --link-hover-color: #D00;
+  --link-color: #00c;
+  --link-hover-color: #d00;
   --mytopics-color: #052;
   --pinned-color: purple;
   --button-hover-bg-color: var(--bs-light);
@@ -15,6 +29,9 @@
 }
 
 [data-theme="dark"] {
+  --color-bgHeader: black;
+  --color-borderColor: rgb(100, 100, 100);
+
   --border-color: rgb(100, 100, 100);
   --inner-border-color: rgb(100, 100, 100);
   --header-background: black;
@@ -22,12 +39,12 @@
   --background-hover: rgb(25, 25, 25);
   --font-color: white;
   --link-color: #00a2fd;
-  --link-hover-color: #D00;
+  --link-hover-color: #d00;
   --mytopics-color: #052;
   --pinned-color: rgb(207, 41, 207);
   --button-hover-bg-color: rgb(15, 15, 15);
   --button-disabled-color: rgb(100, 100, 100);
-  --button-hover-border-color: #eee #888 #888 #eee;  
+  --button-hover-border-color: #eee #888 #888 #eee;
 }
 
 html {
@@ -40,14 +57,13 @@ body {
   font-family: sans-serif;
   font-size: initial !important;
   /*color: black !important*/
-  ;
 }
 
-body[data-theme='yellow'] {
+body[data-theme="yellow"] {
   background-image: url("https://a-sitnikov.github.io/react.mista/img/fon_forum.gif");
 }
 
-body[data-theme='lightgray'] {
+body[data-theme="lightgray"] {
   background-image: url("https://a-sitnikov.github.io/react.mista/img/white_carbon.png");
 }
 
@@ -83,7 +99,7 @@ body[data-theme='lightgray'] {
 .div-va-middle {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%)
+  transform: translateY(-50%);
 }
 
 .button {
@@ -104,7 +120,7 @@ body[data-theme='lightgray'] {
   color: var(--button-disabled-color);
 }
 
-.dropdown-toggle  {
+.dropdown-toggle {
   background-color: var(--background);
   border-color: var(--border-color);
   color: var(--font-color);
@@ -234,13 +250,12 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-
   .container-fluid {
     padding-right: 0px;
     padding-left: 0px;
   }
 
-  .container-fluid>.navbar-collapse {
+  .container-fluid > .navbar-collapse {
     margin-left: 3px;
     margin-right: 3px;
   }
@@ -250,7 +265,6 @@ a:hover {
     padding-left: 3px;
     padding-right: 3px;
   }
-
 }
 
 @media (min-width: 1400px) {
