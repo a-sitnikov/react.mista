@@ -7,7 +7,7 @@ const TooltipHeader: React.FC<IProps> = ({ children, closeWindow }) => {
     <div className="tooltip-header">
       {children}
       <div
-        className="tooltip-close"
+        className="relative size-[25px] cursor-pointer font-bold ml-auto hover:bg-bgHover rounded-sm flex justify-center items-center"
         onClick={closeWindow}
         onTouchEnd={closeWindow}
       >

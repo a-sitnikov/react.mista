@@ -47,10 +47,13 @@ const TooltipWindow: React.FC<IProps> = ({ tooltip, zIndex, children }) => {
     <Draggable
       axis={axis}
       handle=".tooltip-header"
-      defaultClassNameDragging="dragging"
+      defaultClassNameDragging="cursor-grabbing"
       key={zIndex}
     >
-      <div className="tooltip-window" style={{ ...position }}>
+      <div
+        className="absolute z-10 border-outer shadow-sm w-[650px] max-w-[97%] bg-bgColor"
+        style={{ ...position }}
+      >
         <TooltipHeader closeWindow={onCloseClick}>
           {(header as ReactElement).props.children}
         </TooltipHeader>
