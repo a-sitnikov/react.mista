@@ -8,6 +8,7 @@
   --color-borderColor: #ccc;
   --color-bgColor: white;
   --color-bgHover: #eee;
+  --color-link: #00c;
 }
 
 @utility border-outer {

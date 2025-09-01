@@ -17,31 +17,27 @@ const Footer: React.FC<IProps> = ({ topicId, isLastPage }) => {
   };
 
   return (
-    <div className="flex-row" id="F">
-      <div className="ta-left va-top" style={{ width: "50%" }}>
+    <div className="flex w-full justify-between" id="F">
+      <Button
+        onClick={onBookmarkClick}
+        disabled={false}
+        size="sm"
+        className="button"
+        variant="light"
+      >
+        {"Закладка"}
+      </Button>
+      {isLastPage && (
         <Button
-          onClick={onBookmarkClick}
-          disabled={false}
+          onClick={() => refetch()}
+          disabled={isFetching}
           size="sm"
           className="button"
           variant="light"
         >
-          {"Закладка"}
+          {isFetching ? "Обновляется" : "Обновить ветку"}
         </Button>
-      </div>
-      <div className="ta-right va-middle" style={{ marginLeft: "auto" }}>
-        {isLastPage && (
-          <Button
-            onClick={() => refetch()}
-            disabled={isFetching}
-            size="sm"
-            className="button"
-            variant="light"
-          >
-            {isFetching ? "Обновляется" : "Обновить ветку"}
-          </Button>
-        )}
-      </div>
+      )}
     </div>
   );
 };

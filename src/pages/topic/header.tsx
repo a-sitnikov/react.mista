@@ -23,20 +23,17 @@ const Header: React.FC<IProps> = ({ topicId }) => {
   );
 
   return (
-    <div className="flex-row">
-      <div className="header-left">
+    <div className="flex justify-between">
+      <div className="shrink-1 grow-1">
         <Login />
       </div>
-      <div className="header-right">
-        <span id="forum_string" className="bold120">
-          <Link
-            to={`/index.php?forum=${forum}`}
-            style={{ textDecoration: "none" }}
-          >
-            {forums[forum]}
-          </Link>
-        </span>
-      </div>
+      <Link
+        to={`/index.php?forum=${forum}`}
+        style={{ textDecoration: "none" }}
+        className="text-lg font-semibold shrink-1"
+      >
+        {forums[forum]}
+      </Link>
     </div>
   );
 };

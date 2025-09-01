@@ -70,7 +70,7 @@ const Topic: React.FC = () => {
   }, [isPending, hash]);
 
   return (
-    <div style={{ marginBottom: "5px" }}>
+    <div>
       <Header topicId={topicId} />
       {error && <Error text={error.message} />}
       <div className="topic-table">
