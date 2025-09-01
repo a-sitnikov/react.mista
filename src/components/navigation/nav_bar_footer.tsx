@@ -7,10 +7,6 @@ const NavBarFooter: React.FC = () => {
       <span className="separator">|</span>
       <a href={`${domain}/about.php`}>Описание</a>
       <span className="separator">|</span>
-      <b>
-        <a href={`${domain}/ad.php`}>Реклама на сайте</a>{" "}
-      </b>
-      <span className="separator">|</span>
       <a href={`${domain}/find.php`}>Поиск</a>
       <span className="separator">|</span>
       <a rel="nofollow" href={`${domain}/sections_list.php`}>
@@ -24,10 +20,6 @@ const NavBarFooter: React.FC = () => {
       <a href="http://kb.mista.ru">Книга знаний</a>
       <span className="separator">|</span>
       <a href="http://wiki.mista.ru">Вики-миста (КЗ2)</a>
-      <span className="separator">|</span>
-      <a rel="nofollow" href="http://m.mista.ru/">
-        Мобильная
-      </a>
       <span className="separator">|</span>
       <a href={`${domain}/archive.php`}>Архив</a>
       <span className="separator">|</span>

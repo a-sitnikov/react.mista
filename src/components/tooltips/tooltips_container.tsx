@@ -7,7 +7,7 @@ import Tooltip from "./tooltip";
 const TooltipsContainer: React.FC = () => {
   const items = useAppSelector((state) => state.tooltips.items);
   const actions = useActionCreators(tooltipsActions);
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = () => {
     actions.closeAll();

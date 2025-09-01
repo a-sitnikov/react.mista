@@ -1,58 +1,47 @@
 .navbar {
-    height: 40px;
-    padding-right: 5px;
-    padding-left: 5px;
+  height: 40px;
+  padding-right: 5px;
+  padding-left: 5px;
 }
 
-[theme='dark'] .navbar {
-    background-color: black !important;
-    border-bottom: 1px dotted var(--border-color);
+[theme="dark"] .navbar {
+  background-color: black !important;
+  border-bottom: 1px dotted var(--border-color);
 }
 
 .navbar-form {
-    margin-top: 5px;
-    margin-bottom: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .navbar-footer {
-    border-top: 1px solid var(--border-color);
-    padding: 5px 0px 5px 10px;
-    margin-top: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    font-size: 80%;
-    position: absolute;
-    bottom: 0;
-}
-
-@media (max-width: 768px) {
-
-    .navbar-footer {
-        display: none;
-    }
-
+  border-top: 1px solid var(--border-color);
+  padding: 5px 0px 5px 10px;
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 80%;
+  bottom: 0;
 }
 
 @media (min-width: 768px) {
-    .navbar-nav>li>a {
-        padding: 10px 10px;
-    }
+  .navbar-nav > li > a {
+    padding: 10px 10px;
+  }
 }
 
 @media (max-width: 768px) {
-    
-    .navbar {
-        height: initial;
-    }
-    
-    .navbar-nav {
-        margin-top: 0px;
-        margin-bottom: 0px;
-    }
+  .navbar {
+    height: initial;
+  }
 
-    .navbar-toggle {
-        margin-top: 3px;
-        margin-bottom: 3px;
-    }
+  .navbar-nav {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
 
+  .navbar-toggle {
+    margin-top: 3px;
+    margin-bottom: 3px;
+  }
 }
