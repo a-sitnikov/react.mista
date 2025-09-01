@@ -64,11 +64,11 @@ body {
 }
 
 body[data-theme="yellow"] {
-  background-image: url("https://a-sitnikov.github.io/react.mista/img/fon_forum.gif");
+  background-image: url("/img/fon_forum.gif");
 }
 
 body[data-theme="lightgray"] {
-  background-image: url("https://a-sitnikov.github.io/react.mista/img/white_carbon.png");
+  background-image: url("/img/white_carbon.png");
 }
 
 [data-theme="dark"] {
