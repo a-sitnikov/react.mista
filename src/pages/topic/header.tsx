@@ -23,14 +23,12 @@ const Header: React.FC<IProps> = ({ topicId }) => {
   );
 
   return (
-    <div className="flex justify-between">
-      <div className="shrink-1 grow-1">
-        <Login />
-      </div>
+    <div className="flex justify-between gap-2">
+      <Login />
       <Link
         to={`/index.php?forum=${forum}`}
         style={{ textDecoration: "none" }}
-        className="text-lg font-semibold shrink-1"
+        className="text-lg font-semibold shrink-1 text-end"
       >
         {forums[forum]}
       </Link>

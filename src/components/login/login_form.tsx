@@ -1,8 +1,7 @@
 import { type FormEvent, useState } from "react";
 import { FormControl, Button } from "react-bootstrap";
 
-import { useAppDispatch , doLoginIfNeeded } from "src/store";
-
+import { useAppDispatch, doLoginIfNeeded } from "src/store";
 
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -16,8 +15,8 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <div>
-      <form name="enterform" className="flex-row" style={{ flexWrap: "wrap" }}>
+    <div className="grow-1 shrink-1">
+      <form name="enterform" className="flex flex-wrap gap-1">
         <FormControl
           id="username"
           type="text"
@@ -25,8 +24,7 @@ const LoginForm: React.FC = () => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           size="sm"
-          className="input"
-          style={{ marginRight: "5px", flex: "0 1 300px" }}
+          className="input shrink-1 basis-75"
         />
         <FormControl
           id="password"
@@ -37,23 +35,14 @@ const LoginForm: React.FC = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           size="sm"
-          className="input"
-          style={{ marginRight: "5px", flex: "0 1 300px" }}
+          className="input shrink-1 basis-75"
         />
         <Button size="sm" variant="light" className="button" onClick={onLogin}>
           Войти
         </Button>
       </form>
-      <p style={{ margin: "0px" }}>
-        Войти можно на сайте{" "}
-        <a href="https://forum.mista.ru/">forum.mista.ru</a>
-      </p>
-      <a rel="nofollow" href="https://forum.mista.ru/user_registration.php">
+      <a rel="nofollow" href="https://forum.mista.ru/user/registration">
         Регистрация
-      </a>
-      <span style={{ margin: "5px" }}>|</span>
-      <a rel="nofollow" href="https://forum.mista.ru/remember_password.php">
-        Забыли пароль?
       </a>
     </div>
   );
