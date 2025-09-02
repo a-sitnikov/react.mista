@@ -30,7 +30,7 @@ const TopicNameCell: React.FC<IProps> = ({ data }) => {
 
   return (
     <div className="cell-title">
-      <div className="cell-title--inner">
+      <div className="my-auto">
         {data.pinned && (
           <i
             className="fa fa-thumb-tack agh"

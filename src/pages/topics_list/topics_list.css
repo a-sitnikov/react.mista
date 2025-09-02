@@ -127,11 +127,6 @@
   display: flex;
 }
 
-.cell-title--inner {
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
 .topic-pages {
   display: inline;
 }

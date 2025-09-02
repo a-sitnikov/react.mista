@@ -1,9 +1,9 @@
 .page-item a {
-    background-color: var(--background);
-    border-color: var(--border-color);
-    color: var(--link-color)
+  background-color: var(--background);
+  border-color: var(--border-color);
+  color: var(--color-link);
 }
 
-[data-theme='dark'] .page-item.active span {
-    background-color: darkblue;
+[data-theme="dark"] .page-item.active span {
+  background-color: darkblue;
 }
