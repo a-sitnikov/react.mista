@@ -2,6 +2,7 @@ import { type FormEvent, useState } from "react";
 import { FormControl, Button } from "react-bootstrap";
 
 import { useAppDispatch, doLoginIfNeeded } from "src/store";
+import Separator from "../common/separator";
 
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -13,6 +14,20 @@ const LoginForm: React.FC = () => {
     event.preventDefault();
     dispatch(doLoginIfNeeded(username, password));
   };
+
+  return (
+    <div className="flex">
+      <div className="text-link cursor-pointer">Вход</div>
+      <Separator />
+      <a
+        rel="nofollow"
+        href="https://forum.mista.ru/user/registration"
+        target="_blank"
+      >
+        Регистрация
+      </a>
+    </div>
+  );
 
   return (
     <div className="grow-1 shrink-1">

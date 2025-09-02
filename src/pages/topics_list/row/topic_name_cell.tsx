@@ -48,7 +48,7 @@ const TopicNameCell: React.FC<IProps> = ({ data }) => {
           dangerouslySetInnerHTML={{ __html: text }}
           style={{ overflowWrap: "anywhere" }}
         ></Link>
-        {data.isVoting && <span className="agh separator">[±]</span>}
+        {data.isVoting && <span className="agh mx-1">[±]</span>}
         <Pages count={data.count} topicId={data.id} />
         {data.closed && <span className="agh">Ø</span>}
         {data.down && <span className="agh">↓</span>}

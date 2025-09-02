@@ -28,7 +28,7 @@ const Header: React.FC<IProps> = ({ topicId }) => {
       <Link
         to={`/index.php?forum=${forum}`}
         style={{ textDecoration: "none" }}
-        className="text-lg font-semibold shrink-1 text-end"
+        className="text-lg font-semibold shrink-1 text-end max-md:hidden"
       >
         {forums[forum]}
       </Link>

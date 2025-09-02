@@ -95,12 +95,6 @@ body[data-theme="lightgray"] {
   flex-direction: column;
 }
 
-.separator {
-  margin-left: 5px;
-  margin-right: 5px;
-  user-select: none;
-}
-
 .div-va-middle {
   position: absolute;
   top: 50%;

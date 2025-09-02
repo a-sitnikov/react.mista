@@ -20,9 +20,9 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className="flex gap-2 w-full justify-between">
+    <div className="flex gap-2 w-full items-center justify-between">
       <Login />
-      <div className="grow-0 shrink-1">
+      <div className="grow-0 shrink-1 max-md:w-50">
         <Sections
           id="sect"
           defaultValue="--Все секции--"
