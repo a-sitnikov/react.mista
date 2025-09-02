@@ -1,5 +1,5 @@
 .options-form {
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--color-borderOuter);
   font-weight: normal;
   border: 1px solid silver;
   box-sizing: border-box;
@@ -11,7 +11,7 @@
   padding: 4px;
 }
 
-[data-theme='dark'] .options-header {
+[data-theme="dark"] .options-header {
   background: inherit;
 }
 
@@ -26,18 +26,18 @@
 .button-row {
   padding: 5px;
   border-top: 1px solid silver;
-  background-color: var(--header-background);
+  background-color: var(--color-bgHeader);
   width: 100%;
   box-sizing: border-box;
 }
 
-[theme='dark'] .button-row {
+[theme="dark"] .button-row {
   background: inherit;
 }
 
 .tab-header {
   width: 100%;
-  background-color: var(--header-background);
+  background-color: var(--color-bgHeader);
   padding: 5px 10px;
   font-weight: bold;
   border-top: 1px solid silver;

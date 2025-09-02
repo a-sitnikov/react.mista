@@ -1,9 +1,9 @@
 .table-header {
   display: grid;
-  background: var(--header-background);
+  background: var(--color-bgHeader);
   font-weight: bold;
   grid-template-columns: 50px 30px auto 30px 120px 155px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--color-borderOuter);
   text-align: center;
   z-index: 1;
   position: sticky;
@@ -21,8 +21,8 @@
 .table-footer {
   box-sizing: border-box;
   width: 100%;
-  border: 1px solid var(--border-color);
-  background-color: var(--header-background);
+  border: 1px solid var(--color-borderOuter);
+  background-color: var(--color-bgHeader);
   display: flex;
   justify-content: center;
   padding: 5px;
@@ -61,7 +61,7 @@
   display: grid;
   width: 100%;
   background-color: var(--background);
-  border-top: 1px solid var(--inner-border-color);
+  border-top: 1px solid var(--color-borderInner);
   box-sizing: border-box;
   grid-template-columns: 50px 30px auto 30px 120px 155px;
   grid-template-areas: "forum pv-link title answ author lastuser";
@@ -73,8 +73,8 @@
 
 .cell-forum {
   padding: 6px;
-  border-left: 1px solid var(--border-color);
-  border-right: 1px solid var(--inner-border-color);
+  border-left: 1px solid var(--color-borderOuter);
+  border-right: 1px solid var(--color-borderInner);
   font-size: 80%;
   text-align: center;
   grid-area: forum;
@@ -87,7 +87,7 @@
 
 .cell-section {
   padding: 6px;
-  border-right: 1px solid var(--inner-border-color);
+  border-right: 1px solid var(--color-borderInner);
   font-size: 80%;
   text-align: center;
   grid-area: section;
@@ -96,7 +96,7 @@
 
 .cell-answ {
   padding: 6px 0px 6px 0px;
-  border-right: 1px solid var(--inner-border-color);
+  border-right: 1px solid var(--color-borderInner);
   font-size: 80%;
   text-align: center;
   grid-area: answ;
@@ -122,7 +122,7 @@
 
 .cell-title {
   padding: 6px;
-  border-right: 1px solid var(--inner-border-color);
+  border-right: 1px solid var(--color-borderInner);
   grid-area: title;
   display: flex;
 }
@@ -137,7 +137,7 @@
 
 .cell-author {
   padding: 6px;
-  border-right: 1px solid var(--inner-border-color);
+  border-right: 1px solid var(--color-borderInner);
   font-size: 80%;
   word-break: break-all;
   grid-area: author;
@@ -155,7 +155,7 @@
 
 .cell-lastuser {
   padding: 6px;
-  border-right: 1px solid var(--border-color);
+  border-right: 1px solid var(--color-borderOuter);
   font-size: 80%;
   grid-area: lastuser;
   display: flex;
@@ -201,7 +201,7 @@
   }
 
   .table-footer {
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--color-borderOuter);
     padding: 5px 0px;
   }
 
@@ -219,7 +219,7 @@
 
   .topics-list-row {
     margin-bottom: 5px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--color-borderOuter);
     grid-template-rows: auto;
     grid-template-columns: [col] 40px [col] 1fr [col] 1fr [col] 20px [col] 40px;
 
@@ -230,10 +230,10 @@
   }
 
   .cell-author {
-    background: var(--header-background);
+    background: var(--color-bgHeader);
     padding: 0px 2px;
     font-weight: bold;
-    border-bottom: 1px dotted var(--border-color);
+    border-bottom: 1px dotted var(--color-borderOuter);
   }
 
   .cell-author > .fa {
@@ -249,16 +249,16 @@
   }
 
   .cell-section {
-    background: var(--header-background);
+    background: var(--color-bgHeader);
     padding: 0px 2px;
     text-align: right;
     display: block;
     border-right: none;
-    border-bottom: 1px dotted var(--border-color);
+    border-bottom: 1px dotted var(--color-borderOuter);
   }
 
   .cell-preview-link {
-    border-right: 1px dotted var(--border-color);
+    border-right: 1px dotted var(--color-borderOuter);
     grid-area: pv-link;
     width: 40px;
     font-size: 1.5em;
@@ -278,10 +278,10 @@
   }
 
   .cell-lastuser {
-    background: var(--header-background);
+    background: var(--color-bgHeader);
     padding: 0px 2px;
     border-right: none;
-    border-top: 1px dotted var(--border-color);
+    border-top: 1px dotted var(--color-borderOuter);
   }
 
   .cell-lastuser-user {
@@ -293,10 +293,10 @@
   }
 
   .cell-answ {
-    background: var(--header-background);
+    background: var(--color-bgHeader);
     padding: 0px 2px;
     text-align: right;
-    border-top: 1px dotted var(--border-color);
+    border-top: 1px dotted var(--color-borderOuter);
   }
   .cell-answ--inner {
     margin-right: initial;
@@ -313,6 +313,6 @@
   .cell-last20 {
     display: flex;
     font-size: 1.5em;
-    border-left: 1px dotted var(--border-color);
+    border-left: 1px dotted var(--color-borderOuter);
   }
 }

@@ -1,7 +1,7 @@
 .topic-table {
-  /*border-bottom: 1px solid var(--border-color);
-    border-right: 1px solid var(--border-color);
-    border-left: 1px solid var(--border-color);
+  /*border-bottom: 1px solid var(--color-borderOuter);
+    border-right: 1px solid var(--color-borderOuter);
+    border-left: 1px solid var(--color-borderOuter);
     box-sizing: border-box;*/
   opacity: 1;
   margin-top: 5px;
@@ -12,13 +12,13 @@
   display: grid;
   width: 100%;
   background-color: white;
-  border-top: 1px solid var(--inner-border-color);
+  border-top: 1px solid var(--color-borderInner);
   box-sizing: border-box;
   grid-template-columns: 165px 1fr;
   grid-template-areas: "user message";
 }
 
-[data-theme='dark'] .topic-row {
+[data-theme="dark"] .topic-row {
   background-color: inherit;
 }
 
@@ -29,15 +29,15 @@
 
 .cell-userinfo {
   grid-area: user;
-  border-right: 1px solid var(--inner-border-color);
-  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--color-borderInner);
+  border-left: 1px solid var(--color-borderOuter);
   padding: 6px;
   width: 100%;
   text-align: right;
 }
 
 .cell-message {
-  border-right: 1px solid var(--border-color);
+  border-right: 1px solid var(--color-borderOuter);
   grid-area: message;
   padding: 10px;
   min-width: 0px;
@@ -52,7 +52,7 @@
   background-color: rgb(255, 215, 132);
 }
 
-[data-theme='dark'] .is-author {
+[data-theme="dark"] .is-author {
   background-color: rgb(99, 74, 23);
 }
 
@@ -60,7 +60,7 @@
   background-color: rgb(155, 197, 239);
 }
 
-[data-theme='dark'] .is-you {
+[data-theme="dark"] .is-you {
   background-color: rgb(38, 78, 117);
 }
 
@@ -70,10 +70,9 @@
   word-wrap: break-word;
   word-break: break-word;
   white-space: normal;
-
 }
 
-.message-time>span {
+.message-time > span {
   display: none;
   padding-right: 4px;
 }
@@ -85,7 +84,7 @@
   padding: 0px;
 }
 
-[data-theme='dark'] .registered-user {
+[data-theme="dark"] .registered-user {
   color: inherit;
 }
 
@@ -110,12 +109,11 @@
   grid-area: bar;
 }
 
-.voting-bar>div {
+.voting-bar > div {
   overflow: hidden;
 }
 
 @media (max-width: 768px) {
-
   .topic-table {
     border: none;
   }
@@ -125,12 +123,12 @@
     grid-template-areas:
       "user"
       "message";
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--color-borderOuter);
     margin-bottom: 5px;
   }
 
   .topic-row:last-child {
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--color-borderOuter);
   }
 
   .topic-tools {
@@ -139,18 +137,18 @@
 
   .topic-title {
     margin: 0px;
-    overflow-wrap: anywhere
+    overflow-wrap: anywhere;
   }
 
   .cell-userinfo {
     border-right: none;
     border-left: none;
-    border-bottom: 1px dotted var(--border-color);
-    background: var(--header-background);
+    border-bottom: 1px dotted var(--color-borderOuter);
+    background: var(--color-bgHeader);
     padding: 0px;
   }
 
-  [data-theme='dark'] .cell-userinfo {
+  [data-theme="dark"] .cell-userinfo {
     background: inherit;
   }
 
@@ -165,11 +163,11 @@
     padding: 0px;
   }
 
-  .message-time>button {
+  .message-time > button {
     display: none;
   }
 
-  .message-time>span {
+  .message-time > span {
     display: block;
   }
 
@@ -200,7 +198,6 @@
   .user-info {
     border-left: none;
   }
-
 }
 
 /* header */
@@ -209,11 +206,9 @@
 }
 
 @media (max-width: 768px) {
-
   .topic-header {
     display: none;
   }
-
 }
 
 /* new-message*/
@@ -234,11 +229,10 @@
 }
 
 .message-number {
-  font-weight: normal
+  font-weight: normal;
 }
 
 @media (max-width: 768px) {
-
   .new-message-container {
     grid-template-columns: 1fr;
     grid-template-areas:
@@ -247,9 +241,8 @@
   }
 
   .message-number {
-    font-weight: bold
+    font-weight: bold;
   }
-
 }
 
 /*topic-info*/
@@ -267,9 +260,9 @@
 /*pages*/
 .curpage {
   margin: 5px;
-  font-weight: bold
+  font-weight: bold;
 }
 
 .page {
-  margin: 5px
+  margin: 5px;
 }

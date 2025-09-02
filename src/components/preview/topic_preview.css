@@ -27,7 +27,7 @@
 
 .topic-preview-button {
   text-align: center;
-  border-color: var(--border-color) !important;
+  border-color: var(--color-borderOuter) !important;
   border: 1px solid;
   border-radius: 4px;
   cursor: pointer;
@@ -42,11 +42,9 @@
 }
 
 @media (max-width: 768px) {
-  
   .edit-preview {
     display: none;
   }
-  
 }
 
 .flex-small {
@@ -78,32 +76,29 @@
 .topic-preview-userinfo {
   margin-bottom: 5px;
   border-bottom: 1px solid;
-  border-color: var(--border-color) !important;
+  border-color: var(--color-borderOuter) !important;
 }
 
 .preview-container {
   padding: 10px 245px 10px 85px;
   background: var(--background);
-  border-top: 1px solid var(--inner-border-color);
-  border-right: 1px solid var(--border-color);
-  border-left: 1px solid var(--border-color);
+  border-top: 1px solid var(--color-borderInner);
+  border-right: 1px solid var(--color-borderOuter);
+  border-left: 1px solid var(--color-borderOuter);
 }
 
 @media (min-width: 769px) and (max-width: 991px) {
-
-    .preview-container {
-      padding: 10px 15px 10px 85px;
-    }
-}  
+  .preview-container {
+    padding: 10px 15px 10px 85px;
+  }
+}
 
 @media (max-width: 768px) {
-
   .preview-container {
     padding: 10px 15px 10px 15px;
     margin-top: -5px;
     margin-bottom: 5px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--color-borderOuter);
     border-top: none;
   }
-
-}  
+}

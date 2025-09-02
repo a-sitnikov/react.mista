@@ -1,6 +1,6 @@
 .page-item a {
   background-color: var(--background);
-  border-color: var(--border-color);
+  border-color: var(--color-borderOuter);
   color: var(--color-link);
 }
 
