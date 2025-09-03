@@ -1,31 +1,30 @@
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { fetchTopicInfo } from "src/api";
 import {
   useActionCreators,
-  useAppSelector,
   type ITooltipKeys,
   tooltipsActions,
 } from "src/store";
-import { getMaxPage, childrenToText, toNumber } from "src/utils";
+import { getMaxPage, childrenToText, toNumber, twMerge } from "src/utils";
 
 type IProps = {
   topicId: number;
   number: number;
-  style?: {};
+  className?: string;
 } & React.PropsWithChildren;
 
-const LinkToPost: React.FC<IProps> = ({ topicId, number, children, style }) => {
-  const timerRef = useRef(null);
+const LinkToPost: React.FC<IProps> = ({
+  topicId,
+  number,
+  children,
+  className,
+}) => {
   const actions = useActionCreators(tooltipsActions);
 
   const [searchParams] = useSearchParams();
   const currentTopicId = toNumber(searchParams.get("id"), -1);
-
-  const tooltipDelay = useAppSelector(
-    (state) => +state.options.items.tooltipDelay
-  );
 
   let initialText = "";
   if (!children) initialText = String(number);
@@ -53,18 +52,8 @@ const LinkToPost: React.FC<IProps> = ({ topicId, number, children, style }) => {
     };
   }, [initialText, topicId]);
 
-  const onMouseOver = (e: React.MouseEvent<HTMLElement>) => {
-    e.persist();
-    timerRef.current = setTimeout(() => showToolTip(e), tooltipDelay);
-  };
-
-  const onMouseOut = () => {
-    if (timerRef.current) clearTimeout(timerRef.current);
-  };
-
   const onClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    if (timerRef.current) clearTimeout(timerRef.current);
     showToolTip(e);
   };
 
@@ -85,11 +74,8 @@ const LinkToPost: React.FC<IProps> = ({ topicId, number, children, style }) => {
   if (topicId === currentTopicId || !isNaN(+text))
     return (
       <span
-        onMouseOver={onMouseOver}
-        onMouseOut={onMouseOut}
         onClick={onClick}
-        className="link"
-        style={{ ...style }}
+        className={twMerge(className, "link")}
         role="button"
       >
         {text}
@@ -103,20 +89,14 @@ const LinkToPost: React.FC<IProps> = ({ topicId, number, children, style }) => {
 
     return (
       <span>
-        <a
-          href={`#/topic.php?id=${topicId}${pageParam}#${number}`}
-          style={{ ...style }}
+        <Link
+          to={`/topic.php?id=${topicId}${pageParam}#${number}`}
+          className={className}
         >
           {text}
-        </a>{" "}
+        </Link>{" "}
         (
-        <span
-          onMouseOver={onMouseOver}
-          onMouseOut={onMouseOut}
-          onClick={onClick}
-          className="link"
-          role="button"
-        >
+        <span onClick={onClick} className="link" role="button">
           {number}
         </span>
         )

@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { extendTailwindMerge } from "tailwind-merge";
 
 export const toNumber = (
   str: string | number | undefined | null,
@@ -105,3 +106,19 @@ export const formattedTime = (time: number): string => {
     return dayjs(time).format("DD.MM.YY");
   }
 };
+
+export const twMerge = extendTailwindMerge({
+  extend: {
+    theme: {
+      color: [
+        "bgHeader",
+        "borderOuter",
+        "bordeInner",
+        "bgColor",
+        "bgHover",
+        "link",
+        "linkHover",
+      ],
+    },
+  },
+});
