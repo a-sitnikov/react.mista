@@ -1,6 +1,6 @@
 import { type Property } from "csstype";
 import { useEffect, useState } from "react";
-import { domain } from "src/api";
+import { domainApi } from "src/api";
 import { type ITopicMessage } from "src/store";
 
 type IProps = {
@@ -26,7 +26,7 @@ const UserIco: React.FC<IProps> = ({ data }) => {
 
   return (
     <img
-      src={`${domain}/css/user_icons/${data.userId}_16x16.png`}
+      src={`${domainApi}/css/user_icons/${data.userId}_16x16.png`}
       alt="user ico"
       onLoad={onImageLoad}
       onError={onImageError}

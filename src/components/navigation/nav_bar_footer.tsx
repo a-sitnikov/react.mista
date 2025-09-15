@@ -1,20 +1,20 @@
-import { domain } from "src/api";
+import { domain, domainApi } from "src/api";
 import Separator from "../common/separator";
 
 const NavBarFooter: React.FC = () => {
   return (
     <footer className="flex navbar-footer">
-      <a href={`${domain}/rules.php`}>Правила</a>
+      <a href={`${domain}/help/rules.html`}>Правила</a>
       <Separator />
-      <a href={`${domain}/about.php`}>Описание</a>
+      <a href={`${domain}/help/about.html`}>Описание</a>
       <Separator />
-      <a href={`${domain}/find.php`}>Поиск</a>
+      <a href={`${domain}/vital/search`}>Поиск</a>
       <Separator />
-      <a rel="nofollow" href={`${domain}/sections_list.php`}>
+      <a rel="nofollow" href={`${domain}/vital/sections`}>
         Секции
       </a>
       <Separator />
-      <a rel="nofollow" href={`${domain}/rating.php`}>
+      <a rel="nofollow" href={`${domainApi}/rating.php`}>
         Рейтинг
       </a>
       <Separator />
@@ -22,13 +22,13 @@ const NavBarFooter: React.FC = () => {
       <Separator />
       <a href="http://wiki.mista.ru">Вики-миста (КЗ2)</a>
       <Separator />
-      <a href={`${domain}/archive.php`}>Архив</a>
+      <a href={`${domainApi}/archive.php`}>Архив</a>
       <Separator />
-      <a href={`${domain}/moders.php`}>Модераторы</a>
+      <a href={`${domainApi}/moders.php`}>Модераторы</a>
       <Separator />
-      <a href={`${domain}/users_gallery.php`}>Галерея</a>
+      <a href={`${domainApi}/users_gallery.php`}>Галерея</a>
       <Separator />
-      <a href={`${domain}/ban_list.php`}>Баны</a>
+      <a href={`${domainApi}/ban_list.php`}>Баны</a>
       <Separator />
       <span>18+</span>
     </footer>

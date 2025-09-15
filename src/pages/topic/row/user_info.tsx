@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { useMemo } from "react";
 
-import { domainPage } from "src/api";
+import { domain } from "src/api";
 import {
   type ITopicMessage,
   useActionCreators,
@@ -52,7 +52,7 @@ const UserInfo: React.FC<IProps> = ({ data, isAuthor, isYou, isTooltip }) => {
           isAuthor && "is-author px-1 rounded-xs",
           isYou && "is-you px-1 rounded-xs"
         )}
-        href={`${domainPage}/user/${data.userId}`}
+        href={`${domain}/user/${data.userId}`}
       >
         {data.user}
       </a>

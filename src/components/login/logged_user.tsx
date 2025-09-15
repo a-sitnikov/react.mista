@@ -1,7 +1,7 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
 
-import { domain } from "src/api";
+import { domainApi } from "src/api";
 import { loginActions, useActionCreators } from "src/store";
 
 type IProps = {
@@ -51,7 +51,7 @@ const LoggedUser: React.FC<IProps> = ({ userId, userName }) => {
         <Dropdown.Menu>
           <Dropdown.Item
             eventKey="profile"
-            href={`${domain}/users.php?id=${userId}`}
+            href={`${domainApi}/user/${userId}`}
           >
             Профиль
           </Dropdown.Item>

@@ -1,6 +1,6 @@
 import fetchJsonp from "fetch-jsonp";
 import * as utils from "src/utils";
-import { domain } from ".";
+import { domainApi } from ".";
 
 export const paramsToString = (paramsPrefix: string, params?: {}): string => {
   if (!params) return "";
@@ -21,7 +21,7 @@ export const fetchJsonpAndGetJson = async (
   params?: {},
   _options?: {}
 ): Promise<any> => {
-  let fullUrl = `${domain}/${url}${paramsToString("?", params)}`;
+  let fullUrl = `${domainApi}/${url}${paramsToString("?", params)}`;
   const response = await fetchJsonp(fullUrl);
   let responseJson = await response.json();
   let json;
@@ -43,7 +43,7 @@ export const fetchAndGetJson = async (
   params?: {},
   init?: RequestInit
 ): Promise<any> => {
-  let fullUrl = `${domain}/${url}${paramsToString("?", params)}`;
+  let fullUrl = `${domainApi}/${url}${paramsToString("?", params)}`;
 
   if (!init)
     init = {

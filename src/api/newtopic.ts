@@ -1,5 +1,5 @@
 import { paramsToString } from "./api-utils";
-import { domain, urlNewTopic } from ".";
+import { domainApi, urlNewTopic } from ".";
 
 export interface INewTopicRequest {
   action: "new";
@@ -22,7 +22,7 @@ export interface INewTopicRequest {
 }
 
 export const fetchNewTopic = async (params: INewTopicRequest): Promise<any> => {
-  await fetch(`${domain}/${urlNewTopic}`, {
+  await fetch(`${domainApi}/${urlNewTopic}`, {
     method: "POST",
     body: paramsToString("", params),
     mode: "no-cors",

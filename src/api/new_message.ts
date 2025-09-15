@@ -1,5 +1,5 @@
 import { paramsToString } from "./api-utils";
-import { domain, urlNewMessage } from ".";
+import { domainApi, urlNewMessage } from ".";
 
 // New message
 export interface INewMessageRequest {
@@ -28,6 +28,6 @@ export const fetchNewMessage = async (
     redirect: "follow",
   };
 
-  const result = await fetch(`${domain}/${url}`, options);
+  const result = await fetch(`${domainApi}/${url}`, options);
   return result;
 };

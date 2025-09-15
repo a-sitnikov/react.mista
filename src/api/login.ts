@@ -1,5 +1,5 @@
 import { paramsToString } from "./api-utils";
-import { domain, urlLogin, urlLogout } from ".";
+import { domainApi, urlLogin, urlLogout } from ".";
 
 export interface ILoginRequest {
   username: string;
@@ -7,7 +7,7 @@ export interface ILoginRequest {
 }
 
 export const fetchLogin = async (params: ILoginRequest): Promise<void> => {
-  await fetch(`${domain}/${urlLogin}`, {
+  await fetch(`${domainApi}/${urlLogin}`, {
     method: "POST",
     body: paramsToString("", {
       user_name: params.username,
@@ -24,7 +24,7 @@ export const fetchLogin = async (params: ILoginRequest): Promise<void> => {
 };
 
 export const fetchLogout = async (): Promise<void> => {
-  const fullUrl = `${domain}/${urlLogout}`;
+  const fullUrl = `${domainApi}/${urlLogout}`;
   await fetch(fullUrl, {
     mode: "no-cors",
     credentials: "include",

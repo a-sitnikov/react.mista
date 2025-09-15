@@ -1,6 +1,6 @@
 import type CSS from "csstype";
 
-import { domain } from "src/api";
+import { domainApi } from "src/api";
 import { type IVotingItem } from "src/store";
 
 type IProps = {
@@ -12,7 +12,7 @@ type IProps = {
 };
 
 const VoteItem: React.FC<IProps> = ({ topicId, data, total, n, colors }) => {
-  const img = `${domain}/css/voting${n}.png`;
+  const img = `${domainApi}/css/voting${n}.png`;
 
   const percent = total ? Math.round((100 * data.count) / total) : 0;
 

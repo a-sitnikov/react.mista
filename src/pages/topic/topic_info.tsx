@@ -1,4 +1,4 @@
-import { domain, urlTopicInfo, urlTopicMessages } from "src/api";
+import { domain, domainApi, urlTopicInfo, urlTopicMessages } from "src/api";
 import { useTopicMessages } from "src/store/query-hooks";
 
 type IProps = {
@@ -20,7 +20,7 @@ const TopicInfo: React.FC<IProps> = ({ topicId }) => {
         <div className="topic-tools">
           <a
             title="API.info"
-            href={`${domain}/${urlTopicInfo}?id=${topicId}`}
+            href={`${domainApi}/${urlTopicInfo}?id=${topicId}`}
             className="agh"
             style={{ display: "block", lineHeight: "1em" }}
           >
@@ -28,7 +28,7 @@ const TopicInfo: React.FC<IProps> = ({ topicId }) => {
           </a>
           <a
             title="API.messages"
-            href={`${domain}/${urlTopicMessages}?id=${topicId}&from=0&to=20`}
+            href={`${domainApi}/${urlTopicMessages}?id=${topicId}&from=0&to=20`}
             className="agh"
             style={{ display: "block", lineHeight: "1em" }}
           >
@@ -40,7 +40,7 @@ const TopicInfo: React.FC<IProps> = ({ topicId }) => {
       <div className="cell-message">
         <div className="flex-row">
           <div style={{ flex: 1, textAlign: "center" }}>
-            <a href={`https://forum.mista.ru/topic/${topicId}`}>
+            <a href={`${domain}/topic/${topicId}`}>
               <h1
                 className="topic-title"
                 dangerouslySetInnerHTML={{ __html: title }}
