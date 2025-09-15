@@ -1,14 +1,14 @@
-import classNames from "classnames";
 import dayjs from "dayjs";
 import { useMemo } from "react";
 
-import { domain } from "src/api";
+import { domainPage } from "src/api";
 import {
   type ITopicMessage,
   useActionCreators,
   newMessageActions,
 } from "src/store";
 
+import { twMerge } from "src/utils";
 import UserIco from "./user_ico";
 
 type IProps = {
@@ -43,31 +43,25 @@ const UserInfo: React.FC<IProps> = ({ data, isAuthor, isYou, isTooltip }) => {
     }
   }, [data]);
 
-  const userClassNames = classNames("registered-user", {
-    "is-author": isAuthor,
-    "is-you": isYou,
-  });
-
   return (
     <div className="user-info">
       <UserIco data={data} />
       <a
-        className={userClassNames}
-        href={`${domain}/users.php?id=${data.userId}`}
+        className={twMerge(
+          "registered-user",
+          isAuthor && "is-author px-1 rounded-xs",
+          isYou && "is-you px-1 rounded-xs"
+        )}
+        href={`${domainPage}/user/${data.userId}`}
       >
         {data.user}
       </a>
       {isTooltip ? (
-        <div
-          className="ah"
-          style={{ display: "inline-block", marginLeft: "5px" }}
-        >
-          {dataStr}
-        </div>
+        <span className="text-sm ml-2">{dataStr}</span>
       ) : (
         <div className="message-time">
           <span className="ah">{dataStr}</span>
-          <button className="button ah" onClick={onClick}>
+          <button className="button ah px-1" onClick={onClick}>
             {dataStr}
           </button>
         </div>

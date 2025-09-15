@@ -1,5 +1,8 @@
+export const domainPage: string =
+  localStorage.getItem("domainPage") || "https://mista.ru";
 export const domain: string =
   localStorage.getItem("domain") || "https://dev.mista.ru";
+
 //export const domain = 'https://dev.mista.ru';
 export const urlTopicsList: string =
   localStorage.getItem("urlTopicsList") || "api/topic.php";
