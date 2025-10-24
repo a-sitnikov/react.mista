@@ -2,6 +2,7 @@
 //import storybook from "eslint-plugin-storybook";
 
 import globals from "globals";
+import { custom } from "zod";
 
 const ERROR = "error";
 const WARN = "warn";
@@ -42,6 +43,7 @@ export const config = [
   {
     plugins: {
       import: (await import("eslint-plugin-import")).default,
+      perfectionist: (await import("eslint-plugin-perfectionist")).default,
     },
     languageOptions: {
       globals: {
@@ -60,7 +62,10 @@ export const config = [
         WARN,
         {
           alphabetize: { order: "asc", caseInsensitive: true },
-          pathGroups: [{ pattern: "#*/**", group: "internal" }],
+          pathGroups: [
+            { pattern: "#*/**", group: "internal" },
+            { pattern: "src/**", group: "internal" },
+          ],
           groups: [
             "builtin",
             "external",

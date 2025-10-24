@@ -8,6 +8,7 @@ import { useTopicsList } from "src/store/query-hooks";
 import Header from "./header";
 import NewTopic from "./new_topic";
 import Row from "./row";
+import { SkeletonRow } from "./row/skeleton_row";
 import TableHeader from "./table_header";
 
 import "./topics_list.css";
@@ -36,9 +37,11 @@ const TopicsList: React.FC = () => {
       {error && <Error text={error.message} />}
       <div className="topic-list-table">
         <TableHeader onUpdateClick={refetch} isLoading={isFetching} />
-        {(items ?? []).map((item) => (
-          <Row key={item.id} item={item} isFetching={isFetching} />
-        ))}
+        {items.length > 0
+          ? items.map((item) => (
+              <Row key={item.id} item={item} isFetching={isFetching} />
+            ))
+          : Array.from({ length: 10 }).map((_, i) => <SkeletonRow key={i} />)}
         <div className="flex justify-center p-2 border-outer bg-bgHeader">
           <Pages maxPage={10} />
         </div>

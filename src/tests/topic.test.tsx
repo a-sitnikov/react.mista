@@ -1,16 +1,15 @@
-import { waitFor } from "@testing-library/react";
-
-import * as ReactRouter from "react-router";
 import * as APITopicInfo from "src/api/topic_info";
 import * as APITopicMessages from "src/api/topic_messages";
-
 import Topic from "src/pages/topic";
 import {
   mock_topicInfo,
   mock_topic_item0,
   mock_topicMessages_p2,
 } from "./mock_data";
+
 import { renderWithProviders } from "./test-utils";
+import { waitFor } from "@testing-library/react";
+import * as ReactRouter from "react-router";
 
 describe("Topic", () => {
   it("render", async () => {
