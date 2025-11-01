@@ -2,7 +2,6 @@
 //import storybook from "eslint-plugin-storybook";
 
 import globals from "globals";
-import { custom } from "zod";
 
 const ERROR = "error";
 const WARN = "warn";

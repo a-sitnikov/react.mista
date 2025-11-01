@@ -8,11 +8,7 @@ type IProps = {
 const CountCell: React.FC<IProps> = ({ item, onClick }) => (
   <div className="cell-answ" onClick={onClick}>
     <div className="cell-answ--inner">
-      <i
-        className="fa fa-comments-o"
-        aria-hidden="true"
-        style={{ marginRight: "3px" }}
-      ></i>
+      <i className="fa fa-comments-o mr-[3px]" aria-hidden="true"></i>
       <span>{item.count}</span>
     </div>
   </div>

@@ -46,11 +46,7 @@ const TopicsList: React.FC = () => {
           <Pages maxPage={10} />
         </div>
       </div>
-      <div
-        id="F"
-        className="newtopic"
-        style={{ marginBottom: "10px", marginTop: "5px", position: "relative" }}
-      >
+      <div id="F" className="mb-[10px] mt-[5px] relative">
         <NewTopic onSubmitSuccess={refetch} />
       </div>
     </div>

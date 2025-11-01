@@ -144,12 +144,12 @@
     border-right: none;
     border-left: none;
     border-bottom: 1px dotted var(--color-borderOuter);
-    background: var(--color-bgHeader);
+    background-color: var(--color-bgHeader);
     padding: 0px;
   }
 
   [data-theme="dark"] .cell-userinfo {
-    background: inherit;
+    background-color: inherit;
   }
 
   .user-info {

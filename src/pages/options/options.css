@@ -7,12 +7,12 @@
 
 .options-header {
   cursor: move;
-  background: white;
+  background-color: white;
   padding: 4px;
 }
 
 [data-theme="dark"] .options-header {
-  background: inherit;
+  background-color: inherit;
 }
 
 .close-button {
@@ -32,7 +32,7 @@
 }
 
 [theme="dark"] .button-row {
-  background: inherit;
+  background-color: inherit;
 }
 
 .tab-header {

@@ -9,13 +9,12 @@ export const SkeletonRow: React.FC = () => {
       <div className="cell-section">
         <div className="opacity-0">1</div>
       </div>
-      <div className="cell-answ">
-        <div className="cell-answ--inner w-full px-[6px]">
-          <Placeholder
-            as="div"
-            className="my-auto w-full min-h-[16px] max-md:opacity-0!"
-          />
-        </div>
+      <div className="cell-answ p-[6px]">
+        <Placeholder
+          as="div"
+          className="my-auto w-full max-md:opacity-0!"
+          size="sm"
+        />
       </div>
       <div className="cell-preview-link">
         <span>
@@ -23,7 +22,7 @@ export const SkeletonRow: React.FC = () => {
         </span>
       </div>
       <div className="cell-title h-[36px]">
-        <Placeholder as="div" className="my-auto w-full h-[16px]" />
+        <Placeholder as="div" className="my-auto w-full" size="sm" glow />
       </div>
       <div className="cell-author">
         <div className="cell-author--inner w-full">
@@ -42,7 +41,7 @@ export const SkeletonRow: React.FC = () => {
         </div>
       </div>
       <div className="cell-last20 h-[36px] px-1">
-        <Placeholder as="div" className="my-auto w-full min-h-[16px]" />
+        <i className="fa fa-angle-right" aria-hidden="true"></i>
       </div>
     </div>
   );

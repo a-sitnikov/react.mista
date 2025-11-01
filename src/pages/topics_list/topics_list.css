@@ -1,6 +1,6 @@
 .table-header {
   display: grid;
-  background: var(--color-bgHeader);
+  background-color: var(--color-bgHeader);
   font-weight: bold;
   grid-template-columns: 50px 30px auto 30px 120px 155px;
   border: 1px solid var(--color-borderOuter);
@@ -95,7 +95,6 @@
 }
 
 .cell-answ {
-  padding: 6px 0px 6px 0px;
   border-right: 1px solid var(--color-borderInner);
   font-size: 80%;
   text-align: center;
@@ -230,7 +229,7 @@
   }
 
   .cell-author {
-    background: var(--color-bgHeader);
+    background-color: var(--color-bgHeader);
     padding: 0px 2px;
     font-weight: bold;
     border-bottom: 1px dotted var(--color-borderOuter);
@@ -249,7 +248,7 @@
   }
 
   .cell-section {
-    background: var(--color-bgHeader);
+    background-color: var(--color-bgHeader);
     padding: 0px 2px;
     text-align: right;
     display: block;
@@ -278,7 +277,7 @@
   }
 
   .cell-lastuser {
-    background: var(--color-bgHeader);
+    background-color: var(--color-bgHeader);
     padding: 0px 2px;
     border-right: none;
     border-top: 1px dotted var(--color-borderOuter);
@@ -293,7 +292,7 @@
   }
 
   .cell-answ {
-    background: var(--color-bgHeader);
+    background-color: var(--color-bgHeader);
     padding: 0px 2px;
     text-align: right;
     border-top: 1px dotted var(--color-borderOuter);

@@ -1,8 +1,8 @@
-import NewTopic from "src/pages/topics_list/new_topic";
 import "@testing-library/jest-dom";
+import { screen, fireEvent } from "@testing-library/react";
+import NewTopic from "src/pages/topics_list/new_topic";
 import { type NewTopicState } from "src/store";
 import { setupStore, renderWithProviders } from "./test-utils";
-import { screen, fireEvent } from "@testing-library/react";
 
 describe("NewTopic", () => {
   const newTopic: NewTopicState = {
