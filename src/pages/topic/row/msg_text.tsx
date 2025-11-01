@@ -4,6 +4,7 @@ import { PhotoProvider } from "react-photo-view";
 import { fetchTopicInfo } from "src/api";
 import { useAppSelector } from "src/store";
 import { useTopicMessages } from "src/store/query-hooks";
+import { twMerge } from "src/utils";
 import ProcessedText from "./processed_text";
 import Vote from "./vote";
 import VoteChart from "./vote_chart";
@@ -14,6 +15,7 @@ type IProps = {
   n: number;
   html: string;
   vote: number;
+  className?: string;
   style?: {};
 };
 
@@ -24,6 +26,7 @@ const MsgText: React.FC<IProps> = ({
   html,
   vote,
   style,
+  className,
 }) => {
   const { data: info } = useTopicMessages(
     { topicId },
@@ -56,7 +59,7 @@ const MsgText: React.FC<IProps> = ({
   const showVoteText = vote !== 0 && voteText !== null;
 
   return (
-    <div className="message" style={style}>
+    <div className={twMerge("message", className)} style={style}>
       {showVoteChart && (
         <VoteChart items={info.voting} topicId={topicId} colors={voteColors} />
       )}

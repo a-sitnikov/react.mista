@@ -66,11 +66,6 @@ body[data-theme="lightgray"] {
   background-image: url("/img/white_carbon.png");
 }
 
-[data-theme="dark"] {
-  background-color: black;
-  color: var(--font-color);
-}
-
 #root {
   @apply min-h-screen relative flex flex-col;
 }
@@ -123,6 +118,9 @@ body[data-theme="lightgray"] {
 }
 
 [data-theme="dark"] {
+  background-color: black;
+  color: var(--font-color);
+
   .dropdown-menu {
     background-color: var(--background);
     border: 1px solid var(--color-borderOuter);

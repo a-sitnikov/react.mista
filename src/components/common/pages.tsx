@@ -49,7 +49,7 @@ const Pages: React.FC<IProps> = ({ maxPage, last20 }) => {
     );
   }
 
-  return <Pagination style={{ margin: "0px" }}>{pages}</Pagination>;
+  return <Pagination className="m-0">{pages}</Pagination>;
 };
 
 export default Pages;

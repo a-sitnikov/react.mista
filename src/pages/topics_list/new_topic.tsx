@@ -128,33 +128,6 @@ const NewTopic: React.FC<IProps> = ({ onSubmitSuccess }) => {
     );
   }
 
-  let votingOptions = [];
-
-  if (newTopic.isVoting) {
-    votingOptions.push(<div key="p">Варианты:</div>);
-    for (let i = 1; i <= 10; i++) {
-      votingOptions.push(
-        <InputGroup
-          key={i}
-          size="sm"
-          style={{ marginBottom: "3px", width: "100%" }}
-        >
-          <InputGroup.Text style={{ width: "40px" }} className="input">
-            {`${i}.`}
-          </InputGroup.Text>
-          <Form.Control
-            type="text"
-            aria-label={`Вариант ${i}`}
-            maxLength={50}
-            className="input"
-            value={votes[i - 1]}
-            onChange={onVoteTextChange(i - 1)}
-          />
-        </InputGroup>
-      );
-    }
-  }
-
   return (
     <form className="new-topic-container" onSubmit={onSubmit} ref={formRef}>
       <div id="newtopic_form" className="new-topic-text">
@@ -162,7 +135,7 @@ const NewTopic: React.FC<IProps> = ({ onSubmitSuccess }) => {
           <b>Новая тема:</b>
         </div>
         {newTopic.error && <ErrorElem text={newTopic.error} />}
-        <div className="flex-row" style={{ marginBottom: "3px" }}>
+        <div className="flex w-full mb-[3px]">
           <Form.Select
             disabled
             size="sm"
@@ -203,7 +176,26 @@ const NewTopic: React.FC<IProps> = ({ onSubmitSuccess }) => {
           formRef={formRef}
         />
       </div>
-      <FormGroup className="new-topic-voting">{votingOptions}</FormGroup>
+      {newTopic.isVoting && (
+        <FormGroup className="new-topic-voting">
+          <div>Варианты:</div>
+          {Array.from({ length: 10 }).map((_, i) => (
+            <InputGroup key={i} size="sm" className="mb-[3px]">
+              <InputGroup.Text className="input w-[40px]">
+                {`${i + 1}.`}
+              </InputGroup.Text>
+              <Form.Control
+                type="text"
+                aria-label={`Вариант ${i + 1}`}
+                maxLength={50}
+                className="input"
+                value={votes[i]}
+                onChange={onVoteTextChange(i)}
+              />
+            </InputGroup>
+          ))}
+        </FormGroup>
+      )}
     </form>
   );
 };

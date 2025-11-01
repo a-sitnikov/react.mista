@@ -1,5 +1,5 @@
 import { useRef, type RefObject, useCallback } from "react";
-import { FormControl, Button, ButtonGroup, Form } from "react-bootstrap";
+import { FormControl, Button, Form } from "react-bootstrap";
 
 import "./text_editor.css";
 
@@ -87,14 +87,13 @@ const TextEditor: React.FC<IProps> = ({
         className="text-editor input"
         data-lpignore={true}
       />
-      <div className="flex-row">
-        <ButtonGroup>
+      <div className="flex gap-2 items-center w-full justify-between pr-1">
+        <div className="flex gap-1">
           <Button
             size="sm"
             variant="light"
             onClick={onButtonCode1c}
-            style={{ marginRight: "5px" }}
-            className="button"
+            className="button mb-[5px]"
           >
             Код 1С
           </Button>
@@ -107,7 +106,7 @@ const TextEditor: React.FC<IProps> = ({
           >
             {isFetching ? "Отправляется" : "Отправить"}
           </Button>
-        </ButtonGroup>
+        </div>
         {showVoting && (
           <Form.Check
             id="show_voting"
@@ -115,7 +114,6 @@ const TextEditor: React.FC<IProps> = ({
             checked={isVoting}
             onChange={handleShowVotingChange}
             label="Голосование"
-            style={{ margin: "auto 0px auto auto" }}
           />
         )}
       </div>

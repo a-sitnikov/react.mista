@@ -12,11 +12,7 @@ const TooltipHeader: React.FC<IProps> = ({ children, closeWindow }) => {
         onTouchEnd={closeWindow}
       >
         <i className="fa fa-angle-right" aria-hidden="true"></i>
-        <i
-          className="fa fa-angle-left"
-          aria-hidden="true"
-          style={{ marginLeft: "-2px" }}
-        ></i>
+        <i className="fa fa-angle-left ml-[-2px]" aria-hidden="true"></i>
       </div>
     </div>
   );

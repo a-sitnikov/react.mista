@@ -8,7 +8,7 @@ type IProps = {
 
 const Vote: React.FC<IProps> = memo(({ colors, n, text }) => {
   return (
-    <div style={{ marginTop: "5px" }}>
+    <div className="mt-[5px]">
       <b>
         <span style={{ color: colors[n - 1] }}>{`${n}. ${text}`}</span>
       </b>

@@ -8,10 +8,11 @@ type IProps = {
 };
 
 const VoteChart: React.FC<IProps> = ({ items, topicId, colors }) => {
-  let total = Math.max(...items.map((item) => item.count));
+  const total = items.reduce((acc, item) => acc + item.count, 0);
+  const max = items.reduce((acc, item) => Math.max(acc, item.count), 0);
 
   return (
-    <ul style={{ paddingLeft: 0 }}>
+    <ul className="pl-0!">
       {items
         .filter((item) => item.text)
         .map((data, i) => (
@@ -19,6 +20,7 @@ const VoteChart: React.FC<IProps> = ({ items, topicId, colors }) => {
             key={i}
             data={data}
             total={total}
+            max={max}
             n={i + 1}
             topicId={topicId}
             colors={colors}

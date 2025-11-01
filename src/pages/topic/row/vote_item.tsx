@@ -8,13 +8,22 @@ type IProps = {
   data: IVotingItem;
   colors: string[];
   total: number;
+  max: number;
   n: number;
 };
 
-const VoteItem: React.FC<IProps> = ({ topicId, data, total, n, colors }) => {
+const VoteItem: React.FC<IProps> = ({
+  topicId,
+  data,
+  total,
+  max,
+  n,
+  colors,
+}) => {
   const img = `${domainApi}/css/voting${n}.png`;
 
   const percent = total ? Math.round((100 * data.count) / total) : 0;
+  const percentOfMax = max ? Math.round((100 * data.count) / max) : 0;
 
   const imgStyle: CSS.Properties = {
     maxWidth: "500px",
@@ -43,7 +52,7 @@ const VoteItem: React.FC<IProps> = ({ topicId, data, total, n, colors }) => {
         </b>
       </div>
       <div className="voting-bar">
-        <div style={{ width: `${percent}%` }}>
+        <div style={{ width: `${percentOfMax}%` }}>
           <a href={img}>
             <img src={img} style={imgStyle} alt={`вариант ${n}`} />
           </a>

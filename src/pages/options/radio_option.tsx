@@ -27,7 +27,7 @@ const RadioOption: React.FC<IProps> = ({
 
   return (
     <span>
-      <span style={{ marginRight: "5px" }}> {label} </span>
+      <span className="mr-[5px]"> {label} </span>
       {oneLine && <br />}
       {values.map((item, i) => (
         <Form.Check

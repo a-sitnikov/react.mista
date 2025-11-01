@@ -105,10 +105,7 @@ const Options: React.FC = () => {
                 size="sm"
               ></FormControl>
               {item.postfix && (
-                <span
-                  key={name + "_postfix"}
-                  style={{ marginLeft: "5px", flex: "0 0 auto" }}
-                >
+                <span key={name + "_postfix"} className="ml-[5px]">
                   {item.postfix}
                 </span>
               )}
@@ -158,36 +155,35 @@ const Options: React.FC = () => {
 
   return (
     <div className="options-form">
-      <div className="options-header" style={{ cursor: "default" }}>
+      <div className="options-header cursor-default!">
         <b>Настройки</b>
       </div>
       {tabs}
-      <div className="button-row">
-        <Button
-          id="applyOptions"
-          size="sm"
-          variant="light"
-          style={{ margin: "5px" }}
-          className="button"
-          onClick={applyOptions}
-        >
-          OK
-        </Button>
-        <Button
-          id="cancelOptions"
-          size="sm"
-          variant="light"
-          style={{ margin: "5px", float: "left" }}
-          className="button"
-          onClick={closeForm}
-        >
-          Отмена
-        </Button>
+      <div className="flex gap-2 justify-between p-2 border-t border-borderOuter">
+        <div className="flex gap-1">
+          <Button
+            id="applyOptions"
+            size="sm"
+            variant="light"
+            className="button"
+            onClick={applyOptions}
+          >
+            OK
+          </Button>
+          <Button
+            id="cancelOptions"
+            size="sm"
+            variant="light"
+            className="button float-left"
+            onClick={closeForm}
+          >
+            Отмена
+          </Button>
+        </div>
         <Button
           id="defaultOptions"
           size="sm"
           variant="light"
-          style={{ margin: "5px", float: "right" }}
           className="button"
           onClick={resetOptions}
         >

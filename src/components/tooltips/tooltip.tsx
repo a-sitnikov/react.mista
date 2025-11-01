@@ -46,7 +46,7 @@ const Tooltip: React.FC<IProps> = ({ tooltip }) => {
           html={isError ? error.message : item.text}
           topicId={keys.topicId}
           topicDate={item?.time}
-          style={{ maxHeight: "min(550px, 80vh)", overflowY: "auto" }}
+          className="max-h-[min(550px, 80vh)] overflow-y-auto"
         />
       </TooltipBody>
     </TooltipWindow>

@@ -68,7 +68,7 @@ const PreviewContent: React.FC<IProps> = ({
             n={n}
             html={data.text}
             vote={data.vote}
-            style={{ overflowY: "auto", overflowWrap: "break-word" }}
+            className="overflow-y-auto break-words"
           />
         </div>
       )}

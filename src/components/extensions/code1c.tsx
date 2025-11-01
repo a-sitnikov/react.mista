@@ -63,7 +63,7 @@ const Code: React.FC<React.PropsWithChildren> = ({ children }) => {
   }
 
   return (
-    <div style={{ marginTop: "5px" }}>
+    <div className="mt-[5px]">
       <pre
         className="code-pre"
         style={preStyle}

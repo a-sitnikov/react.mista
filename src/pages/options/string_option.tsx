@@ -22,8 +22,8 @@ const StringOption: React.FC<IProps> = ({
   };
 
   return (
-    <label htmlFor={name} style={{ marginRight: "5px" }}>
-      <span style={{ marginRight: "5px" }}>{label}</span>
+    <label htmlFor={name} className="mr-[5px]">
+      <span className="mr-[5px]">{label}</span>
       <input
         type="string"
         name={name}
@@ -32,7 +32,7 @@ const StringOption: React.FC<IProps> = ({
         className="input"
       />
       {postfix !== undefined ? (
-        <span style={{ marginLeft: "5px" }}>{postfix}</span>
+        <span className="mr-[5px]">{postfix}</span>
       ) : null}
     </label>
   );
