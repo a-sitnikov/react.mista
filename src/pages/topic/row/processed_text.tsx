@@ -1,5 +1,4 @@
-import HtmlToReact from "html-to-react";
-
+import { Interweave, type InterweaveProps } from "interweave";
 import { memo } from "react";
 import Code from "src/components/extensions/code1c";
 import CustomLink from "src/components/extensions/custom_link";
@@ -51,71 +50,6 @@ const processText = (
   return newtext;
 };
 
-const htmlToReactParser = HtmlToReact.Parser();
-const processNodeDefinitions = HtmlToReact.ProcessNodeDefinitions();
-const isValidNode = () => true;
-
-const linkToPostProcessor = {
-  shouldProcessNode: (node: any): boolean => {
-    return node?.name === "link";
-  },
-  processNode: (
-    node: any,
-    children: any,
-    index: number
-  ): React.ReactElement => {
-    const topicId = node.attribs["data-topicid"];
-    const number = node.attribs["data-number"];
-    return <LinkToPost key={index} topicId={topicId} number={number} />;
-  },
-};
-
-const codeProcessor = {
-  shouldProcessNode: (node: any) => {
-    return node?.name === "code" || node?.name === "pre";
-  },
-  processNode: (node: any, children: any, index: number) => {
-    return <Code key={index}>{children}</Code>;
-  },
-};
-
-const linkProcessor = (processedHtml: string) => ({
-  // <custom link>
-  shouldProcessNode: (node: any) => {
-    return node?.name === "a";
-  },
-  processNode: function (node: any, children: any, index: number) {
-    const href = node.attribs["href"];
-    return (
-      <CustomLink key={index} href={href} parentText={processedHtml}>
-        {children}
-      </CustomLink>
-    );
-  },
-});
-
-const internalImageProcesor = (
-  topicId: number,
-  topicDate: number,
-  messageNumber: number
-) => ({
-  shouldProcessNode: (node: any) => {
-    return node?.name === "int_img";
-  },
-  processNode: function (node: any, children: any, index: number) {
-    const idx = node.attribs["idx"];
-    return (
-      <InternalImage
-        key={index}
-        topicId={topicId}
-        topicDate={topicDate}
-        messageNumber={messageNumber}
-        idx={idx}
-      />
-    );
-  },
-});
-
 const ProcessedText: React.FC<{
   html: string;
   topicId: number;
@@ -123,25 +57,46 @@ const ProcessedText: React.FC<{
   messageNumber: number;
 }> = ({ html, topicId, topicDate, messageNumber }) => {
   const processedHtml = processText(html, topicId, topicDate, messageNumber);
-  const processingInstructions = [
-    linkToPostProcessor,
-    codeProcessor,
-    linkProcessor(processedHtml),
-    internalImageProcesor(topicId, topicDate, messageNumber),
-    {
-      // Anything else
-      shouldProcessNode: () => true,
-      processNode: processNodeDefinitions.processDefaultNode,
-    },
-  ];
 
-  const reactComponent = htmlToReactParser.parseWithInstructions(
-    processedHtml,
-    isValidNode,
-    processingInstructions
-  );
+  const transform: InterweaveProps["transform"] = (node, children) => {
+    const tagName = node.tagName.toLowerCase();
+    switch (tagName) {
+      case "a": {
+        const href = node.getAttribute("href");
+        return (
+          <CustomLink href={href} parentText={processedHtml}>
+            {children}
+          </CustomLink>
+        );
+      }
 
-  return <>{reactComponent}</>;
+      case "link": {
+        const number = parseInt(node.getAttribute("data-number"));
+        return <LinkToPost topicId={topicId} number={number} />;
+      }
+
+      case "code":
+      case "pre":
+        return <Code>{children}</Code>;
+
+      case "int_img": {
+        const idx = node.getAttribute("idx");
+        return (
+          <InternalImage
+            topicId={topicId}
+            topicDate={topicDate}
+            messageNumber={messageNumber}
+            idx={idx}
+          />
+        );
+      }
+
+      default:
+        return undefined;
+    }
+  };
+
+  return <Interweave content={processedHtml} transform={transform} />;
 };
 
 export default memo(ProcessedText);
