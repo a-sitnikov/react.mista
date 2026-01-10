@@ -35,8 +35,9 @@ const MsgText: React.FC<IProps> = ({
   const voteColors = useAppSelector((state) => state.options.voteColors);
 
   let initialVoteText: string = null;
-  if (vote && info.voting && topicId === info.id)
+  if (vote && info?.voting && topicId === info.id) {
     initialVoteText = info.voting[vote - 1].text;
+  }
 
   const [voteText, setVoteText] = useState(initialVoteText);
 
