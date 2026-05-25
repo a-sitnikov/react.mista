@@ -13,19 +13,11 @@ export interface ITopicsListRequest {
   myTopics?: string | null;
 }
 
-interface IAPIRequest {
-  topics?: string;
-  section_short_name?: string;
-  forum?: string;
-  user_id?: string;
-  mytopics?: string;
-}
-
 const apiTopicSchema = z.object({
   id: z.string(),
   text: z.string(),
   count: z.number(),
-  forum: z.string(),
+  arena: z.string(),
   section: z.string().optional(),
   author: z.object({
     id: z.string(),
@@ -43,17 +35,6 @@ export const topicsListResponseSchema = z.object({
   ok: z.boolean(),
   data: apiTopicSchema.array(),
 });
-
-function convertRequest(request: ITopicsListRequest): IAPIRequest {
-  const page = toNumber(request.page, 1);
-
-  return {
-    section_short_name: request.section,
-    forum: request.forum,
-    user_id: request.userId,
-    mytopics: request.myTopics,
-  };
-}
 
 async function fetchTopicsList(
   params?: ITopicsListRequest,

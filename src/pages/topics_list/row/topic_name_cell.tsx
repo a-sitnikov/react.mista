@@ -8,8 +8,8 @@ type IProps = {
   data: ITopicsListItem;
 };
 
-const addPrefix = (text: string, forum: string, sectionCode: string): string => {
-  if (forum === "life" && !text.startsWith("OFF")) {
+const addPrefix = (text: string, arena: string, sectionCode: string): string => {
+  if (arena === "life" && !text.startsWith("OFF")) {
     return "OFF: " + text;
   } else if (sectionCode === "job" && !text.startsWith("JOB")) {
     return "JOB: " + text;
@@ -22,7 +22,7 @@ const addPrefix = (text: string, forum: string, sectionCode: string): string => 
 const TopicNameCell: React.FC<IProps> = ({ data }) => {
   const loggedUserName = useAppSelector((state) => state.login.userName);
 
-  let text = addPrefix(data.text, data.forum, data.section);
+  let text = addPrefix(data.text, data.arena, data.section);
 
   return (
     <div className="cell-title">

@@ -4,10 +4,10 @@ type IProps = {
   item: ITopicsListItem;
 };
 
-const ForumCell: React.FC<IProps> = ({ item }) => (
+const ArenaCell: React.FC<IProps> = ({ item }) => (
   <div className="cell-forum">
-    <div className="cell-forum--inner">{item.forum}</div>
+    <div className="cell-forum--inner">{item.arena}</div>
   </div>
 );
 
-export default ForumCell;
+export default ArenaCell;

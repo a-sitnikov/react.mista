@@ -1,15 +1,10 @@
-import {
-  createSlice,
-  createAsyncThunk,
-  type PayloadAction,
-} from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
 
 import { fetchNewTopic, type INewTopicRequest } from "src/api";
 import { type RootState } from "../types";
 
 export interface ISectionItem {
-  id: number;
-  forum: string;
+  arena: string;
   code: string;
   name: string;
 }
@@ -64,7 +59,7 @@ export const postNewTopic = createAsyncThunk(
     await fetchNewTopic(fetchParams);
     // if (params.onSuccess)
     // params.onSuccess();
-  }
+  },
 );
 
 export const shouldPost = ({ newTopic }: RootState): boolean => {
@@ -103,7 +98,7 @@ const slice = createSlice({
     },
     changeSection: (state, { payload }: PayloadAction<ISectionItem>) => {
       state.section = payload;
-      state.forum = payload?.forum.toLowerCase();
+      state.forum = payload?.arena.toLowerCase();
     },
     showVoting: (state, { payload }: PayloadAction<boolean>) => {
       state.isVoting = payload;

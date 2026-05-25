@@ -3,31 +3,15 @@ import { groupBy } from "src/utils";
 import { fetchAndGetJson } from "./api-utils";
 import { urlSections } from ".";
 
-interface IAPIResponse {
-  id: number;
-  forum: string;
-  shortn: string;
-  fulln: string;
-}
-
-function convertResponse(response: IAPIResponse): ISectionItem {
-  return {
-    id: response.id,
-    forum: response.forum,
-    code: response.shortn,
-    name: response.fulln,
-  };
-}
-
 export const fetchSections = async (): Promise<{
   items: ISectionItem[];
   tree: { [key: string]: ISectionItem[] };
 }> => {
-  const list = await fetchAndGetJson(urlSections);
-  const items = list.map(convertResponse);
+  const items: ISectionItem[] = await fetchAndGetJson(urlSections);
+
   return {
     items,
-    tree: groupBy(items, (item) => item.forum),
+    tree: groupBy(items, (item) => item.arena),
   };
 };
 

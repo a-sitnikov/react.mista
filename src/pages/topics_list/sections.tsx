@@ -10,20 +10,10 @@ export type IProps = {
   selected?: string;
   style?: CSS.Properties;
   size?: "sm" | "lg";
-  onChange?: (
-    e: React.ChangeEvent<HTMLElement>,
-    value: ISectionItem | undefined
-  ) => void;
+  onChange?: (e: React.ChangeEvent<HTMLElement>, value: ISectionItem | undefined) => void;
 };
 
-const Sections: React.FC<IProps> = ({
-  id,
-  defaultValue,
-  selected,
-  style,
-  size,
-  onChange,
-}) => {
+const Sections: React.FC<IProps> = ({ id, defaultValue, selected, style, size, onChange }) => {
   const { data } = useSections();
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
@@ -45,10 +35,10 @@ const Sections: React.FC<IProps> = ({
       id={id}
     >
       <option value="">{defaultValue}</option>
-      {Object.keys(data.tree).map((forum) => (
-        <optgroup key={forum} label={forum}>
-          {data.tree[forum].map((item) => (
-            <option key={item.id} value={item.code}>
+      {Object.keys(data.tree).map((arena) => (
+        <optgroup key={arena} label={arena}>
+          {data.tree[arena].map((item) => (
+            <option key={item.code} value={item.code}>
               {item.name}
             </option>
           ))}

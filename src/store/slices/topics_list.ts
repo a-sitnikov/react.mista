@@ -2,7 +2,7 @@ export interface ITopicsListItem {
   id: string;
   text: string;
   count: number;
-  forum: string;
+  arena: string;
   section?: string;
   author: {
     id: string;
