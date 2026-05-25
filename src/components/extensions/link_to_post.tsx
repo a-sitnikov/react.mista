@@ -2,29 +2,20 @@ import { useState, useEffect } from "react";
 
 import { Link, useSearchParams } from "react-router-dom";
 import { fetchTopicInfo } from "src/api";
-import {
-  useActionCreators,
-  type ITooltipKeys,
-  tooltipsActions,
-} from "src/store";
-import { getMaxPage, childrenToText, toNumber, twMerge } from "src/utils";
+import { useActionCreators, type ITooltipKeys, tooltipsActions } from "src/store";
+import { getMaxPage, childrenToText, twMerge } from "src/utils";
 
 type IProps = {
-  topicId: number;
+  topicId: string;
   number: number;
   className?: string;
 } & React.PropsWithChildren;
 
-const LinkToPost: React.FC<IProps> = ({
-  topicId,
-  number,
-  children,
-  className,
-}) => {
+const LinkToPost: React.FC<IProps> = ({ topicId, number, children, className }) => {
   const actions = useActionCreators(tooltipsActions);
 
   const [searchParams] = useSearchParams();
-  const currentTopicId = toNumber(searchParams.get("id"), -1);
+  const currentTopicId = searchParams.get("id") ?? "-1";
 
   let initialText = "";
   if (!children) initialText = String(number);
@@ -73,11 +64,7 @@ const LinkToPost: React.FC<IProps> = ({
 
   if (topicId === currentTopicId || !isNaN(+text))
     return (
-      <span
-        onClick={onClick}
-        className={twMerge(className, "link")}
-        role="button"
-      >
+      <span onClick={onClick} className={twMerge(className, "link")} role="button">
         {text}
       </span>
     );
@@ -89,10 +76,7 @@ const LinkToPost: React.FC<IProps> = ({
 
     return (
       <span>
-        <Link
-          to={`/topic.php?id=${topicId}${pageParam}#${number}`}
-          className={className}
-        >
+        <Link to={`/topic.php?id=${topicId}${pageParam}#${number}`} className={className}>
           {text}
         </Link>{" "}
         (

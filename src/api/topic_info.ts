@@ -32,7 +32,7 @@ function convertResponse(response: IAPIResponse): ITopicInfo {
     }));
 
   return {
-    id: parseInt(response.id),
+    id: response.id,
     title: response.text,
     forum: response.forum,
     sectionId: response.section,
@@ -50,7 +50,7 @@ function convertResponse(response: IAPIResponse): ITopicInfo {
   };
 }
 
-async function fetchTopicInfo(id: number): Promise<ITopicInfo> {
+async function fetchTopicInfo(id: string): Promise<ITopicInfo> {
   const info = await fetchAndGetJson(urlTopicInfo, { id });
   return convertResponse(info);
 }

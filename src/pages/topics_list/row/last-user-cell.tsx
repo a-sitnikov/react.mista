@@ -28,8 +28,7 @@ const LastUserCell: React.FC<IProps> = ({ item }) => {
   return (
     <div className="cell-lastuser">
       <div className="cell-author--inner">
-        <span className="cell-lastuser-time">{formattedTime(time)}</span>
-        <span className="cell-lastuser-user">{item.lastUser}</span>
+        <span className="cell-lastuser-user">{item.updated}</span>
       </div>
     </div>
   );

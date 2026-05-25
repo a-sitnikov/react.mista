@@ -10,7 +10,7 @@ import Vote from "./vote";
 import VoteChart from "./vote_chart";
 
 type IProps = {
-  topicId: number;
+  topicId: string;
   topicDate: number;
   n: number;
   html: string;
@@ -19,18 +19,10 @@ type IProps = {
   style?: {};
 };
 
-const MsgText: React.FC<IProps> = ({
-  topicId,
-  topicDate,
-  n,
-  html,
-  vote,
-  style,
-  className,
-}) => {
+const MsgText: React.FC<IProps> = ({ topicId, topicDate, n, html, vote, style, className }) => {
   const { data: info } = useTopicMessages(
     { topicId },
-    { enabled: false, select: (data) => data?.info }
+    { enabled: false, select: (data) => data?.info },
   );
   const voteColors = useAppSelector((state) => state.options.voteColors);
 
@@ -61,17 +53,10 @@ const MsgText: React.FC<IProps> = ({
 
   return (
     <div className={twMerge("message", className)} style={style}>
-      {showVoteChart && (
-        <VoteChart items={info.voting} topicId={topicId} colors={voteColors} />
-      )}
+      {showVoteChart && <VoteChart items={info.voting} topicId={topicId} colors={voteColors} />}
       <div>
         <PhotoProvider>
-          <ProcessedText
-            html={html}
-            topicId={topicId}
-            topicDate={topicDate}
-            messageNumber={n}
-          />
+          <ProcessedText html={html} topicId={topicId} topicDate={topicDate} messageNumber={n} />
         </PhotoProvider>
       </div>
       {showVoteText && <Vote text={voteText} n={vote} colors={voteColors} />}

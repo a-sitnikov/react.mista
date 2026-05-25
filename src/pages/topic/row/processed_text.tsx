@@ -5,7 +5,7 @@ import CustomLink from "src/components/extensions/custom_link";
 import InternalImage from "src/components/extensions/internal-image";
 import LinkToPost from "src/components/extensions/link_to_post";
 
-const processLinksToPosts = (text: string, topicId: number): string => {
+const processLinksToPosts = (text: string, topicId: string): string => {
   const regexp = /(\()(\d+)(\))(?![^<>]*<\/)/gi; // (12)
   return text.replace(regexp, (res, ...segments) => {
     const number = segments[1];
@@ -23,9 +23,9 @@ const processCode1C = (text: string): string => {
 
 const processImages = (
   text: string,
-  _topicId: number,
+  _topicId: string,
   _topicDate: number,
-  _messageNumber: number
+  _messageNumber: number,
 ): string | undefined => {
   const regexp = /\[IMG_(\d*)\]/gi; // ([IMG_1])
 
@@ -37,9 +37,9 @@ const processImages = (
 
 const processText = (
   text: string,
-  topicId: number,
+  topicId: string,
   topicDate: number,
-  messageNumber: number
+  messageNumber: number,
 ): string | undefined => {
   if (!text) return text;
 
@@ -52,7 +52,7 @@ const processText = (
 
 const ProcessedText: React.FC<{
   html: string;
-  topicId: number;
+  topicId: string;
   topicDate: number;
   messageNumber: number;
 }> = ({ html, topicId, topicDate, messageNumber }) => {

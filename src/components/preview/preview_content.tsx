@@ -10,20 +10,14 @@ import { type ITopicMessage } from "src/store";
 import "./topic_preview.css";
 
 type IProps = {
-  topicId: number;
+  topicId: string;
   n: number;
   author: string;
   loggedUserId: number;
   onDataLoaded?: () => void;
 };
 
-const PreviewContent: React.FC<IProps> = ({
-  topicId,
-  n,
-  author,
-  loggedUserId,
-  onDataLoaded,
-}) => {
+const PreviewContent: React.FC<IProps> = ({ topicId, n, author, loggedUserId, onDataLoaded }) => {
   const [data, setData] = useState<ITopicMessage | null>(null);
   const [error, setError] = useState<string | null>(null);
 

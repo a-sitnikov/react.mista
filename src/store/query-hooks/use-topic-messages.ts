@@ -1,28 +1,19 @@
-import {
-  type QueryClient,
-  useQuery,
-  type UseQueryOptions,
-} from "@tanstack/react-query";
+import { type QueryClient, useQuery, type UseQueryOptions } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import { fetchTopicMessages } from "src/api";
 import { fetchTopic, type TFetchTopicData } from "../slices";
 import { QueryKeys } from "./types";
 
 type IProps = {
-  topicId: number;
+  topicId: string;
 };
 
 export const useTopicMessages = <TError = Error, TData = TFetchTopicData>(
   { topicId }: IProps,
   options?: Omit<
-    UseQueryOptions<
-      TFetchTopicData,
-      TError,
-      TData,
-      [QueryKeys.TopicMessages, number, ...string[]]
-    >,
+    UseQueryOptions<TFetchTopicData, TError, TData, [QueryKeys.TopicMessages, string, ...string[]]>,
     "queryKey" | "queryFn"
-  >
+  >,
 ) => {
   const [searchParams] = useSearchParams();
 
@@ -42,14 +33,9 @@ export const useTopicMessages = <TError = Error, TData = TFetchTopicData>(
 export const useUpdateMessages = <TError = Error, TData = TFetchTopicData>(
   { topicId }: IProps,
   options?: Omit<
-    UseQueryOptions<
-      Boolean,
-      TError,
-      TData,
-      [QueryKeys.UpdateTopicMessages, number]
-    >,
+    UseQueryOptions<Boolean, TError, TData, [QueryKeys.UpdateTopicMessages, string]>,
     "queryKey" | "queryFn"
-  >
+  >,
 ) => {
   const [searchParams] = useSearchParams();
 
@@ -69,19 +55,16 @@ export const useUpdateMessages = <TError = Error, TData = TFetchTopicData>(
 
       if (data.length === 0) return true;
 
-      client.setQueryData<TFetchTopicData>(
-        [QueryKeys.TopicMessages, topicId, page],
-        (prevData) => {
-          return {
-            info: {
-              ...prevData.info,
-              count: data.at(-1).n,
-            },
-            item0: prevData.item0,
-            list: [...prevData.list, ...data],
-          };
-        }
-      );
+      client.setQueryData<TFetchTopicData>([QueryKeys.TopicMessages, topicId, page], (prevData) => {
+        return {
+          info: {
+            ...prevData.info,
+            count: data.at(-1).n,
+          },
+          item0: prevData.item0,
+          list: [...prevData.list, ...data],
+        };
+      });
 
       return true;
     },
@@ -91,10 +74,7 @@ export const useUpdateMessages = <TError = Error, TData = TFetchTopicData>(
   });
 };
 
-export const getCachedTopicData = (
-  queryClient: QueryClient,
-  topicId: number
-) => {
+export const getCachedTopicData = (queryClient: QueryClient, topicId: string) => {
   const topicQueries = queryClient.getQueriesData({
     queryKey: [QueryKeys.TopicMessages, topicId],
   });

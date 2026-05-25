@@ -5,17 +5,12 @@ import "react-photo-view/dist/react-photo-view.css";
 
 type IProps = {
   idx: string;
-  topicId: number;
+  topicId: string;
   topicDate: number;
   messageNumber: number;
 };
 
-const InternalImage: React.FC<IProps> = ({
-  idx,
-  topicId,
-  topicDate,
-  messageNumber,
-}) => {
+const InternalImage: React.FC<IProps> = ({ idx, topicId, topicDate, messageNumber }) => {
   const date = dayjs(topicDate).format("YYYY/MM/DD");
 
   //topics/files/2024/02/16/892137/2/1_preview.png
@@ -25,11 +20,7 @@ const InternalImage: React.FC<IProps> = ({
 
   return (
     <PhotoView src={full}>
-      <img
-        src={preview}
-        alt=""
-        style={{ maxWidth: "100%", cursor: "pointer" }}
-      />
+      <img src={preview} alt="" style={{ maxWidth: "100%", cursor: "pointer" }} />
     </PhotoView>
   );
 };

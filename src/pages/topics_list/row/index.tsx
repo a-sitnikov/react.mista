@@ -46,10 +46,7 @@ const Row: React.FC<IProps> = ({ item, isFetching }) => {
         <ForumCell item={item} />
         <div className="cell-section">{item.section}</div>
         <CountCell item={item} onClick={previewShowLast} />
-        <ShowPreviewButton
-          expanded={previewNumber !== undefined}
-          onClick={previewShowFirst}
-        />
+        <ShowPreviewButton expanded={previewNumber !== undefined} onClick={previewShowFirst} />
         <TopicNameCell data={item} />
         <AuthorCell item={item} />
         <LastUserCell item={item} />
@@ -59,7 +56,7 @@ const Row: React.FC<IProps> = ({ item, isFetching }) => {
         <TopicPreview
           topicId={item.id}
           initialMsgNumber={previewNumber}
-          author={item.author}
+          author={item.author.id}
           close={() => setPreviewNumber(undefined)}
         />
       )}

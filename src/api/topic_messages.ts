@@ -3,7 +3,7 @@ import { fetchAndGetJson } from "./api-utils";
 import { urlTopicMessages } from ".";
 
 interface IAPIRequest {
-  id: number;
+  id: string;
   from?: number;
   to?: number;
 }
@@ -22,7 +22,7 @@ interface IAPIResponse {
 
 function convertResponse(response: IAPIResponse): ITopicMessage {
   return {
-    id: parseInt(response.id),
+    id: response.id,
     n: parseInt(response.n),
     user: response.user,
     userId: parseInt(response.userId),
@@ -32,17 +32,12 @@ function convertResponse(response: IAPIResponse): ITopicMessage {
   };
 }
 
-async function fetchTopicMessages(
-  params?: ITopicMessageRequest
-): Promise<ITopicMessagesList> {
+async function fetchTopicMessages(params?: ITopicMessageRequest): Promise<ITopicMessagesList> {
   const list = await fetchAndGetJson(urlTopicMessages, params);
   return list.map(convertResponse);
 }
 
-async function fetchTopicMessage(
-  id: number,
-  n: number
-): Promise<ITopicMessage> {
+async function fetchTopicMessage(id: string, n: number): Promise<ITopicMessage> {
   const to = n === 0 ? n + 1 : n;
 
   const list = await fetchAndGetJson(urlTopicMessages, { id, from: n, to });

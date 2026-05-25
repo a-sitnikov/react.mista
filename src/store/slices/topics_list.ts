@@ -1,16 +1,17 @@
 export interface ITopicsListItem {
-  id: number;
-  author: string;
-  lastUser?: string | null;
-  forum: string;
-  sectionCode: string;
-  section: string;
-  count: number;
+  id: string;
   text: string;
-  created: number;
-  updated: number;
-  closed: boolean;
-  down: boolean;
+  count: number;
+  forum: string;
+  section?: string;
+  author: {
+    id: string;
+    name: string;
+  };
+  updated: string;
+  paid?: boolean;
+  closed?: boolean;
+  down?: boolean;
   pinned: boolean;
-  isVoting: boolean;
+  isVoting?: boolean;
 }

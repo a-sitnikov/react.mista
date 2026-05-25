@@ -3,7 +3,7 @@ import VoteItem from "./vote_item";
 
 type IProps = {
   items: IVotingItem[];
-  topicId: number;
+  topicId: string;
   colors: string[];
 };
 

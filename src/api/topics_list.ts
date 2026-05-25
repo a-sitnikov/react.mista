@@ -1,4 +1,3 @@
-import { type ITopicsListItem } from "src/store";
 import { toNumber } from "src/utils";
 import { z } from "zod";
 import { fetchAndGetJson } from "./api-utils";
@@ -22,52 +21,33 @@ interface IAPIRequest {
   mytopics?: string;
 }
 
-export const topicsListSchema = z
-  .object({
-    id: z.int(),
-    forum: z.string(),
-    sect1: z.string(),
-    sect2: z.string(),
-    v8: z.string().nullable().optional(),
-    closed: z.int(),
-    down: z.int(),
-    paid: z.int(),
-    text: z.string(),
-    message: z.string(),
-    created: z.int(),
-    utime: z.int(),
-    user: z.string().nullable().optional(),
-    user0: z.string(),
-    is_voting: z.int(),
-    answ: z.int(),
-  })
-  .transform(
-    (response) =>
-      ({
-        id: response.id,
-        forum: response.forum,
-        section: response.sect1,
-        sectionCode: response.sect2,
-        author: response.user0,
-        lastUser: response.user,
-        created: response.created * 1000,
-        updated: response.utime * 1000,
-        count: response.answ,
-        text: response.text,
-        closed: response.closed === 1,
-        down: response.down === 1,
-        pinned: response.utime === 2147483648,
-        isVoting: response.is_voting === 1,
-      } as ITopicsListItem)
-  )
-  .array();
+const apiTopicSchema = z.object({
+  id: z.string(),
+  text: z.string(),
+  count: z.number(),
+  forum: z.string(),
+  section: z.string().optional(),
+  author: z.object({
+    id: z.string(),
+    name: z.string(),
+  }),
+  updated: z.string(),
+  down: z.boolean().optional(),
+  isVoting: z.boolean().optional(),
+  closed: z.boolean().optional(),
+  paid: z.boolean().optional(),
+  pinned: z.boolean().optional(),
+});
+
+export const topicsListResponseSchema = z.object({
+  ok: z.boolean(),
+  data: apiTopicSchema.array(),
+});
 
 function convertRequest(request: ITopicsListRequest): IAPIRequest {
   const page = toNumber(request.page, 1);
-  const itemsCount = toNumber(request.itemsPerPage, 20) * page;
 
   return {
-    topics: String(itemsCount),
     section_short_name: request.section,
     forum: request.forum,
     user_id: request.userId,
@@ -76,16 +56,12 @@ function convertRequest(request: ITopicsListRequest): IAPIRequest {
 }
 
 async function fetchTopicsList(
-  params?: ITopicsListRequest
-): Promise<ITopicsListItem[]> {
-  const request = convertRequest(params);
-
-  const itemsPerPage = toNumber(params?.itemsPerPage, 20);
-
-  const data = await fetchAndGetJson(urlTopicsList, request);
+  params?: ITopicsListRequest,
+): Promise<z.infer<typeof topicsListResponseSchema>> {
+  const data = await fetchAndGetJson(urlTopicsList);
 
   try {
-    return topicsListSchema.parse(data).slice(-itemsPerPage);
+    return topicsListResponseSchema.parse(data);
   } catch (e) {
     console.log(data);
     console.log(e);

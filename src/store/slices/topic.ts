@@ -7,7 +7,7 @@ export interface IVotingItem {
 }
 
 export interface ITopicInfo {
-  id: number;
+  id: string;
   title: string;
   forum?: string;
   sectionId?: string;
@@ -25,7 +25,7 @@ export interface ITopicInfo {
 }
 
 export interface ITopicMessage {
-  id: number;
+  id: string;
   n: number;
   user: string;
   userId: number;
@@ -54,7 +54,7 @@ export const fetchTopic = async ({
   page,
   item0,
 }: {
-  topicId: number;
+  topicId: string;
   page: number | string;
   item0?: ITopicMessage;
 }) => {

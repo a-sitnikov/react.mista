@@ -7,12 +7,8 @@ type IProps = {
 const AuthorCell: React.FC<IProps> = ({ item }) => (
   <div className="cell-author">
     <div className="cell-author--inner">
-      <i
-        aria-hidden="true"
-        className="fa fa-user-circle"
-        style={{ marginRight: "3px" }}
-      ></i>
-      {item.author}
+      <i aria-hidden="true" className="fa fa-user-circle" style={{ marginRight: "3px" }}></i>
+      {item.author.name}
     </div>
   </div>
 );

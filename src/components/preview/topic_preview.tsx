@@ -8,18 +8,13 @@ import PreviewContent from "./preview_content";
 import "./topic_preview.css";
 
 type IProps = {
-  topicId: number;
+  topicId: string;
   initialMsgNumber: number;
   author: string;
   close: () => void;
 };
 
-const TopicPreview: React.FC<IProps> = ({
-  topicId,
-  initialMsgNumber,
-  author,
-  close,
-}) => {
+const TopicPreview: React.FC<IProps> = ({ topicId, initialMsgNumber, author, close }) => {
   const loggedUserId = useAppSelector((state) => state.login.userId);
 
   const [deltaX, setDeltaX] = useState(0);
@@ -113,11 +108,7 @@ const TopicPreview: React.FC<IProps> = ({
           close={close}
         />
         <div className="preview-carousel" {...swipeable} style={style}>
-          <div
-            className="preview-carousel-item"
-            key={state.key}
-            style={{ order: 0 }}
-          >
+          <div className="preview-carousel-item" key={state.key} style={{ order: 0 }}>
             <PreviewContent
               topicId={topicId}
               n={items[0]}
@@ -127,11 +118,7 @@ const TopicPreview: React.FC<IProps> = ({
             />
           </div>
           {items.length > 1 && (
-            <div
-              className="preview-carousel-item"
-              key={state.key + 1}
-              style={{ order: 1 }}
-            >
+            <div className="preview-carousel-item" key={state.key + 1} style={{ order: 1 }}>
               <PreviewContent
                 topicId={topicId}
                 n={items[1]}

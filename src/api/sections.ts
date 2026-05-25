@@ -1,6 +1,6 @@
 import { type ISectionItem } from "src/store";
 import { groupBy } from "src/utils";
-import { fetchJsonpAndGetJson } from "./api-utils";
+import { fetchAndGetJson, fetchJsonpAndGetJson } from "./api-utils";
 import { urlSections } from ".";
 
 interface IAPIResponse {
@@ -23,7 +23,7 @@ export const fetchSections = async (): Promise<{
   items: ISectionItem[];
   tree: { [key: string]: ISectionItem[] };
 }> => {
-  const list = await fetchJsonpAndGetJson(urlSections);
+  const list = await fetchAndGetJson(urlSections);
   const items = list.map(convertResponse);
   return {
     items,

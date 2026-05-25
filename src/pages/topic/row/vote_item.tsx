@@ -4,7 +4,7 @@ import { domainApi } from "src/api";
 import { type IVotingItem } from "src/store";
 
 type IProps = {
-  topicId: number;
+  topicId: string;
   data: IVotingItem;
   colors: string[];
   total: number;
@@ -12,14 +12,7 @@ type IProps = {
   n: number;
 };
 
-const VoteItem: React.FC<IProps> = ({
-  topicId,
-  data,
-  total,
-  max,
-  n,
-  colors,
-}) => {
+const VoteItem: React.FC<IProps> = ({ topicId, data, total, max, n, colors }) => {
   const img = `${domainApi}/css/voting${n}.png`;
 
   const percent = total ? Math.round((100 * data.count) / total) : 0;
@@ -46,9 +39,7 @@ const VoteItem: React.FC<IProps> = ({
       </div>
       <div className="voting-percentage">
         <b>
-          <span
-            style={{ color: colors[n - 1] }}
-          >{`${percent}% (${data.count})`}</span>
+          <span style={{ color: colors[n - 1] }}>{`${percent}% (${data.count})`}</span>
         </b>
       </div>
       <div className="voting-bar">
