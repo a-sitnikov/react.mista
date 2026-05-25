@@ -1,6 +1,6 @@
 import { type ISectionItem } from "src/store";
 import { groupBy } from "src/utils";
-import { fetchAndGetJson, fetchJsonpAndGetJson } from "./api-utils";
+import { fetchAndGetJson } from "./api-utils";
 import { urlSections } from ".";
 
 interface IAPIResponse {

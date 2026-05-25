@@ -8,11 +8,7 @@ type IProps = {
   data: ITopicsListItem;
 };
 
-const addPrefix = (
-  text: string,
-  forum: string,
-  sectionCode: string
-): string => {
+const addPrefix = (text: string, forum: string, sectionCode: string): string => {
   if (forum === "life" && !text.startsWith("OFF")) {
     return "OFF: " + text;
   } else if (sectionCode === "job" && !text.startsWith("JOB")) {
@@ -26,23 +22,19 @@ const addPrefix = (
 const TopicNameCell: React.FC<IProps> = ({ data }) => {
   const loggedUserName = useAppSelector((state) => state.login.userName);
 
-  let text = addPrefix(data.text, data.forum, data.sectionCode);
+  let text = addPrefix(data.text, data.forum, data.section);
 
   return (
     <div className="cell-title">
       <div className="my-auto">
         {data.pinned && (
-          <i
-            className="fa fa-thumb-tack agh"
-            aria-hidden="true"
-            style={{ marginRight: "5px" }}
-          ></i>
+          <i className="fa fa-thumb-tack agh" aria-hidden="true" style={{ marginRight: "5px" }}></i>
         )}
         <Link
           to={`/topic.php?id=${data.id}`}
           className={classNames("agb", "mr5", {
             bold: data.count >= 100,
-            mytopics: data.author === loggedUserName,
+            mytopics: data.author.id === loggedUserName,
             pinned: data.pinned,
           })}
           dangerouslySetInnerHTML={{ __html: text }}
@@ -57,12 +49,7 @@ const TopicNameCell: React.FC<IProps> = ({ data }) => {
             <span className="agh" style={{ margin: "0px 5px" }}>
               /
             </span>
-            <Link
-              key="1"
-              rel="nofollow"
-              className="agh"
-              to={`/index.php?section=${data.sectionCode}`}
-            >
+            <Link key="1" rel="nofollow" className="agh" to={`/index.php?section=${data.section}`}>
               {data.section}
             </Link>
           </span>

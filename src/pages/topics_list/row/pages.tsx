@@ -4,7 +4,7 @@ import { getMaxPage } from "src/utils";
 
 type IProps = {
   count: number;
-  topicId: number;
+  topicId: string;
 };
 
 const Pages: React.FC<IProps> = ({ count, topicId }) => {
@@ -20,7 +20,7 @@ const Pages: React.FC<IProps> = ({ count, topicId }) => {
           to={`/topic.php?id=${topicId}&page=${i}`}
         >
           {i > 3 && i < maxPage ? "•" : String(i)}
-        </Link>
+        </Link>,
       );
     }
   }
@@ -34,7 +34,7 @@ const Pages: React.FC<IProps> = ({ count, topicId }) => {
         to={`/topic.php?id=${topicId}&page=last20#F`}
       >
         »
-      </Link>
+      </Link>,
     );
   }
 
